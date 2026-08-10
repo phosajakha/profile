@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>alex.dev — profile.js</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-void:#0a0b10;
+    --bg-panel:#12131c;
+    --bg-sidebar:#0e0f16;
+    --bg-titlebar:#181926;
+    --bg-status:#1f6feb15;
+    --border:#22232f;
+    --text:#d7d9ea;
+    --text-dim:#565973;
+    --text-dimmer:#3a3c50;
+    --key:#c792ea;
+    --fn:#7ad0ff;
+    --str:#9ed072;
+    --prop:#ff9ecf;
+    --num:#ffb86c;
+    --comment:#4b4e63;
+    --cursor:#7ad0ff;
+    --accent:#7ad0ff;
+    --danger:#ff6b81;
+    --warn:#ffb86c;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg-void);
+    color:var(--text);
+    font-family:'JetBrains Mono',monospace;
+    font-size:14px;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh;
+  }
+  ::selection{background:#7ad0ff33;color:#fff;}
+  a{color:inherit;text-decoration:none;}
+  ::-webkit-scrollbar{width:10px;height:10px;}
+  ::-webkit-scrollbar-track{background:var(--bg-panel);}
+  ::-webkit-scrollbar-thumb{background:#2a2c3d;border-radius:6px;}
+  ::-webkit-scrollbar-thumb:hover{background:#3a3c50;}
+
+  .app{
+    max-width:1180px;
+    margin:28px auto;
+    border:1px solid var(--border);
+    border-radius:10px;
+    overflow:hidden;
+    box-shadow:0 40px 90px -30px #000000aa, 0 0 0 1px #ffffff05;
+    background:var(--bg-panel);
+  }
+
+  /* Title bar */
+  .titlebar{
+    background:var(--bg-titlebar);
+    border-bottom:1px solid var(--border);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:10px 14px;
+  }
+  .dots{display:flex;gap:7px;}
+  .dot{width:11px;height:11px;border-radius:50%;}
+  .dot.r{background:#ff5f57;}
+  .dot.y{background:#febc2e;}
+  .dot.g{background:#28c840;}
+  .titlebar .path{
+    margin:0 auto;
+    color:var(--text-dim);
+    font-size:12px;
+    display:flex;
+    align-items:center;
+    gap:6px;
+  }
+  .titlebar .path b{color:var(--text);font-weight:500;}
+
+  .body-wrap{display:flex;min-height:560px;}
+
+  /* Sidebar */
+  .sidebar{
+    width:220px;
+    flex-shrink:0;
+    background:var(--bg-sidebar);
+    border-right:1px solid var(--border);
+    padding:16px 0;
+  }
+  .sidebar .label{
+    color:var(--text-dimmer);
+    font-size:10.5px;
+    letter-spacing:.12em;
+    padding:4px 18px;
+    margin-top:10px;
+  }
+  .sidebar .label:first-child{margin-top:0;}
+  .tree-item{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:5px 18px 5px 26px;
+    font-size:12.5px;
+    color:var(--text-dim);
+    cursor:pointer;
+    border-left:2px solid transparent;
+    white-space:nowrap;
+  }
+  .tree-item:hover{background:#ffffff06;color:var(--text);}
+  .tree-item.active{
+    background:#7ad0ff12;
+    color:var(--accent);
+    border-left:2px solid var(--accent);
+  }
+  .tree-item .ico{opacity:.75;font-size:11px;width:14px;text-align:center;}
+  .sidebar .status-row{
+    margin-top:22px;
+    padding:12px 18px 0 18px;
+    border-top:1px solid var(--border);
+    color:var(--text-dimmer);
+    font-size:10.5px;
+    line-height:1.9;
+  }
+  .sidebar .status-row .dotstatus{
+    width:6px;height:6px;border-radius:50%;
+    background:var(--str);display:inline-block;margin-right:6px;
+    box-shadow:0 0 6px var(--str);
+  }
+
+  /* Main editor area */
+  .main{flex:1;display:flex;flex-direction:column;min-width:0;}
+  .tabs{
+    display:flex;
+    background:var(--bg-sidebar);
+    border-bottom:1px solid var(--border);
+    overflow-x:auto;
+  }
+  .tab{
+    padding:10px 16px;
+    font-size:12.5px;
+    color:var(--text-dim);
+    border-right:1px solid var(--border);
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:7px;
+    white-space:nowrap;
+    background:var(--bg-sidebar);
+  }
+  .tab .ico{opacity:.8;}
+  .tab.active{
+    background:var(--bg-panel);
+    color:var(--text);
+    box-shadow:inset 0 -2px 0 var(--accent);
+  }
+
+  .panes{position:relative;flex:1;display:flex;}
+  .pane{display:none;width:100%;}
+  .pane.active{display:flex;}
+
+  /* Code pane */
+  .code-pane{width:100%;}
+  .code-scroll{
+    display:flex;
+    width:100%;
+    max-height:640px;
+    overflow:auto;
+    padding:18px 0;
+  }
+  .gutter{
+    padding:0 14px 0 20px;
+    text-align:right;
+    color:var(--text-dimmer);
+    user-select:none;
+    font-size:13px;
+  }
+  .gutter div{height:26px;}
+  .code{
+    padding-right:24px;
+    font-size:13px;
+    white-space:pre;
+    flex:1;
+  }
+  .code div.line{height:26px;display:flex;align-items:center;}
+  .code div.line:hover{background:#ffffff05;}
+  .k{color:var(--key);}
+  .fn{color:var(--fn);}
+  .s{color:var(--str);}
+  .p{color:var(--prop);}
+  .n{color:var(--num);}
+  .c{color:var(--comment);font-style:italic;}
+  .punct{color:var(--text-dim);}
+  .cur{
+    display:inline-block;width:7px;height:16px;background:var(--cursor);
+    margin-left:1px;vertical-align:middle;
+    animation:blink 1s steps(1) infinite;
+  }
+  @keyframes blink{50%{opacity:0;}}
+  .avatar-link{
+    display:inline-flex;align-items:center;gap:6px;
+    color:var(--fn);
+    border-bottom:1px dashed var(--fn);
+    padding-bottom:1px;
+  }
+
+  /* About markdown pane */
+  .md-pane{padding:32px 40px;max-width:760px;}
+  .md-pane h1{
+    font-size:22px;color:var(--text);margin:0 0 4px;
+  }
+  .md-pane h1 .h{color:var(--key);}
+  .md-pane .role{color:var(--fn);font-size:13px;margin-bottom:22px;}
+  .md-pane p{color:var(--text-dim);font-size:13px;line-height:1.9;margin:0 0 16px;}
+  .md-pane p b{color:var(--text);font-weight:600;}
+  .tag-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;}
+  .tag{
+    font-size:11.5px;padding:4px 10px;border-radius:5px;
+    border:1px solid var(--border);color:var(--prop);background:#ff9ecf0d;
+  }
+
+  /* Projects / gallery pane (free ratio images) */
+  .json-pane{padding:26px 30px;width:100%;}
+  .json-head{font-size:12px;color:var(--text-dim);margin-bottom:16px;}
+  .json-head .k{color:var(--key);}
+  .json-head .s{color:var(--str);}
+  .masonry{
+    column-count:3;
+    column-gap:16px;
+  }
+  @media (max-width:820px){.masonry{column-count:2;}}
+  @media (max-width:520px){.masonry{column-count:1;}}
+  .card{
+    break-inside:avoid;
+    margin-bottom:16px;
+    border:1px solid var(--border);
+    border-radius:8px;
+    overflow:hidden;
+    background:#0d0e16;
+  }
+  .card img{
+    display:block;
+    width:100%;
+    height:auto;   /* rasio bebas: mengikuti ukuran asli gambar, otomatis menyesuaikan lebar kontainer */
+  }
+  .card .meta{padding:10px 12px;}
+  .card .meta .name{font-size:12px;color:var(--text);}
+  .card .meta .stack{font-size:10.5px;color:var(--text-dim);margin-top:3px;}
+  .card .meta .ratio{font-size:10px;color:var(--text-dimmer);margin-top:6px;}
+
+  /* Photo preview pane */
+  .img-pane{
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:30px;
+    background:
+      linear-gradient(45deg,#0f1018 25%,transparent 25%) ,
+      linear-gradient(-45deg,#0f1018 25%,transparent 25%),
+      linear-gradient(45deg,transparent 75%,#0f1018 75%),
+      linear-gradient(-45deg,transparent 75%,#0f1018 75%);
+    background-size:20px 20px;
+    background-position:0 0,0 10px,10px -10px,-10px 0px;
+    background-color:#0a0b10;
+  }
+  .img-frame{
+    max-width:420px;
+    width:100%;
+    border:1px solid var(--border);
+    background:#000;
+    border-radius:6px;
+    overflow:hidden;
+    box-shadow:0 20px 50px -20px #000a;
+  }
+  .img-frame img{
+    display:block;
+    width:100%;
+    height:auto;  /* auto menyesuaikan rasio asli foto */
+  }
+  .img-info{
+    margin-top:14px;
+    font-size:11px;
+    color:var(--text-dim);
+    display:flex;gap:16px;
+  }
+  .img-info span b{color:var(--text);}
+
+  /* Terminal */
+  .terminal{
+    border-top:1px solid var(--border);
+    background:#0b0c12;
+    padding:10px 18px 14px;
+    font-size:12px;
+  }
+  .terminal .term-head{
+    display:flex;justify-content:space-between;
+    color:var(--text-dimmer);font-size:10.5px;margin-bottom:6px;
+    letter-spacing:.08em;
+  }
+  .term-line{color:var(--text-dim);}
+  .term-line .prompt{color:var(--str);}
+  .term-line .path2{color:var(--fn);}
+  .term-out{color:var(--text);white-space:pre-wrap;}
+  #term-cursor{
+    display:inline-block;width:7px;height:13px;background:var(--accent);
+    vertical-align:middle;animation:blink 1s steps(1) infinite;
+  }
+
+  /* Status bar */
+  .statusbar{
+    background:#1f6feb;
+    background:linear-gradient(90deg,#1a5fd0,#1a5fd0);
+    color:#eaf2ff;
+    font-size:11px;
+    display:flex;
+    justify-content:space-between;
+    padding:5px 14px;
+  }
+  .statusbar .grp{display:flex;gap:16px;}
+  .statusbar span{opacity:.95;}
+
+  @media (max-width:760px){
+    .sidebar{width:150px;}
+    .md-pane{padding:24px 18px;}
+    .code-scroll{font-size:12px;}
+  }
+  @media (max-width:560px){
+    .app{margin:0;border-radius:0;}
+    .sidebar{display:none;}
+    .titlebar .path{font-size:10.5px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <div class="titlebar">
+    <div class="dots">
+      <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+    </div>
+    <div class="path">alex-rahadian &nbsp;›&nbsp; <b id="crumb">profile.js</b></div>
+    <div style="width:52px"></div>
+  </div>
+
+  <div class="body-wrap">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <div class="label">EXPLORER</div>
+      <div class="tree-item" style="color:var(--text);cursor:default;"><span class="ico">▾</span> profile-alex</div>
+
+      <div class="tree-item active" data-tab="code" data-crumb="profile.js"><span class="ico">JS</span> profile.js</div>
+      <div class="tree-item" data-tab="about" data-crumb="about.md"><span class="ico">▤</span> about.md</div>
+      <div class="tree-item" data-tab="projects" data-crumb="projects.json"><span class="ico">{ }</span> projects.json</div>
+      <div class="tree-item" data-tab="photo" data-crumb="photo.jpg"><span class="ico">▣</span> photo.jpg</div>
+
+      <div class="label">SOCIALS</div>
+      <a class="tree-item" href="https://github.com/" target="_blank" rel="noopener"><span class="ico">↗</span> github.lnk</a>
+      <a class="tree-item" href="https://linkedin.com/" target="_blank" rel="noopener"><span class="ico">↗</span> linkedin.lnk</a>
+      <a class="tree-item" href="mailto:alex.rahadian@example.com"><span class="ico">↗</span> email.lnk</a>
+
+      <div class="status-row">
+        <div><span class="dotstatus"></span>available for work</div>
+        <div>branch: <span style="color:var(--text-dim)">main</span></div>
+      </div>
+    </div>
+
+    <!-- MAIN -->
+    <div class="main">
+      <div class="tabs">
+        <div class="tab active" data-tab="code"><span class="ico">JS</span> profile.js</div>
+        <div class="tab" data-tab="about"><span class="ico">▤</span> about.md</div>
+        <div class="tab" data-tab="projects"><span class="ico">{ }</span> projects.json</div>
+        <div class="tab" data-tab="photo"><span class="ico">▣</span> photo.jpg</div>
+      </div>
+
+      <div class="panes">
+
+        <!-- PANE: profile.js -->
+        <div class="pane active code-pane" id="pane-code">
+          <div class="code-scroll">
+            <div class="gutter" id="gutter"></div>
+            <div class="code" id="codeblock">
+<div class="line"><span class="c">// profile.js — jangan lupa ganti data di bawah dengan data kamu</span></div>
+<div class="line"><span class="k">import</span> { skills, focus } <span class="k">from</span> <span class="s">'./stack.js'</span><span class="punct">;</span></div>
+<div class="line">&nbsp;</div>
+<div class="line"><span class="k">export</span> <span class="k">class</span> <span class="fn">Developer</span> {</div>
+<div class="line">&nbsp;&nbsp;<span class="fn">constructor</span>() {</div>
+<div class="line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">this</span>.<span class="p">name</span> <span class="punct">=</span> <span class="s">"Alex Rahadian"</span><span class="punct">;</span></div>
+<div class="line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">this</span>.<span class="p">role</span> <span class="punct">=</span> <span class="s">"Full-Stack Developer"</span><span class="punct">;</span></div>
+<div class="line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">this</span>.<span class="p">base</span> <span class="punct">=</span> <span class="s">"Bali, Indonesia"</span><span class="punct">;</span></div>
+<div class="line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">this</span>.<span class="p">experience</span> <span class="punct">=</span> <span class="n">5</span><span class="punct">;</span> <span class="c">// tahun</span></div>
+<div class="line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">this</span>.<span class="p">avatar</span> <span class="punct">=</span> <span class="avatar-link" data-tab="photo">./photo.jpg ↗</span><span class="punct">;</span></div>
+<div class="line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">this</span>.<span class="p">skills</span> <span class="punct">=</span> [</div>
+<div class="line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="s">"JavaScript"</span><span class="punct">,</span> <span class="s">"TypeScript"</span><span class="punct">,</span> <span class="s">"React"</span><span class="punct">,</span></div>
+<div class="line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="s">"Node.js"</span><span class="punct">,</span> <span class="s">"Python"</span><span class="punct">,</span> <span class="s">"PostgreSQL"</span><span class="punct">,</span></div>
+<div class="line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="s">"Docker"</span><span class="punct">,</span> <span class="s">"AWS"</span></div>
+<div class="line">&nbsp;&nbsp;&nbsp;&nbsp;];</div>
+<div class="line">&nbsp;&nbsp;}</div>
+<div class="line">&nbsp;</div>
+<div class="line">&nbsp;&nbsp;<span class="fn">sayHi</span>() {</div>
+<div class="line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">return</span> <span class="s">`Halo, saya ${</span><span class="k">this</span>.<span class="p">name</span><span class="s">}. Mari membangun sesuatu.`</span><span class="punct">;</span></div>
+<div class="line">&nbsp;&nbsp;}</div>
+<div class="line">}</div>
+<div class="line">&nbsp;</div>
+<div class="line"><span class="k">const</span> me <span class="punct">=</span> <span class="k">new</span> <span class="fn">Developer</span>()<span class="punct">;</span></div>
+<div class="line"><span class="fn">console</span>.<span class="p">log</span>(me.<span class="fn">sayHi</span>())<span class="punct">;</span><span class="cur"></span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PANE: about.md -->
+        <div class="pane md-pane" id="pane-about">
+          <h1><span class="h">#</span> Tentang Saya</h1>
+          <div class="role">Full-Stack Developer · Bali, Indonesia</div>
+          <p>Saya <b>Alex Rahadian</b>, developer dengan fokus membangun produk web dari sisi backend sampai antarmuka. Suka merapikan sistem yang berantakan jadi kode yang mudah dibaca — dan sebaliknya, membuat antarmuka yang enak dipakai dari sistem yang rumit.</p>
+          <p>Lima tahun terakhir banyak menangani produk berskala kecil-menengah: dashboard internal, aplikasi mobile-first, dan integrasi API pihak ketiga. Senang bekerja di tim kecil yang gerak cepat.</p>
+          <p><b>Fokus saat ini:</b></p>
+          <div class="tag-row">
+            <div class="tag">Arsitektur API</div>
+            <div class="tag">Performance tuning</div>
+            <div class="tag">Design system</div>
+            <div class="tag">DevOps ringan</div>
+          </div>
+        </div>
+
+        <!-- PANE: projects.json (gallery, free-ratio images) -->
+        <div class="pane json-pane" id="pane-projects">
+          <div class="json-head"><span class="k">GET</span> /projects <span class="c">// gambar tampil dengan rasio aslinya, otomatis menyesuaikan lebar kolom</span></div>
+          <div class="masonry" id="masonry"></div>
+        </div>
+
+        <!-- PANE: photo.jpg (single image preview, auto ratio) -->
+        <div class="pane img-pane" id="pane-photo">
+          <div class="img-frame">
+            <img id="mainPhoto" src="https://picsum.photos/seed/alexdev/700/900" alt="Foto profil">
+          </div>
+          <div class="img-info">
+            <span>ukuran: <b id="dimText">memuat…</b></span>
+            <span>rasio: <b id="ratioText">memuat…</b></span>
+            <span>mode: <b>auto-fit lebar</b></span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- TERMINAL -->
+      <div class="terminal">
+        <div class="term-head"><span>TERMINAL</span><span>bash</span></div>
+        <div class="term-line"><span class="prompt">alex@portfolio</span> <span class="path2">~</span> $ <span id="typed"></span><span id="term-cursor"></span></div>
+        <div class="term-out" id="termOut"></div>
+      </div>
+
+      <!-- STATUS BAR -->
+      <div class="statusbar">
+        <div class="grp">
+          <span>⎇ main</span>
+          <span id="statusFile">profile.js</span>
+          <span>UTF-8</span>
+        </div>
+        <div class="grp">
+          <span>Ln 24, Col 32</span>
+          <span>JavaScript</span>
+          <span id="clock"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ---- Tab switching (sidebar + tabs both drive the same panes) ----
+  const tabButtons = document.querySelectorAll('.tab, .tree-item[data-tab], .avatar-link[data-tab]');
+  const panes = {
+    code: document.getElementById('pane-code'),
+    about: document.getElementById('pane-about'),
+    projects: document.getElementById('pane-projects'),
+    photo: document.getElementById('pane-photo'),
+  };
+  const crumbLabel = {code:'profile.js',about:'about.md',projects:'projects.json',photo:'photo.jpg'};
+  const statusFile = document.getElementById('statusFile');
+  const crumb = document.getElementById('crumb');
+
+  function activate(tabKey){
+    Object.keys(panes).forEach(k => panes[k].classList.toggle('active', k===tabKey));
+    document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab===tabKey));
+    document.querySelectorAll('.sidebar .tree-item[data-tab]').forEach(t => t.classList.toggle('active', t.dataset.tab===tabKey));
+    statusFile.textContent = crumbLabel[tabKey];
+    crumb.textContent = crumbLabel[tabKey];
+  }
+  tabButtons.forEach(btn=>{
+    btn.addEventListener('click', (e)=>{
+      if(btn.tagName==='A') return; // biarkan link sosial berjalan normal
+      e.preventDefault();
+      activate(btn.dataset.tab);
+    });
+  });
+
+  // ---- Line numbers ----
+  const codeLines = document.querySelectorAll('#codeblock .line').length;
+  const gutter = document.getElementById('gutter');
+  for(let i=1;i<=codeLines;i++){
+    const d = document.createElement('div');
+    d.textContent = i;
+    gutter.appendChild(d);
+  }
+
+  // ---- Project gallery: gambar rasio bebas, otomatis menyesuaikan ----
+  const projects = [
+    {name:'E-Commerce Dashboard', stack:'React · Node.js · PostgreSQL', img:'https://picsum.photos/seed/proj1/800/560'},
+    {name:'Mobile Banking App',   stack:'React Native · TypeScript',   img:'https://picsum.photos/seed/proj2/600/840'},
+    {name:'AI Content Generator', stack:'Python · FastAPI · Redis',    img:'https://picsum.photos/seed/proj3/900/520'},
+    {name:'Realtime Chat',        stack:'Socket.io · Express',         img:'https://picsum.photos/seed/proj4/650/650'},
+    {name:'Analytics Suite',      stack:'Next.js · D3.js',             img:'https://picsum.photos/seed/proj5/700/980'},
+    {name:'IoT Monitor',          stack:'MQTT · Go · Grafana',         img:'https://picsum.photos/seed/proj6/820/600'},
+  ];
+  const masonry = document.getElementById('masonry');
+  projects.forEach(p=>{
+    const card = document.createElement('div');
+    card.className='card';
+    card.innerHTML = `
+      <img src="${p.img}" alt="${p.name}" loading="lazy">
+      <div class="meta">
+        <div class="name">${p.name}</div>
+        <div class="stack">${p.stack}</div>
+        <div class="ratio">rasio: memuat…</div>
+      </div>`;
+    const img = card.querySelector('img');
+    const ratioEl = card.querySelector('.ratio');
+    img.addEventListener('load', ()=>{
+      const w = img.naturalWidth, h = img.naturalHeight;
+      const g = gcd(w,h);
+      ratioEl.textContent = `rasio asli ${ (w/g) }:${ (h/g) } · ${w}×${h}px`;
+    });
+    masonry.appendChild(card);
+  });
+  function gcd(a,b){return b===0?a:gcd(b,a%b);}
+
+  // ---- Photo preview auto-ratio info ----
+  const mainPhoto = document.getElementById('mainPhoto');
+  const dimText = document.getElementById('dimText');
+  const ratioText = document.getElementById('ratioText');
+  mainPhoto.addEventListener('load', ()=>{
+    const w = mainPhoto.naturalWidth, h = mainPhoto.naturalHeight;
+    const g = gcd(w,h);
+    dimText.textContent = `${w} × ${h}px`;
+    ratioText.textContent = `${w/g}:${h/g}`;
+  });
+
+  // ---- Terminal typing animation ----
+  const typedEl = document.getElementById('typed');
+  const outEl = document.getElementById('termOut');
+  const cmd = 'whoami --skills --status';
+  const output = 'Alex Rahadian · Full-Stack Developer\nStatus: open untuk proyek baru\nStack: JS/TS · React · Node · Python';
+  let i=0;
+  function typeCmd(){
+    if(i<=cmd.length){
+      typedEl.textContent = cmd.slice(0,i);
+      i++;
+      setTimeout(typeCmd, 55);
+    } else {
+      setTimeout(()=>{ outEl.textContent = output; }, 300);
+    }
+  }
+  typeCmd();
+
+  // ---- Clock ----
+  function tick(){
+    const d = new Date();
+    document.getElementById('clock').textContent = d.toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'});
+  }
+  tick(); setInterval(tick,1000*30);
+</script>
+
+</body>
+</html>
