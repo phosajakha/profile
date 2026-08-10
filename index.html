@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jakha Phosa — profile.js</title>
+<title>Jakha Rama Phosa — profile.js</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
@@ -13,8 +13,9 @@
     --bg-panel:#12131c;
     --bg-sidebar:#0e0f16;
     --bg-titlebar:#181926;
-    --bg-status:#1f6feb15;
+    --bg-elevated:#181a26;
     --border:#22232f;
+    --border-soft:#1a1b26;
     --text:#d7d9ea;
     --text-dim:#565973;
     --text-dimmer:#3a3c50;
@@ -26,13 +27,17 @@
     --comment:#4b4e63;
     --cursor:#7ad0ff;
     --accent:#7ad0ff;
-    --danger:#ff6b81;
-    --warn:#ffb86c;
+    --steam:#66c0f4;
+    --steam-dim:#1b2838;
+    --ok:#3fdb7a;
   }
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
   body{
-    background:var(--bg-void);
+    background:
+      radial-gradient(1200px 600px at 20% -10%, #14213a55, transparent 60%),
+      radial-gradient(1000px 500px at 100% 0%, #2a163a4d, transparent 55%),
+      var(--bg-void);
     color:var(--text);
     font-family:'JetBrains Mono',monospace;
     font-size:14px;
@@ -48,12 +53,12 @@
   ::-webkit-scrollbar-thumb:hover{background:#3a3c50;}
 
   .app{
-    max-width:1180px;
-    margin:28px auto;
+    max-width:1200px;
+    margin:30px auto;
     border:1px solid var(--border);
-    border-radius:10px;
+    border-radius:12px;
     overflow:hidden;
-    box-shadow:0 40px 90px -30px #000000aa, 0 0 0 1px #ffffff05;
+    box-shadow:0 50px 110px -35px #000000cc, 0 0 0 1px #ffffff06, 0 0 60px -20px #7ad0ff14;
     background:var(--bg-panel);
   }
 
@@ -64,7 +69,7 @@
     display:flex;
     align-items:center;
     gap:10px;
-    padding:10px 14px;
+    padding:11px 14px;
   }
   .dots{display:flex;gap:7px;}
   .dot{width:11px;height:11px;border-radius:50%;}
@@ -81,34 +86,50 @@
   }
   .titlebar .path b{color:var(--text);font-weight:500;}
 
-  .body-wrap{display:flex;min-height:560px;}
+  .body-wrap{display:flex;min-height:600px;}
 
   /* Sidebar */
   .sidebar{
-    width:220px;
+    width:230px;
     flex-shrink:0;
     background:var(--bg-sidebar);
     border-right:1px solid var(--border);
-    padding:16px 0;
+    padding:18px 0 0;
+    display:flex;flex-direction:column;
   }
+  .side-id{
+    display:flex;align-items:center;gap:10px;
+    padding:0 18px 16px;
+    border-bottom:1px solid var(--border-soft);
+    margin-bottom:8px;
+  }
+  .side-id .ava{
+    width:34px;height:34px;border-radius:9px;overflow:hidden;flex-shrink:0;
+    border:1px solid var(--border);background:#000;
+  }
+  .side-id .ava img{width:100%;height:100%;object-fit:cover;display:block;}
+  .side-id .who{min-width:0;}
+  .side-id .who .n{font-size:12.5px;color:var(--text);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .side-id .who .r{font-size:10.5px;color:var(--fn);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+
   .sidebar .label{
     color:var(--text-dimmer);
     font-size:10.5px;
     letter-spacing:.12em;
     padding:4px 18px;
-    margin-top:10px;
+    margin-top:12px;
   }
-  .sidebar .label:first-child{margin-top:0;}
   .tree-item{
     display:flex;
     align-items:center;
     gap:8px;
-    padding:5px 18px 5px 26px;
+    padding:6px 18px 6px 26px;
     font-size:12.5px;
     color:var(--text-dim);
     cursor:pointer;
     border-left:2px solid transparent;
     white-space:nowrap;
+    transition:background .15s ease, color .15s ease;
   }
   .tree-item:hover{background:#ffffff06;color:var(--text);}
   .tree-item.active{
@@ -116,20 +137,22 @@
     color:var(--accent);
     border-left:2px solid var(--accent);
   }
-  .tree-item .ico{opacity:.75;font-size:11px;width:14px;text-align:center;}
+  .tree-item .ico{opacity:.75;font-size:11px;width:16px;text-align:center;}
   .sidebar .status-row{
-    margin-top:22px;
-    padding:12px 18px 0 18px;
-    border-top:1px solid var(--border);
+    margin-top:auto;
+    padding:14px 18px;
+    border-top:1px solid var(--border-soft);
     color:var(--text-dimmer);
     font-size:10.5px;
     line-height:1.9;
   }
   .sidebar .status-row .dotstatus{
     width:6px;height:6px;border-radius:50%;
-    background:var(--str);display:inline-block;margin-right:6px;
-    box-shadow:0 0 6px var(--str);
+    background:var(--ok);display:inline-block;margin-right:6px;
+    box-shadow:0 0 6px var(--ok);
+    animation:pulse 2s ease-in-out infinite;
   }
+  @keyframes pulse{50%{opacity:.4;}}
 
   /* Main editor area */
   .main{flex:1;display:flex;flex-direction:column;min-width:0;}
@@ -150,26 +173,34 @@
     gap:7px;
     white-space:nowrap;
     background:var(--bg-sidebar);
+    position:relative;
+    transition:color .15s ease, background .15s ease;
   }
   .tab .ico{opacity:.8;}
   .tab.active{
     background:var(--bg-panel);
     color:var(--text);
-    box-shadow:inset 0 -2px 0 var(--accent);
   }
+  .tab.active::after{
+    content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;
+    background:var(--accent);box-shadow:0 0 8px #7ad0ff88;
+  }
+  .tab:hover:not(.active){color:var(--text);}
 
   .panes{position:relative;flex:1;display:flex;}
-  .pane{display:none;width:100%;}
+  .pane{display:none;width:100%;animation:fadeIn .28s ease;}
   .pane.active{display:flex;}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:translateY(0);}}
+  @media (prefers-reduced-motion: reduce){.pane{animation:none;}}
 
   /* Code pane */
   .code-pane{width:100%;}
   .code-scroll{
     display:flex;
     width:100%;
-    max-height:640px;
+    max-height:660px;
     overflow:auto;
-    padding:18px 0;
+    padding:20px 0;
   }
   .gutter{
     padding:0 14px 0 20px;
@@ -205,15 +236,16 @@
     color:var(--fn);
     border-bottom:1px dashed var(--fn);
     padding-bottom:1px;
+    cursor:pointer;
   }
 
   /* About markdown pane */
-  .md-pane{padding:32px 40px;max-width:760px;}
+  .md-pane{padding:34px 42px;max-width:780px;}
   .md-pane h1{
-    font-size:22px;color:var(--text);margin:0 0 4px;
+    font-size:23px;color:var(--text);margin:0 0 4px;
   }
   .md-pane h1 .h{color:var(--key);}
-  .md-pane .role{color:var(--fn);font-size:13px;margin-bottom:22px;}
+  .md-pane .role{color:var(--fn);font-size:13px;margin-bottom:24px;}
   .md-pane p{color:var(--text-dim);font-size:13px;line-height:1.9;margin:0 0 16px;}
   .md-pane p b{color:var(--text);font-weight:600;}
   .tag-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;}
@@ -222,34 +254,38 @@
     border:1px solid var(--border);color:var(--prop);background:#ff9ecf0d;
   }
 
-  /* Projects / gallery pane (free ratio images) */
-  .json-pane{padding:26px 30px;width:100%;}
-  .json-head{font-size:12px;color:var(--text-dim);margin-bottom:16px;}
-  .json-head .k{color:var(--key);}
-  .json-head .s{color:var(--str);}
-  .masonry{
-    column-count:3;
-    column-gap:16px;
+  /* Portfolio pane — rendered preview with browser chrome */
+  .portfolio-pane{width:100%;display:flex;flex-direction:column;}
+  .browser-chrome{
+    display:flex;align-items:center;gap:10px;
+    padding:9px 14px;border-bottom:1px solid var(--border);
+    background:var(--bg-elevated);
   }
-  @media (max-width:820px){.masonry{column-count:2;}}
-  @media (max-width:520px){.masonry{column-count:1;}}
-  .card{
-    break-inside:avoid;
-    margin-bottom:16px;
-    border:1px solid var(--border);
-    border-radius:8px;
-    overflow:hidden;
+  .browser-chrome .dots{gap:6px;}
+  .browser-chrome .dot{width:8px;height:8px;}
+  .url-bar{
+    flex:1;background:var(--bg-void);border:1px solid var(--border);
+    border-radius:100px;padding:5px 14px;font-size:11px;color:var(--text-dim);
+    display:flex;align-items:center;gap:8px;
+  }
+  .url-bar .lock{color:var(--ok);}
+  .portfolio-body{padding:26px 30px;overflow:auto;max-height:660px;}
+  .portfolio-head{font-size:12px;color:var(--text-dim);margin-bottom:18px;}
+  .portfolio-head .k{color:var(--key);}
+  .p-grid{column-count:2;column-gap:18px;}
+  @media (max-width:700px){.p-grid{column-count:1;}}
+  .p-card{
+    break-inside:avoid;margin-bottom:18px;
+    border:1px solid var(--border);border-radius:10px;overflow:hidden;
     background:#0d0e16;
+    transition:transform .2s ease, border-color .2s ease;
   }
-  .card img{
-    display:block;
-    width:100%;
-    height:auto;   /* rasio bebas: mengikuti ukuran asli gambar, otomatis menyesuaikan lebar kontainer */
-  }
-  .card .meta{padding:10px 12px;}
-  .card .meta .name{font-size:12px;color:var(--text);}
-  .card .meta .stack{font-size:10.5px;color:var(--text-dim);margin-top:3px;}
-  .card .meta .ratio{font-size:10px;color:var(--text-dimmer);margin-top:6px;}
+  .p-card:hover{transform:translateY(-3px);border-color:#3a3d55;}
+  .p-card img{display:block;width:100%;height:auto;}  /* rasio bebas — mengikuti ukuran asli tiap karya */
+  .p-card .p-meta{padding:14px 16px;}
+  .p-card .p-cat{font-size:10px;letter-spacing:.08em;color:var(--prop);text-transform:uppercase;}
+  .p-card .p-name{font-size:14px;color:var(--text);margin-top:5px;font-weight:600;}
+  .p-card .p-desc{font-size:11.5px;color:var(--text-dim);margin-top:5px;line-height:1.7;}
 
   /* Photo preview pane */
   .img-pane{
@@ -290,6 +326,57 @@
   }
   .img-info span b{color:var(--text);}
 
+  /* Steam API pane */
+  .steam-pane{width:100%;padding:26px 30px;overflow:auto;max-height:660px;}
+  .req-row{
+    display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+    font-size:11.5px;color:var(--text-dim);
+    padding:10px 14px;border:1px solid var(--border);border-radius:8px;
+    background:#0d0e16;margin-bottom:18px;
+  }
+  .req-row .verb{color:var(--ok);font-weight:700;}
+  .req-row .status-chip{
+    margin-left:auto;font-size:10.5px;padding:2px 9px;border-radius:100px;
+    background:#3fdb7a1a;color:var(--ok);border:1px solid #3fdb7a44;
+  }
+  .steam-note{
+    font-size:11px;color:var(--text-dim);
+    border:1px dashed var(--border);border-radius:8px;
+    padding:10px 14px;margin-bottom:22px;line-height:1.8;
+  }
+  .steam-note b{color:var(--prop);}
+  .steam-card{
+    border:1px solid var(--border);border-radius:10px;overflow:hidden;
+    background:linear-gradient(180deg, var(--steam-dim), #0d0e16 60%);
+  }
+  .steam-head{display:flex;gap:16px;padding:20px;border-bottom:1px solid var(--border);}
+  .steam-ava{width:64px;height:64px;border-radius:8px;overflow:hidden;flex-shrink:0;border:2px solid var(--steam);}
+  .steam-ava img{width:100%;height:100%;object-fit:cover;display:block;}
+  .steam-id .sname{font-size:16px;color:#fff;font-weight:600;}
+  .steam-id .sstat{font-size:11.5px;color:var(--ok);display:flex;align-items:center;gap:6px;margin-top:4px;}
+  .steam-id .sstat .d{width:7px;height:7px;border-radius:50%;background:var(--ok);}
+  .steam-id .sgame{font-size:11.5px;color:var(--steam);margin-top:3px;}
+  .steam-id .slevel{
+    display:inline-block;margin-top:8px;font-size:10.5px;
+    background:var(--steam);color:#04101c;padding:2px 9px;border-radius:4px;font-weight:700;
+  }
+  .steam-body{padding:18px 20px;}
+  .steam-body .sect-label{font-size:10.5px;letter-spacing:.1em;color:var(--text-dimmer);margin-bottom:12px;}
+  .game-row{display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid var(--border-soft);}
+  .game-row:last-child{border-bottom:none;}
+  .game-row .gname{flex:1;font-size:12.5px;color:var(--text);}
+  .game-row .ghrs{font-size:11px;color:var(--text-dim);flex-shrink:0;width:78px;text-align:right;}
+  .game-row .gbar{flex:1;max-width:140px;height:5px;border-radius:100px;background:#1a1c28;overflow:hidden;}
+  .game-row .gbar i{display:block;height:100%;background:var(--steam);border-radius:100px;}
+  .skeleton{
+    height:14px;border-radius:4px;
+    background:linear-gradient(90deg,#181926 25%,#22243a 37%,#181926 63%);
+    background-size:400% 100%;animation:shimmer 1.4s ease infinite;
+    margin-bottom:10px;
+  }
+  @keyframes shimmer{0%{background-position:100% 0;}100%{background-position:0 0;}}
+  @media (prefers-reduced-motion: reduce){.skeleton{animation:none;}}
+
   /* Terminal */
   .terminal{
     border-top:1px solid var(--border);
@@ -313,20 +400,21 @@
 
   /* Status bar */
   .statusbar{
-    background:#1f6feb;
     background:linear-gradient(90deg,#1a5fd0,#1a5fd0);
     color:#eaf2ff;
     font-size:11px;
     display:flex;
     justify-content:space-between;
-    padding:5px 14px;
+    padding:6px 14px;
   }
   .statusbar .grp{display:flex;gap:16px;}
   .statusbar span{opacity:.95;}
 
   @media (max-width:760px){
-    .sidebar{width:150px;}
+    .sidebar{width:160px;}
+    .side-id .who .r{display:none;}
     .md-pane{padding:24px 18px;}
+    .portfolio-body{padding:20px;}
     .code-scroll{font-size:12px;}
   }
   @media (max-width:560px){
@@ -344,7 +432,7 @@
     <div class="dots">
       <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
     </div>
-    <div class="path">jakha phosa &nbsp;›&nbsp; <b id="crumb">profile.js</b></div>
+    <div class="path">jakha-rama-phosa &nbsp;›&nbsp; <b id="crumb">profile.js</b></div>
     <div style="width:52px"></div>
   </div>
 
@@ -352,18 +440,25 @@
 
     <!-- SIDEBAR -->
     <div class="sidebar">
-      <div class="label">EXPLORER</div>
-      <div class="tree-item" style="color:var(--text);cursor:default;"><span class="ico">▾</span> profile-jakha</div>
+      <div class="side-id">
+        <div class="ava"><img src="https://picsum.photos/seed/jakhaava/100/100" alt="Jakha"></div>
+        <div class="who">
+          <div class="n">Jakha Rama Phosa</div>
+          <div class="r">Design Graphics</div>
+        </div>
+      </div>
 
+      <div class="label">EXPLORER</div>
       <div class="tree-item active" data-tab="code" data-crumb="profile.js"><span class="ico">JS</span> profile.js</div>
       <div class="tree-item" data-tab="about" data-crumb="about.md"><span class="ico">▤</span> about.md</div>
-      <div class="tree-item" data-tab="projects" data-crumb="projects.json"><span class="ico">{ }</span> projects.json</div>
+      <div class="tree-item" data-tab="portfolio" data-crumb="portfolio.html"><span class="ico">◧</span> portfolio.html</div>
       <div class="tree-item" data-tab="photo" data-crumb="photo.jpg"><span class="ico">▣</span> photo.jpg</div>
+      <div class="tree-item" data-tab="steam" data-crumb="steam.api"><span class="ico">◈</span> steam.api</div>
 
       <div class="label">SOCIALS</div>
       <a class="tree-item" href="https://github.com/" target="_blank" rel="noopener"><span class="ico">↗</span> github.lnk</a>
       <a class="tree-item" href="https://linkedin.com/" target="_blank" rel="noopener"><span class="ico">↗</span> linkedin.lnk</a>
-      <a class="tree-item" href="mailto:alex.rahadian@example.com"><span class="ico">↗</span> email.lnk</a>
+      <a class="tree-item" href="mailto:jakha.phosa@example.com"><span class="ico">↗</span> email.lnk</a>
 
       <div class="status-row">
         <div><span class="dotstatus"></span>available for work</div>
@@ -376,8 +471,9 @@
       <div class="tabs">
         <div class="tab active" data-tab="code"><span class="ico">JS</span> profile.js</div>
         <div class="tab" data-tab="about"><span class="ico">▤</span> about.md</div>
-        <div class="tab" data-tab="projects"><span class="ico">{ }</span> projects.json</div>
+        <div class="tab" data-tab="portfolio"><span class="ico">◧</span> portfolio.html</div>
         <div class="tab" data-tab="photo"><span class="ico">▣</span> photo.jpg</div>
+        <div class="tab" data-tab="steam"><span class="ico">◈</span> steam.api</div>
       </div>
 
       <div class="panes">
@@ -390,26 +486,25 @@
 <div class="line"><span class="c">// profile.js — jangan lupa ganti data di bawah dengan data kamu</span></div>
 <div class="line"><span class="k">import</span> { skills, focus } <span class="k">from</span> <span class="s">'./stack.js'</span><span class="punct">;</span></div>
 <div class="line">&nbsp;</div>
-<div class="line"><span class="k">export</span> <span class="k">class</span> <span class="fn">Developer</span> {</div>
+<div class="line"><span class="k">export</span> <span class="k">class</span> <span class="fn">Creator</span> {</div>
 <div class="line">&nbsp;&nbsp;<span class="fn">constructor</span>() {</div>
-<div class="line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">this</span>.<span class="p">name</span> <span class="punct">=</span> <span class="s">"Jakha Phosa"</span><span class="punct">;</span></div>
+<div class="line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">this</span>.<span class="p">name</span> <span class="punct">=</span> <span class="s">"Jakha Rama Phosa"</span><span class="punct">;</span></div>
 <div class="line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">this</span>.<span class="p">role</span> <span class="punct">=</span> <span class="s">"Design Graphics"</span><span class="punct">;</span></div>
 <div class="line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">this</span>.<span class="p">base</span> <span class="punct">=</span> <span class="s">"Kupang, Indonesia"</span><span class="punct">;</span></div>
 <div class="line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">this</span>.<span class="p">experience</span> <span class="punct">=</span> <span class="n">5</span><span class="punct">;</span> <span class="c">// tahun</span></div>
 <div class="line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">this</span>.<span class="p">avatar</span> <span class="punct">=</span> <span class="avatar-link" data-tab="photo">./photo.jpg ↗</span><span class="punct">;</span></div>
 <div class="line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">this</span>.<span class="p">skills</span> <span class="punct">=</span> [</div>
-<div class="line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="s">"JavaScript"</span><span class="punct">,</span> <span class="s">"TypeScript"</span><span class="punct">,</span> <span class="s">"React"</span><span class="punct">,</span></div>
-<div class="line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="s">"Node.js"</span><span class="punct">,</span> <span class="s">"Python"</span><span class="punct">,</span> <span class="s">"PostgreSQL"</span><span class="punct">,</span></div>
-<div class="line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="s">"Docker"</span><span class="punct">,</span> <span class="s">"AWS"</span></div>
+<div class="line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="s">"Figma"</span><span class="punct">,</span> <span class="s">"Adobe Photoshop"</span><span class="punct">,</span> <span class="s">"Illustrator"</span><span class="punct">,</span></div>
+<div class="line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="s">"After Effects"</span><span class="punct">,</span> <span class="s">"Procreate"</span><span class="punct">,</span> <span class="s">"Blender"</span></div>
 <div class="line">&nbsp;&nbsp;&nbsp;&nbsp;];</div>
 <div class="line">&nbsp;&nbsp;}</div>
 <div class="line">&nbsp;</div>
 <div class="line">&nbsp;&nbsp;<span class="fn">sayHi</span>() {</div>
-<div class="line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">return</span> <span class="s">`Halo, saya ${</span><span class="k">this</span>.<span class="p">name</span><span class="s">}. Mari membangun sesuatu.`</span><span class="punct">;</span></div>
+<div class="line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">return</span> <span class="s">`Halo, saya ${</span><span class="k">this</span>.<span class="p">name</span><span class="s">}. Mari berkolaborasi.`</span><span class="punct">;</span></div>
 <div class="line">&nbsp;&nbsp;}</div>
 <div class="line">}</div>
 <div class="line">&nbsp;</div>
-<div class="line"><span class="k">const</span> me <span class="punct">=</span> <span class="k">new</span> <span class="fn">Developer</span>()<span class="punct">;</span></div>
+<div class="line"><span class="k">const</span> me <span class="punct">=</span> <span class="k">new</span> <span class="fn">Creator</span>()<span class="punct">;</span></div>
 <div class="line"><span class="fn">console</span>.<span class="p">log</span>(me.<span class="fn">sayHi</span>())<span class="punct">;</span><span class="cur"></span></div>
             </div>
           </div>
@@ -419,32 +514,64 @@
         <div class="pane md-pane" id="pane-about">
           <h1><span class="h">#</span> Tentang Saya</h1>
           <div class="role">Design Graphics · Kupang, Indonesia</div>
-          <p>Saya <b>Jakha Rama Phosa</b>, developer dengan fokus membangun produk web dari sisi backend sampai antarmuka. Suka merapikan sistem yang berantakan jadi kode yang mudah dibaca — dan sebaliknya, membuat antarmuka yang enak dipakai dari sistem yang rumit.</p>
-          <p>Lima tahun terakhir banyak menangani produk berskala kecil-menengah: dashboard internal, aplikasi mobile-first, dan integrasi API pihak ketiga. Senang bekerja di tim kecil yang gerak cepat.</p>
+          <p>Saya <b>Jakha Rama Phosa</b>, graphic designer yang fokus pada identitas visual, ilustrasi, dan motion design. Suka menerjemahkan ide yang abstrak jadi visual yang jelas dan enak dilihat — dari logo, layout, sampai animasi singkat.</p>
+          <p>Lima tahun terakhir mengerjakan proyek identitas brand, ilustrasi editorial, dan konten motion untuk klien lokal maupun personal. Senang berkolaborasi dengan tim kecil yang punya selera visual yang jelas.</p>
           <p><b>Fokus saat ini:</b></p>
           <div class="tag-row">
-            <div class="tag">Arsitektur API</div>
-            <div class="tag">Performance tuning</div>
-            <div class="tag">Design system</div>
-            <div class="tag">DevOps ringan</div>
+            <div class="tag">Brand Identity</div>
+            <div class="tag">Ilustrasi Digital</div>
+            <div class="tag">Motion Design</div>
+            <div class="tag">Layout & Editorial</div>
           </div>
         </div>
 
-        <!-- PANE: projects.json (gallery, free-ratio images) -->
-        <div class="pane json-pane" id="pane-projects">
-          <div class="json-head"><span class="k">GET</span> /projects <span class="c">// gambar tampil dengan rasio aslinya, otomatis menyesuaikan lebar kolom</span></div>
-          <div class="masonry" id="masonry"></div>
+        <!-- PANE: portfolio.html — rendered showcase (free-ratio images) -->
+        <div class="pane portfolio-pane" id="pane-portfolio">
+          <div class="browser-chrome">
+            <div class="dots"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
+            <div class="url-bar"><span class="lock">🔒</span> localhost:5173/portfolio</div>
+          </div>
+          <div class="portfolio-body">
+            <div class="portfolio-head"><span class="k">RENDER</span> ./portfolio.html <span style="color:var(--text-dimmer)">// tiap karya tampil dengan rasio gambar aslinya</span></div>
+            <div class="p-grid" id="portfolioGrid"></div>
+          </div>
         </div>
 
         <!-- PANE: photo.jpg (single image preview, auto ratio) -->
         <div class="pane img-pane" id="pane-photo">
           <div class="img-frame">
-            <img id="mainPhoto" src="https://picsum.photos/seed/alexdev/700/900" alt="Foto profil">
+            <img id="mainPhoto" src="https://picsum.photos/seed/jakhaphoto/700/900" alt="Foto profil">
           </div>
           <div class="img-info">
             <span>ukuran: <b id="dimText">memuat…</b></span>
             <span>rasio: <b id="ratioText">memuat…</b></span>
             <span>mode: <b>auto-fit lebar</b></span>
+          </div>
+        </div>
+
+        <!-- PANE: steam.api -->
+        <div class="pane steam-pane" id="pane-steam">
+          <div class="req-row">
+            <span class="verb">GET</span>
+            <span>/ISteamUser/GetPlayerSummaries/v2/?key=•••&amp;steamids=7656119xxxxxxxxx</span>
+            <span class="status-chip" id="steamStatusChip">loading…</span>
+          </div>
+          <div class="steam-note">
+            <b>Catatan:</b> data di bawah ini contoh (demo), bukan koneksi langsung ke akun Steam asli. Steam Web API butuh API key rahasia dan tidak mendukung CORS dari browser — jadi panggilannya harus lewat backend/proxy milikmu sendiri (mis. endpoint <code>/api/steam</code> di server), baru hasilnya dikirim ke halaman ini. Ganti fungsi <code>fetchSteamProfile()</code> di kode bawah dengan <code>fetch('/api/steam')</code> ke server-mu untuk data live.
+          </div>
+          <div class="steam-card" id="steamCard">
+            <div class="steam-head">
+              <div class="skeleton" style="width:64px;height:64px;border-radius:8px;"></div>
+              <div style="flex:1">
+                <div class="skeleton" style="width:60%;"></div>
+                <div class="skeleton" style="width:40%;"></div>
+              </div>
+            </div>
+            <div class="steam-body">
+              <div class="skeleton" style="width:100%;"></div>
+              <div class="skeleton" style="width:100%;"></div>
+              <div class="skeleton" style="width:80%;"></div>
+            </div>
           </div>
         </div>
 
@@ -480,10 +607,11 @@
   const panes = {
     code: document.getElementById('pane-code'),
     about: document.getElementById('pane-about'),
-    projects: document.getElementById('pane-projects'),
+    portfolio: document.getElementById('pane-portfolio'),
     photo: document.getElementById('pane-photo'),
+    steam: document.getElementById('pane-steam'),
   };
-  const crumbLabel = {code:'profile.js',about:'about.md',projects:'projects.json',photo:'photo.jpg'};
+  const crumbLabel = {code:'profile.js',about:'about.md',portfolio:'portfolio.html',photo:'photo.jpg',steam:'steam.api'};
   const statusFile = document.getElementById('statusFile');
   const crumb = document.getElementById('crumb');
 
@@ -511,36 +639,30 @@
     gutter.appendChild(d);
   }
 
-  // ---- Project gallery: gambar rasio bebas, otomatis menyesuaikan ----
-  const projects = [
-    {name:'E-Commerce Dashboard', stack:'React · Node.js · PostgreSQL', img:'https://picsum.photos/seed/proj1/800/560'},
-    {name:'Mobile Banking App',   stack:'React Native · TypeScript',   img:'https://picsum.photos/seed/proj2/600/840'},
-    {name:'AI Content Generator', stack:'Python · FastAPI · Redis',    img:'https://picsum.photos/seed/proj3/900/520'},
-    {name:'Realtime Chat',        stack:'Socket.io · Express',         img:'https://picsum.photos/seed/proj4/650/650'},
-    {name:'Analytics Suite',      stack:'Next.js · D3.js',             img:'https://picsum.photos/seed/proj5/700/980'},
-    {name:'IoT Monitor',          stack:'MQTT · Go · Grafana',         img:'https://picsum.photos/seed/proj6/820/600'},
-  ];
-  const masonry = document.getElementById('masonry');
-  projects.forEach(p=>{
-    const card = document.createElement('div');
-    card.className='card';
-    card.innerHTML = `
-      <img src="${p.img}" alt="${p.name}" loading="lazy">
-      <div class="meta">
-        <div class="name">${p.name}</div>
-        <div class="stack">${p.stack}</div>
-        <div class="ratio">rasio: memuat…</div>
-      </div>`;
-    const img = card.querySelector('img');
-    const ratioEl = card.querySelector('.ratio');
-    img.addEventListener('load', ()=>{
-      const w = img.naturalWidth, h = img.naturalHeight;
-      const g = gcd(w,h);
-      ratioEl.textContent = `rasio asli ${ (w/g) }:${ (h/g) } · ${w}×${h}px`;
-    });
-    masonry.appendChild(card);
-  });
   function gcd(a,b){return b===0?a:gcd(b,a%b);}
+
+  // ---- Portfolio gallery: karya desain, rasio bebas otomatis ----
+  const works = [
+    {name:'Brand Identity — Kopi Kupang', cat:'Branding', desc:'Logo, palet warna, dan sistem kemasan untuk kedai kopi lokal.', img:'https://picsum.photos/seed/pf1/800/560'},
+    {name:'Poster Series — Festival Nusa', cat:'Ilustrasi', desc:'Seri poster promosi untuk festival budaya tahunan.', img:'https://picsum.photos/seed/pf2/620/860'},
+    {name:'Motion Reel 2025', cat:'Motion Design', desc:'Kompilasi animasi pendek untuk konten sosial media.', img:'https://picsum.photos/seed/pf3/800/460'},
+    {name:'Editorial Layout — Zine Timor', cat:'Layout', desc:'Tata letak majalah independen edisi khusus budaya.', img:'https://picsum.photos/seed/pf4/650/860'},
+    {name:'Illustration Set — Fauna NTT', cat:'Ilustrasi', desc:'Kumpulan ilustrasi flora & fauna khas Nusa Tenggara.', img:'https://picsum.photos/seed/pf5/700/700'},
+    {name:'Packaging — Tenun Ikat', cat:'Packaging', desc:'Desain kemasan produk tenun untuk pasar retail modern.', img:'https://picsum.photos/seed/pf6/780/540'},
+  ];
+  const pGrid = document.getElementById('portfolioGrid');
+  works.forEach(w=>{
+    const el = document.createElement('div');
+    el.className='p-card';
+    el.innerHTML = `
+      <img src="${w.img}" alt="${w.name}" loading="lazy">
+      <div class="p-meta">
+        <div class="p-cat">${w.cat}</div>
+        <div class="p-name">${w.name}</div>
+        <div class="p-desc">${w.desc}</div>
+      </div>`;
+    pGrid.appendChild(el);
+  });
 
   // ---- Photo preview auto-ratio info ----
   const mainPhoto = document.getElementById('mainPhoto');
@@ -557,7 +679,7 @@
   const typedEl = document.getElementById('typed');
   const outEl = document.getElementById('termOut');
   const cmd = 'whoami --skills --status';
-  const output = 'Jakha Phosa · Full-Stack Developer\nStatus: open untuk proyek baru\nStack: JS/TS · React · Node · Python';
+  const output = 'Jakha Rama Phosa · Graphic Designer\nStatus: open untuk kolaborasi\nTools: Figma · Photoshop · Illustrator · After Effects';
   let i=0;
   function typeCmd(){
     if(i<=cmd.length){
@@ -576,6 +698,68 @@
     document.getElementById('clock').textContent = d.toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'});
   }
   tick(); setInterval(tick,1000*30);
+
+  // ---- Steam profile panel ----
+  // Demo/mock fetcher. Steam Web API tidak bisa dipanggil langsung dari browser:
+  // 1) API key harus rahasia (tidak boleh ada di kode sisi klien seperti file ini)
+  // 2) Endpoint Steam tidak mengirim header CORS untuk request dari domain lain
+  // Solusi nyata: buat endpoint di server-mu, contoh (Node/Express):
+  //
+  //   app.get('/api/steam', async (req, res) => {
+  //     const r = await fetch(
+  //       `https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2/` +
+  //       `?key=${process.env.STEAM_API_KEY}&steamids=${process.env.STEAM_ID}`
+  //     );
+  //     const data = await r.json();
+  //     res.json(data);
+  //   });
+  //
+  // lalu di halaman ini tinggal ganti fetchSteamProfile() dengan:
+  //   const res = await fetch('/api/steam'); const data = await res.json();
+  function fetchSteamProfile(){
+    return new Promise(resolve=>{
+      setTimeout(()=>{
+        resolve({
+          name:'jakharama',
+          avatar:'https://picsum.photos/seed/steamava/120/120',
+          status:'Online',
+          playing:'Sedang main — Stardew Valley',
+          level:24,
+          games:[
+            {name:'Stardew Valley', hours:128, max:200},
+            {name:'Cyberpunk 2077', hours:64, max:200},
+            {name:'Portal 2', hours:12, max:200},
+            {name:'Hollow Knight', hours:41, max:200},
+          ]
+        });
+      }, 900);
+    });
+  }
+
+  fetchSteamProfile().then(data=>{
+    document.getElementById('steamStatusChip').textContent = '200 OK';
+    const card = document.getElementById('steamCard');
+    const maxHrs = Math.max(...data.games.map(g=>g.hours));
+    card.innerHTML = `
+      <div class="steam-head">
+        <div class="steam-ava"><img src="${data.avatar}" alt="${data.name}"></div>
+        <div class="steam-id">
+          <div class="sname">${data.name}</div>
+          <div class="sstat"><span class="d"></span>${data.status}</div>
+          <div class="sgame">${data.playing}</div>
+          <div class="slevel">LVL ${data.level}</div>
+        </div>
+      </div>
+      <div class="steam-body">
+        <div class="sect-label">RECENTLY PLAYED</div>
+        ${data.games.map(g=>`
+          <div class="game-row">
+            <span class="gname">${g.name}</span>
+            <div class="gbar"><i style="width:${Math.round((g.hours/maxHrs)*100)}%"></i></div>
+            <span class="ghrs">${g.hours} jam</span>
+          </div>`).join('')}
+      </div>`;
+  });
 </script>
 
 </body>
