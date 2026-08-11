@@ -3,762 +3,728 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jakha Rama Phosa — profile.js</title>
+<title>Jakha Rama Phosa — Graphic Designer & Web Developer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg-void:#0a0b10;
-    --bg-panel:#12131c;
-    --bg-sidebar:#0e0f16;
-    --bg-titlebar:#181926;
-    --bg-elevated:#181a26;
-    --border:#22232f;
-    --border-soft:#1a1b26;
-    --text:#d7d9ea;
-    --text-dim:#565973;
-    --text-dimmer:#3a3c50;
-    --key:#c792ea;
-    --fn:#7ad0ff;
-    --str:#9ed072;
-    --prop:#ff9ecf;
-    --num:#ffb86c;
-    --comment:#4b4e63;
-    --cursor:#7ad0ff;
-    --accent:#7ad0ff;
-    --steam:#66c0f4;
-    --steam-dim:#1b2838;
-    --ok:#3fdb7a;
+    --ink:#121316;
+    --ink-soft:#1b1d21;
+    --paper:#f7f6f2;
+    --paper-dim:#eceae3;
+    --cyan:#00b4d8;
+    --magenta:#e8368f;
+    --yellow:#f5c400;
+    --graphite:#8a8d93;
+    --line-dark:rgba(247,246,242,.14);
+    --line-paper:#d8d5cc;
+    --display: 'Big Shoulders Display', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+    --body: 'Inter', sans-serif;
+    --maxw: 1180px;
   }
+
   *{box-sizing:border-box;}
-  html,body{margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
   body{
-    background:
-      radial-gradient(1200px 600px at 20% -10%, #14213a55, transparent 60%),
-      radial-gradient(1000px 500px at 100% 0%, #2a163a4d, transparent 55%),
-      var(--bg-void);
-    color:var(--text);
-    font-family:'JetBrains Mono',monospace;
-    font-size:14px;
-    line-height:1.7;
+    margin:0;
+    background:var(--ink);
+    color:var(--paper);
+    font-family:var(--body);
     -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  img,svg{display:block;max-width:100%;}
+  a{color:inherit;}
+  ::selection{background:var(--cyan);color:var(--ink);}
+
+  :focus-visible{
+    outline:2px solid var(--cyan);
+    outline-offset:3px;
+    border-radius:2px;
+  }
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px;}
+
+  /* ---------- registration marks (signature device) ---------- */
+  .reg{position:absolute;width:22px;height:22px;pointer-events:none;opacity:.55;}
+  .reg::before,.reg::after{content:"";position:absolute;background:currentColor;}
+  .reg::before{left:50%;top:0;width:1px;height:100%;transform:translateX(-50%);}
+  .reg::after{top:50%;left:0;height:1px;width:100%;transform:translateY(-50%);}
+  .reg-label{
+    position:absolute;font-family:var(--mono);font-size:9px;letter-spacing:.05em;
+    opacity:.45;white-space:nowrap;
+  }
+  .reg.tl{top:22px;left:14px;color:var(--cyan);}
+  .reg.tr{top:22px;right:14px;color:var(--magenta);}
+  .reg.bl{bottom:22px;left:14px;color:var(--magenta);}
+  .reg.br{bottom:22px;right:14px;color:var(--cyan);}
+  .reg-host{position:relative;}
+
+  /* ---------- nav ---------- */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    background:rgba(18,19,22,.78);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line-dark);
+  }
+  .nav{
+    max-width:var(--maxw);margin:0 auto;padding:16px 28px;
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  .logo{
+    font-family:var(--mono);font-weight:700;font-size:15px;letter-spacing:.02em;
+    display:flex;align-items:center;gap:8px;text-decoration:none;
+  }
+  .logo .dot{width:7px;height:7px;background:var(--cyan);border-radius:50%;}
+  .navlinks{display:flex;gap:32px;list-style:none;margin:0;padding:0;font-family:var(--mono);font-size:13px;}
+  .navlinks a{text-decoration:none;color:var(--graphite);transition:color .2s;position:relative;}
+  .navlinks a:hover{color:var(--paper);}
+  .navlinks a::before{content:"";}
+  .navtoggle{display:none;background:none;border:1px solid var(--line-dark);color:var(--paper);width:38px;height:38px;border-radius:6px;cursor:pointer;}
+  .navtoggle span{display:block;width:16px;height:1.5px;background:var(--paper);margin:3px auto;}
+
+  /* ---------- hero ---------- */
+  .hero{
     min-height:100vh;
-  }
-  ::selection{background:#7ad0ff33;color:#fff;}
-  a{color:inherit;text-decoration:none;}
-  ::-webkit-scrollbar{width:10px;height:10px;}
-  ::-webkit-scrollbar-track{background:var(--bg-panel);}
-  ::-webkit-scrollbar-thumb{background:#2a2c3d;border-radius:6px;}
-  ::-webkit-scrollbar-thumb:hover{background:#3a3c50;}
-
-  .app{
-    max-width:1200px;
-    margin:30px auto;
-    border:1px solid var(--border);
-    border-radius:12px;
-    overflow:hidden;
-    box-shadow:0 50px 110px -35px #000000cc, 0 0 0 1px #ffffff06, 0 0 60px -20px #7ad0ff14;
-    background:var(--bg-panel);
-  }
-
-  /* Title bar */
-  .titlebar{
-    background:var(--bg-titlebar);
-    border-bottom:1px solid var(--border);
-    display:flex;
-    align-items:center;
-    gap:10px;
-    padding:11px 14px;
-  }
-  .dots{display:flex;gap:7px;}
-  .dot{width:11px;height:11px;border-radius:50%;}
-  .dot.r{background:#ff5f57;}
-  .dot.y{background:#febc2e;}
-  .dot.g{background:#28c840;}
-  .titlebar .path{
-    margin:0 auto;
-    color:var(--text-dim);
-    font-size:12px;
-    display:flex;
-    align-items:center;
-    gap:6px;
-  }
-  .titlebar .path b{color:var(--text);font-weight:500;}
-
-  .body-wrap{display:flex;min-height:600px;}
-
-  /* Sidebar */
-  .sidebar{
-    width:230px;
-    flex-shrink:0;
-    background:var(--bg-sidebar);
-    border-right:1px solid var(--border);
-    padding:18px 0 0;
-    display:flex;flex-direction:column;
-  }
-  .side-id{
-    display:flex;align-items:center;gap:10px;
-    padding:0 18px 16px;
-    border-bottom:1px solid var(--border-soft);
-    margin-bottom:8px;
-  }
-  .side-id .ava{
-    width:34px;height:34px;border-radius:9px;overflow:hidden;flex-shrink:0;
-    border:1px solid var(--border);background:#000;
-  }
-  .side-id .ava img{width:100%;height:100%;object-fit:cover;display:block;}
-  .side-id .who{min-width:0;}
-  .side-id .who .n{font-size:12.5px;color:var(--text);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-  .side-id .who .r{font-size:10.5px;color:var(--fn);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-
-  .sidebar .label{
-    color:var(--text-dimmer);
-    font-size:10.5px;
-    letter-spacing:.12em;
-    padding:4px 18px;
-    margin-top:12px;
-  }
-  .tree-item{
-    display:flex;
-    align-items:center;
-    gap:8px;
-    padding:6px 18px 6px 26px;
-    font-size:12.5px;
-    color:var(--text-dim);
-    cursor:pointer;
-    border-left:2px solid transparent;
-    white-space:nowrap;
-    transition:background .15s ease, color .15s ease;
-  }
-  .tree-item:hover{background:#ffffff06;color:var(--text);}
-  .tree-item.active{
-    background:#7ad0ff12;
-    color:var(--accent);
-    border-left:2px solid var(--accent);
-  }
-  .tree-item .ico{opacity:.75;font-size:11px;width:16px;text-align:center;}
-  .sidebar .status-row{
-    margin-top:auto;
-    padding:14px 18px;
-    border-top:1px solid var(--border-soft);
-    color:var(--text-dimmer);
-    font-size:10.5px;
-    line-height:1.9;
-  }
-  .sidebar .status-row .dotstatus{
-    width:6px;height:6px;border-radius:50%;
-    background:var(--ok);display:inline-block;margin-right:6px;
-    box-shadow:0 0 6px var(--ok);
-    animation:pulse 2s ease-in-out infinite;
-  }
-  @keyframes pulse{50%{opacity:.4;}}
-
-  /* Main editor area */
-  .main{flex:1;display:flex;flex-direction:column;min-width:0;}
-  .tabs{
-    display:flex;
-    background:var(--bg-sidebar);
-    border-bottom:1px solid var(--border);
-    overflow-x:auto;
-  }
-  .tab{
-    padding:10px 16px;
-    font-size:12.5px;
-    color:var(--text-dim);
-    border-right:1px solid var(--border);
-    cursor:pointer;
-    display:flex;
-    align-items:center;
-    gap:7px;
-    white-space:nowrap;
-    background:var(--bg-sidebar);
+    display:flex;flex-direction:column;justify-content:center;
+    padding:140px 0 90px;
     position:relative;
-    transition:color .15s ease, background .15s ease;
+    background:
+      radial-gradient(ellipse 60% 50% at 80% 15%, rgba(232,54,143,.15), transparent 60%),
+      radial-gradient(ellipse 55% 45% at 10% 85%, rgba(0,180,216,.15), transparent 60%);
   }
-  .tab .ico{opacity:.8;}
-  .tab.active{
-    background:var(--bg-panel);
-    color:var(--text);
+  .hero-grid-bg{
+    position:absolute;inset:0;z-index:0;
+    background-image:
+      linear-gradient(var(--line-dark) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line-dark) 1px, transparent 1px);
+    background-size:64px 64px;
+    mask-image:linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
+    opacity:.5;
   }
-  .tab.active::after{
-    content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;
-    background:var(--accent);box-shadow:0 0 8px #7ad0ff88;
+  .hero-inner{
+    position:relative;z-index:1;
+    display:flex;gap:56px;align-items:center;justify-content:space-between;flex-wrap:wrap-reverse;
   }
-  .tab:hover:not(.active){color:var(--text);}
-
-  .panes{position:relative;flex:1;display:flex;}
-  .pane{display:none;width:100%;animation:fadeIn .28s ease;}
-  .pane.active{display:flex;}
-  @keyframes fadeIn{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:translateY(0);}}
-  @media (prefers-reduced-motion: reduce){.pane{animation:none;}}
-
-  /* Code pane */
-  .code-pane{width:100%;}
-  .code-scroll{
-    display:flex;
-    width:100%;
-    max-height:660px;
-    overflow:auto;
-    padding:20px 0;
+  .hero-text{flex:1 1 480px;min-width:280px;}
+  .hero-photo{flex:0 0 240px;}
+  .photo-frame{
+    position:relative;width:240px;height:240px;border-radius:18px;overflow:hidden;
+    border:1px solid var(--line-dark);
+    background:linear-gradient(135deg, rgba(232,54,143,.3), rgba(0,180,216,.25));
   }
-  .gutter{
-    padding:0 14px 0 20px;
-    text-align:right;
-    color:var(--text-dimmer);
-    user-select:none;
-    font-size:13px;
+  .photo-frame img{width:100%;height:100%;object-fit:cover;display:block;}
+  .avatar-fallback{
+    position:absolute;inset:0;display:none;align-items:center;justify-content:center;
+    font-family:var(--display);font-size:64px;font-weight:800;color:var(--paper);
+    background:linear-gradient(135deg, rgba(232,54,143,.4), rgba(0,180,216,.35));
+    letter-spacing:.02em;
   }
-  .gutter div{height:26px;}
-  .code{
-    padding-right:24px;
-    font-size:13px;
-    white-space:pre;
-    flex:1;
+  .reg-sm{width:14px;height:14px;}
+  .reg-sm.tl{top:12px;left:12px;}
+  .reg-sm.br{bottom:12px;right:12px;}
+  .photo-caption{
+    font-family:var(--mono);font-size:11px;color:var(--graphite);margin-top:12px;text-align:center;
   }
-  .code div.line{height:26px;display:flex;align-items:center;}
-  .code div.line:hover{background:#ffffff05;}
-  .k{color:var(--key);}
-  .fn{color:var(--fn);}
-  .s{color:var(--str);}
-  .p{color:var(--prop);}
-  .n{color:var(--num);}
-  .c{color:var(--comment);font-style:italic;}
-  .punct{color:var(--text-dim);}
-  .cur{
-    display:inline-block;width:7px;height:16px;background:var(--cursor);
-    margin-left:1px;vertical-align:middle;
-    animation:blink 1s steps(1) infinite;
+  @media (max-width:680px){
+    .hero-photo{flex:0 0 180px;}
+    .photo-frame{width:180px;height:180px;margin:0 auto;}
+  }
+  .eyebrow{
+    font-family:var(--mono);font-size:13px;color:var(--cyan);
+    display:flex;align-items:center;gap:10px;margin-bottom:22px;letter-spacing:.03em;
+  }
+  .eyebrow .line{width:34px;height:1px;background:var(--cyan);opacity:.6;}
+  h1.headline{
+    font-family:var(--display);
+    font-weight:800;
+    font-size:clamp(52px, 10vw, 128px);
+    line-height:.86;
+    letter-spacing:-.01em;
+    text-transform:uppercase;
+    margin:0 0 26px;
+  }
+  h1.headline .accent{
+    background:linear-gradient(100deg, var(--cyan), var(--magenta));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .identity-badges{
+    display:flex;flex-wrap:wrap;gap:10px;margin-bottom:26px;
+  }
+  .id-badge{
+    font-family:var(--mono);font-size:12px;letter-spacing:.03em;
+    padding:7px 14px;border-radius:999px;border:1px solid var(--line-dark);
+    color:#c9c8c4;
+  }
+  .id-badge.c1{border-color:rgba(232,54,143,.4);color:var(--magenta);}
+  .id-badge.c2{border-color:rgba(0,180,216,.4);color:var(--cyan);}
+  .id-badge.c3{border-color:rgba(245,196,0,.4);color:var(--yellow);}
+  .id-badge.c4{border-color:rgba(247,246,242,.3);color:var(--paper);}
+  .hero-sub{
+    max-width:560px;font-size:17px;line-height:1.65;color:#c9c8c4;margin-bottom:34px;
+  }
+  .terminal-line{
+    font-family:var(--mono);font-size:15px;color:var(--paper);
+    background:var(--ink-soft);border:1px solid var(--line-dark);
+    display:inline-flex;align-items:center;gap:10px;
+    padding:12px 18px;border-radius:8px;margin-bottom:40px;
+  }
+  .terminal-line .prompt{color:var(--magenta);}
+  .terminal-line .cursor{
+    display:inline-block;width:8px;height:16px;background:var(--cyan);
+    animation:blink 1s step-end infinite;
   }
   @keyframes blink{50%{opacity:0;}}
-  .avatar-link{
-    display:inline-flex;align-items:center;gap:6px;
-    color:var(--fn);
-    border-bottom:1px dashed var(--fn);
-    padding-bottom:1px;
-    cursor:pointer;
+  .hero-cta{display:flex;gap:16px;flex-wrap:wrap;}
+  .btn{
+    font-family:var(--mono);font-size:13px;font-weight:500;
+    padding:14px 26px;border-radius:8px;text-decoration:none;
+    display:inline-flex;align-items:center;gap:8px;
+    transition:transform .18s ease, box-shadow .18s ease;
+    border:1px solid transparent;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn-primary{background:var(--paper);color:var(--ink);}
+  .btn-primary:hover{box-shadow:0 8px 24px rgba(247,246,242,.15);}
+  .btn-ghost{border-color:var(--line-dark);color:var(--paper);}
+  .btn-ghost:hover{border-color:var(--cyan);color:var(--cyan);}
+
+  /* ---------- section shell ---------- */
+  section{padding:120px 0;position:relative;}
+  .section-head{margin-bottom:56px;}
+  .section-num{
+    font-family:var(--mono);font-size:13px;color:var(--cyan);letter-spacing:.05em;margin-bottom:14px;display:block;
+  }
+  .section-title{
+    font-family:var(--display);font-weight:800;text-transform:uppercase;
+    font-size:clamp(34px,5vw,58px);line-height:.95;margin:0;letter-spacing:-.01em;
   }
 
-  /* About markdown pane */
-  .md-pane{padding:34px 42px;max-width:780px;}
-  .md-pane h1{
-    font-size:23px;color:var(--text);margin:0 0 4px;
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in-view{opacity:1;transform:translateY(0);}
+
+  /* ---------- about / layers ---------- */
+  .layers{
+    display:grid;grid-template-columns:1fr 1fr;gap:0;
+    border:1px solid var(--line-dark);border-radius:14px;overflow:hidden;
   }
-  .md-pane h1 .h{color:var(--key);}
-  .md-pane .role{color:var(--fn);font-size:13px;margin-bottom:24px;}
-  .md-pane p{color:var(--text-dim);font-size:13px;line-height:1.9;margin:0 0 16px;}
-  .md-pane p b{color:var(--text);font-weight:600;}
-  .tag-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;}
-  .tag{
-    font-size:11.5px;padding:4px 10px;border-radius:5px;
-    border:1px solid var(--border);color:var(--prop);background:#ff9ecf0d;
+  .layer{padding:48px 40px;position:relative;}
+  .layer-design{background:var(--paper);color:var(--ink);}
+  .layer-code{background:var(--ink-soft);color:var(--paper);}
+  .layer-music{background:#1c1a12;color:var(--paper);}
+  .layer-game{background:var(--paper-dim);color:var(--ink);}
+  .layer-tag{
+    font-family:var(--mono);font-size:12px;letter-spacing:.06em;
+    display:inline-block;padding:5px 10px;border-radius:5px;margin-bottom:20px;
+  }
+  .layer-design .layer-tag{background:rgba(232,54,143,.12);color:#c22a76;}
+  .layer-code .layer-tag{background:rgba(0,180,216,.14);color:var(--cyan);}
+  .layer-music .layer-tag{background:rgba(245,196,0,.14);color:var(--yellow);}
+  .layer-game .layer-tag{background:rgba(232,54,143,.12);color:#c22a76;}
+  .layer h3{
+    font-family:var(--display);font-size:32px;font-weight:800;text-transform:uppercase;margin:0 0 16px;
+  }
+  .layer p{font-size:15px;line-height:1.7;margin:0 0 20px;
+    color:inherit;opacity:.85;}
+  .layer-list{list-style:none;margin:0;padding:0;font-family:var(--mono);font-size:13.5px;}
+  .layer-list li{
+    padding:10px 0;border-top:1px solid;
+    display:flex;justify-content:space-between;gap:12px;
+  }
+  .layer-design .layer-list li{border-color:var(--line-paper);}
+  .layer-code .layer-list li{border-color:var(--line-dark);}
+  .layer-music .layer-list li{border-color:var(--line-dark);}
+  .layer-game .layer-list li{border-color:var(--line-paper);}
+  .layer-list li .v{opacity:.55;}
+
+  .music-player{
+    display:flex;align-items:center;gap:16px;
+    background:rgba(247,246,242,.06);border:1px solid var(--line-dark);
+    border-radius:12px;padding:14px 18px;margin-bottom:14px;
+  }
+  .mp-toggle{
+    flex-shrink:0;width:42px;height:42px;border-radius:50%;
+    border:1px solid var(--yellow);background:transparent;color:var(--yellow);
+    font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;
+    transition:background .2s, color .2s;
+  }
+  .mp-toggle:hover{background:var(--yellow);color:var(--ink);}
+  .mp-info{flex:1;min-width:0;}
+  .mp-title{
+    font-family:var(--mono);font-size:12.5px;color:var(--paper);
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:8px;
+  }
+  .mp-bars{display:flex;align-items:flex-end;gap:3px;height:16px;}
+  .mp-bars span{
+    width:3px;background:var(--yellow);opacity:.5;height:4px;border-radius:1px;
+  }
+  .music-player.playing .mp-bars span{opacity:1;animation:eq .9s ease-in-out infinite alternate;}
+  .music-player.playing .mp-bars span:nth-child(1){animation-delay:0s;}
+  .music-player.playing .mp-bars span:nth-child(2){animation-delay:.15s;}
+  .music-player.playing .mp-bars span:nth-child(3){animation-delay:.3s;}
+  .music-player.playing .mp-bars span:nth-child(4){animation-delay:.1s;}
+  @keyframes eq{0%{height:4px;}100%{height:16px;}}
+  .player-note{
+    font-family:var(--mono);font-size:11.5px;color:var(--graphite);margin:0 0 20px;
   }
 
-  /* Portfolio pane — rendered preview with browser chrome */
-  .portfolio-pane{width:100%;display:flex;flex-direction:column;}
-  .browser-chrome{
-    display:flex;align-items:center;gap:10px;
-    padding:9px 14px;border-bottom:1px solid var(--border);
-    background:var(--bg-elevated);
-  }
-  .browser-chrome .dots{gap:6px;}
-  .browser-chrome .dot{width:8px;height:8px;}
-  .url-bar{
-    flex:1;background:var(--bg-void);border:1px solid var(--border);
-    border-radius:100px;padding:5px 14px;font-size:11px;color:var(--text-dim);
-    display:flex;align-items:center;gap:8px;
-  }
-  .url-bar .lock{color:var(--ok);}
-  .portfolio-body{padding:26px 30px;overflow:auto;max-height:660px;}
-  .portfolio-head{font-size:12px;color:var(--text-dim);margin-bottom:18px;}
-  .portfolio-head .k{color:var(--key);}
-  .p-grid{column-count:2;column-gap:18px;}
-  @media (max-width:700px){.p-grid{column-count:1;}}
-  .p-card{
-    break-inside:avoid;margin-bottom:18px;
-    border:1px solid var(--border);border-radius:10px;overflow:hidden;
-    background:#0d0e16;
-    transition:transform .2s ease, border-color .2s ease;
-  }
-  .p-card:hover{transform:translateY(-3px);border-color:#3a3d55;}
-  .p-card img{display:block;width:100%;height:auto;}  /* rasio bebas — mengikuti ukuran asli tiap karya */
-  .p-card .p-meta{padding:14px 16px;}
-  .p-card .p-cat{font-size:10px;letter-spacing:.08em;color:var(--prop);text-transform:uppercase;}
-  .p-card .p-name{font-size:14px;color:var(--text);margin-top:5px;font-weight:600;}
-  .p-card .p-desc{font-size:11.5px;color:var(--text-dim);margin-top:5px;line-height:1.7;}
-
-  /* Photo preview pane */
-  .img-pane{
-    width:100%;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    padding:30px;
-    background:
-      linear-gradient(45deg,#0f1018 25%,transparent 25%) ,
-      linear-gradient(-45deg,#0f1018 25%,transparent 25%),
-      linear-gradient(45deg,transparent 75%,#0f1018 75%),
-      linear-gradient(-45deg,transparent 75%,#0f1018 75%);
-    background-size:20px 20px;
-    background-position:0 0,0 10px,10px -10px,-10px 0px;
-    background-color:#0a0b10;
-  }
-  .img-frame{
-    max-width:420px;
-    width:100%;
-    border:1px solid var(--border);
-    background:#000;
-    border-radius:6px;
-    overflow:hidden;
-    box-shadow:0 20px 50px -20px #000a;
-  }
-  .img-frame img{
-    display:block;
-    width:100%;
-    height:auto;  /* auto menyesuaikan rasio asli foto */
-  }
-  .img-info{
-    margin-top:14px;
-    font-size:11px;
-    color:var(--text-dim);
-    display:flex;gap:16px;
-  }
-  .img-info span b{color:var(--text);}
-
-  /* Steam API pane */
-  .steam-pane{width:100%;padding:26px 30px;overflow:auto;max-height:660px;}
-  .req-row{
-    display:flex;align-items:center;gap:10px;flex-wrap:wrap;
-    font-size:11.5px;color:var(--text-dim);
-    padding:10px 14px;border:1px solid var(--border);border-radius:8px;
-    background:#0d0e16;margin-bottom:18px;
-  }
-  .req-row .verb{color:var(--ok);font-weight:700;}
-  .req-row .status-chip{
-    margin-left:auto;font-size:10.5px;padding:2px 9px;border-radius:100px;
-    background:#3fdb7a1a;color:var(--ok);border:1px solid #3fdb7a44;
-  }
-  .steam-note{
-    font-size:11px;color:var(--text-dim);
-    border:1px dashed var(--border);border-radius:8px;
-    padding:10px 14px;margin-bottom:22px;line-height:1.8;
-  }
-  .steam-note b{color:var(--prop);}
-  .steam-card{
-    border:1px solid var(--border);border-radius:10px;overflow:hidden;
-    background:linear-gradient(180deg, var(--steam-dim), #0d0e16 60%);
-  }
-  .steam-head{display:flex;gap:16px;padding:20px;border-bottom:1px solid var(--border);}
-  .steam-ava{width:64px;height:64px;border-radius:8px;overflow:hidden;flex-shrink:0;border:2px solid var(--steam);}
-  .steam-ava img{width:100%;height:100%;object-fit:cover;display:block;}
-  .steam-id .sname{font-size:16px;color:#fff;font-weight:600;}
-  .steam-id .sstat{font-size:11.5px;color:var(--ok);display:flex;align-items:center;gap:6px;margin-top:4px;}
-  .steam-id .sstat .d{width:7px;height:7px;border-radius:50%;background:var(--ok);}
-  .steam-id .sgame{font-size:11.5px;color:var(--steam);margin-top:3px;}
-  .steam-id .slevel{
-    display:inline-block;margin-top:8px;font-size:10.5px;
-    background:var(--steam);color:#04101c;padding:2px 9px;border-radius:4px;font-weight:700;
-  }
-  .steam-body{padding:18px 20px;}
-  .steam-body .sect-label{font-size:10.5px;letter-spacing:.1em;color:var(--text-dimmer);margin-bottom:12px;}
-  .game-row{display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid var(--border-soft);}
-  .game-row:last-child{border-bottom:none;}
-  .game-row .gname{flex:1;font-size:12.5px;color:var(--text);}
-  .game-row .ghrs{font-size:11px;color:var(--text-dim);flex-shrink:0;width:78px;text-align:right;}
-  .game-row .gbar{flex:1;max-width:140px;height:5px;border-radius:100px;background:#1a1c28;overflow:hidden;}
-  .game-row .gbar i{display:block;height:100%;background:var(--steam);border-radius:100px;}
-  .skeleton{
-    height:14px;border-radius:4px;
-    background:linear-gradient(90deg,#181926 25%,#22243a 37%,#181926 63%);
-    background-size:400% 100%;animation:shimmer 1.4s ease infinite;
-    margin-bottom:10px;
-  }
-  @keyframes shimmer{0%{background-position:100% 0;}100%{background-position:0 0;}}
-  @media (prefers-reduced-motion: reduce){.skeleton{animation:none;}}
-
-  /* Terminal */
-  .terminal{
-    border-top:1px solid var(--border);
-    background:#0b0c12;
-    padding:10px 18px 14px;
-    font-size:12px;
-  }
-  .terminal .term-head{
-    display:flex;justify-content:space-between;
-    color:var(--text-dimmer);font-size:10.5px;margin-bottom:6px;
-    letter-spacing:.08em;
-  }
-  .term-line{color:var(--text-dim);}
-  .term-line .prompt{color:var(--str);}
-  .term-line .path2{color:var(--fn);}
-  .term-out{color:var(--text);white-space:pre-wrap;}
-  #term-cursor{
-    display:inline-block;width:7px;height:13px;background:var(--accent);
-    vertical-align:middle;animation:blink 1s steps(1) infinite;
+  @media (max-width:900px){
+    .layers{grid-template-columns:1fr;}
   }
 
-  /* Status bar */
-  .statusbar{
-    background:linear-gradient(90deg,#1a5fd0,#1a5fd0);
-    color:#eaf2ff;
-    font-size:11px;
-    display:flex;
-    justify-content:space-between;
-    padding:6px 14px;
+  /* ---------- skills ---------- */
+  .skill-groups{display:grid;grid-template-columns:1fr 1fr;gap:40px;}
+  .skill-block-label{
+    font-family:var(--mono);font-size:12px;color:var(--graphite);letter-spacing:.08em;margin-bottom:18px;
+    display:block;text-transform:uppercase;
   }
-  .statusbar .grp{display:flex;gap:16px;}
-  .statusbar span{opacity:.95;}
+  .chip-row{display:flex;flex-wrap:wrap;gap:10px;}
+  .chip{
+    display:inline-flex;align-items:center;gap:8px;
+    font-family:var(--mono);font-size:13.5px;
+    padding:10px 16px;border-radius:999px;border:1px solid var(--line-dark);
+    transition:border-color .2s, transform .2s;
+  }
+  .chip:hover{transform:translateY(-2px);}
+  .chip-swatch{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+  .chip.design:hover{border-color:var(--magenta);}
+  .chip.dev:hover{border-color:var(--cyan);}
+  .chip.dev{font-weight:500;}
 
   @media (max-width:760px){
-    .sidebar{width:160px;}
-    .side-id .who .r{display:none;}
-    .md-pane{padding:24px 18px;}
-    .portfolio-body{padding:20px;}
-    .code-scroll{font-size:12px;}
+    .skill-groups{grid-template-columns:1fr;gap:32px;}
   }
-  @media (max-width:560px){
-    .app{margin:0;border-radius:0;}
-    .sidebar{display:none;}
-    .titlebar .path{font-size:10.5px;}
+
+  /* ---------- projects ---------- */
+  .proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;}
+  .proj-card{
+    border:1px solid var(--line-dark);border-radius:14px;overflow:hidden;
+    background:var(--ink-soft);
+    transition:transform .25s ease, border-color .25s ease;
+  }
+  .proj-card:hover{transform:translateY(-6px);border-color:var(--cyan);}
+  .proj-thumb{
+    aspect-ratio:16/10;position:relative;
+    display:flex;align-items:center;justify-content:center;
+    overflow:hidden;
+  }
+  .proj-thumb::before{
+    content:"";position:absolute;inset:0;
+    background-image:
+      linear-gradient(rgba(247,246,242,.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(247,246,242,.08) 1px, transparent 1px);
+    background-size:22px 22px;
+  }
+  .proj-thumb .cross{
+    width:26px;height:26px;position:relative;opacity:.8;
+  }
+  .proj-thumb .cross::before,.proj-thumb .cross::after{
+    content:"";position:absolute;background:var(--paper);
+  }
+  .proj-thumb .cross::before{left:50%;top:0;width:1.5px;height:100%;transform:translateX(-50%);}
+  .proj-thumb .cross::after{top:50%;left:0;height:1.5px;width:100%;transform:translateY(-50%);}
+  .proj-body{padding:26px 26px 28px;}
+  .proj-title{
+    font-family:var(--display);font-size:26px;font-weight:800;text-transform:uppercase;margin:0 0 8px;
+  }
+  .proj-desc{font-size:14px;line-height:1.6;color:var(--graphite);margin:0 0 16px;}
+  .proj-tags{display:flex;gap:8px;flex-wrap:wrap;}
+  .tag-mini{
+    font-family:var(--mono);font-size:10.5px;letter-spacing:.03em;
+    padding:4px 9px;border-radius:5px;
+  }
+  .tag-mini.d{background:rgba(232,54,143,.14);color:#f06bab;}
+  .tag-mini.c{background:rgba(0,180,216,.14);color:var(--cyan);}
+
+  .proj-note{
+    font-family:var(--mono);font-size:12.5px;color:var(--graphite);margin-top:24px;
+  }
+
+  /* ---------- steam / game ---------- */
+  .steam-card{
+    border:1px solid var(--line-dark);border-radius:14px;background:var(--ink-soft);
+    padding:36px;display:flex;flex-direction:column;align-items:center;gap:18px;
+  }
+  .steam-label{
+    font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:var(--graphite);
+    display:flex;align-items:center;gap:8px;align-self:flex-start;
+  }
+  .steam-label .live-dot{
+    width:7px;height:7px;border-radius:50%;background:var(--cyan);
+    box-shadow:0 0 0 rgba(0,180,216,.5);animation:pulse 1.8s ease-in-out infinite;
+  }
+  @keyframes pulse{
+    0%{box-shadow:0 0 0 0 rgba(0,180,216,.5);}
+    70%{box-shadow:0 0 0 8px rgba(0,180,216,0);}
+    100%{box-shadow:0 0 0 0 rgba(0,180,216,0);}
+  }
+  .steam-embed{
+    width:100%;max-width:600px;aspect-ratio:600/400;border-radius:10px;overflow:hidden;
+    border:1px solid var(--line-dark);background:#0d1116;
+  }
+  .steam-embed iframe{width:100%;height:100%;border:0;display:block;}
+  @media (prefers-reduced-motion: reduce){
+    .steam-label .live-dot{animation:none;}
+  }
+
+  @media (max-width:760px){
+    .proj-grid{grid-template-columns:1fr;}
+  }
+
+  /* ---------- contact ---------- */
+  .contact{
+    background:var(--paper);color:var(--ink);border-radius:20px;
+    padding:64px 48px;position:relative;overflow:hidden;
+  }
+  .contact::after{
+    content:"";position:absolute;right:-60px;top:-60px;width:260px;height:260px;
+    background:radial-gradient(circle, rgba(0,180,216,.18), transparent 70%);
+  }
+  .contact-term{
+    font-family:var(--mono);font-size:14px;line-height:2;
+    background:var(--ink);color:var(--paper);
+    padding:26px 28px;border-radius:12px;margin-bottom:32px;max-width:560px;
+  }
+  .contact-term .p{color:var(--cyan);}
+  .contact-term .m{color:var(--magenta);}
+  .contact h2{
+    font-family:var(--display);font-size:clamp(36px,6vw,64px);font-weight:800;text-transform:uppercase;
+    margin:0 0 28px;line-height:.95;position:relative;z-index:1;
+  }
+  .contact-actions{display:flex;gap:16px;flex-wrap:wrap;position:relative;z-index:1;}
+  .btn-dark{background:var(--ink);color:var(--paper);}
+  .btn-dark:hover{box-shadow:0 8px 24px rgba(18,19,22,.25);}
+  .btn-outline-dark{border:1px solid var(--ink);color:var(--ink);}
+  .btn-outline-dark:hover{border-color:var(--magenta);color:var(--magenta);}
+
+  footer{
+    padding:36px 0 48px;text-align:center;
+    font-family:var(--mono);font-size:12px;color:var(--graphite);
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    .reveal{transition:none;opacity:1;transform:none;}
+    .terminal-line .cursor{animation:none;}
+    .btn:hover, .proj-card:hover, .chip:hover{transform:none;}
+    .music-player.playing .mp-bars span{animation:none;height:16px;}
+  }
+
+  @media (max-width:680px){
+    .navlinks{
+      position:fixed;top:64px;left:0;right:0;
+      background:var(--ink);border-bottom:1px solid var(--line-dark);
+      flex-direction:column;padding:20px 28px;gap:20px;
+      transform:translateY(-130%);transition:transform .25s ease;
+    }
+    .navlinks.open{transform:translateY(0);}
+    .navtoggle{display:block;}
+    .contact{padding:40px 24px;}
   }
 </style>
 </head>
 <body>
 
-<div class="app">
-
-  <div class="titlebar">
-    <div class="dots">
-      <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
-    </div>
-    <div class="path">jakha-rama-phosa &nbsp;›&nbsp; <b id="crumb">profile.js</b></div>
-    <div style="width:52px"></div>
+<header>
+  <div class="nav">
+    <a href="#" class="logo"><span class="dot"></span>JRP</a>
+    <ul class="navlinks" id="navlinks">
+      <li><a href="#tentang">Tentang</a></li>
+      <li><a href="#skill">Skill</a></li>
+      <li><a href="#karya">Karya</a></li>
+      <li><a href="#game">Game</a></li>
+      <li><a href="#kontak">Kontak</a></li>
+    </ul>
+    <button class="navtoggle" id="navtoggle" aria-label="Buka menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </div>
+</header>
 
-  <div class="body-wrap">
-
-    <!-- SIDEBAR -->
-    <div class="sidebar">
-      <div class="side-id">
-        <div class="ava"><img src="https://picsum.photos/seed/jakhaava/100/100" alt="Jakha"></div>
-        <div class="who">
-          <div class="n">Jakha Rama Phosa</div>
-          <div class="r">Design Graphics</div>
-        </div>
-      </div>
-
-      <div class="label">EXPLORER</div>
-      <div class="tree-item active" data-tab="code" data-crumb="profile.js"><span class="ico">JS</span> profile.js</div>
-      <div class="tree-item" data-tab="about" data-crumb="about.md"><span class="ico">▤</span> about.md</div>
-      <div class="tree-item" data-tab="portfolio" data-crumb="portfolio.html"><span class="ico">◧</span> portfolio.html</div>
-      <div class="tree-item" data-tab="photo" data-crumb="photo.jpg"><span class="ico">▣</span> photo.jpg</div>
-      <div class="tree-item" data-tab="steam" data-crumb="steam.api"><span class="ico">◈</span> steam.api</div>
-
-      <div class="label">SOCIALS</div>
-      <a class="tree-item" href="https://github.com/" target="_blank" rel="noopener"><span class="ico">↗</span> github.lnk</a>
-      <a class="tree-item" href="https://linkedin.com/" target="_blank" rel="noopener"><span class="ico">↗</span> linkedin.lnk</a>
-      <a class="tree-item" href="mailto:jakha.phosa@example.com"><span class="ico">↗</span> email.lnk</a>
-
-      <div class="status-row">
-        <div><span class="dotstatus"></span>available for work</div>
-        <div>branch: <span style="color:var(--text-dim)">main</span></div>
+<section class="hero reg-host">
+  <div class="hero-grid-bg" aria-hidden="true"></div>
+  <div class="reg tl" aria-hidden="true"></div>
+  <div class="reg tr" aria-hidden="true"></div>
+  <div class="wrap hero-inner">
+    <div class="hero-text">
+    <div class="eyebrow"><span class="line"></span>PORTOFOLIO — 2026</div>
+    <h1 class="headline">Jakha Rama<br><span class="accent">Phosa</span></h1>
+    <div class="identity-badges">
+      <span class="id-badge c1">Graphic Designer</span>
+      <span class="id-badge c2">Web Developer</span>
+      <span class="id-badge c3">Music Enthusiast</span>
+      <span class="id-badge c4">Gamer</span>
+    </div>
+    <p class="hero-sub">Merancang visual, membangun sistemnya, ditemani musik, dan istirahat lewat game. Empat sisi yang jalan bareng — bukan buat dipisah-pisah.</p>
+    <div>
+      <div class="terminal-line" id="roleTerminal">
+        <span class="prompt">&gt;</span><span id="roleText">membuka Illustrator</span><span class="cursor"></span>
       </div>
     </div>
-
-    <!-- MAIN -->
-    <div class="main">
-      <div class="tabs">
-        <div class="tab active" data-tab="code"><span class="ico">JS</span> profile.js</div>
-        <div class="tab" data-tab="about"><span class="ico">▤</span> about.md</div>
-        <div class="tab" data-tab="portfolio"><span class="ico">◧</span> portfolio.html</div>
-        <div class="tab" data-tab="photo"><span class="ico">▣</span> photo.jpg</div>
-        <div class="tab" data-tab="steam"><span class="ico">◈</span> steam.api</div>
+    <div class="hero-cta">
+      <a href="#karya" class="btn btn-primary">Lihat Karya</a>
+      <a href="#kontak" class="btn btn-ghost">Hubungi Saya</a>
+    </div>
+    </div>
+    <div class="hero-photo">
+      <div class="photo-frame reg-host">
+        <div class="reg tl reg-sm" aria-hidden="true"></div>
+        <div class="reg br reg-sm" aria-hidden="true"></div>
+        <img id="profilePhoto" src="foto-profil.jpg" alt="Foto profil Jakha Rama Phosa"
+             onerror="this.style.display='none';document.getElementById('avatarFallback').style.display='flex';">
+        <div class="avatar-fallback" id="avatarFallback">JRP</div>
       </div>
+      <p class="photo-caption">// ganti foto-profil.jpg dengan foto asli kamu</p>
+    </div>
+  </div>
+</section>
 
-      <div class="panes">
-
-        <!-- PANE: profile.js -->
-        <div class="pane active code-pane" id="pane-code">
-          <div class="code-scroll">
-            <div class="gutter" id="gutter"></div>
-            <div class="code" id="codeblock">
-<div class="line"><span class="c">// profile.js — jangan lupa ganti data di bawah dengan data kamu</span></div>
-<div class="line"><span class="k">import</span> { skills, focus } <span class="k">from</span> <span class="s">'./stack.js'</span><span class="punct">;</span></div>
-<div class="line">&nbsp;</div>
-<div class="line"><span class="k">export</span> <span class="k">class</span> <span class="fn">Creator</span> {</div>
-<div class="line">&nbsp;&nbsp;<span class="fn">constructor</span>() {</div>
-<div class="line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">this</span>.<span class="p">name</span> <span class="punct">=</span> <span class="s">"Jakha Rama Phosa"</span><span class="punct">;</span></div>
-<div class="line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">this</span>.<span class="p">role</span> <span class="punct">=</span> <span class="s">"Design Graphics"</span><span class="punct">;</span></div>
-<div class="line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">this</span>.<span class="p">base</span> <span class="punct">=</span> <span class="s">"Kupang, Indonesia"</span><span class="punct">;</span></div>
-<div class="line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">this</span>.<span class="p">experience</span> <span class="punct">=</span> <span class="n">5</span><span class="punct">;</span> <span class="c">// tahun</span></div>
-<div class="line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">this</span>.<span class="p">avatar</span> <span class="punct">=</span> <span class="avatar-link" data-tab="photo">./photo.jpg ↗</span><span class="punct">;</span></div>
-<div class="line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">this</span>.<span class="p">skills</span> <span class="punct">=</span> [</div>
-<div class="line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="s">"Figma"</span><span class="punct">,</span> <span class="s">"Adobe Photoshop"</span><span class="punct">,</span> <span class="s">"Illustrator"</span><span class="punct">,</span></div>
-<div class="line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="s">"After Effects"</span><span class="punct">,</span> <span class="s">"Procreate"</span><span class="punct">,</span> <span class="s">"Blender"</span></div>
-<div class="line">&nbsp;&nbsp;&nbsp;&nbsp;];</div>
-<div class="line">&nbsp;&nbsp;}</div>
-<div class="line">&nbsp;</div>
-<div class="line">&nbsp;&nbsp;<span class="fn">sayHi</span>() {</div>
-<div class="line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">return</span> <span class="s">`Halo, saya ${</span><span class="k">this</span>.<span class="p">name</span><span class="s">}. Mari berkolaborasi.`</span><span class="punct">;</span></div>
-<div class="line">&nbsp;&nbsp;}</div>
-<div class="line">}</div>
-<div class="line">&nbsp;</div>
-<div class="line"><span class="k">const</span> me <span class="punct">=</span> <span class="k">new</span> <span class="fn">Creator</span>()<span class="punct">;</span></div>
-<div class="line"><span class="fn">console</span>.<span class="p">log</span>(me.<span class="fn">sayHi</span>())<span class="punct">;</span><span class="cur"></span></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- PANE: about.md -->
-        <div class="pane md-pane" id="pane-about">
-          <h1><span class="h">#</span> Tentang Saya</h1>
-          <div class="role">Design Graphics · Kupang, Indonesia</div>
-          <p>Saya <b>Jakha Rama Phosa</b>, graphic designer yang fokus pada identitas visual, ilustrasi, dan motion design. Suka menerjemahkan ide yang abstrak jadi visual yang jelas dan enak dilihat — dari logo, layout, sampai animasi singkat.</p>
-          <p>Lima tahun terakhir mengerjakan proyek identitas brand, ilustrasi editorial, dan konten motion untuk klien lokal maupun personal. Senang berkolaborasi dengan tim kecil yang punya selera visual yang jelas.</p>
-          <p><b>Fokus saat ini:</b></p>
-          <div class="tag-row">
-            <div class="tag">Brand Identity</div>
-            <div class="tag">Ilustrasi Digital</div>
-            <div class="tag">Motion Design</div>
-            <div class="tag">Layout & Editorial</div>
-          </div>
-        </div>
-
-        <!-- PANE: portfolio.html — rendered showcase (free-ratio images) -->
-        <div class="pane portfolio-pane" id="pane-portfolio">
-          <div class="browser-chrome">
-            <div class="dots"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
-            <div class="url-bar"><span class="lock">🔒</span> localhost:5173/portfolio</div>
-          </div>
-          <div class="portfolio-body">
-            <div class="portfolio-head"><span class="k">RENDER</span> ./portfolio.html <span style="color:var(--text-dimmer)">// tiap karya tampil dengan rasio gambar aslinya</span></div>
-            <div class="p-grid" id="portfolioGrid"></div>
-          </div>
-        </div>
-
-        <!-- PANE: photo.jpg (single image preview, auto ratio) -->
-        <div class="pane img-pane" id="pane-photo">
-          <div class="img-frame">
-            <img id="mainPhoto" src="https://picsum.photos/seed/jakhaphoto/700/900" alt="Foto profil">
-          </div>
-          <div class="img-info">
-            <span>ukuran: <b id="dimText">memuat…</b></span>
-            <span>rasio: <b id="ratioText">memuat…</b></span>
-            <span>mode: <b>auto-fit lebar</b></span>
-          </div>
-        </div>
-
-        <!-- PANE: steam.api -->
-        <div class="pane steam-pane" id="pane-steam">
-          <div class="req-row">
-            <span class="verb">GET</span>
-            <span>/ISteamUser/GetPlayerSummaries/v2/?key=•••&amp;steamids=7656119xxxxxxxxx</span>
-            <span class="status-chip" id="steamStatusChip">loading…</span>
-          </div>
-          <div class="steam-note">
-            <b>Catatan:</b> data di bawah ini contoh (demo), bukan koneksi langsung ke akun Steam asli. Steam Web API butuh API key rahasia dan tidak mendukung CORS dari browser — jadi panggilannya harus lewat backend/proxy milikmu sendiri (mis. endpoint <code>/api/steam</code> di server), baru hasilnya dikirim ke halaman ini. Ganti fungsi <code>fetchSteamProfile()</code> di kode bawah dengan <code>fetch('/api/steam')</code> ke server-mu untuk data live.
-          </div>
-          <div class="steam-card" id="steamCard">
-            <div class="steam-head">
-              <div class="skeleton" style="width:64px;height:64px;border-radius:8px;"></div>
-              <div style="flex:1">
-                <div class="skeleton" style="width:60%;"></div>
-                <div class="skeleton" style="width:40%;"></div>
-              </div>
-            </div>
-            <div class="steam-body">
-              <div class="skeleton" style="width:100%;"></div>
-              <div class="skeleton" style="width:100%;"></div>
-              <div class="skeleton" style="width:80%;"></div>
-            </div>
-          </div>
-        </div>
-
+<section id="tentang" class="reg-host">
+  <div class="reg tl" aria-hidden="true"></div>
+  <div class="reg br" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="section-num">01 — Tentang</span>
+      <h2 class="section-title">Empat Layer, Satu Karya</h2>
+    </div>
+    <div class="layers reveal">
+      <div class="layer layer-design">
+        <span class="layer-tag">LAYER · DESAIN</span>
+        <h3>Visual</h3>
+        <p>Menerjemahkan ide jadi bentuk, warna, dan tata letak yang enak dilihat dan gampang dimengerti. Fokus pada identitas visual, ilustrasi, dan aset siap pakai.</p>
+        <ul class="layer-list">
+          <li><span>Adobe Illustrator</span><span class="v">vector · branding</span></li>
+          <li><span>Adobe Photoshop</span><span class="v">retouch · layout</span></li>
+        </ul>
       </div>
-
-      <!-- TERMINAL -->
-      <div class="terminal">
-        <div class="term-head"><span>TERMINAL</span><span>bash</span></div>
-        <div class="term-line"><span class="prompt">jakha@portfolio</span> <span class="path2">~</span> $ <span id="typed"></span><span id="term-cursor"></span></div>
-        <div class="term-out" id="termOut"></div>
+      <div class="layer layer-code">
+        <span class="layer-tag">LAYER · KODE</span>
+        <h3>Sistem</h3>
+        <p>Mengubah desain jadi produk yang benar-benar berjalan di browser dan server. Fokus pada struktur, performa, dan hal-hal yang bekerja di balik layar.</p>
+        <ul class="layer-list">
+          <li><span>Node.js</span><span class="v">backend · API</span></li>
+          <li><span>HTML</span><span class="v">struktur web</span></li>
+          <li><span>Python</span><span class="v">automation · logic</span></li>
+        </ul>
       </div>
-
-      <!-- STATUS BAR -->
-      <div class="statusbar">
-        <div class="grp">
-          <span>⎇ main</span>
-          <span id="statusFile">profile.js</span>
-          <span>UTF-8</span>
+      <div class="layer layer-music">
+        <span class="layer-tag">LAYER · MUSIK</span>
+        <h3>Ritme</h3>
+        <p>Musik selalu jadi teman kerja — dari cari referensi visual sampai nemenin sesi ngoding sampai malam. Kadang jadi sumber mood dan ide juga.</p>
+        <div class="music-player" id="musicPlayer">
+          <button class="mp-toggle" id="mpToggle" aria-label="Putar musik">▶</button>
+          <div class="mp-info">
+            <div class="mp-title" id="mpTitle">Nama Lagu — Nama Artis</div>
+            <div class="mp-bars" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+          </div>
         </div>
-        <div class="grp">
-          <span>Ln 24, Col 32</span>
-          <span>JavaScript</span>
-          <span id="clock"></span>
+        <audio id="bgAudio" preload="none">
+          <source src="musik-kamu.mp3" type="audio/mpeg">
+        </audio>
+        <p class="player-note">* Taruh file musik-kamu.mp3 di folder yang sama dengan file ini, lalu ganti judul lagunya di atas.</p>
+        <ul class="layer-list">
+          <li><span>Genre favorit</span><span class="v">isi di sini</span></li>
+        </ul>
+      </div>
+      <div class="layer layer-game">
+        <span class="layer-tag">LAYER · GAME</span>
+        <h3>Replay</h3>
+        <p>Cara istirahat sekaligus isi ulang ide — banyak referensi visual dan UI/UX yang justru ditemukan dari game yang dimainkan.</p>
+        <ul class="layer-list">
+          <li><span>Platform</span><span class="v">isi di sini</span></li>
+          <li><span>Game favorit</span><span class="v">isi di sini</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skill" class="reg-host">
+  <div class="reg tl" aria-hidden="true"></div>
+  <div class="reg tr" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="section-num">02 — Skill</span>
+      <h2 class="section-title">Tools yang Dipakai</h2>
+    </div>
+    <div class="skill-groups reveal">
+      <div>
+        <span class="skill-block-label">Desain Grafis</span>
+        <div class="chip-row">
+          <span class="chip design"><span class="chip-swatch" style="background:var(--magenta)"></span>Illustrator</span>
+          <span class="chip design"><span class="chip-swatch" style="background:var(--cyan)"></span>Photoshop</span>
+        </div>
+      </div>
+      <div>
+        <span class="skill-block-label">Web Development</span>
+        <div class="chip-row">
+          <span class="chip dev">&lt;Node.js/&gt;</span>
+          <span class="chip dev">&lt;HTML/&gt;</span>
+          <span class="chip dev">&lt;Python/&gt;</span>
         </div>
       </div>
     </div>
   </div>
-</div>
+</section>
+
+<section id="karya" class="reg-host">
+  <div class="reg bl" aria-hidden="true"></div>
+  <div class="reg tr" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="section-num">03 — Karya</span>
+      <h2 class="section-title">Proyek Terpilih</h2>
+    </div>
+    <div class="proj-grid reveal">
+      <div class="proj-card">
+        <div class="proj-thumb" style="background:linear-gradient(135deg, rgba(232,54,143,.25), rgba(0,180,216,.12));">
+          <div class="cross"></div>
+        </div>
+        <div class="proj-body">
+          <h3 class="proj-title">Identitas Brand Kopi Lokal</h3>
+          <p class="proj-desc">Logo, palet warna, dan panduan visual untuk brand kopi — dari konsep di Illustrator sampai file siap cetak.</p>
+          <div class="proj-tags"><span class="tag-mini d">Illustrator</span><span class="tag-mini d">Branding</span></div>
+        </div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-thumb" style="background:linear-gradient(135deg, rgba(0,180,216,.25), rgba(18,19,22,.4));">
+          <div class="cross"></div>
+        </div>
+        <div class="proj-body">
+          <h3 class="proj-title">Landing Page Toko Online</h3>
+          <p class="proj-desc">Website statis dengan HTML murni, dioptimasi untuk kecepatan dan tampil rapi di semua ukuran layar.</p>
+          <div class="proj-tags"><span class="tag-mini c">HTML</span><span class="tag-mini c">Responsive</span></div>
+        </div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-thumb" style="background:linear-gradient(135deg, rgba(245,196,0,.2), rgba(232,54,143,.15));">
+          <div class="cross"></div>
+        </div>
+        <div class="proj-body">
+          <h3 class="proj-title">Poster & Aset Sosial Media</h3>
+          <p class="proj-desc">Rangkaian poster promosi dan konten sosial media, diedit dengan Photoshop untuk hasil siap posting.</p>
+          <div class="proj-tags"><span class="tag-mini d">Photoshop</span><span class="tag-mini d">Konten</span></div>
+        </div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-thumb" style="background:linear-gradient(135deg, rgba(18,19,22,.5), rgba(0,180,216,.2));">
+          <div class="cross"></div>
+        </div>
+        <div class="proj-body">
+          <h3 class="proj-title">Skrip Otomatisasi Data</h3>
+          <p class="proj-desc">Program Python kecil untuk membersihkan dan merapikan data secara otomatis, menghemat waktu kerja manual.</p>
+          <div class="proj-tags"><span class="tag-mini c">Python</span><span class="tag-mini c">Automation</span></div>
+        </div>
+      </div>
+    </div>
+    <p class="proj-note reveal">* Ganti gambar, judul, dan deskripsi di atas dengan proyek asli kamu.</p>
+  </div>
+</section>
+
+<section id="game" class="reg-host">
+  <div class="reg tl" aria-hidden="true"></div>
+  <div class="reg br" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="section-num">04 — Game</span>
+      <h2 class="section-title">Status Steam</h2>
+    </div>
+    <div class="steam-card reveal">
+      <span class="steam-label"><span class="live-dot"></span>STEAM · LIVE STATUS</span>
+      <div class="steam-embed">
+        <iframe src="https://gamer2810.github.io/steam-miniprofile/?accountId=76561199175575686"
+                title="Steam mini profile Jakha Rama Phosa"
+                scrolling="no" loading="lazy" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="kontak" class="reg-host">
+  <div class="reg tl" aria-hidden="true"></div>
+  <div class="reg br" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="contact reveal">
+      <h2>Mari<br>Berkolaborasi</h2>
+      <div class="contact-term">
+        <div><span class="p">$</span> whoami</div>
+        <div>Jakha Rama Phosa</div>
+        <div><span class="p">$</span> contact <span class="m">--email</span> phosajakha@gmail.com</div>
+        <div><span class="p">$</span> contact <span class="m">--ig</span> @phosajakha</div>
+      </div>
+      <div class="contact-actions">
+        <a href="mailto:phosajakha@gmail.com" class="btn btn-dark">Kirim Email</a>
+        <a href="https://instagram.com/phosajakha" target="_blank" rel="noopener" class="btn btn-outline-dark">@phosajakha</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2026 Jakha Rama Phosa — Graphic Designer · Web Developer · Music Enthusiast · Gamer
+</footer>
 
 <script>
-  // ---- Tab switching (sidebar + tabs both drive the same panes) ----
-  const tabButtons = document.querySelectorAll('.tab, .tree-item[data-tab], .avatar-link[data-tab]');
-  const panes = {
-    code: document.getElementById('pane-code'),
-    about: document.getElementById('pane-about'),
-    portfolio: document.getElementById('pane-portfolio'),
-    photo: document.getElementById('pane-photo'),
-    steam: document.getElementById('pane-steam'),
-  };
-  const crumbLabel = {code:'profile.js',about:'about.md',portfolio:'portfolio.html',photo:'photo.jpg',steam:'steam.api'};
-  const statusFile = document.getElementById('statusFile');
-  const crumb = document.getElementById('crumb');
-
-  function activate(tabKey){
-    Object.keys(panes).forEach(k => panes[k].classList.toggle('active', k===tabKey));
-    document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab===tabKey));
-    document.querySelectorAll('.sidebar .tree-item[data-tab]').forEach(t => t.classList.toggle('active', t.dataset.tab===tabKey));
-    statusFile.textContent = crumbLabel[tabKey];
-    crumb.textContent = crumbLabel[tabKey];
-  }
-  tabButtons.forEach(btn=>{
-    btn.addEventListener('click', (e)=>{
-      if(btn.tagName==='A') return; // biarkan link sosial berjalan normal
-      e.preventDefault();
-      activate(btn.dataset.tab);
-    });
+  // mobile nav toggle
+  const navtoggle = document.getElementById('navtoggle');
+  const navlinks = document.getElementById('navlinks');
+  navtoggle.addEventListener('click', () => {
+    const open = navlinks.classList.toggle('open');
+    navtoggle.setAttribute('aria-expanded', open);
   });
+  navlinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    navlinks.classList.remove('open');
+    navtoggle.setAttribute('aria-expanded', false);
+  }));
 
-  // ---- Line numbers ----
-  const codeLines = document.querySelectorAll('#codeblock .line').length;
-  const gutter = document.getElementById('gutter');
-  for(let i=1;i<=codeLines;i++){
-    const d = document.createElement('div');
-    d.textContent = i;
-    gutter.appendChild(d);
+  // scroll reveal
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduceMotion) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in-view'); });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  } else {
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('in-view'));
   }
 
-  function gcd(a,b){return b===0?a:gcd(b,a%b);}
+  // rotating role terminal text
+  if (!reduceMotion) {
+    const roles = ['membuka Illustrator', 'meretouch di Photoshop', 'menulis server Node.js', 'menyusun struktur HTML', 'menjalankan skrip Python', 'mendengarkan playlist', 'main game bareng teman'];
+    const el = document.getElementById('roleText');
+    let i = 0;
+    setInterval(() => {
+      i = (i + 1) % roles.length;
+      el.style.opacity = 0;
+      setTimeout(() => { el.textContent = roles[i]; el.style.opacity = 1; }, 220);
+    }, 2400);
+    el.style.transition = 'opacity .2s ease';
+  }
 
-  // ---- Portfolio gallery: karya desain, rasio bebas otomatis ----
-  const works = [
-    {name:'Brand Identity — Kopi Kupang', cat:'Branding', desc:'Logo, palet warna, dan sistem kemasan untuk kedai kopi lokal.', img:'https://picsum.photos/seed/pf1/800/560'},
-    {name:'Poster Series — Festival Nusa', cat:'Ilustrasi', desc:'Seri poster promosi untuk festival budaya tahunan.', img:'https://picsum.photos/seed/pf2/620/860'},
-    {name:'Motion Reel 2025', cat:'Motion Design', desc:'Kompilasi animasi pendek untuk konten sosial media.', img:'https://picsum.photos/seed/pf3/800/460'},
-    {name:'Editorial Layout — Zine Timor', cat:'Layout', desc:'Tata letak majalah independen edisi khusus budaya.', img:'https://picsum.photos/seed/pf4/650/860'},
-    {name:'Illustration Set — Fauna NTT', cat:'Ilustrasi', desc:'Kumpulan ilustrasi flora & fauna khas Nusa Tenggara.', img:'https://picsum.photos/seed/pf5/700/700'},
-    {name:'Packaging — Tenun Ikat', cat:'Packaging', desc:'Desain kemasan produk tenun untuk pasar retail modern.', img:'https://picsum.photos/seed/pf6/780/540'},
-  ];
-  const pGrid = document.getElementById('portfolioGrid');
-  works.forEach(w=>{
-    const el = document.createElement('div');
-    el.className='p-card';
-    el.innerHTML = `
-      <img src="${w.img}" alt="${w.name}" loading="lazy">
-      <div class="p-meta">
-        <div class="p-cat">${w.cat}</div>
-        <div class="p-name">${w.name}</div>
-        <div class="p-desc">${w.desc}</div>
-      </div>`;
-    pGrid.appendChild(el);
-  });
-
-  // ---- Photo preview auto-ratio info ----
-  const mainPhoto = document.getElementById('mainPhoto');
-  const dimText = document.getElementById('dimText');
-  const ratioText = document.getElementById('ratioText');
-  mainPhoto.addEventListener('load', ()=>{
-    const w = mainPhoto.naturalWidth, h = mainPhoto.naturalHeight;
-    const g = gcd(w,h);
-    dimText.textContent = `${w} × ${h}px`;
-    ratioText.textContent = `${w/g}:${h/g}`;
-  });
-
-  // ---- Terminal typing animation ----
-  const typedEl = document.getElementById('typed');
-  const outEl = document.getElementById('termOut');
-  const cmd = 'whoami --skills --status';
-  const output = 'Jakha Rama Phosa · Graphic Designer\nStatus: open untuk kolaborasi\nTools: Figma · Photoshop · Illustrator · After Effects';
-  let i=0;
-  function typeCmd(){
-    if(i<=cmd.length){
-      typedEl.textContent = cmd.slice(0,i);
-      i++;
-      setTimeout(typeCmd, 55);
+  // music player controls
+  const bgAudio = document.getElementById('bgAudio');
+  const mpToggle = document.getElementById('mpToggle');
+  const musicPlayer = document.getElementById('musicPlayer');
+  mpToggle.addEventListener('click', () => {
+    if (bgAudio.paused) {
+      bgAudio.play().catch(() => {
+        mpToggle.textContent = '▶';
+        musicPlayer.classList.remove('playing');
+        alert('Belum ada file musik. Taruh musik-kamu.mp3 di folder yang sama dengan file ini.');
+      });
+      mpToggle.textContent = '❚❚';
+      musicPlayer.classList.add('playing');
     } else {
-      setTimeout(()=>{ outEl.textContent = output; }, 300);
+      bgAudio.pause();
+      mpToggle.textContent = '▶';
+      musicPlayer.classList.remove('playing');
     }
-  }
-  typeCmd();
-
-  // ---- Clock ----
-  function tick(){
-    const d = new Date();
-    document.getElementById('clock').textContent = d.toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'});
-  }
-  tick(); setInterval(tick,1000*30);
-
-  // ---- Steam profile panel ----
-  // Demo/mock fetcher. Steam Web API tidak bisa dipanggil langsung dari browser:
-  // 1) API key harus rahasia (tidak boleh ada di kode sisi klien seperti file ini)
-  // 2) Endpoint Steam tidak mengirim header CORS untuk request dari domain lain
-  // Solusi nyata: buat endpoint di server-mu, contoh (Node/Express):
-  //
-  //   app.get('/api/steam', async (req, res) => {
-  //     const r = await fetch(
-  //       `https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2/` +
-  //       `?key=${process.env.STEAM_API_KEY}&steamids=${process.env.STEAM_ID}`
-  //     );
-  //     const data = await r.json();
-  //     res.json(data);
-  //   });
-  //
-  // lalu di halaman ini tinggal ganti fetchSteamProfile() dengan:
-  //   const res = await fetch('/api/steam'); const data = await res.json();
-  function fetchSteamProfile(){
-    return new Promise(resolve=>{
-      setTimeout(()=>{
-        resolve({
-          name:'jakharama',
-          avatar:'https://picsum.photos/seed/steamava/120/120',
-          status:'Online',
-          playing:'Sedang main — Stardew Valley',
-          level:24,
-          games:[
-            {name:'Stardew Valley', hours:128, max:200},
-            {name:'Cyberpunk 2077', hours:64, max:200},
-            {name:'Portal 2', hours:12, max:200},
-            {name:'Hollow Knight', hours:41, max:200},
-          ]
-        });
-      }, 900);
-    });
-  }
-
-  fetchSteamProfile().then(data=>{
-    document.getElementById('steamStatusChip').textContent = '200 OK';
-    const card = document.getElementById('steamCard');
-    const maxHrs = Math.max(...data.games.map(g=>g.hours));
-    card.innerHTML = `
-      <div class="steam-head">
-        <div class="steam-ava"><img src="${data.avatar}" alt="${data.name}"></div>
-        <div class="steam-id">
-          <div class="sname">${data.name}</div>
-          <div class="sstat"><span class="d"></span>${data.status}</div>
-          <div class="sgame">${data.playing}</div>
-          <div class="slevel">LVL ${data.level}</div>
-        </div>
-      </div>
-      <div class="steam-body">
-        <div class="sect-label">RECENTLY PLAYED</div>
-        ${data.games.map(g=>`
-          <div class="game-row">
-            <span class="gname">${g.name}</span>
-            <div class="gbar"><i style="width:${Math.round((g.hours/maxHrs)*100)}%"></i></div>
-            <span class="ghrs">${g.hours} jam</span>
-          </div>`).join('')}
-      </div>`;
+  });
+  bgAudio.addEventListener('ended', () => {
+    mpToggle.textContent = '▶';
+    musicPlayer.classList.remove('playing');
   });
 </script>
 
