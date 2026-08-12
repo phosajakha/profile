@@ -3,915 +3,821 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jakha Rama Phosa — Graphic Designer & Web Developer</title>
+<title>Jakha Rama Phosa — profile.js</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
   :root{
-    --ink:#121316;
-    --ink-soft:#1b1d21;
-    --paper:#f7f6f2;
-    --paper-dim:#eceae3;
-    --cyan:#00b4d8;
-    --magenta:#e8368f;
-    --yellow:#f5c400;
-    --graphite:#8a8d93;
-    --line-dark:rgba(247,246,242,.14);
-    --line-paper:#d8d5cc;
-    --display: 'Big Shoulders Display', sans-serif;
-    --mono: 'JetBrains Mono', monospace;
-    --body: 'Inter', sans-serif;
-    --maxw: 1180px;
+    --bg-void:#0a0b10;
+    --bg-panel:#12131c;
+    --bg-sidebar:#0e0f16;
+    --bg-titlebar:#181926;
+    --border:#22232f;
+    --text:#d7d9ea;
+    --text-dim:#565973;
+    --text-dimmer:#3a3c50;
+    --key:#c792ea;
+    --fn:#7ad0ff;
+    --str:#9ed072;
+    --prop:#ff9ecf;
+    --num:#ffb86c;
+    --comment:#4b4e63;
+    --cursor:#7ad0ff;
+    --accent:#7ad0ff;
+    --danger:#ff6b81;
+    --warn:#ffb86c;
   }
-
   *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
+  html,body{margin:0;padding:0;}
   body{
-    margin:0;
-    background:var(--ink);
-    color:var(--paper);
-    font-family:var(--body);
+    background:var(--bg-void);
+    color:var(--text);
+    font-family:'JetBrains Mono',monospace;
+    font-size:14px;
+    line-height:1.7;
     -webkit-font-smoothing:antialiased;
-    overflow-x:hidden;
-  }
-  img,svg{display:block;max-width:100%;}
-  a{color:inherit;}
-  ::selection{background:var(--cyan);color:var(--ink);}
-
-  :focus-visible{
-    outline:2px solid var(--cyan);
-    outline-offset:3px;
-    border-radius:2px;
-  }
-
-  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px;}
-
-  /* ---------- registration marks (signature device) ---------- */
-  .reg{position:absolute;width:22px;height:22px;pointer-events:none;opacity:.55;}
-  .reg::before,.reg::after{content:"";position:absolute;background:currentColor;}
-  .reg::before{left:50%;top:0;width:1px;height:100%;transform:translateX(-50%);}
-  .reg::after{top:50%;left:0;height:1px;width:100%;transform:translateY(-50%);}
-  .reg-label{
-    position:absolute;font-family:var(--mono);font-size:9px;letter-spacing:.05em;
-    opacity:.45;white-space:nowrap;
-  }
-  .reg.tl{top:22px;left:14px;color:var(--cyan);}
-  .reg.tr{top:22px;right:14px;color:var(--magenta);}
-  .reg.bl{bottom:22px;left:14px;color:var(--magenta);}
-  .reg.br{bottom:22px;right:14px;color:var(--cyan);}
-  .reg-host{position:relative;}
-
-  /* ---------- nav ---------- */
-  header{
-    position:fixed;top:0;left:0;right:0;z-index:50;
-    background:rgba(18,19,22,.78);
-    backdrop-filter:blur(10px);
-    border-bottom:1px solid var(--line-dark);
-  }
-  .nav{
-    max-width:var(--maxw);margin:0 auto;padding:16px 28px;
-    display:flex;align-items:center;justify-content:space-between;
-  }
-  .logo{
-    font-family:var(--mono);font-weight:700;font-size:15px;letter-spacing:.02em;
-    display:flex;align-items:center;gap:8px;text-decoration:none;
-  }
-  .logo .dot{width:7px;height:7px;background:var(--cyan);border-radius:50%;}
-  .navlinks{display:flex;gap:32px;list-style:none;margin:0;padding:0;font-family:var(--mono);font-size:13px;}
-  .navlinks a{text-decoration:none;color:var(--graphite);transition:color .2s;position:relative;}
-  .navlinks a:hover{color:var(--paper);}
-  .navlinks a::before{content:"";}
-  .navtoggle{display:none;background:none;border:1px solid var(--line-dark);color:var(--paper);width:38px;height:38px;border-radius:6px;cursor:pointer;}
-  .navtoggle span{display:block;width:16px;height:1.5px;background:var(--paper);margin:3px auto;}
-
-  /* ---------- hero ---------- */
-  .hero{
     min-height:100vh;
-    display:flex;flex-direction:column;justify-content:center;
-    padding:140px 0 90px;
-    position:relative;
-    background:
-      radial-gradient(ellipse 60% 50% at 80% 15%, rgba(232,54,143,.15), transparent 60%),
-      radial-gradient(ellipse 55% 45% at 10% 85%, rgba(0,180,216,.15), transparent 60%);
   }
-  .hero-grid-bg{
-    position:absolute;inset:0;z-index:0;
-    background-image:
-      linear-gradient(var(--line-dark) 1px, transparent 1px),
-      linear-gradient(90deg, var(--line-dark) 1px, transparent 1px);
-    background-size:64px 64px;
-    mask-image:linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
-    opacity:.5;
+  ::selection{background:#7ad0ff33;color:#fff;}
+  a{color:inherit;text-decoration:none;}
+  ::-webkit-scrollbar{width:10px;height:10px;}
+  ::-webkit-scrollbar-track{background:var(--bg-panel);}
+  ::-webkit-scrollbar-thumb{background:#2a2c3d;border-radius:6px;}
+  ::-webkit-scrollbar-thumb:hover{background:#3a3c50;}
+
+  :focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:3px;}
+
+  .app{
+    max-width:1180px;
+    margin:28px auto;
+    border:1px solid var(--border);
+    border-radius:10px;
+    overflow:hidden;
+    box-shadow:0 40px 90px -30px #000000aa, 0 0 0 1px #ffffff05;
+    background:var(--bg-panel);
   }
-  .hero-inner{
-    position:relative;z-index:1;
-    display:flex;gap:56px;align-items:center;justify-content:space-between;flex-wrap:wrap-reverse;
+
+  /* Title bar */
+  .titlebar{
+    background:var(--bg-titlebar);
+    border-bottom:1px solid var(--border);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:10px 14px;
   }
-  .hero-text{flex:1 1 480px;min-width:280px;}
-  .hero-photo{flex:0 0 240px;}
-  .photo-frame{
-    position:relative;width:240px;height:240px;border-radius:18px;overflow:hidden;
-    border:1px solid var(--line-dark);
-    background:linear-gradient(135deg, rgba(232,54,143,.3), rgba(0,180,216,.25));
+  .dots{display:flex;gap:7px;}
+  .dot{width:11px;height:11px;border-radius:50%;}
+  .dot.r{background:#ff5f57;}
+  .dot.y{background:#febc2e;}
+  .dot.g{background:#28c840;}
+  .titlebar .path{
+    margin:0 auto;
+    color:var(--text-dim);
+    font-size:12px;
+    display:flex;
+    align-items:center;
+    gap:6px;
   }
-  .photo-frame img{width:100%;height:100%;object-fit:cover;display:block;}
-  .avatar-fallback{
-    position:absolute;inset:0;display:none;align-items:center;justify-content:center;
-    font-family:var(--display);font-size:64px;font-weight:800;color:var(--paper);
-    background:linear-gradient(135deg, rgba(232,54,143,.4), rgba(0,180,216,.35));
-    letter-spacing:.02em;
+  .titlebar .path b{color:var(--text);font-weight:500;}
+
+  .body-wrap{display:flex;min-height:560px;}
+
+  /* Sidebar */
+  .sidebar{
+    width:220px;
+    flex-shrink:0;
+    background:var(--bg-sidebar);
+    border-right:1px solid var(--border);
+    padding:16px 0;
+    overflow-y:auto;
   }
-  .reg-sm{width:14px;height:14px;}
-  .reg-sm.tl{top:12px;left:12px;}
-  .reg-sm.br{bottom:12px;right:12px;}
-  .photo-caption{
-    font-family:var(--mono);font-size:11px;color:var(--graphite);margin-top:12px;text-align:center;
+  .sidebar .label{
+    color:var(--text-dimmer);
+    font-size:10.5px;
+    letter-spacing:.12em;
+    padding:4px 18px;
+    margin-top:10px;
   }
-  @media (max-width:680px){
-    .hero-photo{flex:0 0 180px;}
-    .photo-frame{width:180px;height:180px;margin:0 auto;}
+  .sidebar .label:first-child{margin-top:0;}
+  .tree-item{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:5px 18px 5px 26px;
+    font-size:12.5px;
+    color:var(--text-dim);
+    cursor:pointer;
+    border-left:2px solid transparent;
+    white-space:nowrap;
+    background:none;
+    border-top:none;border-right:none;border-bottom:none;
+    width:100%;text-align:left;
+    font-family:inherit;
   }
-  .eyebrow{
-    font-family:var(--mono);font-size:13px;color:var(--cyan);
-    display:flex;align-items:center;gap:10px;margin-bottom:22px;letter-spacing:.03em;
+  .tree-item:hover{background:#ffffff06;color:var(--text);}
+  .tree-item.active{
+    background:#7ad0ff12;
+    color:var(--accent);
+    border-left:2px solid var(--accent);
   }
-  .eyebrow .line{width:34px;height:1px;background:var(--cyan);opacity:.6;}
-  h1.headline{
-    font-family:var(--display);
-    font-weight:800;
-    font-size:clamp(52px, 10vw, 128px);
-    line-height:.86;
-    letter-spacing:-.01em;
-    text-transform:uppercase;
-    margin:0 0 26px;
+  .tree-item .ico{opacity:.75;font-size:11px;width:14px;text-align:center;flex-shrink:0;}
+  .sidebar .status-row{
+    margin-top:22px;
+    padding:12px 18px 0 18px;
+    border-top:1px solid var(--border);
+    color:var(--text-dimmer);
+    font-size:10.5px;
+    line-height:1.9;
   }
-  h1.headline .accent{
-    background:linear-gradient(100deg, var(--cyan), var(--magenta));
-    -webkit-background-clip:text;background-clip:text;color:transparent;
+  .sidebar .status-row .dotstatus{
+    width:6px;height:6px;border-radius:50%;
+    background:var(--str);display:inline-block;margin-right:6px;
+    box-shadow:0 0 6px var(--str);
   }
-  .identity-badges{
-    display:flex;flex-wrap:wrap;gap:10px;margin-bottom:26px;
+
+  /* Main editor area */
+  .main{flex:1;display:flex;flex-direction:column;min-width:0;}
+  .tabs{
+    display:flex;
+    background:var(--bg-sidebar);
+    border-bottom:1px solid var(--border);
+    overflow-x:auto;
   }
-  .id-badge{
-    font-family:var(--mono);font-size:12px;letter-spacing:.03em;
-    padding:7px 14px;border-radius:999px;border:1px solid var(--line-dark);
-    color:#c9c8c4;
+  .tab{
+    padding:10px 10px 10px 16px;
+    font-size:12.5px;
+    color:var(--text-dim);
+    border-right:1px solid var(--border);
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:7px;
+    white-space:nowrap;
+    background:var(--bg-sidebar);
   }
-  .id-badge.c1{border-color:rgba(232,54,143,.4);color:var(--magenta);}
-  .id-badge.c2{border-color:rgba(0,180,216,.4);color:var(--cyan);}
-  .id-badge.c3{border-color:rgba(245,196,0,.4);color:var(--yellow);}
-  .id-badge.c4{border-color:rgba(247,246,242,.3);color:var(--paper);}
-  .hero-sub{
-    max-width:560px;font-size:17px;line-height:1.65;color:#c9c8c4;margin-bottom:34px;
+  .tab .ico{opacity:.8;}
+  .tab.active{
+    background:var(--bg-panel);
+    color:var(--text);
+    box-shadow:inset 0 -2px 0 var(--accent);
   }
-  .terminal-line{
-    font-family:var(--mono);font-size:15px;color:var(--paper);
-    background:var(--ink-soft);border:1px solid var(--line-dark);
-    display:inline-flex;align-items:center;gap:10px;
-    padding:12px 18px;border-radius:8px;margin-bottom:40px;
+  .tab .close-x{
+    opacity:.5;padding:2px 4px;border-radius:3px;font-size:11px;
   }
-  .terminal-line .prompt{color:var(--magenta);}
-  .terminal-line .cursor{
-    display:inline-block;width:8px;height:16px;background:var(--cyan);
-    animation:blink 1s step-end infinite;
+  .tab .close-x:hover{opacity:1;background:#ffffff10;}
+
+  .panes{position:relative;flex:1;display:flex;}
+  .pane{display:none;width:100%;}
+  .pane.active{display:flex;}
+
+  /* Code pane */
+  .code-pane{width:100%;}
+  .code-scroll{
+    display:flex;
+    width:100%;
+    max-height:640px;
+    overflow:auto;
+    padding:18px 0;
+  }
+  .gutter{
+    padding:0 14px 0 20px;
+    text-align:right;
+    color:var(--text-dimmer);
+    user-select:none;
+    font-size:13px;
+  }
+  .gutter div{height:26px;}
+  .code{
+    padding-right:24px;
+    font-size:13px;
+    white-space:pre;
+    flex:1;
+  }
+  .code div.line{height:26px;display:flex;align-items:center;}
+  .code div.line:hover{background:#ffffff05;}
+  .k{color:var(--key);}
+  .fn{color:var(--fn);}
+  .s{color:var(--str);}
+  .p{color:var(--prop);}
+  .n{color:var(--num);}
+  .c{color:var(--comment);font-style:italic;}
+  .punct{color:var(--text-dim);}
+  .cur{
+    display:inline-block;width:7px;height:16px;background:var(--cursor);
+    margin-left:1px;vertical-align:middle;
+    animation:blink 1s steps(1) infinite;
   }
   @keyframes blink{50%{opacity:0;}}
-  .hero-cta{display:flex;gap:16px;flex-wrap:wrap;}
-  .btn{
-    font-family:var(--mono);font-size:13px;font-weight:500;
-    padding:14px 26px;border-radius:8px;text-decoration:none;
-    display:inline-flex;align-items:center;gap:8px;
-    transition:transform .18s ease, box-shadow .18s ease;
-    border:1px solid transparent;
-  }
-  .btn:hover{transform:translateY(-2px);}
-  .btn-primary{background:var(--paper);color:var(--ink);}
-  .btn-primary:hover{box-shadow:0 8px 24px rgba(247,246,242,.15);}
-  .btn-ghost{border-color:var(--line-dark);color:var(--paper);}
-  .btn-ghost:hover{border-color:var(--cyan);color:var(--cyan);}
-
-  /* ---------- section shell ---------- */
-  section{padding:120px 0;position:relative;}
-  .section-head{margin-bottom:56px;}
-  .section-num{
-    font-family:var(--mono);font-size:13px;color:var(--cyan);letter-spacing:.05em;margin-bottom:14px;display:block;
-  }
-  .section-title{
-    font-family:var(--display);font-weight:800;text-transform:uppercase;
-    font-size:clamp(34px,5vw,58px);line-height:.95;margin:0;letter-spacing:-.01em;
+  .avatar-link{
+    display:inline-flex;align-items:center;gap:6px;
+    color:var(--fn);
+    border-bottom:1px dashed var(--fn);
+    padding-bottom:1px;
+    cursor:pointer;background:none;border-top:none;border-left:none;border-right:none;
+    font-family:inherit;font-size:inherit;
   }
 
-  .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease, transform .7s ease;}
-  .reveal.in-view{opacity:1;transform:translateY(0);}
+  /* About markdown pane */
+  .md-pane{padding:32px 40px;max-width:760px;}
+  .md-pane h1{
+    font-size:22px;color:var(--text);margin:0 0 4px;
+  }
+  .md-pane h1 .h{color:var(--key);}
+  .md-pane .role{color:var(--fn);font-size:13px;margin-bottom:22px;}
+  .md-pane p{color:var(--text-dim);font-size:13px;line-height:1.9;margin:0 0 16px;}
+  .md-pane p b{color:var(--text);font-weight:600;}
+  .md-pane h2.sub{font-size:13px;color:var(--text);margin:26px 0 10px;font-weight:600;}
+  .tag-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;}
+  .tag{
+    font-size:11.5px;padding:4px 10px;border-radius:5px;
+    border:1px solid var(--border);color:var(--prop);background:#ff9ecf0d;
+  }
+  .tag.c-prop{color:var(--prop);border-color:#ff9ecf33;background:#ff9ecf0d;}
+  .tag.c-fn{color:var(--fn);border-color:#7ad0ff33;background:#7ad0ff0d;}
+  .tag.c-str{color:var(--str);border-color:#9ed07233;background:#9ed0720d;}
+  .tag.c-key{color:var(--key);border-color:#c792ea33;background:#c792ea0d;}
+  .tag.c-num{color:var(--num);border-color:#ffb86c33;background:#ffb86c0d;}
+  .tag.c-danger{color:var(--danger);border-color:#ff6b8133;background:#ff6b810d;}
 
-  /* ---------- about / layers ---------- */
-  .layers{
-    display:grid;grid-template-columns:1fr 1fr;gap:0;
-    border:1px solid var(--line-dark);border-radius:14px;overflow:hidden;
+  /* Projects / gallery pane (free ratio placeholders) */
+  .json-pane{padding:26px 30px;width:100%;overflow-y:auto;max-height:640px;}
+  .json-head{font-size:12px;color:var(--text-dim);margin-bottom:16px;}
+  .json-head .k{color:var(--key);}
+  .json-head .s{color:var(--str);}
+  .masonry{
+    column-count:3;
+    column-gap:16px;
   }
-  .layer{padding:48px 40px;position:relative;}
-  .layer-design{background:var(--paper);color:var(--ink);}
-  .layer-code{background:var(--ink-soft);color:var(--paper);}
-  .layer-music{background:#1c1a12;color:var(--paper);}
-  .layer-game{background:var(--paper-dim);color:var(--ink);}
-  .layer-tag{
-    font-family:var(--mono);font-size:12px;letter-spacing:.06em;
-    display:inline-block;padding:5px 10px;border-radius:5px;margin-bottom:20px;
-  }
-  .layer-design .layer-tag{background:rgba(232,54,143,.12);color:#c22a76;}
-  .layer-code .layer-tag{background:rgba(0,180,216,.14);color:var(--cyan);}
-  .layer-music .layer-tag{background:rgba(245,196,0,.14);color:var(--yellow);}
-  .layer-game .layer-tag{background:rgba(232,54,143,.12);color:#c22a76;}
-  .layer h3{
-    font-family:var(--display);font-size:32px;font-weight:800;text-transform:uppercase;margin:0 0 16px;
-  }
-  .layer p{font-size:15px;line-height:1.7;margin:0 0 20px;
-    color:inherit;opacity:.85;}
-  .layer-list{list-style:none;margin:0;padding:0;font-family:var(--mono);font-size:13.5px;}
-  .layer-list li{
-    padding:10px 0;border-top:1px solid;
-    display:flex;justify-content:space-between;gap:12px;
-  }
-  .layer-design .layer-list li{border-color:var(--line-paper);}
-  .layer-code .layer-list li{border-color:var(--line-dark);}
-  .layer-music .layer-list li{border-color:var(--line-dark);}
-  .layer-game .layer-list li{border-color:var(--line-paper);}
-  .layer-list li .v{opacity:.55;}
-
-  .spotify-embed{
-    width:100%;border-radius:12px;overflow:hidden;margin-bottom:14px;
-  }
-  .spotify-embed iframe{width:100%;height:152px;border:0;display:block;}
-
-  @media (max-width:900px){
-    .layers{grid-template-columns:1fr;}
-  }
-
-  /* ---------- skills ---------- */
-  .skill-groups{display:grid;grid-template-columns:1fr 1fr;gap:40px;}
-  .skill-block-label{
-    font-family:var(--mono);font-size:12px;color:var(--graphite);letter-spacing:.08em;margin-bottom:18px;
-    display:block;text-transform:uppercase;
-  }
-  .chip-row{display:flex;flex-wrap:wrap;gap:10px;}
-  .chip{
-    display:inline-flex;align-items:center;gap:8px;
-    font-family:var(--mono);font-size:13.5px;
-    padding:10px 16px;border-radius:999px;border:1px solid var(--line-dark);
-    transition:border-color .2s, transform .2s;
-  }
-  .chip:hover{transform:translateY(-2px);}
-  .chip-swatch{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
-  .chip.design:hover{border-color:var(--magenta);}
-  .chip.dev:hover{border-color:var(--cyan);}
-  .chip.dev{font-weight:500;}
-
-  @media (max-width:760px){
-    .skill-groups{grid-template-columns:1fr;gap:32px;}
-  }
-
-  /* ---------- projects ---------- */
-  .proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;}
-  .proj-card{
-    border:1px solid var(--line-dark);border-radius:14px;overflow:hidden;
-    background:var(--ink-soft);
-    transition:transform .25s ease, border-color .25s ease;
-  }
-  .proj-card:hover{transform:translateY(-6px);border-color:var(--cyan);}
-  .proj-thumb{
-    aspect-ratio:16/10;position:relative;
-    display:flex;align-items:center;justify-content:center;
+  @media (max-width:820px){.masonry{column-count:2;}}
+  @media (max-width:520px){.masonry{column-count:1;}}
+  .card{
+    break-inside:avoid;
+    margin-bottom:16px;
+    border:1px solid var(--border);
+    border-radius:8px;
     overflow:hidden;
+    background:#0d0e16;
   }
-  .proj-thumb::before{
-    content:"";position:absolute;inset:0;
+  .card img{display:block;width:100%;height:auto;}
+  .card .meta{padding:10px 12px;}
+  .card .meta .name{font-size:12px;color:var(--text);}
+  .card .meta .stack{font-size:10.5px;color:var(--text-dim);margin-top:3px;}
+  .card .meta .ratio{font-size:10px;color:var(--text-dimmer);margin-top:6px;}
+
+  /* free-ratio placeholder thumb (dipakai di projects/poster/video/foto) */
+  .ph-thumb{
+    position:relative;width:100%;display:flex;align-items:center;justify-content:center;
+    background-size:16px 16px;
     background-image:
-      linear-gradient(rgba(247,246,242,.08) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(247,246,242,.08) 1px, transparent 1px);
-    background-size:22px 22px;
+      linear-gradient(#ffffff08 1px, transparent 1px),
+      linear-gradient(90deg, #ffffff08 1px, transparent 1px);
   }
-  .proj-thumb .cross{
-    width:26px;height:26px;position:relative;opacity:.8;
+  .ph-thumb .cross{width:18px;height:18px;position:relative;opacity:.55;}
+  .ph-thumb .cross::before,.ph-thumb .cross::after{content:"";position:absolute;background:var(--text-dim);}
+  .ph-thumb .cross::before{left:50%;top:0;width:1px;height:100%;transform:translateX(-50%);}
+  .ph-thumb .cross::after{top:50%;left:0;height:1px;width:100%;transform:translateY(-50%);}
+  .ph-thumb .play{
+    width:36px;height:36px;border-radius:50%;border:1.5px solid var(--text);
+    display:flex;align-items:center;justify-content:center;opacity:.85;position:relative;
   }
-  .proj-thumb .cross::before,.proj-thumb .cross::after{
-    content:"";position:absolute;background:var(--paper);
-  }
-  .proj-thumb .cross::before{left:50%;top:0;width:1.5px;height:100%;transform:translateX(-50%);}
-  .proj-thumb .cross::after{top:50%;left:0;height:1.5px;width:100%;transform:translateY(-50%);}
-  .proj-body{padding:26px 26px 28px;}
-  .proj-title{
-    font-family:var(--display);font-size:26px;font-weight:800;text-transform:uppercase;margin:0 0 8px;
-  }
-  .proj-desc{font-size:14px;line-height:1.6;color:var(--graphite);margin:0 0 16px;}
-  .proj-tags{display:flex;gap:8px;flex-wrap:wrap;}
-  .tag-mini{
-    font-family:var(--mono);font-size:10.5px;letter-spacing:.03em;
-    padding:4px 9px;border-radius:5px;
-  }
-  .tag-mini.d{background:rgba(232,54,143,.14);color:#f06bab;}
-  .tag-mini.c{background:rgba(0,180,216,.14);color:var(--cyan);}
-
-  .proj-note{
-    font-family:var(--mono);font-size:12.5px;color:var(--graphite);margin-top:24px;
-  }
-
-  /* ---------- steam / game ---------- */
-  .steam-card{
-    border:1px solid var(--line-dark);border-radius:14px;background:var(--ink-soft);
-    padding:32px;display:flex;flex-direction:column;align-items:center;gap:16px;
-    max-width:420px;margin:0 auto;
-  }
-  .steam-label{
-    font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:var(--graphite);
-    display:flex;align-items:center;gap:8px;align-self:flex-start;
-  }
-  .steam-label .live-dot{
-    width:7px;height:7px;border-radius:50%;background:var(--cyan);
-    box-shadow:0 0 0 rgba(0,180,216,.5);animation:pulse 1.8s ease-in-out infinite;
-  }
-  @keyframes pulse{
-    0%{box-shadow:0 0 0 0 rgba(0,180,216,.5);}
-    70%{box-shadow:0 0 0 8px rgba(0,180,216,0);}
-    100%{box-shadow:0 0 0 0 rgba(0,180,216,0);}
-  }
-  .steam-embed{
-    width:330px;max-width:100%;height:225px;border-radius:10px;overflow:hidden;
-    border:1px solid var(--line-dark);background:#0d1116;
-  }
-  .steam-embed iframe{width:100%;height:100%;border:0;display:block;}
-  @media (prefers-reduced-motion: reduce){
-    .steam-label .live-dot{animation:none;}
-  }
-
-  /* ---------- hobi tabs ---------- */
-  .hobi-tabs{
-    display:flex;gap:4px;flex-wrap:wrap;border-bottom:1px solid var(--line-dark);
-    margin-bottom:44px;
-  }
-  .hobi-tab{
-    font-family:var(--mono);font-size:13px;color:var(--graphite);
-    background:none;border:none;padding:12px 18px;cursor:pointer;
-    position:relative;letter-spacing:.02em;transition:color .2s;
-  }
-  .hobi-tab::after{
-    content:"";position:absolute;left:18px;right:18px;bottom:-1px;height:2px;
-    background:var(--accent, var(--cyan));transform:scaleX(0);transform-origin:left;
-    transition:transform .25s ease;
-  }
-  .hobi-tab:hover{color:var(--paper);}
-  .hobi-tab[aria-selected="true"]{color:var(--paper);}
-  .hobi-tab[aria-selected="true"]::after{transform:scaleX(1);}
-  .hobi-tab[data-tab="game"]{--accent:var(--magenta);}
-  .hobi-tab[data-tab="musik"]{--accent:var(--yellow);}
-  .hobi-tab[data-tab="poster"]{--accent:var(--cyan);}
-  .hobi-tab[data-tab="video"]{--accent:var(--magenta);}
-  .hobi-tab[data-tab="foto"]{--accent:var(--yellow);}
-  .hobi-tab[data-tab="showoff"]{--accent:var(--cyan);}
-
-  .hobi-panel{display:none;}
-  .hobi-panel.active{display:block;animation:panelIn .35s ease;}
-  @keyframes panelIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
-  @media (prefers-reduced-motion: reduce){
-    .hobi-panel.active{animation:none;}
-  }
-
-  .spotify-embed{
-    width:100%;max-width:460px;border-radius:12px;overflow:hidden;margin:0 auto;
-    border:1px solid var(--line-dark);
-  }
-  .spotify-embed iframe{width:100%;height:352px;border:0;display:block;}
-
-  .hobi-note{
-    font-family:var(--mono);font-size:12.5px;color:var(--graphite);margin-top:24px;
-  }
-
-  /* poster / photo grid */
-  .media-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
-  .media-card{
-    border:1px solid var(--line-dark);border-radius:12px;overflow:hidden;background:var(--ink-soft);
-    transition:transform .25s ease, border-color .25s ease;
-  }
-  .media-card:hover{transform:translateY(-4px);border-color:var(--cyan);}
-  .media-thumb{
-    aspect-ratio:3/4;position:relative;display:flex;align-items:center;justify-content:center;
-    overflow:hidden;
-  }
-  .media-thumb::before{
-    content:"";position:absolute;inset:0;
-    background-image:
-      linear-gradient(rgba(247,246,242,.08) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(247,246,242,.08) 1px, transparent 1px);
-    background-size:18px 18px;
-  }
-  .media-thumb .cross{width:22px;height:22px;position:relative;opacity:.75;}
-  .media-thumb .cross::before,.media-thumb .cross::after{content:"";position:absolute;background:var(--paper);}
-  .media-thumb .cross::before{left:50%;top:0;width:1.5px;height:100%;transform:translateX(-50%);}
-  .media-thumb .cross::after{top:50%;left:0;height:1.5px;width:100%;transform:translateY(-50%);}
-  .media-caption{padding:14px 16px;font-family:var(--mono);font-size:12px;color:var(--paper);}
-  .media-caption .sub{display:block;color:var(--graphite);font-size:11px;margin-top:4px;}
-
-  /* video grid (16:9) */
-  .video-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;}
-  .video-thumb{aspect-ratio:16/9;}
-  .video-thumb .play-icon{
-    width:44px;height:44px;border-radius:50%;border:1.5px solid var(--paper);
-    display:flex;align-items:center;justify-content:center;position:relative;opacity:.85;
-  }
-  .video-thumb .play-icon::before{
+  .ph-thumb .play::before{
     content:"";width:0;height:0;border-style:solid;
-    border-width:8px 0 8px 13px;border-color:transparent transparent transparent var(--paper);
-    margin-left:3px;
+    border-width:7px 0 7px 11px;border-color:transparent transparent transparent var(--text);
+    margin-left:2px;
   }
+  .pane-note{font-family:inherit;font-size:11.5px;color:var(--text-dimmer);margin-top:6px;}
+
+  /* embed box (steam / spotify) */
+  .embed-box{max-width:380px;margin:0 auto;border:1px solid var(--border);border-radius:8px;background:#0d0e16;padding:20px;}
+  .embed-box .lbl{font-size:11px;color:var(--text-dim);display:flex;align-items:center;gap:6px;margin-bottom:14px;}
+  .embed-box .lbl .dot2{width:6px;height:6px;border-radius:50%;background:var(--str);box-shadow:0 0 6px var(--str);}
+  .embed-box .frame{width:100%;border-radius:6px;overflow:hidden;border:1px solid var(--border);background:#000;}
+  .embed-box .frame iframe{width:100%;border:0;display:block;}
 
   /* showoff strip */
-  .showoff-strip{
-    display:flex;gap:18px;overflow-x:auto;padding-bottom:12px;scroll-snap-type:x proximity;
-  }
+  .showoff-strip{display:flex;gap:14px;overflow-x:auto;padding-bottom:10px;}
   .showoff-strip::-webkit-scrollbar{height:6px;}
-  .showoff-strip::-webkit-scrollbar-thumb{background:var(--line-dark);border-radius:3px;}
-  .showoff-card{
-    flex:0 0 220px;scroll-snap-align:start;
-    border:1px solid var(--line-dark);border-radius:12px;overflow:hidden;background:var(--ink-soft);
-  }
-  .showoff-thumb{aspect-ratio:1/1;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;}
-  .showoff-thumb::before{
-    content:"";position:absolute;inset:0;
-    background-image:
-      linear-gradient(rgba(247,246,242,.08) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(247,246,242,.08) 1px, transparent 1px);
-    background-size:16px 16px;
-  }
-  .showoff-body{padding:12px 14px 16px;}
-  .showoff-body .cat{
-    font-family:var(--mono);font-size:10px;letter-spacing:.05em;padding:3px 8px;border-radius:5px;
-    display:inline-block;margin-bottom:8px;
-  }
-  .showoff-body .title{font-family:var(--display);font-size:18px;font-weight:800;text-transform:uppercase;}
+  .showoff-card{flex:0 0 190px;}
+  .showoff-card .ph-thumb{aspect-ratio:1/1;border-radius:8px 8px 0 0;}
 
-  @media (max-width:760px){
-    .media-grid{grid-template-columns:repeat(2,1fr);}
-    .video-grid{grid-template-columns:1fr;}
+  /* Photo preview pane */
+  .img-pane{
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:30px;
+    background:
+      linear-gradient(45deg,#0f1018 25%,transparent 25%) ,
+      linear-gradient(-45deg,#0f1018 25%,transparent 25%),
+      linear-gradient(45deg,transparent 75%,#0f1018 75%),
+      linear-gradient(-45deg,transparent 75%,#0f1018 75%);
+    background-size:20px 20px;
+    background-position:0 0,0 10px,10px -10px,-10px 0px;
+    background-color:#0a0b10;
+  }
+  .img-frame{
+    max-width:340px;
+    width:100%;
+    border:1px solid var(--border);
+    background:#000;
+    border-radius:6px;
+    overflow:hidden;
+    box-shadow:0 20px 50px -20px #000a;
+    aspect-ratio:1/1;
+    display:flex;align-items:center;justify-content:center;
+    position:relative;
+  }
+  .img-frame img{display:block;width:100%;height:100%;object-fit:cover;}
+  .img-frame .fallback{
+    position:absolute;inset:0;display:none;align-items:center;justify-content:center;
+    font-size:44px;font-weight:700;color:var(--text);
+    background:linear-gradient(135deg,#7ad0ff22,#ff9ecf22);
+  }
+  .img-info{
+    margin-top:14px;
+    font-size:11px;
+    color:var(--text-dim);
+    display:flex;gap:16px;flex-wrap:wrap;justify-content:center;
+  }
+  .img-info span b{color:var(--text);}
+
+  /* Terminal */
+  .terminal{
+    border-top:1px solid var(--border);
+    background:#0b0c12;
+    padding:10px 18px 14px;
+    font-size:12px;
+  }
+  .terminal .term-head{
+    display:flex;justify-content:space-between;
+    color:var(--text-dimmer);font-size:10.5px;margin-bottom:6px;
+    letter-spacing:.08em;
+  }
+  .term-line{color:var(--text-dim);}
+  .term-line .prompt{color:var(--str);}
+  .term-line .path2{color:var(--fn);}
+  .term-out{color:var(--text);white-space:pre-wrap;}
+  #term-cursor{
+    display:inline-block;width:7px;height:13px;background:var(--accent);
+    vertical-align:middle;animation:blink 1s steps(1) infinite;
   }
 
-  @media (max-width:760px){
-    .proj-grid{grid-template-columns:1fr;}
+  /* Status bar */
+  .statusbar{
+    background:linear-gradient(90deg,#1a5fd0,#1a5fd0);
+    color:#eaf2ff;
+    font-size:11px;
+    display:flex;
+    justify-content:space-between;
+    padding:5px 14px;
   }
-
-  /* ---------- contact ---------- */
-  .contact{
-    background:var(--paper);color:var(--ink);border-radius:20px;
-    padding:64px 48px;position:relative;overflow:hidden;
-  }
-  .contact::after{
-    content:"";position:absolute;right:-60px;top:-60px;width:260px;height:260px;
-    background:radial-gradient(circle, rgba(0,180,216,.18), transparent 70%);
-  }
-  .contact-term{
-    font-family:var(--mono);font-size:14px;line-height:2;
-    background:var(--ink);color:var(--paper);
-    padding:26px 28px;border-radius:12px;margin-bottom:32px;max-width:560px;
-  }
-  .contact-term .p{color:var(--cyan);}
-  .contact-term .m{color:var(--magenta);}
-  .contact h2{
-    font-family:var(--display);font-size:clamp(36px,6vw,64px);font-weight:800;text-transform:uppercase;
-    margin:0 0 28px;line-height:.95;position:relative;z-index:1;
-  }
-  .contact-actions{display:flex;gap:16px;flex-wrap:wrap;position:relative;z-index:1;}
-  .btn-dark{background:var(--ink);color:var(--paper);}
-  .btn-dark:hover{box-shadow:0 8px 24px rgba(18,19,22,.25);}
-  .btn-outline-dark{border:1px solid var(--ink);color:var(--ink);}
-  .btn-outline-dark:hover{border-color:var(--magenta);color:var(--magenta);}
-
-  footer{
-    padding:36px 0 48px;text-align:center;
-    font-family:var(--mono);font-size:12px;color:var(--graphite);
-  }
+  .statusbar .grp{display:flex;gap:16px;}
+  .statusbar span{opacity:.95;}
 
   @media (prefers-reduced-motion: reduce){
-    html{scroll-behavior:auto;}
-    .reveal{transition:none;opacity:1;transform:none;}
-    .terminal-line .cursor{animation:none;}
-    .btn:hover, .proj-card:hover, .chip:hover{transform:none;}
+    .cur,#term-cursor{animation:none;}
   }
 
-  @media (max-width:680px){
-    .navlinks{
-      position:fixed;top:64px;left:0;right:0;
-      background:var(--ink);border-bottom:1px solid var(--line-dark);
-      flex-direction:column;padding:20px 28px;gap:20px;
-      transform:translateY(-130%);transition:transform .25s ease;
-    }
-    .navlinks.open{transform:translateY(0);}
-    .navtoggle{display:block;}
-    .contact{padding:40px 24px;}
+  @media (max-width:760px){
+    .sidebar{width:150px;}
+    .md-pane{padding:24px 18px;}
+    .code-scroll{font-size:12px;}
+  }
+  @media (max-width:560px){
+    .app{margin:0;border-radius:0;}
+    .sidebar{display:none;}
+    .titlebar .path{font-size:10.5px;}
   }
 </style>
 </head>
 <body>
 
-<header>
-  <div class="nav">
-    <a href="#" class="logo"><span class="dot"></span>JRP</a>
-    <ul class="navlinks" id="navlinks">
-      <li><a href="#tentang">Tentang</a></li>
-      <li><a href="#skill">Skill</a></li>
-      <li><a href="#karya">Karya</a></li>
-      <li><a href="#hobi">Hobi</a></li>
-      <li><a href="#kontak">Kontak</a></li>
-    </ul>
-    <button class="navtoggle" id="navtoggle" aria-label="Buka menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
+<div class="app">
+
+  <div class="titlebar">
+    <div class="dots">
+      <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+    </div>
+    <div class="path">jakha-rama-phosa &nbsp;›&nbsp; <b id="crumb">profile.js</b></div>
+    <div style="width:52px"></div>
   </div>
-</header>
 
-<section class="hero reg-host">
-  <div class="hero-grid-bg" aria-hidden="true"></div>
-  <div class="reg tl" aria-hidden="true"></div>
-  <div class="reg tr" aria-hidden="true"></div>
-  <div class="wrap hero-inner">
-    <div class="hero-text">
-    <div class="eyebrow"><span class="line"></span>PORTOFOLIO — 2026</div>
-    <h1 class="headline">Jakha Rama<br><span class="accent">Phosa</span></h1>
-    <div class="identity-badges">
-      <span class="id-badge c1">Graphic Designer</span>
-      <span class="id-badge c2">Web Developer</span>
-      <span class="id-badge c3">Music Enthusiast</span>
-      <span class="id-badge c4">Gamer</span>
-    </div>
-    <p class="hero-sub">Merancang visual, membangun sistemnya, ditemani musik, dan istirahat lewat game. Empat sisi yang jalan bareng — bukan buat dipisah-pisah.</p>
-    <div>
-      <div class="terminal-line" id="roleTerminal">
-        <span class="prompt">&gt;</span><span id="roleText">membuka Illustrator</span><span class="cursor"></span>
-      </div>
-    </div>
-    <div class="hero-cta">
-      <a href="#karya" class="btn btn-primary">Lihat Karya</a>
-      <a href="#kontak" class="btn btn-ghost">Hubungi Saya</a>
-    </div>
-    </div>
-    <div class="hero-photo">
-      <div class="photo-frame reg-host">
-        <div class="reg tl reg-sm" aria-hidden="true"></div>
-        <div class="reg br reg-sm" aria-hidden="true"></div>
-        <img id="profilePhoto" src="foto-profil.jpg" alt="Foto profil Jakha Rama Phosa"
-             onerror="this.style.display='none';document.getElementById('avatarFallback').style.display='flex';">
-        <div class="avatar-fallback" id="avatarFallback">JRP</div>
-      </div>
-      <p class="photo-caption">// ganti foto-profil.jpg dengan foto asli kamu</p>
-    </div>
-  </div>
-</section>
+  <div class="body-wrap">
 
-<section id="tentang" class="reg-host">
-  <div class="reg tl" aria-hidden="true"></div>
-  <div class="reg br" aria-hidden="true"></div>
-  <div class="wrap">
-    <div class="section-head reveal">
-      <span class="section-num">01 — Tentang</span>
-      <h2 class="section-title">Empat Layer, Satu Karya</h2>
-    </div>
-    <div class="layers reveal">
-      <div class="layer layer-design">
-        <span class="layer-tag">LAYER · DESAIN</span>
-        <h3>Visual</h3>
-        <p>Menerjemahkan ide jadi bentuk, warna, dan tata letak yang enak dilihat dan gampang dimengerti. Fokus pada identitas visual, ilustrasi, dan aset siap pakai.</p>
-        <ul class="layer-list">
-          <li><span>Adobe Illustrator</span><span class="v">vector · branding</span></li>
-          <li><span>Adobe Photoshop</span><span class="v">retouch · layout</span></li>
-        </ul>
-      </div>
-      <div class="layer layer-code">
-        <span class="layer-tag">LAYER · KODE</span>
-        <h3>Sistem</h3>
-        <p>Mengubah desain jadi produk yang benar-benar berjalan di browser dan server. Fokus pada struktur, performa, dan hal-hal yang bekerja di balik layar.</p>
-        <ul class="layer-list">
-          <li><span>Node.js</span><span class="v">backend · API</span></li>
-          <li><span>HTML</span><span class="v">struktur web</span></li>
-          <li><span>Python</span><span class="v">automation · logic</span></li>
-        </ul>
-      </div>
-      <div class="layer layer-music">
-        <span class="layer-tag">LAYER · MUSIK</span>
-        <h3>Ritme</h3>
-        <p>Musik selalu jadi teman kerja — dari cari referensi visual sampai nemenin sesi ngoding sampai malam. Kadang jadi sumber mood dan ide juga.</p>
-        <ul class="layer-list">
-          <li><span>Genre favorit</span><span class="v">isi di sini</span></li>
-          <li><span>Detail lengkap</span><span class="v">lihat tab Hobi</span></li>
-        </ul>
-      </div>
-      <div class="layer layer-game">
-        <span class="layer-tag">LAYER · GAME</span>
-        <h3>Replay</h3>
-        <p>Cara istirahat sekaligus isi ulang ide — banyak referensi visual dan UI/UX yang justru ditemukan dari game yang dimainkan.</p>
-        <ul class="layer-list">
-          <li><span>Platform</span><span class="v">isi di sini</span></li>
-          <li><span>Detail lengkap</span><span class="v">lihat tab Hobi</span></li>
-        </ul>
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <div class="label">EXPLORER</div>
+      <div class="tree-item" style="color:var(--text);cursor:default;"><span class="ico">▾</span> portfolio-jakha</div>
+
+      <button class="tree-item active" data-tab="code"><span class="ico">JS</span> profile.js</button>
+      <button class="tree-item" data-tab="about"><span class="ico">▤</span> about.md</button>
+      <button class="tree-item" data-tab="projects"><span class="ico">{ }</span> projects.json</button>
+
+      <div class="label">HOBI</div>
+      <button class="tree-item" data-tab="game"><span class="ico">◆</span> game.steam</button>
+      <button class="tree-item" data-tab="musik"><span class="ico">♪</span> musik.spotify</button>
+      <button class="tree-item" data-tab="poster"><span class="ico">▥</span> poster.json</button>
+      <button class="tree-item" data-tab="video"><span class="ico">▷</span> video.json</button>
+      <button class="tree-item" data-tab="foto"><span class="ico">◱</span> foto.json</button>
+      <button class="tree-item" data-tab="showoff"><span class="ico">✺</span> showoff.json</button>
+
+      <div class="label">FILE</div>
+      <button class="tree-item" data-tab="photo"><span class="ico">▣</span> photo.jpg</button>
+
+      <div class="label">SOCIALS</div>
+      <a class="tree-item" href="mailto:phosajakha@gmail.com"><span class="ico">↗</span> email.lnk</a>
+      <a class="tree-item" href="https://instagram.com/phosajakha" target="_blank" rel="noopener"><span class="ico">↗</span> instagram.lnk</a>
+
+      <div class="status-row">
+        <div><span class="dotstatus"></span>terbuka untuk kolaborasi</div>
+        <div>branch: <span style="color:var(--text-dim)">main</span></div>
       </div>
     </div>
-  </div>
-</section>
 
-<section id="skill" class="reg-host">
-  <div class="reg tl" aria-hidden="true"></div>
-  <div class="reg tr" aria-hidden="true"></div>
-  <div class="wrap">
-    <div class="section-head reveal">
-      <span class="section-num">02 — Skill</span>
-      <h2 class="section-title">Tools yang Dipakai</h2>
-    </div>
-    <div class="skill-groups reveal">
-      <div>
-        <span class="skill-block-label">Desain Grafis</span>
-        <div class="chip-row">
-          <span class="chip design"><span class="chip-swatch" style="background:var(--magenta)"></span>Illustrator</span>
-          <span class="chip design"><span class="chip-swatch" style="background:var(--cyan)"></span>Photoshop</span>
-        </div>
-      </div>
-      <div>
-        <span class="skill-block-label">Web Development</span>
-        <div class="chip-row">
-          <span class="chip dev">&lt;Node.js/&gt;</span>
-          <span class="chip dev">&lt;HTML/&gt;</span>
-          <span class="chip dev">&lt;Python/&gt;</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+    <!-- MAIN -->
+    <div class="main">
+      <div class="tabs" id="tabsRow"></div>
 
-<section id="karya" class="reg-host">
-  <div class="reg bl" aria-hidden="true"></div>
-  <div class="reg tr" aria-hidden="true"></div>
-  <div class="wrap">
-    <div class="section-head reveal">
-      <span class="section-num">03 — Karya</span>
-      <h2 class="section-title">Proyek Terpilih</h2>
-    </div>
-    <div class="proj-grid reveal">
-      <div class="proj-card">
-        <div class="proj-thumb" style="background:linear-gradient(135deg, rgba(232,54,143,.25), rgba(0,180,216,.12));">
-          <div class="cross"></div>
-        </div>
-        <div class="proj-body">
-          <h3 class="proj-title">Identitas Brand Kopi Lokal</h3>
-          <p class="proj-desc">Logo, palet warna, dan panduan visual untuk brand kopi — dari konsep di Illustrator sampai file siap cetak.</p>
-          <div class="proj-tags"><span class="tag-mini d">Illustrator</span><span class="tag-mini d">Branding</span></div>
-        </div>
-      </div>
-      <div class="proj-card">
-        <div class="proj-thumb" style="background:linear-gradient(135deg, rgba(0,180,216,.25), rgba(18,19,22,.4));">
-          <div class="cross"></div>
-        </div>
-        <div class="proj-body">
-          <h3 class="proj-title">Landing Page Toko Online</h3>
-          <p class="proj-desc">Website statis dengan HTML murni, dioptimasi untuk kecepatan dan tampil rapi di semua ukuran layar.</p>
-          <div class="proj-tags"><span class="tag-mini c">HTML</span><span class="tag-mini c">Responsive</span></div>
-        </div>
-      </div>
-      <div class="proj-card">
-        <div class="proj-thumb" style="background:linear-gradient(135deg, rgba(245,196,0,.2), rgba(232,54,143,.15));">
-          <div class="cross"></div>
-        </div>
-        <div class="proj-body">
-          <h3 class="proj-title">Poster & Aset Sosial Media</h3>
-          <p class="proj-desc">Rangkaian poster promosi dan konten sosial media, diedit dengan Photoshop untuk hasil siap posting.</p>
-          <div class="proj-tags"><span class="tag-mini d">Photoshop</span><span class="tag-mini d">Konten</span></div>
-        </div>
-      </div>
-      <div class="proj-card">
-        <div class="proj-thumb" style="background:linear-gradient(135deg, rgba(18,19,22,.5), rgba(0,180,216,.2));">
-          <div class="cross"></div>
-        </div>
-        <div class="proj-body">
-          <h3 class="proj-title">Skrip Otomatisasi Data</h3>
-          <p class="proj-desc">Program Python kecil untuk membersihkan dan merapikan data secara otomatis, menghemat waktu kerja manual.</p>
-          <div class="proj-tags"><span class="tag-mini c">Python</span><span class="tag-mini c">Automation</span></div>
-        </div>
-      </div>
-    </div>
-    <p class="proj-note reveal">* Ganti gambar, judul, dan deskripsi di atas dengan proyek asli kamu.</p>
-  </div>
-</section>
+      <div class="panes">
 
-<section id="hobi" class="reg-host">
-  <div class="reg tl" aria-hidden="true"></div>
-  <div class="reg br" aria-hidden="true"></div>
-  <div class="wrap">
-    <div class="section-head reveal">
-      <span class="section-num">04 — Hobi</span>
-      <h2 class="section-title">Di Luar Jam Kerja</h2>
-    </div>
-
-    <div class="hobi-tabs reveal" role="tablist" aria-label="Kategori hobi">
-      <button class="hobi-tab" data-tab="game" role="tab" aria-selected="true">Game</button>
-      <button class="hobi-tab" data-tab="musik" role="tab" aria-selected="false">Musik</button>
-      <button class="hobi-tab" data-tab="poster" role="tab" aria-selected="false">Poster</button>
-      <button class="hobi-tab" data-tab="video" role="tab" aria-selected="false">Videography</button>
-      <button class="hobi-tab" data-tab="foto" role="tab" aria-selected="false">Fotografi</button>
-      <button class="hobi-tab" data-tab="showoff" role="tab" aria-selected="false">Showoff</button>
-    </div>
-
-    <div class="hobi-panels reveal">
-
-      <div class="hobi-panel active" data-panel="game" role="tabpanel">
-        <div class="steam-card">
-          <span class="steam-label"><span class="live-dot"></span>STEAM · LIVE STATUS</span>
-          <div class="steam-embed">
-            <iframe src="https://gamer2810.github.io/steam-miniprofile/?accountId=76561199175575686"
-                    title="Steam mini profile Jakha Rama Phosa"
-                    width="330" height="225"
-                    scrolling="no" loading="lazy" allowfullscreen></iframe>
-          </div>
-        </div>
-      </div>
-
-      <div class="hobi-panel" data-panel="musik" role="tabpanel">
-        <div class="spotify-embed">
-          <iframe src="https://open.spotify.com/embed/playlist/1Sjuy5P1xxvZJYu32scyyE?utm_source=generator"
-                  title="Playlist Spotify favorit Jakha Rama Phosa"
-                  frameborder="0"
-                  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                  loading="lazy"></iframe>
-        </div>
-      </div>
-
-      <div class="hobi-panel" data-panel="poster" role="tabpanel">
-        <div class="media-grid">
-          <div class="media-card">
-            <div class="media-thumb" style="background:linear-gradient(160deg, rgba(232,54,143,.3), rgba(18,19,22,.3));"><div class="cross"></div></div>
-            <div class="media-caption">Poster Konser Lokal<span class="sub">Illustrator · Print</span></div>
-          </div>
-          <div class="media-card">
-            <div class="media-thumb" style="background:linear-gradient(160deg, rgba(0,180,216,.3), rgba(18,19,22,.3));"><div class="cross"></div></div>
-            <div class="media-caption">Poster Event Kampus<span class="sub">Photoshop · Digital</span></div>
-          </div>
-          <div class="media-card">
-            <div class="media-thumb" style="background:linear-gradient(160deg, rgba(245,196,0,.25), rgba(18,19,22,.3));"><div class="cross"></div></div>
-            <div class="media-caption">Seri Poster Minimalis<span class="sub">Illustrator · Personal</span></div>
-          </div>
-        </div>
-        <p class="hobi-note">* Ganti dengan poster asli kamu — gambar, judul, dan tools yang dipakai.</p>
-      </div>
-
-      <div class="hobi-panel" data-panel="video" role="tabpanel">
-        <div class="video-grid">
-          <div class="media-card">
-            <div class="media-thumb video-thumb" style="background:linear-gradient(160deg, rgba(232,54,143,.25), rgba(0,180,216,.15));"><div class="play-icon"></div></div>
-            <div class="media-caption">Reel Behind The Scenes<span class="sub">Edit · 0:45</span></div>
-          </div>
-          <div class="media-card">
-            <div class="media-thumb video-thumb" style="background:linear-gradient(160deg, rgba(0,180,216,.25), rgba(18,19,22,.35));"><div class="play-icon"></div></div>
-            <div class="media-caption">Dokumentasi Event<span class="sub">Edit · 2:10</span></div>
-          </div>
-        </div>
-        <p class="hobi-note">* Ganti dengan video asli kamu — bisa embed YouTube/Vimeo dengan link video.</p>
-      </div>
-
-      <div class="hobi-panel" data-panel="foto" role="tabpanel">
-        <div class="media-grid">
-          <div class="media-card">
-            <div class="media-thumb" style="background:linear-gradient(160deg, rgba(245,196,0,.25), rgba(18,19,22,.3));"><div class="cross"></div></div>
-            <div class="media-caption">Street Photography<span class="sub">isi lokasi</span></div>
-          </div>
-          <div class="media-card">
-            <div class="media-thumb" style="background:linear-gradient(160deg, rgba(232,54,143,.25), rgba(18,19,22,.3));"><div class="cross"></div></div>
-            <div class="media-caption">Portrait Session<span class="sub">isi lokasi</span></div>
-          </div>
-          <div class="media-card">
-            <div class="media-thumb" style="background:linear-gradient(160deg, rgba(0,180,216,.25), rgba(18,19,22,.3));"><div class="cross"></div></div>
-            <div class="media-caption">Landscape<span class="sub">isi lokasi</span></div>
-          </div>
-        </div>
-        <p class="hobi-note">* Ganti dengan foto asli kamu.</p>
-      </div>
-
-      <div class="hobi-panel" data-panel="showoff" role="tabpanel">
-        <div class="showoff-strip">
-          <div class="showoff-card">
-            <div class="showoff-thumb" style="background:linear-gradient(160deg, rgba(232,54,143,.3), rgba(18,19,22,.3));"></div>
-            <div class="showoff-body">
-              <span class="cat" style="background:rgba(232,54,143,.14);color:#f06bab;">Desain</span>
-              <div class="title">Brand Kopi</div>
-            </div>
-          </div>
-          <div class="showoff-card">
-            <div class="showoff-thumb" style="background:linear-gradient(160deg, rgba(0,180,216,.3), rgba(18,19,22,.3));"></div>
-            <div class="showoff-body">
-              <span class="cat" style="background:rgba(0,180,216,.14);color:var(--cyan);">Kode</span>
-              <div class="title">Landing Page</div>
-            </div>
-          </div>
-          <div class="showoff-card">
-            <div class="showoff-thumb" style="background:linear-gradient(160deg, rgba(245,196,0,.25), rgba(18,19,22,.3));"></div>
-            <div class="showoff-body">
-              <span class="cat" style="background:rgba(245,196,0,.14);color:var(--yellow);">Musik</span>
-              <div class="title">Playlist Ngoding</div>
-            </div>
-          </div>
-          <div class="showoff-card">
-            <div class="showoff-thumb" style="background:linear-gradient(160deg, rgba(232,54,143,.25), rgba(0,180,216,.15));"></div>
-            <div class="showoff-body">
-              <span class="cat" style="background:rgba(232,54,143,.14);color:#f06bab;">Game</span>
-              <div class="title">Steam Level 26</div>
-            </div>
-          </div>
-          <div class="showoff-card">
-            <div class="showoff-thumb" style="background:linear-gradient(160deg, rgba(0,180,216,.25), rgba(18,19,22,.35));"></div>
-            <div class="showoff-body">
-              <span class="cat" style="background:rgba(0,180,216,.14);color:var(--cyan);">Video</span>
-              <div class="title">Reel Terbaru</div>
-            </div>
-          </div>
-          <div class="showoff-card">
-            <div class="showoff-thumb" style="background:linear-gradient(160deg, rgba(245,196,0,.25), rgba(18,19,22,.3));"></div>
-            <div class="showoff-body">
-              <span class="cat" style="background:rgba(245,196,0,.14);color:var(--yellow);">Foto</span>
-              <div class="title">Sesi Portrait</div>
+        <!-- PANE: profile.js -->
+        <div class="pane active code-pane" id="pane-code">
+          <div class="code-scroll">
+            <div class="gutter" id="gutter"></div>
+            <div class="code" id="codeblock">
+<div class="line"><span class="c">// profile.js — ganti data di bawah dengan data kamu</span></div>
+<div class="line"><span class="k">import</span> { skills, hobi } <span class="k">from</span> <span class="s">'./stack.js'</span><span class="punct">;</span></div>
+<div class="line">&nbsp;</div>
+<div class="line"><span class="k">export</span> <span class="k">class</span> <span class="fn">Creator</span> {</div>
+<div class="line">&nbsp;&nbsp;<span class="fn">constructor</span>() {</div>
+<div class="line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">this</span>.<span class="p">name</span> <span class="punct">=</span> <span class="s">"Jakha Rama Phosa"</span><span class="punct">;</span></div>
+<div class="line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">this</span>.<span class="p">role</span> <span class="punct">=</span> <span class="s">"Graphic Designer & Web Developer"</span><span class="punct">;</span></div>
+<div class="line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">this</span>.<span class="p">avatar</span> <span class="punct">=</span> <span class="avatar-link" id="avatarLink">./photo.jpg ↗</span><span class="punct">;</span></div>
+<div class="line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">this</span>.<span class="p">skills</span> <span class="punct">=</span> {</div>
+<div class="line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="p">desain</span><span class="punct">:</span> [<span class="s">"Illustrator"</span><span class="punct">,</span> <span class="s">"Photoshop"</span>]<span class="punct">,</span></div>
+<div class="line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="p">dev</span><span class="punct">:</span> [<span class="s">"Node.js"</span><span class="punct">,</span> <span class="s">"HTML"</span><span class="punct">,</span> <span class="s">"Python"</span>]</div>
+<div class="line">&nbsp;&nbsp;&nbsp;&nbsp;};</div>
+<div class="line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">this</span>.<span class="p">hobi</span> <span class="punct">=</span> [<span class="s">"Musik"</span><span class="punct">,</span> <span class="s">"Gaming"</span>]<span class="punct">;</span></div>
+<div class="line">&nbsp;&nbsp;}</div>
+<div class="line">&nbsp;</div>
+<div class="line">&nbsp;&nbsp;<span class="fn">sayHi</span>() {</div>
+<div class="line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">return</span> <span class="s">`Halo, saya ${</span><span class="k">this</span>.<span class="p">name</span><span class="s">}. Mari berkolaborasi.`</span><span class="punct">;</span></div>
+<div class="line">&nbsp;&nbsp;}</div>
+<div class="line">}</div>
+<div class="line">&nbsp;</div>
+<div class="line"><span class="k">const</span> me <span class="punct">=</span> <span class="k">new</span> <span class="fn">Creator</span>()<span class="punct">;</span></div>
+<div class="line"><span class="fn">console</span>.<span class="p">log</span>(me.<span class="fn">sayHi</span>())<span class="punct">;</span><span class="cur"></span></div>
             </div>
           </div>
         </div>
-        <p class="hobi-note">* Strip ini gabungan highlight dari semua kategori — ganti dengan karya terbaik kamu.</p>
+
+        <!-- PANE: about.md -->
+        <div class="pane md-pane" id="pane-about">
+          <h1><span class="h">#</span> Tentang Saya</h1>
+          <div class="role">Graphic Designer & Web Developer</div>
+          <p>Saya <b>Jakha Rama Phosa</b> — merancang visual sekaligus membangun sistemnya sendiri. Dari sketsa di Illustrator sampai kode yang benar-benar jalan di browser, dua sisi ini saling melengkapi, bukan dipisah-pisah.</p>
+          <p>Di luar layar kerja, musik dan game jadi bagian penting dari proses kreatif — banyak ide dan referensi visual justru muncul dari sana. Lihat detailnya di tab <b>Hobi</b> pada sidebar.</p>
+          <h2 class="sub">Desain</h2>
+          <div class="tag-row">
+            <div class="tag c-prop">Illustrator</div>
+            <div class="tag c-prop">Photoshop</div>
+          </div>
+          <h2 class="sub">Pengembangan</h2>
+          <div class="tag-row">
+            <div class="tag c-fn">Node.js</div>
+            <div class="tag c-fn">HTML</div>
+            <div class="tag c-fn">Python</div>
+          </div>
+          <h2 class="sub">Hobi</h2>
+          <div class="tag-row">
+            <div class="tag c-key">Gaming</div>
+            <div class="tag c-str">Musik</div>
+          </div>
+        </div>
+
+        <!-- PANE: projects.json -->
+        <div class="pane json-pane" id="pane-projects">
+          <div class="json-head"><span class="k">GET</span> /projects <span class="c">// ganti gambar & deskripsi dengan karya asli kamu</span></div>
+          <div class="masonry">
+            <div class="card">
+              <div class="ph-thumb" style="aspect-ratio:4/5;background:linear-gradient(160deg,#ff9ecf33,#12131c);"><div class="cross"></div></div>
+              <div class="meta">
+                <div class="name">Identitas Brand Kopi Lokal</div>
+                <div class="stack">Illustrator · Branding</div>
+                <div class="ratio">rasio 4:5</div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="ph-thumb" style="aspect-ratio:16/10;background:linear-gradient(160deg,#7ad0ff33,#12131c);"><div class="cross"></div></div>
+              <div class="meta">
+                <div class="name">Landing Page Toko Online</div>
+                <div class="stack">HTML · Responsive</div>
+                <div class="ratio">rasio 16:10</div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="ph-thumb" style="aspect-ratio:3/4;background:linear-gradient(160deg,#ffb86c33,#12131c);"><div class="cross"></div></div>
+              <div class="meta">
+                <div class="name">Poster & Aset Sosial Media</div>
+                <div class="stack">Photoshop · Konten</div>
+                <div class="ratio">rasio 3:4</div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="ph-thumb" style="aspect-ratio:1/1;background:linear-gradient(160deg,#9ed07233,#12131c);"><div class="cross"></div></div>
+              <div class="meta">
+                <div class="name">Skrip Otomatisasi Data</div>
+                <div class="stack">Python · Automation</div>
+                <div class="ratio">rasio 1:1</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PANE: game.steam -->
+        <div class="pane json-pane" id="pane-game">
+          <div class="json-head"><span class="k">GET</span> /hobi/game <span class="c">// status Steam live</span></div>
+          <div class="embed-box">
+            <div class="lbl"><span class="dot2"></span>STEAM · LIVE STATUS</div>
+            <div class="frame">
+              <iframe src="https://gamer2810.github.io/steam-miniprofile/?accountId=76561199175575686"
+                      title="Steam mini profile Jakha Rama Phosa"
+                      width="330" height="225" scrolling="no" loading="lazy" allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+
+        <!-- PANE: musik.spotify -->
+        <div class="pane json-pane" id="pane-musik">
+          <div class="json-head"><span class="k">GET</span> /hobi/musik <span class="c">// playlist favorit</span></div>
+          <div class="embed-box" style="max-width:420px;">
+            <div class="lbl"><span class="dot2"></span>SPOTIFY · PLAYLIST</div>
+            <div class="frame">
+              <iframe src="https://open.spotify.com/embed/playlist/1Sjuy5P1xxvZJYu32scyyE?utm_source=generator"
+                      title="Playlist Spotify favorit Jakha Rama Phosa"
+                      height="352" frameborder="0"
+                      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                      loading="lazy"></iframe>
+            </div>
+          </div>
+        </div>
+
+        <!-- PANE: poster.json -->
+        <div class="pane json-pane" id="pane-poster">
+          <div class="json-head"><span class="k">GET</span> /hobi/poster <span class="c">// ganti dengan poster asli kamu</span></div>
+          <div class="masonry">
+            <div class="card">
+              <div class="ph-thumb" style="aspect-ratio:3/4;background:linear-gradient(160deg,#ff9ecf33,#12131c);"><div class="cross"></div></div>
+              <div class="meta"><div class="name">Poster Konser Lokal</div><div class="stack">Illustrator · Print</div></div>
+            </div>
+            <div class="card">
+              <div class="ph-thumb" style="aspect-ratio:4/5;background:linear-gradient(160deg,#7ad0ff33,#12131c);"><div class="cross"></div></div>
+              <div class="meta"><div class="name">Poster Event Kampus</div><div class="stack">Photoshop · Digital</div></div>
+            </div>
+            <div class="card">
+              <div class="ph-thumb" style="aspect-ratio:1/1;background:linear-gradient(160deg,#ffb86c33,#12131c);"><div class="cross"></div></div>
+              <div class="meta"><div class="name">Seri Poster Minimalis</div><div class="stack">Illustrator · Personal</div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PANE: video.json -->
+        <div class="pane json-pane" id="pane-video">
+          <div class="json-head"><span class="k">GET</span> /hobi/video <span class="c">// ganti dengan link video asli (YouTube/Vimeo)</span></div>
+          <div class="masonry">
+            <div class="card">
+              <div class="ph-thumb" style="aspect-ratio:16/9;background:linear-gradient(160deg,#ff9ecf33,#7ad0ff22);"><div class="play"></div></div>
+              <div class="meta"><div class="name">Reel Behind The Scenes</div><div class="stack">Edit · 0:45</div></div>
+            </div>
+            <div class="card">
+              <div class="ph-thumb" style="aspect-ratio:16/9;background:linear-gradient(160deg,#7ad0ff33,#12131c);"><div class="play"></div></div>
+              <div class="meta"><div class="name">Dokumentasi Event</div><div class="stack">Edit · 2:10</div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PANE: foto.json -->
+        <div class="pane json-pane" id="pane-foto">
+          <div class="json-head"><span class="k">GET</span> /hobi/foto <span class="c">// ganti dengan foto asli kamu</span></div>
+          <div class="masonry">
+            <div class="card">
+              <div class="ph-thumb" style="aspect-ratio:3/4;background:linear-gradient(160deg,#ffb86c33,#12131c);"><div class="cross"></div></div>
+              <div class="meta"><div class="name">Street Photography</div><div class="stack">isi lokasi</div></div>
+            </div>
+            <div class="card">
+              <div class="ph-thumb" style="aspect-ratio:4/5;background:linear-gradient(160deg,#ff9ecf33,#12131c);"><div class="cross"></div></div>
+              <div class="meta"><div class="name">Portrait Session</div><div class="stack">isi lokasi</div></div>
+            </div>
+            <div class="card">
+              <div class="ph-thumb" style="aspect-ratio:16/10;background:linear-gradient(160deg,#7ad0ff33,#12131c);"><div class="cross"></div></div>
+              <div class="meta"><div class="name">Landscape</div><div class="stack">isi lokasi</div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PANE: showoff.json -->
+        <div class="pane json-pane" id="pane-showoff">
+          <div class="json-head"><span class="k">GET</span> /hobi/showoff <span class="c">// highlight gabungan semua kategori</span></div>
+          <div class="showoff-strip">
+            <div class="card showoff-card">
+              <div class="ph-thumb" style="background:linear-gradient(160deg,#ff9ecf33,#12131c);"><div class="cross"></div></div>
+              <div class="meta"><span class="tag c-prop">Desain</span><div class="name" style="margin-top:6px;">Brand Kopi</div></div>
+            </div>
+            <div class="card showoff-card">
+              <div class="ph-thumb" style="background:linear-gradient(160deg,#7ad0ff33,#12131c);"><div class="cross"></div></div>
+              <div class="meta"><span class="tag c-fn">Kode</span><div class="name" style="margin-top:6px;">Landing Page</div></div>
+            </div>
+            <div class="card showoff-card">
+              <div class="ph-thumb" style="background:linear-gradient(160deg,#9ed07233,#12131c);"><div class="cross"></div></div>
+              <div class="meta"><span class="tag c-str">Musik</span><div class="name" style="margin-top:6px;">Playlist Ngoding</div></div>
+            </div>
+            <div class="card showoff-card">
+              <div class="ph-thumb" style="background:linear-gradient(160deg,#c792ea33,#12131c);"><div class="cross"></div></div>
+              <div class="meta"><span class="tag c-key">Game</span><div class="name" style="margin-top:6px;">Steam Level 26</div></div>
+            </div>
+            <div class="card showoff-card">
+              <div class="ph-thumb" style="background:linear-gradient(160deg,#ffb86c33,#12131c);"><div class="play"></div></div>
+              <div class="meta"><span class="tag c-num">Video</span><div class="name" style="margin-top:6px;">Reel Terbaru</div></div>
+            </div>
+            <div class="card showoff-card">
+              <div class="ph-thumb" style="background:linear-gradient(160deg,#ff6b8133,#12131c);"><div class="cross"></div></div>
+              <div class="meta"><span class="tag c-danger">Foto</span><div class="name" style="margin-top:6px;">Sesi Portrait</div></div>
+            </div>
+          </div>
+          <p class="pane-note">* Ganti dengan karya terbaik kamu dari tiap kategori.</p>
+        </div>
+
+        <!-- PANE: photo.jpg -->
+        <div class="pane img-pane" id="pane-photo">
+          <div class="img-frame">
+            <img id="mainPhoto" src="foto-profil.jpg" alt="Foto profil Jakha Rama Phosa"
+                 onerror="this.style.display='none';document.getElementById('photoFallback').style.display='flex';document.getElementById('dimText').textContent='—';document.getElementById('ratioText').textContent='—';">
+            <div class="fallback" id="photoFallback">JRP</div>
+          </div>
+          <div class="img-info">
+            <span>ukuran: <b id="dimText">memuat…</b></span>
+            <span>rasio: <b id="ratioText">memuat…</b></span>
+            <span>mode: <b>auto-fit</b></span>
+          </div>
+        </div>
+
       </div>
 
+      <!-- TERMINAL -->
+      <div class="terminal">
+        <div class="term-head"><span>TERMINAL</span><span>bash</span></div>
+        <div class="term-line"><span class="prompt">jakha@portfolio</span> <span class="path2">~</span> $ <span id="typed"></span><span id="term-cursor"></span></div>
+        <div class="term-out" id="termOut"></div>
+      </div>
+
+      <!-- STATUS BAR -->
+      <div class="statusbar">
+        <div class="grp">
+          <span>⎇ main</span>
+          <span id="statusFile">profile.js</span>
+          <span>UTF-8</span>
+        </div>
+        <div class="grp">
+          <span id="langLabel">JavaScript</span>
+          <span id="clock"></span>
+        </div>
+      </div>
     </div>
   </div>
-</section>
-
-<section id="kontak" class="reg-host">
-  <div class="reg tl" aria-hidden="true"></div>
-  <div class="reg br" aria-hidden="true"></div>
-  <div class="wrap">
-    <div class="contact reveal">
-      <h2>Mari<br>Berkolaborasi</h2>
-      <div class="contact-term">
-        <div><span class="p">$</span> whoami</div>
-        <div>Jakha Rama Phosa</div>
-        <div><span class="p">$</span> contact <span class="m">--email</span> phosajakha@gmail.com</div>
-        <div><span class="p">$</span> contact <span class="m">--ig</span> @phosajakha</div>
-      </div>
-      <div class="contact-actions">
-        <a href="mailto:phosajakha@gmail.com" class="btn btn-dark">Kirim Email</a>
-        <a href="https://instagram.com/phosajakha" target="_blank" rel="noopener" class="btn btn-outline-dark">@phosajakha</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<footer>
-  © 2026 Jakha Rama Phosa — Graphic Designer · Web Developer · Music Enthusiast · Gamer
-</footer>
+</div>
 
 <script>
-  // mobile nav toggle
-  const navtoggle = document.getElementById('navtoggle');
-  const navlinks = document.getElementById('navlinks');
-  navtoggle.addEventListener('click', () => {
-    const open = navlinks.classList.toggle('open');
-    navtoggle.setAttribute('aria-expanded', open);
-  });
-  navlinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-    navlinks.classList.remove('open');
-    navtoggle.setAttribute('aria-expanded', false);
-  }));
+  const crumbLabel = {
+    code:'profile.js', about:'about.md', projects:'projects.json',
+    game:'game.steam', musik:'musik.spotify', poster:'poster.json',
+    video:'video.json', foto:'foto.json', showoff:'showoff.json',
+    photo:'photo.jpg'
+  };
+  const iconLabel = {
+    code:'JS', about:'▤', projects:'{ }',
+    game:'◆', musik:'♪', poster:'▥', video:'▷', foto:'◱', showoff:'✺',
+    photo:'▣'
+  };
+  const langLabel = {
+    code:'JavaScript', about:'Markdown', projects:'JSON',
+    game:'JSON', musik:'JSON', poster:'JSON', video:'JSON', foto:'JSON', showoff:'JSON',
+    photo:'Image'
+  };
+  const panes = {};
+  Object.keys(crumbLabel).forEach(k => panes[k] = document.getElementById('pane-'+k));
 
-  // scroll reveal
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (!reduceMotion) {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in-view'); });
-    }, { threshold: 0.15 });
-    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-  } else {
-    document.querySelectorAll('.reveal').forEach(el => el.classList.add('in-view'));
-  }
+  const statusFile = document.getElementById('statusFile');
+  const crumb = document.getElementById('crumb');
+  const langEl = document.getElementById('langLabel');
+  const tabsRow = document.getElementById('tabsRow');
 
-  // rotating role terminal text
-  if (!reduceMotion) {
-    const roles = ['membuka Illustrator', 'meretouch di Photoshop', 'menulis server Node.js', 'menyusun struktur HTML', 'menjalankan skrip Python', 'mendengarkan playlist', 'main game bareng teman'];
-    const el = document.getElementById('roleText');
-    let i = 0;
-    setInterval(() => {
-      i = (i + 1) % roles.length;
-      el.style.opacity = 0;
-      setTimeout(() => { el.textContent = roles[i]; el.style.opacity = 1; }, 220);
-    }, 2400);
-    el.style.transition = 'opacity .2s ease';
-  }
+  let openTabs = ['code','about','projects','photo'];
+  let currentTab = 'code';
 
-  // hobi tab switching
-  const hobiTabs = document.querySelectorAll('.hobi-tab');
-  const hobiPanels = document.querySelectorAll('.hobi-panel');
-  hobiTabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      const target = tab.dataset.tab;
-      hobiTabs.forEach(t => t.setAttribute('aria-selected', t === tab));
-      hobiPanels.forEach(p => p.classList.toggle('active', p.dataset.panel === target));
+  function renderTabs(){
+    tabsRow.innerHTML = '';
+    openTabs.forEach(key => {
+      const div = document.createElement('div');
+      div.className = 'tab' + (key===currentTab ? ' active' : '');
+      div.innerHTML = `<span class="ico">${iconLabel[key]}</span><span>${crumbLabel[key]}</span><span class="close-x" data-close="${key}">×</span>`;
+      div.addEventListener('click', (e) => {
+        if(e.target.dataset.close){ closeTab(e.target.dataset.close); return; }
+        activate(key);
+      });
+      tabsRow.appendChild(div);
     });
+  }
+
+  function activate(key){
+    currentTab = key;
+    Object.keys(panes).forEach(k => panes[k].classList.toggle('active', k===key));
+    document.querySelectorAll('.sidebar .tree-item[data-tab]').forEach(t => t.classList.toggle('active', t.dataset.tab===key));
+    statusFile.textContent = crumbLabel[key];
+    crumb.textContent = crumbLabel[key];
+    langEl.textContent = langLabel[key];
+    renderTabs();
+  }
+
+  function openTab(key){
+    if(!openTabs.includes(key)) openTabs.push(key);
+    activate(key);
+  }
+
+  function closeTab(key){
+    const idx = openTabs.indexOf(key);
+    if(idx > -1) openTabs.splice(idx,1);
+    if(openTabs.length===0) openTabs.push('code');
+    if(currentTab===key){
+      const nextKey = openTabs[Math.max(0, idx-1)] || openTabs[0];
+      activate(nextKey);
+    } else {
+      renderTabs();
+    }
+  }
+
+  document.querySelectorAll('.sidebar .tree-item[data-tab]').forEach(btn => {
+    btn.addEventListener('click', () => openTab(btn.dataset.tab));
   });
+  document.getElementById('avatarLink').addEventListener('click', () => openTab('photo'));
+
+  renderTabs();
+
+  // ---- Line numbers ----
+  const codeLines = document.querySelectorAll('#codeblock .line').length;
+  const gutter = document.getElementById('gutter');
+  for(let i=1;i<=codeLines;i++){
+    const d = document.createElement('div');
+    d.textContent = i;
+    gutter.appendChild(d);
+  }
+
+  // ---- Photo preview auto-ratio info ----
+  const mainPhoto = document.getElementById('mainPhoto');
+  const dimText = document.getElementById('dimText');
+  const ratioText = document.getElementById('ratioText');
+  function gcd(a,b){return b===0?a:gcd(b,a%b);}
+  mainPhoto.addEventListener('load', ()=>{
+    const w = mainPhoto.naturalWidth, h = mainPhoto.naturalHeight;
+    if(w && h){
+      const g = gcd(w,h);
+      dimText.textContent = `${w} × ${h}px`;
+      ratioText.textContent = `${w/g}:${h/g}`;
+    }
+  });
+
+  // ---- Terminal typing animation ----
+  const typedEl = document.getElementById('typed');
+  const outEl = document.getElementById('termOut');
+  const cmd = 'whoami --skills --status';
+  const output = 'Jakha Rama Phosa · Graphic Designer & Web Developer\nStatus: terbuka untuk kolaborasi\nStack: Illustrator · Photoshop · Node.js · HTML · Python\nHobi: Musik · Gaming';
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduceMotion){
+    typedEl.textContent = cmd;
+    outEl.textContent = output;
+  } else {
+    let i=0;
+    function typeCmd(){
+      if(i<=cmd.length){
+        typedEl.textContent = cmd.slice(0,i);
+        i++;
+        setTimeout(typeCmd, 55);
+      } else {
+        setTimeout(()=>{ outEl.textContent = output; }, 300);
+      }
+    }
+    typeCmd();
+  }
+
+  // ---- Clock ----
+  function tick(){
+    const d = new Date();
+    document.getElementById('clock').textContent = d.toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'});
+  }
+  tick(); setInterval(tick,1000*30);
 </script>
 
 </body>
