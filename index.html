@@ -344,6 +344,116 @@
     .steam-label .live-dot{animation:none;}
   }
 
+  /* ---------- hobi tabs ---------- */
+  .hobi-tabs{
+    display:flex;gap:4px;flex-wrap:wrap;border-bottom:1px solid var(--line-dark);
+    margin-bottom:44px;
+  }
+  .hobi-tab{
+    font-family:var(--mono);font-size:13px;color:var(--graphite);
+    background:none;border:none;padding:12px 18px;cursor:pointer;
+    position:relative;letter-spacing:.02em;transition:color .2s;
+  }
+  .hobi-tab::after{
+    content:"";position:absolute;left:18px;right:18px;bottom:-1px;height:2px;
+    background:var(--accent, var(--cyan));transform:scaleX(0);transform-origin:left;
+    transition:transform .25s ease;
+  }
+  .hobi-tab:hover{color:var(--paper);}
+  .hobi-tab[aria-selected="true"]{color:var(--paper);}
+  .hobi-tab[aria-selected="true"]::after{transform:scaleX(1);}
+  .hobi-tab[data-tab="game"]{--accent:var(--magenta);}
+  .hobi-tab[data-tab="musik"]{--accent:var(--yellow);}
+  .hobi-tab[data-tab="poster"]{--accent:var(--cyan);}
+  .hobi-tab[data-tab="video"]{--accent:var(--magenta);}
+  .hobi-tab[data-tab="foto"]{--accent:var(--yellow);}
+  .hobi-tab[data-tab="showoff"]{--accent:var(--cyan);}
+
+  .hobi-panel{display:none;}
+  .hobi-panel.active{display:block;animation:panelIn .35s ease;}
+  @keyframes panelIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+  @media (prefers-reduced-motion: reduce){
+    .hobi-panel.active{animation:none;}
+  }
+
+  .spotify-embed{
+    width:100%;max-width:460px;border-radius:12px;overflow:hidden;margin:0 auto;
+    border:1px solid var(--line-dark);
+  }
+  .spotify-embed iframe{width:100%;height:352px;border:0;display:block;}
+
+  .hobi-note{
+    font-family:var(--mono);font-size:12.5px;color:var(--graphite);margin-top:24px;
+  }
+
+  /* poster / photo grid */
+  .media-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  .media-card{
+    border:1px solid var(--line-dark);border-radius:12px;overflow:hidden;background:var(--ink-soft);
+    transition:transform .25s ease, border-color .25s ease;
+  }
+  .media-card:hover{transform:translateY(-4px);border-color:var(--cyan);}
+  .media-thumb{
+    aspect-ratio:3/4;position:relative;display:flex;align-items:center;justify-content:center;
+    overflow:hidden;
+  }
+  .media-thumb::before{
+    content:"";position:absolute;inset:0;
+    background-image:
+      linear-gradient(rgba(247,246,242,.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(247,246,242,.08) 1px, transparent 1px);
+    background-size:18px 18px;
+  }
+  .media-thumb .cross{width:22px;height:22px;position:relative;opacity:.75;}
+  .media-thumb .cross::before,.media-thumb .cross::after{content:"";position:absolute;background:var(--paper);}
+  .media-thumb .cross::before{left:50%;top:0;width:1.5px;height:100%;transform:translateX(-50%);}
+  .media-thumb .cross::after{top:50%;left:0;height:1.5px;width:100%;transform:translateY(-50%);}
+  .media-caption{padding:14px 16px;font-family:var(--mono);font-size:12px;color:var(--paper);}
+  .media-caption .sub{display:block;color:var(--graphite);font-size:11px;margin-top:4px;}
+
+  /* video grid (16:9) */
+  .video-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;}
+  .video-thumb{aspect-ratio:16/9;}
+  .video-thumb .play-icon{
+    width:44px;height:44px;border-radius:50%;border:1.5px solid var(--paper);
+    display:flex;align-items:center;justify-content:center;position:relative;opacity:.85;
+  }
+  .video-thumb .play-icon::before{
+    content:"";width:0;height:0;border-style:solid;
+    border-width:8px 0 8px 13px;border-color:transparent transparent transparent var(--paper);
+    margin-left:3px;
+  }
+
+  /* showoff strip */
+  .showoff-strip{
+    display:flex;gap:18px;overflow-x:auto;padding-bottom:12px;scroll-snap-type:x proximity;
+  }
+  .showoff-strip::-webkit-scrollbar{height:6px;}
+  .showoff-strip::-webkit-scrollbar-thumb{background:var(--line-dark);border-radius:3px;}
+  .showoff-card{
+    flex:0 0 220px;scroll-snap-align:start;
+    border:1px solid var(--line-dark);border-radius:12px;overflow:hidden;background:var(--ink-soft);
+  }
+  .showoff-thumb{aspect-ratio:1/1;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+  .showoff-thumb::before{
+    content:"";position:absolute;inset:0;
+    background-image:
+      linear-gradient(rgba(247,246,242,.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(247,246,242,.08) 1px, transparent 1px);
+    background-size:16px 16px;
+  }
+  .showoff-body{padding:12px 14px 16px;}
+  .showoff-body .cat{
+    font-family:var(--mono);font-size:10px;letter-spacing:.05em;padding:3px 8px;border-radius:5px;
+    display:inline-block;margin-bottom:8px;
+  }
+  .showoff-body .title{font-family:var(--display);font-size:18px;font-weight:800;text-transform:uppercase;}
+
+  @media (max-width:760px){
+    .media-grid{grid-template-columns:repeat(2,1fr);}
+    .video-grid{grid-template-columns:1fr;}
+  }
+
   @media (max-width:760px){
     .proj-grid{grid-template-columns:1fr;}
   }
@@ -408,7 +518,7 @@
       <li><a href="#tentang">Tentang</a></li>
       <li><a href="#skill">Skill</a></li>
       <li><a href="#karya">Karya</a></li>
-      <li><a href="#game">Game</a></li>
+      <li><a href="#hobi">Hobi</a></li>
       <li><a href="#kontak">Kontak</a></li>
     </ul>
     <button class="navtoggle" id="navtoggle" aria-label="Buka menu" aria-expanded="false">
@@ -487,15 +597,9 @@
         <span class="layer-tag">LAYER · MUSIK</span>
         <h3>Ritme</h3>
         <p>Musik selalu jadi teman kerja — dari cari referensi visual sampai nemenin sesi ngoding sampai malam. Kadang jadi sumber mood dan ide juga.</p>
-        <div class="spotify-embed">
-          <iframe src="https://open.spotify.com/embed/playlist/1Sjuy5P1xxvZJYu32scyyE?utm_source=generator"
-                  title="Playlist Spotify favorit Jakha Rama Phosa"
-                  width="100%" height="352" frameborder="0"
-                  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                  loading="lazy"></iframe>
-        </div>
         <ul class="layer-list">
           <li><span>Genre favorit</span><span class="v">isi di sini</span></li>
+          <li><span>Detail lengkap</span><span class="v">lihat tab Hobi</span></li>
         </ul>
       </div>
       <div class="layer layer-game">
@@ -504,7 +608,7 @@
         <p>Cara istirahat sekaligus isi ulang ide — banyak referensi visual dan UI/UX yang justru ditemukan dari game yang dimainkan.</p>
         <ul class="layer-list">
           <li><span>Platform</span><span class="v">isi di sini</span></li>
-          <li><span>Game favorit</span><span class="v">isi di sini</span></li>
+          <li><span>Detail lengkap</span><span class="v">lihat tab Hobi</span></li>
         </ul>
       </div>
     </div>
@@ -593,22 +697,146 @@
   </div>
 </section>
 
-<section id="game" class="reg-host">
+<section id="hobi" class="reg-host">
   <div class="reg tl" aria-hidden="true"></div>
   <div class="reg br" aria-hidden="true"></div>
   <div class="wrap">
     <div class="section-head reveal">
-      <span class="section-num">04 — Game</span>
-      <h2 class="section-title">Status Steam</h2>
+      <span class="section-num">04 — Hobi</span>
+      <h2 class="section-title">Di Luar Jam Kerja</h2>
     </div>
-    <div class="steam-card reveal">
-      <span class="steam-label"><span class="live-dot"></span>STEAM · LIVE STATUS</span>
-      <div class="steam-embed">
-        <iframe src="https://gamer2810.github.io/steam-miniprofile/?accountId=76561199175575686"
-                title="Steam mini profile Jakha Rama Phosa"
-                width="330" height="225"
-                scrolling="no" loading="lazy" allowfullscreen></iframe>
+
+    <div class="hobi-tabs reveal" role="tablist" aria-label="Kategori hobi">
+      <button class="hobi-tab" data-tab="game" role="tab" aria-selected="true">Game</button>
+      <button class="hobi-tab" data-tab="musik" role="tab" aria-selected="false">Musik</button>
+      <button class="hobi-tab" data-tab="poster" role="tab" aria-selected="false">Poster</button>
+      <button class="hobi-tab" data-tab="video" role="tab" aria-selected="false">Videography</button>
+      <button class="hobi-tab" data-tab="foto" role="tab" aria-selected="false">Fotografi</button>
+      <button class="hobi-tab" data-tab="showoff" role="tab" aria-selected="false">Showoff</button>
+    </div>
+
+    <div class="hobi-panels reveal">
+
+      <div class="hobi-panel active" data-panel="game" role="tabpanel">
+        <div class="steam-card">
+          <span class="steam-label"><span class="live-dot"></span>STEAM · LIVE STATUS</span>
+          <div class="steam-embed">
+            <iframe src="https://gamer2810.github.io/steam-miniprofile/?accountId=76561199175575686"
+                    title="Steam mini profile Jakha Rama Phosa"
+                    width="330" height="225"
+                    scrolling="no" loading="lazy" allowfullscreen></iframe>
+          </div>
+        </div>
       </div>
+
+      <div class="hobi-panel" data-panel="musik" role="tabpanel">
+        <div class="spotify-embed">
+          <iframe src="https://open.spotify.com/embed/playlist/1Sjuy5P1xxvZJYu32scyyE?utm_source=generator"
+                  title="Playlist Spotify favorit Jakha Rama Phosa"
+                  frameborder="0"
+                  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                  loading="lazy"></iframe>
+        </div>
+      </div>
+
+      <div class="hobi-panel" data-panel="poster" role="tabpanel">
+        <div class="media-grid">
+          <div class="media-card">
+            <div class="media-thumb" style="background:linear-gradient(160deg, rgba(232,54,143,.3), rgba(18,19,22,.3));"><div class="cross"></div></div>
+            <div class="media-caption">Poster Konser Lokal<span class="sub">Illustrator · Print</span></div>
+          </div>
+          <div class="media-card">
+            <div class="media-thumb" style="background:linear-gradient(160deg, rgba(0,180,216,.3), rgba(18,19,22,.3));"><div class="cross"></div></div>
+            <div class="media-caption">Poster Event Kampus<span class="sub">Photoshop · Digital</span></div>
+          </div>
+          <div class="media-card">
+            <div class="media-thumb" style="background:linear-gradient(160deg, rgba(245,196,0,.25), rgba(18,19,22,.3));"><div class="cross"></div></div>
+            <div class="media-caption">Seri Poster Minimalis<span class="sub">Illustrator · Personal</span></div>
+          </div>
+        </div>
+        <p class="hobi-note">* Ganti dengan poster asli kamu — gambar, judul, dan tools yang dipakai.</p>
+      </div>
+
+      <div class="hobi-panel" data-panel="video" role="tabpanel">
+        <div class="video-grid">
+          <div class="media-card">
+            <div class="media-thumb video-thumb" style="background:linear-gradient(160deg, rgba(232,54,143,.25), rgba(0,180,216,.15));"><div class="play-icon"></div></div>
+            <div class="media-caption">Reel Behind The Scenes<span class="sub">Edit · 0:45</span></div>
+          </div>
+          <div class="media-card">
+            <div class="media-thumb video-thumb" style="background:linear-gradient(160deg, rgba(0,180,216,.25), rgba(18,19,22,.35));"><div class="play-icon"></div></div>
+            <div class="media-caption">Dokumentasi Event<span class="sub">Edit · 2:10</span></div>
+          </div>
+        </div>
+        <p class="hobi-note">* Ganti dengan video asli kamu — bisa embed YouTube/Vimeo dengan link video.</p>
+      </div>
+
+      <div class="hobi-panel" data-panel="foto" role="tabpanel">
+        <div class="media-grid">
+          <div class="media-card">
+            <div class="media-thumb" style="background:linear-gradient(160deg, rgba(245,196,0,.25), rgba(18,19,22,.3));"><div class="cross"></div></div>
+            <div class="media-caption">Street Photography<span class="sub">isi lokasi</span></div>
+          </div>
+          <div class="media-card">
+            <div class="media-thumb" style="background:linear-gradient(160deg, rgba(232,54,143,.25), rgba(18,19,22,.3));"><div class="cross"></div></div>
+            <div class="media-caption">Portrait Session<span class="sub">isi lokasi</span></div>
+          </div>
+          <div class="media-card">
+            <div class="media-thumb" style="background:linear-gradient(160deg, rgba(0,180,216,.25), rgba(18,19,22,.3));"><div class="cross"></div></div>
+            <div class="media-caption">Landscape<span class="sub">isi lokasi</span></div>
+          </div>
+        </div>
+        <p class="hobi-note">* Ganti dengan foto asli kamu.</p>
+      </div>
+
+      <div class="hobi-panel" data-panel="showoff" role="tabpanel">
+        <div class="showoff-strip">
+          <div class="showoff-card">
+            <div class="showoff-thumb" style="background:linear-gradient(160deg, rgba(232,54,143,.3), rgba(18,19,22,.3));"></div>
+            <div class="showoff-body">
+              <span class="cat" style="background:rgba(232,54,143,.14);color:#f06bab;">Desain</span>
+              <div class="title">Brand Kopi</div>
+            </div>
+          </div>
+          <div class="showoff-card">
+            <div class="showoff-thumb" style="background:linear-gradient(160deg, rgba(0,180,216,.3), rgba(18,19,22,.3));"></div>
+            <div class="showoff-body">
+              <span class="cat" style="background:rgba(0,180,216,.14);color:var(--cyan);">Kode</span>
+              <div class="title">Landing Page</div>
+            </div>
+          </div>
+          <div class="showoff-card">
+            <div class="showoff-thumb" style="background:linear-gradient(160deg, rgba(245,196,0,.25), rgba(18,19,22,.3));"></div>
+            <div class="showoff-body">
+              <span class="cat" style="background:rgba(245,196,0,.14);color:var(--yellow);">Musik</span>
+              <div class="title">Playlist Ngoding</div>
+            </div>
+          </div>
+          <div class="showoff-card">
+            <div class="showoff-thumb" style="background:linear-gradient(160deg, rgba(232,54,143,.25), rgba(0,180,216,.15));"></div>
+            <div class="showoff-body">
+              <span class="cat" style="background:rgba(232,54,143,.14);color:#f06bab;">Game</span>
+              <div class="title">Steam Level 26</div>
+            </div>
+          </div>
+          <div class="showoff-card">
+            <div class="showoff-thumb" style="background:linear-gradient(160deg, rgba(0,180,216,.25), rgba(18,19,22,.35));"></div>
+            <div class="showoff-body">
+              <span class="cat" style="background:rgba(0,180,216,.14);color:var(--cyan);">Video</span>
+              <div class="title">Reel Terbaru</div>
+            </div>
+          </div>
+          <div class="showoff-card">
+            <div class="showoff-thumb" style="background:linear-gradient(160deg, rgba(245,196,0,.25), rgba(18,19,22,.3));"></div>
+            <div class="showoff-body">
+              <span class="cat" style="background:rgba(245,196,0,.14);color:var(--yellow);">Foto</span>
+              <div class="title">Sesi Portrait</div>
+            </div>
+          </div>
+        </div>
+        <p class="hobi-note">* Strip ini gabungan highlight dari semua kategori — ganti dengan karya terbaik kamu.</p>
+      </div>
+
     </div>
   </div>
 </section>
@@ -673,6 +901,17 @@
     }, 2400);
     el.style.transition = 'opacity .2s ease';
   }
+
+  // hobi tab switching
+  const hobiTabs = document.querySelectorAll('.hobi-tab');
+  const hobiPanels = document.querySelectorAll('.hobi-panel');
+  hobiTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const target = tab.dataset.tab;
+      hobiTabs.forEach(t => t.setAttribute('aria-selected', t === tab));
+      hobiPanels.forEach(p => p.classList.toggle('active', p.dataset.panel === target));
+    });
+  });
 </script>
 
 </body>
