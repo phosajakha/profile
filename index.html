@@ -239,36 +239,10 @@
   .layer-game .layer-list li{border-color:var(--line-paper);}
   .layer-list li .v{opacity:.55;}
 
-  .music-player{
-    display:flex;align-items:center;gap:16px;
-    background:rgba(247,246,242,.06);border:1px solid var(--line-dark);
-    border-radius:12px;padding:14px 18px;margin-bottom:14px;
+  .spotify-embed{
+    width:100%;border-radius:12px;overflow:hidden;margin-bottom:14px;
   }
-  .mp-toggle{
-    flex-shrink:0;width:42px;height:42px;border-radius:50%;
-    border:1px solid var(--yellow);background:transparent;color:var(--yellow);
-    font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;
-    transition:background .2s, color .2s;
-  }
-  .mp-toggle:hover{background:var(--yellow);color:var(--ink);}
-  .mp-info{flex:1;min-width:0;}
-  .mp-title{
-    font-family:var(--mono);font-size:12.5px;color:var(--paper);
-    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:8px;
-  }
-  .mp-bars{display:flex;align-items:flex-end;gap:3px;height:16px;}
-  .mp-bars span{
-    width:3px;background:var(--yellow);opacity:.5;height:4px;border-radius:1px;
-  }
-  .music-player.playing .mp-bars span{opacity:1;animation:eq .9s ease-in-out infinite alternate;}
-  .music-player.playing .mp-bars span:nth-child(1){animation-delay:0s;}
-  .music-player.playing .mp-bars span:nth-child(2){animation-delay:.15s;}
-  .music-player.playing .mp-bars span:nth-child(3){animation-delay:.3s;}
-  .music-player.playing .mp-bars span:nth-child(4){animation-delay:.1s;}
-  @keyframes eq{0%{height:4px;}100%{height:16px;}}
-  .player-note{
-    font-family:var(--mono);font-size:11.5px;color:var(--graphite);margin:0 0 20px;
-  }
+  .spotify-embed iframe{width:100%;height:152px;border:0;display:block;}
 
   @media (max-width:900px){
     .layers{grid-template-columns:1fr;}
@@ -410,7 +384,6 @@
     .reveal{transition:none;opacity:1;transform:none;}
     .terminal-line .cursor{animation:none;}
     .btn:hover, .proj-card:hover, .chip:hover{transform:none;}
-    .music-player.playing .mp-bars span{animation:none;height:16px;}
   }
 
   @media (max-width:680px){
@@ -514,17 +487,13 @@
         <span class="layer-tag">LAYER · MUSIK</span>
         <h3>Ritme</h3>
         <p>Musik selalu jadi teman kerja — dari cari referensi visual sampai nemenin sesi ngoding sampai malam. Kadang jadi sumber mood dan ide juga.</p>
-        <div class="music-player" id="musicPlayer">
-          <button class="mp-toggle" id="mpToggle" aria-label="Putar musik">▶</button>
-          <div class="mp-info">
-            <div class="mp-title" id="mpTitle">Nama Lagu — Nama Artis</div>
-            <div class="mp-bars" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
-          </div>
+        <div class="spotify-embed">
+          <iframe src="https://open.spotify.com/embed/playlist/1Sjuy5P1xxvZJYu32scyyE?utm_source=generator"
+                  title="Playlist Spotify favorit Jakha Rama Phosa"
+                  width="100%" height="352" frameborder="0"
+                  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                  loading="lazy"></iframe>
         </div>
-        <audio id="bgAudio" preload="none">
-          <source src="musik-kamu.mp3" type="audio/mpeg">
-        </audio>
-        <p class="player-note">* Taruh file musik-kamu.mp3 di folder yang sama dengan file ini, lalu ganti judul lagunya di atas.</p>
         <ul class="layer-list">
           <li><span>Genre favorit</span><span class="v">isi di sini</span></li>
         </ul>
@@ -704,30 +673,6 @@
     }, 2400);
     el.style.transition = 'opacity .2s ease';
   }
-
-  // music player controls
-  const bgAudio = document.getElementById('bgAudio');
-  const mpToggle = document.getElementById('mpToggle');
-  const musicPlayer = document.getElementById('musicPlayer');
-  mpToggle.addEventListener('click', () => {
-    if (bgAudio.paused) {
-      bgAudio.play().catch(() => {
-        mpToggle.textContent = '▶';
-        musicPlayer.classList.remove('playing');
-        alert('Belum ada file musik. Taruh musik-kamu.mp3 di folder yang sama dengan file ini.');
-      });
-      mpToggle.textContent = '❚❚';
-      musicPlayer.classList.add('playing');
-    } else {
-      bgAudio.pause();
-      mpToggle.textContent = '▶';
-      musicPlayer.classList.remove('playing');
-    }
-  });
-  bgAudio.addEventListener('ended', () => {
-    mpToggle.textContent = '▶';
-    musicPlayer.classList.remove('playing');
-  });
 </script>
 
 </body>
