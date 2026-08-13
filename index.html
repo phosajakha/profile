@@ -3,821 +3,946 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jakha Rama Phosa — profile.js</title>
+<title>Nadia Prameswari — Desainer Grafis & Art Director</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:wght@400;700&family=Work+Sans:wght@400;500;600&family=UnifrakturCook:wght@700&family=Special+Elite&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg-void:#0a0b10;
-    --bg-panel:#12131c;
-    --bg-sidebar:#0e0f16;
-    --bg-titlebar:#181926;
-    --border:#22232f;
-    --text:#d7d9ea;
-    --text-dim:#565973;
-    --text-dimmer:#3a3c50;
-    --key:#c792ea;
-    --fn:#7ad0ff;
-    --str:#9ed072;
-    --prop:#ff9ecf;
-    --num:#ffb86c;
-    --comment:#4b4e63;
-    --cursor:#7ad0ff;
-    --accent:#7ad0ff;
-    --danger:#ff6b81;
-    --warn:#ffb86c;
+    --paper:#EAE7DC;
+    --paper-2:#DFDCCF;
+    --ink:#15130F;
+    --pink:#E63462;
+    --teal:#0E7C7B;
+    --ochre:#F2A93B;
+    --line: rgba(21,19,15,0.18);
+    --max: 1180px;
   }
-  *{box-sizing:border-box;}
-  html,body{margin:0;padding:0;}
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+
+  html{scroll-behavior:smooth;}
+
   body{
-    background:var(--bg-void);
-    color:var(--text);
-    font-family:'JetBrains Mono',monospace;
-    font-size:14px;
-    line-height:1.7;
-    -webkit-font-smoothing:antialiased;
-    min-height:100vh;
-  }
-  ::selection{background:#7ad0ff33;color:#fff;}
-  a{color:inherit;text-decoration:none;}
-  ::-webkit-scrollbar{width:10px;height:10px;}
-  ::-webkit-scrollbar-track{background:var(--bg-panel);}
-  ::-webkit-scrollbar-thumb{background:#2a2c3d;border-radius:6px;}
-  ::-webkit-scrollbar-thumb:hover{background:#3a3c50;}
-
-  :focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:3px;}
-
-  .app{
-    max-width:1180px;
-    margin:28px auto;
-    border:1px solid var(--border);
-    border-radius:10px;
-    overflow:hidden;
-    box-shadow:0 40px 90px -30px #000000aa, 0 0 0 1px #ffffff05;
-    background:var(--bg-panel);
-  }
-
-  /* Title bar */
-  .titlebar{
-    background:var(--bg-titlebar);
-    border-bottom:1px solid var(--border);
-    display:flex;
-    align-items:center;
-    gap:10px;
-    padding:10px 14px;
-  }
-  .dots{display:flex;gap:7px;}
-  .dot{width:11px;height:11px;border-radius:50%;}
-  .dot.r{background:#ff5f57;}
-  .dot.y{background:#febc2e;}
-  .dot.g{background:#28c840;}
-  .titlebar .path{
-    margin:0 auto;
-    color:var(--text-dim);
-    font-size:12px;
-    display:flex;
-    align-items:center;
-    gap:6px;
-  }
-  .titlebar .path b{color:var(--text);font-weight:500;}
-
-  .body-wrap{display:flex;min-height:560px;}
-
-  /* Sidebar */
-  .sidebar{
-    width:220px;
-    flex-shrink:0;
-    background:var(--bg-sidebar);
-    border-right:1px solid var(--border);
-    padding:16px 0;
-    overflow-y:auto;
-  }
-  .sidebar .label{
-    color:var(--text-dimmer);
-    font-size:10.5px;
-    letter-spacing:.12em;
-    padding:4px 18px;
-    margin-top:10px;
-  }
-  .sidebar .label:first-child{margin-top:0;}
-  .tree-item{
-    display:flex;
-    align-items:center;
-    gap:8px;
-    padding:5px 18px 5px 26px;
-    font-size:12.5px;
-    color:var(--text-dim);
-    cursor:pointer;
-    border-left:2px solid transparent;
-    white-space:nowrap;
-    background:none;
-    border-top:none;border-right:none;border-bottom:none;
-    width:100%;text-align:left;
-    font-family:inherit;
-  }
-  .tree-item:hover{background:#ffffff06;color:var(--text);}
-  .tree-item.active{
-    background:#7ad0ff12;
-    color:var(--accent);
-    border-left:2px solid var(--accent);
-  }
-  .tree-item .ico{opacity:.75;font-size:11px;width:14px;text-align:center;flex-shrink:0;}
-  .sidebar .status-row{
-    margin-top:22px;
-    padding:12px 18px 0 18px;
-    border-top:1px solid var(--border);
-    color:var(--text-dimmer);
-    font-size:10.5px;
-    line-height:1.9;
-  }
-  .sidebar .status-row .dotstatus{
-    width:6px;height:6px;border-radius:50%;
-    background:var(--str);display:inline-block;margin-right:6px;
-    box-shadow:0 0 6px var(--str);
-  }
-
-  /* Main editor area */
-  .main{flex:1;display:flex;flex-direction:column;min-width:0;}
-  .tabs{
-    display:flex;
-    background:var(--bg-sidebar);
-    border-bottom:1px solid var(--border);
-    overflow-x:auto;
-  }
-  .tab{
-    padding:10px 10px 10px 16px;
-    font-size:12.5px;
-    color:var(--text-dim);
-    border-right:1px solid var(--border);
-    cursor:pointer;
-    display:flex;
-    align-items:center;
-    gap:7px;
-    white-space:nowrap;
-    background:var(--bg-sidebar);
-  }
-  .tab .ico{opacity:.8;}
-  .tab.active{
-    background:var(--bg-panel);
-    color:var(--text);
-    box-shadow:inset 0 -2px 0 var(--accent);
-  }
-  .tab .close-x{
-    opacity:.5;padding:2px 4px;border-radius:3px;font-size:11px;
-  }
-  .tab .close-x:hover{opacity:1;background:#ffffff10;}
-
-  .panes{position:relative;flex:1;display:flex;}
-  .pane{display:none;width:100%;}
-  .pane.active{display:flex;}
-
-  /* Code pane */
-  .code-pane{width:100%;}
-  .code-scroll{
-    display:flex;
-    width:100%;
-    max-height:640px;
-    overflow:auto;
-    padding:18px 0;
-  }
-  .gutter{
-    padding:0 14px 0 20px;
-    text-align:right;
-    color:var(--text-dimmer);
-    user-select:none;
-    font-size:13px;
-  }
-  .gutter div{height:26px;}
-  .code{
-    padding-right:24px;
-    font-size:13px;
-    white-space:pre;
-    flex:1;
-  }
-  .code div.line{height:26px;display:flex;align-items:center;}
-  .code div.line:hover{background:#ffffff05;}
-  .k{color:var(--key);}
-  .fn{color:var(--fn);}
-  .s{color:var(--str);}
-  .p{color:var(--prop);}
-  .n{color:var(--num);}
-  .c{color:var(--comment);font-style:italic;}
-  .punct{color:var(--text-dim);}
-  .cur{
-    display:inline-block;width:7px;height:16px;background:var(--cursor);
-    margin-left:1px;vertical-align:middle;
-    animation:blink 1s steps(1) infinite;
-  }
-  @keyframes blink{50%{opacity:0;}}
-  .avatar-link{
-    display:inline-flex;align-items:center;gap:6px;
-    color:var(--fn);
-    border-bottom:1px dashed var(--fn);
-    padding-bottom:1px;
-    cursor:pointer;background:none;border-top:none;border-left:none;border-right:none;
-    font-family:inherit;font-size:inherit;
-  }
-
-  /* About markdown pane */
-  .md-pane{padding:32px 40px;max-width:760px;}
-  .md-pane h1{
-    font-size:22px;color:var(--text);margin:0 0 4px;
-  }
-  .md-pane h1 .h{color:var(--key);}
-  .md-pane .role{color:var(--fn);font-size:13px;margin-bottom:22px;}
-  .md-pane p{color:var(--text-dim);font-size:13px;line-height:1.9;margin:0 0 16px;}
-  .md-pane p b{color:var(--text);font-weight:600;}
-  .md-pane h2.sub{font-size:13px;color:var(--text);margin:26px 0 10px;font-weight:600;}
-  .tag-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;}
-  .tag{
-    font-size:11.5px;padding:4px 10px;border-radius:5px;
-    border:1px solid var(--border);color:var(--prop);background:#ff9ecf0d;
-  }
-  .tag.c-prop{color:var(--prop);border-color:#ff9ecf33;background:#ff9ecf0d;}
-  .tag.c-fn{color:var(--fn);border-color:#7ad0ff33;background:#7ad0ff0d;}
-  .tag.c-str{color:var(--str);border-color:#9ed07233;background:#9ed0720d;}
-  .tag.c-key{color:var(--key);border-color:#c792ea33;background:#c792ea0d;}
-  .tag.c-num{color:var(--num);border-color:#ffb86c33;background:#ffb86c0d;}
-  .tag.c-danger{color:var(--danger);border-color:#ff6b8133;background:#ff6b810d;}
-
-  /* Projects / gallery pane (free ratio placeholders) */
-  .json-pane{padding:26px 30px;width:100%;overflow-y:auto;max-height:640px;}
-  .json-head{font-size:12px;color:var(--text-dim);margin-bottom:16px;}
-  .json-head .k{color:var(--key);}
-  .json-head .s{color:var(--str);}
-  .masonry{
-    column-count:3;
-    column-gap:16px;
-  }
-  @media (max-width:820px){.masonry{column-count:2;}}
-  @media (max-width:520px){.masonry{column-count:1;}}
-  .card{
-    break-inside:avoid;
-    margin-bottom:16px;
-    border:1px solid var(--border);
-    border-radius:8px;
-    overflow:hidden;
-    background:#0d0e16;
-  }
-  .card img{display:block;width:100%;height:auto;}
-  .card .meta{padding:10px 12px;}
-  .card .meta .name{font-size:12px;color:var(--text);}
-  .card .meta .stack{font-size:10.5px;color:var(--text-dim);margin-top:3px;}
-  .card .meta .ratio{font-size:10px;color:var(--text-dimmer);margin-top:6px;}
-
-  /* free-ratio placeholder thumb (dipakai di projects/poster/video/foto) */
-  .ph-thumb{
-    position:relative;width:100%;display:flex;align-items:center;justify-content:center;
-    background-size:16px 16px;
-    background-image:
-      linear-gradient(#ffffff08 1px, transparent 1px),
-      linear-gradient(90deg, #ffffff08 1px, transparent 1px);
-  }
-  .ph-thumb .cross{width:18px;height:18px;position:relative;opacity:.55;}
-  .ph-thumb .cross::before,.ph-thumb .cross::after{content:"";position:absolute;background:var(--text-dim);}
-  .ph-thumb .cross::before{left:50%;top:0;width:1px;height:100%;transform:translateX(-50%);}
-  .ph-thumb .cross::after{top:50%;left:0;height:1px;width:100%;transform:translateY(-50%);}
-  .ph-thumb .play{
-    width:36px;height:36px;border-radius:50%;border:1.5px solid var(--text);
-    display:flex;align-items:center;justify-content:center;opacity:.85;position:relative;
-  }
-  .ph-thumb .play::before{
-    content:"";width:0;height:0;border-style:solid;
-    border-width:7px 0 7px 11px;border-color:transparent transparent transparent var(--text);
-    margin-left:2px;
-  }
-  .pane-note{font-family:inherit;font-size:11.5px;color:var(--text-dimmer);margin-top:6px;}
-
-  /* embed box (steam / spotify) */
-  .embed-box{max-width:380px;margin:0 auto;border:1px solid var(--border);border-radius:8px;background:#0d0e16;padding:20px;}
-  .embed-box .lbl{font-size:11px;color:var(--text-dim);display:flex;align-items:center;gap:6px;margin-bottom:14px;}
-  .embed-box .lbl .dot2{width:6px;height:6px;border-radius:50%;background:var(--str);box-shadow:0 0 6px var(--str);}
-  .embed-box .frame{width:100%;border-radius:6px;overflow:hidden;border:1px solid var(--border);background:#000;}
-  .embed-box .frame iframe{width:100%;border:0;display:block;}
-
-  /* showoff strip */
-  .showoff-strip{display:flex;gap:14px;overflow-x:auto;padding-bottom:10px;}
-  .showoff-strip::-webkit-scrollbar{height:6px;}
-  .showoff-card{flex:0 0 190px;}
-  .showoff-card .ph-thumb{aspect-ratio:1/1;border-radius:8px 8px 0 0;}
-
-  /* Photo preview pane */
-  .img-pane{
-    width:100%;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    padding:30px;
     background:
-      linear-gradient(45deg,#0f1018 25%,transparent 25%) ,
-      linear-gradient(-45deg,#0f1018 25%,transparent 25%),
-      linear-gradient(45deg,transparent 75%,#0f1018 75%),
-      linear-gradient(-45deg,transparent 75%,#0f1018 75%);
-    background-size:20px 20px;
-    background-position:0 0,0 10px,10px -10px,-10px 0px;
-    background-color:#0a0b10;
-  }
-  .img-frame{
-    max-width:340px;
-    width:100%;
-    border:1px solid var(--border);
-    background:#000;
-    border-radius:6px;
-    overflow:hidden;
-    box-shadow:0 20px 50px -20px #000a;
-    aspect-ratio:1/1;
-    display:flex;align-items:center;justify-content:center;
+      radial-gradient(ellipse at 20% 10%, rgba(21,19,15,0.04), transparent 60%),
+      radial-gradient(ellipse at 85% 80%, rgba(21,19,15,0.05), transparent 55%),
+      var(--paper);
+    color:var(--ink);
+    font-family:'Work Sans', sans-serif;
+    font-size:16px;
+    line-height:1.5;
+    overflow-x:hidden;
     position:relative;
   }
-  .img-frame img{display:block;width:100%;height:100%;object-fit:cover;}
-  .img-frame .fallback{
-    position:absolute;inset:0;display:none;align-items:center;justify-content:center;
-    font-size:44px;font-weight:700;color:var(--text);
-    background:linear-gradient(135deg,#7ad0ff22,#ff9ecf22);
-  }
-  .img-info{
-    margin-top:14px;
-    font-size:11px;
-    color:var(--text-dim);
-    display:flex;gap:16px;flex-wrap:wrap;justify-content:center;
-  }
-  .img-info span b{color:var(--text);}
 
-  /* Terminal */
-  .terminal{
-    border-top:1px solid var(--border);
-    background:#0b0c12;
-    padding:10px 18px 14px;
-    font-size:12px;
-  }
-  .terminal .term-head{
-    display:flex;justify-content:space-between;
-    color:var(--text-dimmer);font-size:10.5px;margin-bottom:6px;
-    letter-spacing:.08em;
-  }
-  .term-line{color:var(--text-dim);}
-  .term-line .prompt{color:var(--str);}
-  .term-line .path2{color:var(--fn);}
-  .term-out{color:var(--text);white-space:pre-wrap;}
-  #term-cursor{
-    display:inline-block;width:7px;height:13px;background:var(--accent);
-    vertical-align:middle;animation:blink 1s steps(1) infinite;
+  /* aged paper grain */
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.045 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity:0.6;
+    pointer-events:none;
+    z-index:9000;
+    mix-blend-mode:multiply;
   }
 
-  /* Status bar */
-  .statusbar{
-    background:linear-gradient(90deg,#1a5fd0,#1a5fd0);
-    color:#eaf2ff;
-    font-size:11px;
-    display:flex;
-    justify-content:space-between;
-    padding:5px 14px;
+  /* poster frame */
+  .frame-border{
+    position:fixed; inset:10px;
+    border:2px solid var(--ink);
+    pointer-events:none;
+    z-index:8999;
   }
-  .statusbar .grp{display:flex;gap:16px;}
-  .statusbar span{opacity:.95;}
+  @media (max-width:600px){ .frame-border{ inset:6px; border-width:1.5px; } }
+
+  ::selection{ background:var(--pink); color:var(--paper); }
+
+  a{ color:inherit; }
+
+  .mono{
+    font-family:'Space Mono', monospace;
+    letter-spacing:0.02em;
+  }
+
+  .display{
+    font-family:'Bebas Neue', sans-serif;
+    letter-spacing:0.01em;
+    line-height:0.86;
+    text-transform:uppercase;
+  }
+
+  .blackletter{
+    font-family:'UnifrakturCook', cursive;
+    font-weight:700;
+    line-height:0.82;
+  }
+
+  .handwritten{
+    font-family:'Caveat', cursive;
+    font-weight:600;
+  }
+
+  /* crosshair / target mark, echoes registration marks in a print-poster idiom */
+  .crosshair{
+    width:20px; height:20px;
+    flex-shrink:0;
+    display:inline-block;
+  }
+  .crosshair svg{ width:100%; height:100%; display:block; }
+
+  .wrap{
+    max-width:var(--max);
+    margin:0 auto;
+    padding:0 28px;
+  }
+
+  a:focus-visible,
+  button:focus-visible{
+    outline:3px solid var(--teal);
+    outline-offset:3px;
+  }
 
   @media (prefers-reduced-motion: reduce){
-    .cur,#term-cursor{animation:none;}
+    *{ animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important; }
   }
 
-  @media (max-width:760px){
-    .sidebar{width:150px;}
-    .md-pane{padding:24px 18px;}
-    .code-scroll{font-size:12px;}
+  /* ---------- registration / crop marks (signature element) ---------- */
+  .reg-mark{
+    position:absolute;
+    width:22px; height:22px;
+    pointer-events:none;
   }
-  @media (max-width:560px){
-    .app{margin:0;border-radius:0;}
-    .sidebar{display:none;}
-    .titlebar .path{font-size:10.5px;}
+  .reg-mark::before, .reg-mark::after{
+    content:"";
+    position:absolute;
+    background:var(--ink);
+  }
+  .reg-mark::before{ left:50%; top:0; width:1px; height:100%; transform:translateX(-50%); }
+  .reg-mark::after{ top:50%; left:0; height:1px; width:100%; transform:translateY(-50%); }
+  .reg-mark .circ{
+    position:absolute; left:50%; top:50%;
+    width:10px; height:10px;
+    border:1px solid var(--ink);
+    border-radius:50%;
+    transform:translate(-50%,-50%);
+  }
+  .reg-tl{ top:16px; left:16px; }
+  .reg-tr{ top:16px; right:16px; }
+  .reg-bl{ bottom:16px; left:16px; }
+  .reg-br{ bottom:16px; right:16px; }
+
+  /* ---------- color bar strip (CMYK proof reference) ---------- */
+  .colorbar{
+    display:flex;
+    width:100%;
+    height:8px;
+  }
+  .colorbar span{ flex:1; }
+  .cb-c{ background:var(--teal); }
+  .cb-m{ background:var(--pink); }
+  .cb-y{ background:var(--ochre); }
+  .cb-k{ background:var(--ink); }
+
+  /* ---------- top nav ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:var(--paper);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 28px;
+    max-width:var(--max); margin:0 auto;
+  }
+  .logo{
+    font-family:'Bebas Neue', sans-serif;
+    font-size:26px;
+    letter-spacing:0.03em;
+  }
+  .logo span{ color:var(--pink); }
+  nav ul{
+    list-style:none;
+    display:flex; gap:28px;
+  }
+  nav a{
+    text-decoration:none;
+    font-family:'Space Mono', monospace;
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    position:relative;
+    padding-bottom:3px;
+  }
+  nav a::after{
+    content:""; position:absolute; left:0; bottom:0;
+    width:0; height:2px; background:var(--pink);
+    transition:width .25s ease;
+  }
+  nav a:hover::after{ width:100%; }
+  .nav-toggle{ display:none; }
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative;
+    padding:90px 0 70px;
+    border-bottom:1px solid var(--line);
+    overflow:hidden;
+  }
+  .hero-eyebrow{
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--teal);
+    margin-bottom:18px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .hero-eyebrow .dot{
+    width:8px; height:8px; border-radius:50%; background:var(--pink);
+    display:inline-block;
+  }
+  h1.hero-title{
+    font-size:clamp(64px, 13vw, 158px);
+    color:var(--ink);
+  }
+  h1.hero-title .accent{
+    color:var(--paper);
+    -webkit-text-stroke:1.6px var(--ink);
+  }
+  .hero-sub{
+    max-width:520px;
+    margin-top:26px;
+    font-size:19px;
+    color:#3a3730;
+  }
+
+  /* ---------- quote lines (crosshair + statement, poster idiom) ---------- */
+  .quote-lines{
+    margin-top:30px;
+    display:flex; flex-direction:column; gap:14px;
+    max-width:560px;
+  }
+  .quote-line{
+    display:flex; align-items:flex-start; gap:12px;
+  }
+  .quote-line p{
+    font-family:'Bebas Neue', sans-serif;
+    font-size:19px;
+    letter-spacing:0.01em;
+    text-transform:uppercase;
+    line-height:1.15;
+    padding-top:1px;
+  }
+
+  /* ---------- hero side furniture: date rail + handwritten note + stamp ---------- */
+  .hero-siderail{
+    position:absolute;
+    top:110px; right:26px;
+    display:flex; align-items:flex-start; gap:18px;
+    z-index:5;
+  }
+  .date-rail{
+    writing-mode:vertical-rl;
+    transform:rotate(180deg);
+    font-family:'Space Mono', monospace;
+    font-size:13px;
+    letter-spacing:0.25em;
+    color:#726d5f;
+    padding:4px 0;
+  }
+  .hero-note{
+    writing-mode:vertical-rl;
+    transform:rotate(180deg);
+    font-family:'Caveat', cursive;
+    font-weight:600;
+    font-size:30px;
+    color:var(--pink);
+    line-height:1.05;
+  }
+  @media (max-width:960px){
+    .hero-siderail{ display:none; }
+  }
+
+  .stamp-badge{
+    display:inline-flex; flex-direction:column; align-items:center;
+    border:2px solid var(--ink);
+    padding:6px 10px;
+    transform:rotate(-4deg);
+    margin-top:26px;
+  }
+  .stamp-badge .sb-top{
+    font-family:'Special Elite', monospace;
+    font-size:10px;
+    letter-spacing:0.14em;
+  }
+  .stamp-badge .sb-bottom{
+    font-family:'Special Elite', monospace;
+    font-size:9px;
+    letter-spacing:0.08em;
+    color:#726d5f;
+  }
+
+  .hero-meta{
+    margin-top:44px;
+    display:flex; flex-wrap:wrap;
+    gap:0;
+    border-top:1px solid var(--line);
+  }
+  .hero-meta div{
+    flex:1; min-width:150px;
+    padding:16px 20px 0 0;
+    border-right:1px solid var(--line);
+  }
+  .hero-meta div:last-child{ border-right:none; }
+  .hero-meta .k{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:#726d5f;
+    margin-bottom:6px;
+  }
+  .hero-meta .v{ font-size:15px; font-weight:600; }
+
+  /* ---------- type coder ---------- */
+  .typecoder{
+    margin-top:34px;
+    max-width:560px;
+    background:var(--ink);
+    color:var(--paper);
+    border-radius:4px;
+    overflow:hidden;
+    box-shadow:6px 6px 0 var(--line);
+  }
+  .typecoder-bar{
+    display:flex; align-items:center; gap:8px;
+    padding:10px 14px;
+    background:#0000000d;
+    border-bottom:1px solid rgba(234,231,220,0.15);
+  }
+  .typecoder-bar .tc-dot{
+    width:9px; height:9px; border-radius:50%;
+    background:rgba(234,231,220,0.25);
+  }
+  .typecoder-bar .tc-dot:nth-child(1){ background:var(--pink); }
+  .typecoder-bar .tc-dot:nth-child(2){ background:var(--ochre); }
+  .typecoder-bar .tc-dot:nth-child(3){ background:var(--teal); }
+  .typecoder-bar .tc-label{
+    margin-left:8px;
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    color:rgba(234,231,220,0.55);
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+  }
+  .typecoder-body{
+    padding:20px 18px 24px;
+    font-family:'Space Mono', monospace;
+    font-size:15px;
+    min-height:78px;
+  }
+  .typecoder-line{ display:flex; gap:10px; }
+  .typecoder-line .tc-prompt{ color:var(--teal); flex-shrink:0; }
+  .typecoder-line .tc-text{ color:var(--paper); }
+  .typecoder-line .tc-cursor{
+    display:inline-block;
+    width:8px; height:16px;
+    background:var(--pink);
+    margin-left:2px;
+    vertical-align:-3px;
+    animation:tc-blink 1s step-end infinite;
+  }
+  @keyframes tc-blink{ 0%,100%{ opacity:1; } 50%{ opacity:0; } }
+  @media (prefers-reduced-motion: reduce){
+    .typecoder-line .tc-cursor{ animation:none; }
+  }
+
+  /* ---------- section shell ---------- */
+  section{ position:relative; padding:70px 0; }
+  .section-head{
+    display:flex; align-items:baseline; gap:16px;
+    margin-bottom:44px;
+    border-bottom:1px solid var(--line);
+    padding-bottom:16px;
+  }
+  .section-tag{
+    font-family:'Space Mono', monospace;
+    font-size:13px;
+    color:var(--pink);
+    white-space:nowrap;
+  }
+  .section-title{
+    font-family:'Bebas Neue', sans-serif;
+    font-size:clamp(34px,5vw,56px);
+    text-transform:uppercase;
+  }
+
+  /* ---------- about ---------- */
+  .about-grid{
+    display:grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap:60px;
+    align-items:start;
+  }
+  .about-grid p{ font-size:17px; color:#3a3730; margin-bottom:16px; max-width:52ch; }
+  .about-grid p strong{ color:var(--ink); }
+
+  .skill-list{ list-style:none; }
+  .skill-list li{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:14px 0;
+    border-bottom:1px solid var(--line);
+    font-family:'Space Mono', monospace;
+    font-size:14px;
+  }
+  .skill-list li span:last-child{ color:#726d5f; }
+
+  /* ---------- services ---------- */
+  .services-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    border-top:1px solid var(--line);
+    border-left:1px solid var(--line);
+  }
+  .service-card{
+    border-right:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    padding:30px 24px;
+    transition:background .2s ease;
+  }
+  .service-card:hover{ background:var(--paper-2); }
+  .service-num{
+    font-family:'Space Mono', monospace;
+    font-size:12px;
+    color:var(--teal);
+    margin-bottom:22px;
+  }
+  .service-card h3{
+    font-family:'Bebas Neue', sans-serif;
+    font-size:24px;
+    text-transform:uppercase;
+    margin-bottom:10px;
+  }
+  .service-card p{ font-size:14px; color:#3a3730; }
+
+  /* ---------- portfolio (contact sheet style) ---------- */
+  .plate-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:2px;
+    background:var(--ink);
+    border:1px solid var(--ink);
+  }
+  .plate{
+    background:var(--paper);
+    padding:0;
+    position:relative;
+    cursor:default;
+  }
+  .plate-swatch{
+    height:190px;
+    position:relative;
+    overflow:hidden;
+  }
+  .plate-swatch .tex{
+    position:absolute; inset:0;
+    opacity:0.9;
+  }
+  .plate-info{
+    padding:18px 20px 22px;
+    border-top:1px solid var(--ink);
+  }
+  .plate-cat{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    text-transform:uppercase;
+    color:var(--pink);
+    letter-spacing:0.06em;
+    margin-bottom:8px;
+  }
+  .plate-info h3{
+    font-family:'Bebas Neue', sans-serif;
+    font-size:26px;
+    text-transform:uppercase;
+    margin-bottom:6px;
+  }
+  .plate-info p{ font-size:13px; color:#726d5f; }
+  .plate-frame{
+    position:absolute; inset:10px;
+    border:1px solid rgba(21,19,15,0.35);
+    pointer-events:none;
+  }
+  .plate-tape{
+    position:absolute; top:-6px; left:50%;
+    width:70px; height:22px;
+    background:rgba(242,169,59,0.55);
+    transform:translateX(-50%) rotate(-2deg);
+    box-shadow:0 1px 2px rgba(21,19,15,0.2);
+    z-index:2;
+  }
+  .plate-caption{
+    position:absolute; bottom:8px; left:12px;
+    font-family:'Caveat', cursive;
+    font-weight:600;
+    font-size:18px;
+    color:var(--paper);
+    text-shadow:0 1px 3px rgba(0,0,0,0.6);
+    z-index:2;
+  }
+  .plate-target{
+    position:absolute; top:10px; right:10px;
+    width:26px; height:26px;
+    z-index:2;
+  }
+
+  /* swatch pattern generators */
+  .p1{ background: repeating-linear-gradient(45deg, var(--pink) 0 14px, var(--ochre) 14px 28px); }
+  .p2{ background: radial-gradient(circle at 30% 30%, var(--teal) 0 40%, transparent 41%), radial-gradient(circle at 70% 65%, var(--ink) 0 30%, transparent 31%), var(--paper-2); }
+  .p3{ background: linear-gradient(180deg, var(--ink) 0 50%, var(--paper-2) 50%); }
+  .p4{ background: repeating-linear-gradient(90deg, var(--teal) 0 8px, var(--paper-2) 8px 16px); }
+  .p5{ background: conic-gradient(var(--pink), var(--ochre), var(--teal), var(--ink), var(--pink)); }
+  .p6{ background: repeating-radial-gradient(circle, var(--ochre) 0 3px, var(--paper-2) 3px 18px); }
+
+  /* ---------- process ---------- */
+  .process{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:0;
+    counter-reset:step;
+  }
+  .step{
+    padding:0 22px 0 0;
+    border-left:1px solid var(--line);
+    padding-left:22px;
+  }
+  .step:first-child{ border-left:none; padding-left:0; }
+  .step-num{
+    font-family:'Bebas Neue', sans-serif;
+    font-size:48px;
+    color:var(--paper);
+    -webkit-text-stroke:1.4px var(--ink);
+    margin-bottom:14px;
+  }
+  .step h4{
+    font-family:'Bebas Neue', sans-serif;
+    font-size:21px;
+    text-transform:uppercase;
+    margin-bottom:8px;
+  }
+  .step p{ font-size:14px; color:#3a3730; }
+
+  /* ---------- contact ---------- */
+  .contact{
+    background:var(--ink);
+    color:var(--paper);
+    border-top:1px solid var(--line);
+    position:relative;
+  }
+  .contact .section-title{ color:var(--paper); }
+  .contact .section-tag{ color:var(--ochre); }
+  .contact .section-head{ border-bottom-color:rgba(234,231,220,0.2); }
+  .contact-cta{
+    font-family:'Bebas Neue', sans-serif;
+    font-size:clamp(40px,7vw,84px);
+    text-transform:uppercase;
+    line-height:0.95;
+    max-width:820px;
+  }
+  .contact-cta a{
+    text-decoration:none;
+    border-bottom:4px solid var(--pink);
+  }
+  .contact-links{
+    margin-top:46px;
+    display:flex; flex-wrap:wrap; gap:0;
+    border-top:1px solid rgba(234,231,220,0.2);
+  }
+  .contact-links a{
+    flex:1; min-width:160px;
+    text-decoration:none;
+    padding:20px 0;
+    border-right:1px solid rgba(234,231,220,0.2);
+    font-family:'Space Mono', monospace;
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    display:flex; align-items:center; gap:8px;
+    transition:color .2s ease;
+  }
+  .contact-links a:last-child{ border-right:none; }
+  .contact-links a:hover{ color:var(--ochre); }
+  .contact-links a .arrow{ transition:transform .2s ease; }
+  .contact-links a:hover .arrow{ transform:translateX(4px); }
+
+  footer{
+    background:var(--ink);
+    color:rgba(234,231,220,0.5);
+    padding:20px 0 34px;
+    font-family:'Space Mono', monospace;
+    font-size:12px;
+    display:flex; justify-content:space-between;
+    flex-wrap:wrap; gap:10px;
+  }
+
+  /* ---------- responsive ---------- */
+  @media (max-width:860px){
+    .about-grid{ grid-template-columns:1fr; gap:36px; }
+    .services-grid{ grid-template-columns:repeat(2,1fr); }
+    .plate-grid{ grid-template-columns:repeat(2,1fr); }
+    .process{ grid-template-columns:repeat(2,1fr); gap:26px 0; }
+    .step{ border-left:none; padding-left:0; }
+    .hero-meta div{ min-width:44%; margin-bottom:14px; }
+  }
+  @media (max-width:600px){
+    nav ul{
+      position:fixed; top:64px; left:0; right:0;
+      background:var(--paper);
+      flex-direction:column; gap:0;
+      border-bottom:1px solid var(--line);
+      max-height:0; overflow:hidden;
+      transition:max-height .25s ease;
+    }
+    nav ul.open{ max-height:300px; }
+    nav ul li{ border-top:1px solid var(--line); }
+    nav ul a{ display:block; padding:16px 28px; }
+    .nav-toggle{
+      display:block;
+      background:none; border:1px solid var(--ink);
+      padding:8px 12px;
+      font-family:'Space Mono', monospace;
+      font-size:12px;
+      cursor:pointer;
+    }
+    .services-grid{ grid-template-columns:1fr; }
+    .plate-grid{ grid-template-columns:1fr; }
+    .process{ grid-template-columns:1fr; }
+    .contact-links a{ flex:1 1 100%; border-right:none; border-bottom:1px solid rgba(234,231,220,0.2); }
   }
 </style>
 </head>
 <body>
+<div class="frame-border" aria-hidden="true"></div>
 
-<div class="app">
+<header>
+  <div class="nav-inner">
+    <div class="logo">NADIA<span>.</span>P</div>
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navList">MENU</button>
+    <nav>
+      <ul id="navList">
+        <li><a href="#tentang">Tentang</a></li>
+        <li><a href="#layanan">Layanan</a></li>
+        <li><a href="#karya">Karya</a></li>
+        <li><a href="#proses">Proses</a></li>
+        <li><a href="#kontak">Kontak</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
 
-  <div class="titlebar">
-    <div class="dots">
-      <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
-    </div>
-    <div class="path">jakha-rama-phosa &nbsp;›&nbsp; <b id="crumb">profile.js</b></div>
-    <div style="width:52px"></div>
+<div class="colorbar"><span class="cb-c"></span><span class="cb-m"></span><span class="cb-y"></span><span class="cb-k"></span></div>
+
+<section class="hero">
+  <div class="reg-mark reg-tl"><span class="circ"></span></div>
+  <div class="reg-mark reg-tr"><span class="circ"></span></div>
+
+  <div class="hero-siderail">
+    <span class="date-rail">EST. 2018 — BANDUNG, ID</span>
+    <span class="hero-note">buatan tangan,<br>bukan template</span>
   </div>
 
-  <div class="body-wrap">
+  <div class="wrap">
+    <p class="hero-eyebrow"><span class="dot"></span>TERSEDIA UNTUK PROYEK BARU — Q3 2026</p>
+    <h1 class="hero-title blackletter">Nadia<br>Prameswari</h1>
+    <p class="hero-sub">Desainer grafis & art director yang tinggal di Bandung. Saya membangun identitas visual, materi cetak, dan sistem desain digital untuk brand yang ingin terlihat berani sekaligus rapi.</p>
 
-    <!-- SIDEBAR -->
-    <div class="sidebar">
-      <div class="label">EXPLORER</div>
-      <div class="tree-item" style="color:var(--text);cursor:default;"><span class="ico">▾</span> portfolio-jakha</div>
-
-      <button class="tree-item active" data-tab="code"><span class="ico">JS</span> profile.js</button>
-      <button class="tree-item" data-tab="about"><span class="ico">▤</span> about.md</button>
-      <button class="tree-item" data-tab="projects"><span class="ico">{ }</span> projects.json</button>
-
-      <div class="label">HOBI</div>
-      <button class="tree-item" data-tab="game"><span class="ico">◆</span> game.steam</button>
-      <button class="tree-item" data-tab="musik"><span class="ico">♪</span> musik.spotify</button>
-      <button class="tree-item" data-tab="poster"><span class="ico">▥</span> poster.json</button>
-      <button class="tree-item" data-tab="video"><span class="ico">▷</span> video.json</button>
-      <button class="tree-item" data-tab="foto"><span class="ico">◱</span> foto.json</button>
-      <button class="tree-item" data-tab="showoff"><span class="ico">✺</span> showoff.json</button>
-
-      <div class="label">FILE</div>
-      <button class="tree-item" data-tab="photo"><span class="ico">▣</span> photo.jpg</button>
-
-      <div class="label">SOCIALS</div>
-      <a class="tree-item" href="mailto:phosajakha@gmail.com"><span class="ico">↗</span> email.lnk</a>
-      <a class="tree-item" href="https://instagram.com/phosajakha" target="_blank" rel="noopener"><span class="ico">↗</span> instagram.lnk</a>
-
-      <div class="status-row">
-        <div><span class="dotstatus"></span>terbuka untuk kolaborasi</div>
-        <div>branch: <span style="color:var(--text-dim)">main</span></div>
+    <div class="quote-lines">
+      <div class="quote-line">
+        <span class="crosshair" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.4"/><line x1="12" y1="0" x2="12" y2="24" stroke="currentColor" stroke-width="1"/><line x1="0" y1="12" x2="24" y2="12" stroke="currentColor" stroke-width="1"/></svg></span>
+        <p>Desain yang bertahan lebih lama dari trennya</p>
+      </div>
+      <div class="quote-line">
+        <span class="crosshair" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.4"/><line x1="12" y1="0" x2="12" y2="24" stroke="currentColor" stroke-width="1"/><line x1="0" y1="12" x2="24" y2="12" stroke="currentColor" stroke-width="1"/></svg></span>
+        <p>Setiap detail punya alasan, bukan hiasan</p>
       </div>
     </div>
 
-    <!-- MAIN -->
-    <div class="main">
-      <div class="tabs" id="tabsRow"></div>
+    <div class="stamp-badge">
+      <span class="sb-top">KARYA ORISINAL</span>
+      <span class="sb-bottom">STUDIO NP · SEJAK 2018</span>
+    </div>
 
-      <div class="panes">
-
-        <!-- PANE: profile.js -->
-        <div class="pane active code-pane" id="pane-code">
-          <div class="code-scroll">
-            <div class="gutter" id="gutter"></div>
-            <div class="code" id="codeblock">
-<div class="line"><span class="c">// profile.js — ganti data di bawah dengan data kamu</span></div>
-<div class="line"><span class="k">import</span> { skills, hobi } <span class="k">from</span> <span class="s">'./stack.js'</span><span class="punct">;</span></div>
-<div class="line">&nbsp;</div>
-<div class="line"><span class="k">export</span> <span class="k">class</span> <span class="fn">Creator</span> {</div>
-<div class="line">&nbsp;&nbsp;<span class="fn">constructor</span>() {</div>
-<div class="line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">this</span>.<span class="p">name</span> <span class="punct">=</span> <span class="s">"Jakha Rama Phosa"</span><span class="punct">;</span></div>
-<div class="line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">this</span>.<span class="p">role</span> <span class="punct">=</span> <span class="s">"Graphic Designer & Web Developer"</span><span class="punct">;</span></div>
-<div class="line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">this</span>.<span class="p">avatar</span> <span class="punct">=</span> <span class="avatar-link" id="avatarLink">./photo.jpg ↗</span><span class="punct">;</span></div>
-<div class="line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">this</span>.<span class="p">skills</span> <span class="punct">=</span> {</div>
-<div class="line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="p">desain</span><span class="punct">:</span> [<span class="s">"Illustrator"</span><span class="punct">,</span> <span class="s">"Photoshop"</span>]<span class="punct">,</span></div>
-<div class="line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="p">dev</span><span class="punct">:</span> [<span class="s">"Node.js"</span><span class="punct">,</span> <span class="s">"HTML"</span><span class="punct">,</span> <span class="s">"Python"</span>]</div>
-<div class="line">&nbsp;&nbsp;&nbsp;&nbsp;};</div>
-<div class="line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">this</span>.<span class="p">hobi</span> <span class="punct">=</span> [<span class="s">"Musik"</span><span class="punct">,</span> <span class="s">"Gaming"</span>]<span class="punct">;</span></div>
-<div class="line">&nbsp;&nbsp;}</div>
-<div class="line">&nbsp;</div>
-<div class="line">&nbsp;&nbsp;<span class="fn">sayHi</span>() {</div>
-<div class="line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">return</span> <span class="s">`Halo, saya ${</span><span class="k">this</span>.<span class="p">name</span><span class="s">}. Mari berkolaborasi.`</span><span class="punct">;</span></div>
-<div class="line">&nbsp;&nbsp;}</div>
-<div class="line">}</div>
-<div class="line">&nbsp;</div>
-<div class="line"><span class="k">const</span> me <span class="punct">=</span> <span class="k">new</span> <span class="fn">Creator</span>()<span class="punct">;</span></div>
-<div class="line"><span class="fn">console</span>.<span class="p">log</span>(me.<span class="fn">sayHi</span>())<span class="punct">;</span><span class="cur"></span></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- PANE: about.md -->
-        <div class="pane md-pane" id="pane-about">
-          <h1><span class="h">#</span> Tentang Saya</h1>
-          <div class="role">Graphic Designer & Web Developer</div>
-          <p>Saya <b>Jakha Rama Phosa</b> — merancang visual sekaligus membangun sistemnya sendiri. Dari sketsa di Illustrator sampai kode yang benar-benar jalan di browser, dua sisi ini saling melengkapi, bukan dipisah-pisah.</p>
-          <p>Di luar layar kerja, musik dan game jadi bagian penting dari proses kreatif — banyak ide dan referensi visual justru muncul dari sana. Lihat detailnya di tab <b>Hobi</b> pada sidebar.</p>
-          <h2 class="sub">Desain</h2>
-          <div class="tag-row">
-            <div class="tag c-prop">Illustrator</div>
-            <div class="tag c-prop">Photoshop</div>
-          </div>
-          <h2 class="sub">Pengembangan</h2>
-          <div class="tag-row">
-            <div class="tag c-fn">Node.js</div>
-            <div class="tag c-fn">HTML</div>
-            <div class="tag c-fn">Python</div>
-          </div>
-          <h2 class="sub">Hobi</h2>
-          <div class="tag-row">
-            <div class="tag c-key">Gaming</div>
-            <div class="tag c-str">Musik</div>
-          </div>
-        </div>
-
-        <!-- PANE: projects.json -->
-        <div class="pane json-pane" id="pane-projects">
-          <div class="json-head"><span class="k">GET</span> /projects <span class="c">// ganti gambar & deskripsi dengan karya asli kamu</span></div>
-          <div class="masonry">
-            <div class="card">
-              <div class="ph-thumb" style="aspect-ratio:4/5;background:linear-gradient(160deg,#ff9ecf33,#12131c);"><div class="cross"></div></div>
-              <div class="meta">
-                <div class="name">Identitas Brand Kopi Lokal</div>
-                <div class="stack">Illustrator · Branding</div>
-                <div class="ratio">rasio 4:5</div>
-              </div>
-            </div>
-            <div class="card">
-              <div class="ph-thumb" style="aspect-ratio:16/10;background:linear-gradient(160deg,#7ad0ff33,#12131c);"><div class="cross"></div></div>
-              <div class="meta">
-                <div class="name">Landing Page Toko Online</div>
-                <div class="stack">HTML · Responsive</div>
-                <div class="ratio">rasio 16:10</div>
-              </div>
-            </div>
-            <div class="card">
-              <div class="ph-thumb" style="aspect-ratio:3/4;background:linear-gradient(160deg,#ffb86c33,#12131c);"><div class="cross"></div></div>
-              <div class="meta">
-                <div class="name">Poster & Aset Sosial Media</div>
-                <div class="stack">Photoshop · Konten</div>
-                <div class="ratio">rasio 3:4</div>
-              </div>
-            </div>
-            <div class="card">
-              <div class="ph-thumb" style="aspect-ratio:1/1;background:linear-gradient(160deg,#9ed07233,#12131c);"><div class="cross"></div></div>
-              <div class="meta">
-                <div class="name">Skrip Otomatisasi Data</div>
-                <div class="stack">Python · Automation</div>
-                <div class="ratio">rasio 1:1</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- PANE: game.steam -->
-        <div class="pane json-pane" id="pane-game">
-          <div class="json-head"><span class="k">GET</span> /hobi/game <span class="c">// status Steam live</span></div>
-          <div class="embed-box">
-            <div class="lbl"><span class="dot2"></span>STEAM · LIVE STATUS</div>
-            <div class="frame">
-              <iframe src="https://gamer2810.github.io/steam-miniprofile/?accountId=76561199175575686"
-                      title="Steam mini profile Jakha Rama Phosa"
-                      width="330" height="225" scrolling="no" loading="lazy" allowfullscreen></iframe>
-            </div>
-          </div>
-        </div>
-
-        <!-- PANE: musik.spotify -->
-        <div class="pane json-pane" id="pane-musik">
-          <div class="json-head"><span class="k">GET</span> /hobi/musik <span class="c">// playlist favorit</span></div>
-          <div class="embed-box" style="max-width:420px;">
-            <div class="lbl"><span class="dot2"></span>SPOTIFY · PLAYLIST</div>
-            <div class="frame">
-              <iframe src="https://open.spotify.com/embed/playlist/1Sjuy5P1xxvZJYu32scyyE?utm_source=generator"
-                      title="Playlist Spotify favorit Jakha Rama Phosa"
-                      height="352" frameborder="0"
-                      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                      loading="lazy"></iframe>
-            </div>
-          </div>
-        </div>
-
-        <!-- PANE: poster.json -->
-        <div class="pane json-pane" id="pane-poster">
-          <div class="json-head"><span class="k">GET</span> /hobi/poster <span class="c">// ganti dengan poster asli kamu</span></div>
-          <div class="masonry">
-            <div class="card">
-              <div class="ph-thumb" style="aspect-ratio:3/4;background:linear-gradient(160deg,#ff9ecf33,#12131c);"><div class="cross"></div></div>
-              <div class="meta"><div class="name">Poster Konser Lokal</div><div class="stack">Illustrator · Print</div></div>
-            </div>
-            <div class="card">
-              <div class="ph-thumb" style="aspect-ratio:4/5;background:linear-gradient(160deg,#7ad0ff33,#12131c);"><div class="cross"></div></div>
-              <div class="meta"><div class="name">Poster Event Kampus</div><div class="stack">Photoshop · Digital</div></div>
-            </div>
-            <div class="card">
-              <div class="ph-thumb" style="aspect-ratio:1/1;background:linear-gradient(160deg,#ffb86c33,#12131c);"><div class="cross"></div></div>
-              <div class="meta"><div class="name">Seri Poster Minimalis</div><div class="stack">Illustrator · Personal</div></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- PANE: video.json -->
-        <div class="pane json-pane" id="pane-video">
-          <div class="json-head"><span class="k">GET</span> /hobi/video <span class="c">// ganti dengan link video asli (YouTube/Vimeo)</span></div>
-          <div class="masonry">
-            <div class="card">
-              <div class="ph-thumb" style="aspect-ratio:16/9;background:linear-gradient(160deg,#ff9ecf33,#7ad0ff22);"><div class="play"></div></div>
-              <div class="meta"><div class="name">Reel Behind The Scenes</div><div class="stack">Edit · 0:45</div></div>
-            </div>
-            <div class="card">
-              <div class="ph-thumb" style="aspect-ratio:16/9;background:linear-gradient(160deg,#7ad0ff33,#12131c);"><div class="play"></div></div>
-              <div class="meta"><div class="name">Dokumentasi Event</div><div class="stack">Edit · 2:10</div></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- PANE: foto.json -->
-        <div class="pane json-pane" id="pane-foto">
-          <div class="json-head"><span class="k">GET</span> /hobi/foto <span class="c">// ganti dengan foto asli kamu</span></div>
-          <div class="masonry">
-            <div class="card">
-              <div class="ph-thumb" style="aspect-ratio:3/4;background:linear-gradient(160deg,#ffb86c33,#12131c);"><div class="cross"></div></div>
-              <div class="meta"><div class="name">Street Photography</div><div class="stack">isi lokasi</div></div>
-            </div>
-            <div class="card">
-              <div class="ph-thumb" style="aspect-ratio:4/5;background:linear-gradient(160deg,#ff9ecf33,#12131c);"><div class="cross"></div></div>
-              <div class="meta"><div class="name">Portrait Session</div><div class="stack">isi lokasi</div></div>
-            </div>
-            <div class="card">
-              <div class="ph-thumb" style="aspect-ratio:16/10;background:linear-gradient(160deg,#7ad0ff33,#12131c);"><div class="cross"></div></div>
-              <div class="meta"><div class="name">Landscape</div><div class="stack">isi lokasi</div></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- PANE: showoff.json -->
-        <div class="pane json-pane" id="pane-showoff">
-          <div class="json-head"><span class="k">GET</span> /hobi/showoff <span class="c">// highlight gabungan semua kategori</span></div>
-          <div class="showoff-strip">
-            <div class="card showoff-card">
-              <div class="ph-thumb" style="background:linear-gradient(160deg,#ff9ecf33,#12131c);"><div class="cross"></div></div>
-              <div class="meta"><span class="tag c-prop">Desain</span><div class="name" style="margin-top:6px;">Brand Kopi</div></div>
-            </div>
-            <div class="card showoff-card">
-              <div class="ph-thumb" style="background:linear-gradient(160deg,#7ad0ff33,#12131c);"><div class="cross"></div></div>
-              <div class="meta"><span class="tag c-fn">Kode</span><div class="name" style="margin-top:6px;">Landing Page</div></div>
-            </div>
-            <div class="card showoff-card">
-              <div class="ph-thumb" style="background:linear-gradient(160deg,#9ed07233,#12131c);"><div class="cross"></div></div>
-              <div class="meta"><span class="tag c-str">Musik</span><div class="name" style="margin-top:6px;">Playlist Ngoding</div></div>
-            </div>
-            <div class="card showoff-card">
-              <div class="ph-thumb" style="background:linear-gradient(160deg,#c792ea33,#12131c);"><div class="cross"></div></div>
-              <div class="meta"><span class="tag c-key">Game</span><div class="name" style="margin-top:6px;">Steam Level 26</div></div>
-            </div>
-            <div class="card showoff-card">
-              <div class="ph-thumb" style="background:linear-gradient(160deg,#ffb86c33,#12131c);"><div class="play"></div></div>
-              <div class="meta"><span class="tag c-num">Video</span><div class="name" style="margin-top:6px;">Reel Terbaru</div></div>
-            </div>
-            <div class="card showoff-card">
-              <div class="ph-thumb" style="background:linear-gradient(160deg,#ff6b8133,#12131c);"><div class="cross"></div></div>
-              <div class="meta"><span class="tag c-danger">Foto</span><div class="name" style="margin-top:6px;">Sesi Portrait</div></div>
-            </div>
-          </div>
-          <p class="pane-note">* Ganti dengan karya terbaik kamu dari tiap kategori.</p>
-        </div>
-
-        <!-- PANE: photo.jpg -->
-        <div class="pane img-pane" id="pane-photo">
-          <div class="img-frame">
-            <img id="mainPhoto" src="foto-profil.jpg" alt="Foto profil Jakha Rama Phosa"
-                 onerror="this.style.display='none';document.getElementById('photoFallback').style.display='flex';document.getElementById('dimText').textContent='—';document.getElementById('ratioText').textContent='—';">
-            <div class="fallback" id="photoFallback">JRP</div>
-          </div>
-          <div class="img-info">
-            <span>ukuran: <b id="dimText">memuat…</b></span>
-            <span>rasio: <b id="ratioText">memuat…</b></span>
-            <span>mode: <b>auto-fit</b></span>
-          </div>
-        </div>
-
+    <div class="typecoder">
+      <div class="typecoder-bar">
+        <span class="tc-dot"></span><span class="tc-dot"></span><span class="tc-dot"></span>
+        <span class="tc-label">sedang_mengerjakan.txt</span>
       </div>
-
-      <!-- TERMINAL -->
-      <div class="terminal">
-        <div class="term-head"><span>TERMINAL</span><span>bash</span></div>
-        <div class="term-line"><span class="prompt">jakha@portfolio</span> <span class="path2">~</span> $ <span id="typed"></span><span id="term-cursor"></span></div>
-        <div class="term-out" id="termOut"></div>
-      </div>
-
-      <!-- STATUS BAR -->
-      <div class="statusbar">
-        <div class="grp">
-          <span>⎇ main</span>
-          <span id="statusFile">profile.js</span>
-          <span>UTF-8</span>
+      <div class="typecoder-body">
+        <div class="typecoder-line">
+          <span class="tc-prompt">&gt;</span>
+          <span class="tc-text" id="tcText"></span><span class="tc-cursor" aria-hidden="true"></span>
         </div>
-        <div class="grp">
-          <span id="langLabel">JavaScript</span>
-          <span id="clock"></span>
+      </div>
+    </div>
+
+    <div class="hero-meta">
+      <div>
+        <div class="k mono">Pengalaman</div>
+        <div class="v">8 Tahun</div>
+      </div>
+      <div>
+        <div class="k mono">Fokus</div>
+        <div class="v">Branding & Cetak</div>
+      </div>
+      <div>
+        <div class="k mono">Lokasi</div>
+        <div class="v">Bandung, ID</div>
+      </div>
+      <div>
+        <div class="k mono">Klien</div>
+        <div class="v">40+ Brand</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="tentang">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-tag mono">01 / TENTANG</span>
+      <h2 class="section-title">Latar Belakang</h2>
+    </div>
+    <div class="about-grid">
+      <div>
+        <p>Saya memulai karier sebagai desainer di studio cetak sebelum pindah fokus ke identitas brand digital — kombinasi itu yang membentuk cara saya bekerja sekarang: <strong>setiap elemen harus lulus uji cetak dan uji layar.</strong></p>
+        <p>Saya percaya desain yang baik bukan soal tren, tapi soal ketepatan — tipografi yang dipilih karena alasan, warna yang punya fungsi, dan grid yang membuat pembaca tahu ke mana harus melihat lebih dulu.</p>
+        <p>Di luar proyek klien, saya mengajar workshop tipografi dan mengoleksi risograf print lama dari studio-studio independen di Asia Tenggara.</p>
+      </div>
+      <ul class="skill-list">
+        <li><span>Identitas Visual & Logo</span><span>Ahli</span></li>
+        <li><span>Tipografi & Sistem Grid</span><span>Ahli</span></li>
+        <li><span>Desain Kemasan & Cetak</span><span>Ahli</span></li>
+        <li><span>Ilustrasi Editorial</span><span>Mahir</span></li>
+        <li><span>Motion & Desain Digital</span><span>Mahir</span></li>
+        <li><span>Adobe CC / Figma</span><span>Ahli</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="layanan">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-tag mono">02 / LAYANAN</span>
+      <h2 class="section-title">Yang Saya Kerjakan</h2>
+    </div>
+  </div>
+  <div class="wrap" style="padding:0;">
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-num mono">CMYK 01</div>
+        <h3>Branding &amp; Identitas</h3>
+        <p>Logo, panduan brand, dan sistem visual lengkap dari nol hingga siap pakai lintas media.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-num mono">CMYK 02</div>
+        <h3>Desain Cetak</h3>
+        <p>Kemasan, katalog, undangan, dan materi cetak lain — siap naik ke mesin cetak tanpa revisi.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-num mono">CMYK 03</div>
+        <h3>Desain Digital</h3>
+        <p>Aset sosial media, presentasi, dan tampilan web yang konsisten dengan identitas brand.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-num mono">CMYK 04</div>
+        <h3>Ilustrasi</h3>
+        <p>Ilustrasi editorial dan custom artwork untuk memberi karakter pada cerita brand Anda.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="karya">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-tag mono">03 / KARYA</span>
+      <h2 class="section-title">Proyek Terpilih</h2>
+    </div>
+  </div>
+  <div class="wrap" style="padding:0;">
+    <div class="plate-grid">
+      <div class="plate">
+        <div class="plate-swatch">
+          <div class="tex p1"></div>
+          <div class="plate-tape"></div>
+          <span class="plate-caption">@studiorimba</span>
+          <div class="plate-frame"></div>
+        </div>
+        <div class="plate-info">
+          <div class="plate-cat mono">BRANDING — 2025</div>
+          <h3>Kopi Rimba</h3>
+          <p>Identitas visual untuk roastery kopi lokal, dari logo hingga kemasan kraft.</p>
+        </div>
+      </div>
+      <div class="plate">
+        <div class="plate-swatch">
+          <div class="tex p2"></div>
+          <span class="crosshair plate-target" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="var(--paper)" stroke-width="1.4"/><line x1="12" y1="0" x2="12" y2="24" stroke="var(--paper)" stroke-width="1"/><line x1="0" y1="12" x2="24" y2="12" stroke="var(--paper)" stroke-width="1"/></svg></span>
+          <div class="plate-frame"></div>
+        </div>
+        <div class="plate-info">
+          <div class="plate-cat mono">EDITORIAL — 2024</div>
+          <h3>Majalah Ambang</h3>
+          <p>Tata letak dan ilustrasi untuk majalah budaya independen triwulanan.</p>
+        </div>
+      </div>
+      <div class="plate">
+        <div class="plate-swatch"><div class="tex p3"></div><div class="plate-frame"></div></div>
+        <div class="plate-info">
+          <div class="plate-cat mono">KEMASAN — 2024</div>
+          <h3>Studio Rempah</h3>
+          <p>Sistem kemasan bumbu dapur dengan kode warna berbasis jenis rempah.</p>
+        </div>
+      </div>
+      <div class="plate">
+        <div class="plate-swatch"><div class="tex p4"></div><div class="plate-frame"></div></div>
+        <div class="plate-info">
+          <div class="plate-cat mono">DIGITAL — 2023</div>
+          <h3>Arus Studio</h3>
+          <p>Desain ulang situs dan aset sosial media untuk studio arsitektur.</p>
+        </div>
+      </div>
+      <div class="plate">
+        <div class="plate-swatch"><div class="tex p5"></div><div class="plate-frame"></div></div>
+        <div class="plate-info">
+          <div class="plate-cat mono">FESTIVAL — 2023</div>
+          <h3>Bandung Type Fest</h3>
+          <p>Identitas acara tahunan komunitas tipografi, termasuk merchandise.</p>
+        </div>
+      </div>
+      <div class="plate">
+        <div class="plate-swatch"><div class="tex p6"></div><div class="plate-frame"></div></div>
+        <div class="plate-info">
+          <div class="plate-cat mono">ILUSTRASI — 2022</div>
+          <h3>Seri Riso "Musim"</h3>
+          <p>Seri poster riograf independen terinspirasi empat musim tropis.</p>
         </div>
       </div>
     </div>
   </div>
-</div>
+</section>
+
+<section id="proses">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-tag mono">04 / PROSES</span>
+      <h2 class="section-title">Cara Kerja</h2>
+    </div>
+    <div class="process">
+      <div class="step">
+        <div class="step-num">01</div>
+        <h4>Riset &amp; Brief</h4>
+        <p>Memahami brand, audiens, dan kompetitor sebelum sketsa pertama dibuat.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <h4>Konsep</h4>
+        <p>Eksplorasi arah visual — 2–3 konsep berbeda untuk didiskusikan bersama.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <h4>Pengembangan</h4>
+        <p>Konsep terpilih disempurnakan: tipografi, warna, dan sistem grid.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <h4>Serah Terima</h4>
+        <p>File final, panduan penggunaan, dan pendampingan implementasi.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="kontak">
+  <div class="reg-mark reg-bl" style="border-color:transparent;"><span class="circ" style="border-color:var(--paper);"></span></div>
+  <div class="reg-mark reg-br" style="border-color:transparent;"><span class="circ" style="border-color:var(--paper);"></span></div>
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-tag mono">05 / KONTAK</span>
+      <h2 class="section-title">Mari Bekerja Sama</h2>
+    </div>
+    <p class="contact-cta">Punya proyek yang butuh <a href="mailto:halo@nadiaprameswari.id">identitas visual baru</a>? Ceritakan idenya.</p>
+    <div class="contact-links">
+      <a href="mailto:halo@nadiaprameswari.id">Email <span class="arrow">→</span></a>
+      <a href="#">Instagram <span class="arrow">→</span></a>
+      <a href="#">Behance <span class="arrow">→</span></a>
+      <a href="#">LinkedIn <span class="arrow">→</span></a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap" style="display:flex; justify-content:space-between; align-items:center; width:100%; flex-wrap:wrap; gap:10px;">
+    <span>© 2026 NADIA PRAMESWARI STUDIO</span>
+    <span class="handwritten" style="font-size:20px; color:var(--paper);">dirancang oleh Nadia sendiri</span>
+    <span>DIBUAT DI BANDUNG, INDONESIA</span>
+  </div>
+</footer>
 
 <script>
-  const crumbLabel = {
-    code:'profile.js', about:'about.md', projects:'projects.json',
-    game:'game.steam', musik:'musik.spotify', poster:'poster.json',
-    video:'video.json', foto:'foto.json', showoff:'showoff.json',
-    photo:'photo.jpg'
-  };
-  const iconLabel = {
-    code:'JS', about:'▤', projects:'{ }',
-    game:'◆', musik:'♪', poster:'▥', video:'▷', foto:'◱', showoff:'✺',
-    photo:'▣'
-  };
-  const langLabel = {
-    code:'JavaScript', about:'Markdown', projects:'JSON',
-    game:'JSON', musik:'JSON', poster:'JSON', video:'JSON', foto:'JSON', showoff:'JSON',
-    photo:'Image'
-  };
-  const panes = {};
-  Object.keys(crumbLabel).forEach(k => panes[k] = document.getElementById('pane-'+k));
-
-  const statusFile = document.getElementById('statusFile');
-  const crumb = document.getElementById('crumb');
-  const langEl = document.getElementById('langLabel');
-  const tabsRow = document.getElementById('tabsRow');
-
-  let openTabs = ['code','about','projects','photo'];
-  let currentTab = 'code';
-
-  function renderTabs(){
-    tabsRow.innerHTML = '';
-    openTabs.forEach(key => {
-      const div = document.createElement('div');
-      div.className = 'tab' + (key===currentTab ? ' active' : '');
-      div.innerHTML = `<span class="ico">${iconLabel[key]}</span><span>${crumbLabel[key]}</span><span class="close-x" data-close="${key}">×</span>`;
-      div.addEventListener('click', (e) => {
-        if(e.target.dataset.close){ closeTab(e.target.dataset.close); return; }
-        activate(key);
-      });
-      tabsRow.appendChild(div);
-    });
-  }
-
-  function activate(key){
-    currentTab = key;
-    Object.keys(panes).forEach(k => panes[k].classList.toggle('active', k===key));
-    document.querySelectorAll('.sidebar .tree-item[data-tab]').forEach(t => t.classList.toggle('active', t.dataset.tab===key));
-    statusFile.textContent = crumbLabel[key];
-    crumb.textContent = crumbLabel[key];
-    langEl.textContent = langLabel[key];
-    renderTabs();
-  }
-
-  function openTab(key){
-    if(!openTabs.includes(key)) openTabs.push(key);
-    activate(key);
-  }
-
-  function closeTab(key){
-    const idx = openTabs.indexOf(key);
-    if(idx > -1) openTabs.splice(idx,1);
-    if(openTabs.length===0) openTabs.push('code');
-    if(currentTab===key){
-      const nextKey = openTabs[Math.max(0, idx-1)] || openTabs[0];
-      activate(nextKey);
-    } else {
-      renderTabs();
-    }
-  }
-
-  document.querySelectorAll('.sidebar .tree-item[data-tab]').forEach(btn => {
-    btn.addEventListener('click', () => openTab(btn.dataset.tab));
-  });
-  document.getElementById('avatarLink').addEventListener('click', () => openTab('photo'));
-
-  renderTabs();
-
-  // ---- Line numbers ----
-  const codeLines = document.querySelectorAll('#codeblock .line').length;
-  const gutter = document.getElementById('gutter');
-  for(let i=1;i<=codeLines;i++){
-    const d = document.createElement('div');
-    d.textContent = i;
-    gutter.appendChild(d);
-  }
-
-  // ---- Photo preview auto-ratio info ----
-  const mainPhoto = document.getElementById('mainPhoto');
-  const dimText = document.getElementById('dimText');
-  const ratioText = document.getElementById('ratioText');
-  function gcd(a,b){return b===0?a:gcd(b,a%b);}
-  mainPhoto.addEventListener('load', ()=>{
-    const w = mainPhoto.naturalWidth, h = mainPhoto.naturalHeight;
-    if(w && h){
-      const g = gcd(w,h);
-      dimText.textContent = `${w} × ${h}px`;
-      ratioText.textContent = `${w/g}:${h/g}`;
-    }
-  });
-
-  // ---- Terminal typing animation ----
-  const typedEl = document.getElementById('typed');
-  const outEl = document.getElementById('termOut');
-  const cmd = 'whoami --skills --status';
-  const output = 'Jakha Rama Phosa · Graphic Designer & Web Developer\nStatus: terbuka untuk kolaborasi\nStack: Illustrator · Photoshop · Node.js · HTML · Python\nHobi: Musik · Gaming';
+  const tcLines = [
+    'menyusun_grid_kemasan.ai',
+    'memilih_pasangan_tipografi.fig',
+    'menyesuaikan_warna_CMYK.indd',
+    'merapikan_logo_v14_final_fix.svg',
+    'menulis_panduan_brand.pdf'
+  ];
+  const tcEl = document.getElementById('tcText');
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(reduceMotion){
-    typedEl.textContent = cmd;
-    outEl.textContent = output;
-  } else {
-    let i=0;
-    function typeCmd(){
-      if(i<=cmd.length){
-        typedEl.textContent = cmd.slice(0,i);
-        i++;
-        setTimeout(typeCmd, 55);
-      } else {
-        setTimeout(()=>{ outEl.textContent = output; }, 300);
+
+  if(tcEl){
+    if(reduceMotion){
+      tcEl.textContent = tcLines[0];
+    } else {
+      let lineIndex = 0, charIndex = 0, deleting = false;
+
+      function tick(){
+        const current = tcLines[lineIndex];
+
+        if(!deleting){
+          charIndex++;
+          tcEl.textContent = current.slice(0, charIndex);
+          if(charIndex === current.length){
+            deleting = true;
+            setTimeout(tick, 1400);
+            return;
+          }
+        } else {
+          charIndex--;
+          tcEl.textContent = current.slice(0, charIndex);
+          if(charIndex === 0){
+            deleting = false;
+            lineIndex = (lineIndex + 1) % tcLines.length;
+          }
+        }
+        setTimeout(tick, deleting ? 28 : 46);
       }
+      tick();
     }
-    typeCmd();
   }
 
-  // ---- Clock ----
-  function tick(){
-    const d = new Date();
-    document.getElementById('clock').textContent = d.toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'});
+  const toggle = document.getElementById('navToggle');
+  const list = document.getElementById('navList');
+  if(toggle){
+    toggle.addEventListener('click', () => {
+      const isOpen = list.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', isOpen);
+    });
+    list.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      list.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    }));
   }
-  tick(); setInterval(tick,1000*30);
 </script>
 
 </body>
