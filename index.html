@@ -3,946 +3,985 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jakha Phosa — Desainer Grafis & Art Director</title>
+<title>Raka Aditya — Desain Grafis & Fotografi</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:wght@400;700&family=Work+Sans:wght@400;500;600&family=UnifrakturCook:wght@700&family=Special+Elite&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --paper:#EAE7DC;
-    --paper-2:#DFDCCF;
-    --ink:#15130F;
-    --pink:#E63462;
-    --teal:#0E7C7B;
-    --ochre:#F2A93B;
-    --line: rgba(21,19,15,0.18);
-    --max: 1180px;
+    --ink:#181815;
+    --paper:#e9e4d6;
+    --paper-dim:#dcd6c4;
+    --safelight:#c81d2f;
+    --kodak:#f0b429;
+    --grey-frame:#8c887c;
+    --line: rgba(24,24,21,0.16);
+
+    --display: 'Bebas Neue', sans-serif;
+    --body: 'Inter', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+
+    --footer-bg:#131311;
+    --footer-fg:#ece7d8;
+    --footer-fg-dim:#c9c5b6;
   }
 
-  *{box-sizing:border-box; margin:0; padding:0;}
+  body[data-theme="dark"]{
+    --footer-bg:#0a0a08;
+    --ink:#ece7d8;
+    --paper:#131311;
+    --paper-dim:#1c1b17;
+    --safelight:#ff4d5e;
+    --kodak:#f0b429;
+    --grey-frame:#7a7669;
+    --line: rgba(236,231,216,0.14);
+  }
 
+  *{margin:0;padding:0;box-sizing:border-box;}
   html{scroll-behavior:smooth;}
-
   body{
-    background:
-      radial-gradient(ellipse at 20% 10%, rgba(21,19,15,0.04), transparent 60%),
-      radial-gradient(ellipse at 85% 80%, rgba(21,19,15,0.05), transparent 55%),
-      var(--paper);
+    background:var(--paper);
     color:var(--ink);
-    font-family:'Work Sans', sans-serif;
-    font-size:16px;
-    line-height:1.5;
+    font-family:var(--body);
     overflow-x:hidden;
-    position:relative;
+    transition:background .35s ease, color .35s ease;
   }
 
-  /* aged paper grain */
-  body::before{
-    content:"";
-    position:fixed; inset:0;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.045 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    opacity:0.6;
-    pointer-events:none;
-    z-index:9000;
-    mix-blend-mode:multiply;
-  }
+  ::selection{background:var(--safelight);color:var(--paper);}
 
-  /* poster frame */
-  .frame-border{
-    position:fixed; inset:10px;
-    border:2px solid var(--ink);
-    pointer-events:none;
-    z-index:8999;
-  }
-  @media (max-width:600px){ .frame-border{ inset:6px; border-width:1.5px; } }
+  a{color:inherit;text-decoration:none;}
 
-  ::selection{ background:var(--pink); color:var(--paper); }
+  .wrap{max-width:1240px;margin:0 auto;padding:0 32px;}
 
-  a{ color:inherit; }
-
-  .mono{
-    font-family:'Space Mono', monospace;
-    letter-spacing:0.02em;
-  }
-
-  .display{
-    font-family:'Bebas Neue', sans-serif;
-    letter-spacing:0.01em;
-    line-height:0.86;
-    text-transform:uppercase;
-  }
-
-  .blackletter{
-    font-family:'UnifrakturCook', cursive;
-    font-weight:700;
-    line-height:0.82;
-  }
-
-  .handwritten{
-    font-family:'Caveat', cursive;
-    font-weight:600;
-  }
-
-  /* crosshair / target mark, echoes registration marks in a print-poster idiom */
-  .crosshair{
-    width:20px; height:20px;
-    flex-shrink:0;
-    display:inline-block;
-  }
-  .crosshair svg{ width:100%; height:100%; display:block; }
-
-  .wrap{
-    max-width:var(--max);
-    margin:0 auto;
-    padding:0 28px;
-  }
-
-  a:focus-visible,
-  button:focus-visible{
-    outline:3px solid var(--teal);
-    outline-offset:3px;
-  }
-
-  @media (prefers-reduced-motion: reduce){
-    *{ animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important; }
-  }
-
-  /* ---------- registration / crop marks (signature element) ---------- */
-  .reg-mark{
-    position:absolute;
-    width:22px; height:22px;
-    pointer-events:none;
-  }
-  .reg-mark::before, .reg-mark::after{
-    content:"";
-    position:absolute;
-    background:var(--ink);
-  }
-  .reg-mark::before{ left:50%; top:0; width:1px; height:100%; transform:translateX(-50%); }
-  .reg-mark::after{ top:50%; left:0; height:1px; width:100%; transform:translateY(-50%); }
-  .reg-mark .circ{
-    position:absolute; left:50%; top:50%;
-    width:10px; height:10px;
-    border:1px solid var(--ink);
-    border-radius:50%;
-    transform:translate(-50%,-50%);
-  }
-  .reg-tl{ top:16px; left:16px; }
-  .reg-tr{ top:16px; right:16px; }
-  .reg-bl{ bottom:16px; left:16px; }
-  .reg-br{ bottom:16px; right:16px; }
-
-  /* ---------- color bar strip (CMYK proof reference) ---------- */
-  .colorbar{
+  /* ---------- sprocket strip ---------- */
+  .sprockets{
+    height:22px;
+    background:var(--footer-bg);
     display:flex;
-    width:100%;
-    height:8px;
+    align-items:center;
+    gap:22px;
+    padding:0 18px;
+    overflow:hidden;
+    transition:background .35s ease;
   }
-  .colorbar span{ flex:1; }
-  .cb-c{ background:var(--teal); }
-  .cb-m{ background:var(--pink); }
-  .cb-y{ background:var(--ochre); }
-  .cb-k{ background:var(--ink); }
+  .sprockets span{
+    width:9px;height:9px;min-width:9px;
+    background:var(--footer-fg);
+    border-radius:2px;
+  }
 
-  /* ---------- top nav ---------- */
+  /* ---------- nav ---------- */
   header{
-    position:sticky; top:0; z-index:50;
+    position:sticky;top:0;z-index:50;
     background:var(--paper);
     border-bottom:1px solid var(--line);
   }
-  .nav-inner{
-    display:flex; align-items:center; justify-content:space-between;
-    padding:16px 28px;
-    max-width:var(--max); margin:0 auto;
+  nav{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:18px 32px;
+    max-width:1240px;margin:0 auto;
   }
   .logo{
-    font-family:'Bebas Neue', sans-serif;
+    font-family:var(--display);
     font-size:26px;
-    letter-spacing:0.03em;
+    letter-spacing:0.5px;
   }
-  .logo span{ color:var(--pink); }
-  nav ul{
-    list-style:none;
-    display:flex; gap:28px;
-  }
-  nav a{
-    text-decoration:none;
-    font-family:'Space Mono', monospace;
-    font-size:13px;
-    text-transform:uppercase;
+  .logo span{color:var(--safelight);}
+  .navlinks{
+    display:flex;gap:34px;
+    font-family:var(--mono);
+    font-size:12px;
     letter-spacing:0.06em;
-    position:relative;
-    padding-bottom:3px;
+    text-transform:uppercase;
   }
-  nav a::after{
-    content:""; position:absolute; left:0; bottom:0;
-    width:0; height:2px; background:var(--pink);
-    transition:width .25s ease;
+  .navlinks a{position:relative;padding-bottom:3px;}
+  .navlinks a::after{
+    content:'';position:absolute;left:0;bottom:0;width:0;height:1px;
+    background:var(--ink);transition:width .25s ease;
   }
-  nav a:hover::after{ width:100%; }
-  .nav-toggle{ display:none; }
+  .navlinks a:hover::after{width:100%;}
+  .navlinks a:focus-visible, .logo:focus-visible{outline:2px solid var(--safelight);outline-offset:3px;}
+
+  .menu-btn{display:none;font-family:var(--mono);font-size:12px;background:none;border:1px solid var(--ink);padding:8px 14px;cursor:pointer;color:var(--ink);}
+
+  .theme-toggle{
+    display:flex;align-items:center;gap:8px;
+    font-family:var(--mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;
+    background:none;border:1px solid var(--ink);color:var(--ink);
+    padding:7px 12px;cursor:pointer;
+  }
+  .theme-toggle:hover{background:var(--ink);color:var(--paper);}
+  .theme-toggle:focus-visible{outline:2px solid var(--safelight);outline-offset:3px;}
+  .theme-toggle .dot{
+    width:8px;height:8px;border-radius:50%;background:var(--safelight);
+  }
+
+  .nav-right{display:flex;align-items:center;gap:22px;}
+
+  @media (max-width:760px){
+    .navlinks{display:none;}
+    .menu-btn{display:block;}
+  }
 
   /* ---------- hero ---------- */
   .hero{
+    padding:90px 0 60px;
     position:relative;
-    padding:90px 0 70px;
-    border-bottom:1px solid var(--line);
-    overflow:hidden;
   }
-  .hero-eyebrow{
-    font-size:13px;
-    text-transform:uppercase;
-    letter-spacing:0.08em;
-    color:var(--teal);
+  .frame-tag{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--grey-frame);
+    display:flex;justify-content:space-between;
     margin-bottom:18px;
-    display:flex; align-items:center; gap:10px;
+    letter-spacing:0.05em;
   }
-  .hero-eyebrow .dot{
-    width:8px; height:8px; border-radius:50%; background:var(--pink);
-    display:inline-block;
+  h1.title{
+    font-family:var(--display);
+    line-height:0.86;
+    font-size:clamp(64px,13vw,168px);
+    letter-spacing:-0.5px;
+    text-transform:uppercase;
   }
-  h1.hero-title{
-    font-size:clamp(64px, 13vw, 158px);
-    color:var(--ink);
-  }
-  h1.hero-title .accent{
-    color:var(--paper);
-    -webkit-text-stroke:1.6px var(--ink);
-  }
+  h1.title .accent{color:var(--safelight);}
   .hero-sub{
-    max-width:520px;
-    margin-top:26px;
-    font-size:19px;
-    color:#3a3730;
-  }
-
-  /* ---------- quote lines (crosshair + statement, poster idiom) ---------- */
-  .quote-lines{
-    margin-top:30px;
-    display:flex; flex-direction:column; gap:14px;
-    max-width:560px;
-  }
-  .quote-line{
-    display:flex; align-items:flex-start; gap:12px;
-  }
-  .quote-line p{
-    font-family:'Bebas Neue', sans-serif;
-    font-size:19px;
-    letter-spacing:0.01em;
-    text-transform:uppercase;
-    line-height:1.15;
-    padding-top:1px;
-  }
-
-  /* ---------- hero side furniture: date rail + handwritten note + stamp ---------- */
-  .hero-siderail{
-    position:absolute;
-    top:110px; right:26px;
-    display:flex; align-items:flex-start; gap:18px;
-    z-index:5;
-  }
-  .date-rail{
-    writing-mode:vertical-rl;
-    transform:rotate(180deg);
-    font-family:'Space Mono', monospace;
-    font-size:13px;
-    letter-spacing:0.25em;
-    color:#726d5f;
-    padding:4px 0;
-  }
-  .hero-note{
-    writing-mode:vertical-rl;
-    transform:rotate(180deg);
-    font-family:'Caveat', cursive;
-    font-weight:600;
-    font-size:30px;
-    color:var(--pink);
-    line-height:1.05;
-  }
-  @media (max-width:960px){
-    .hero-siderail{ display:none; }
-  }
-
-  .stamp-badge{
-    display:inline-flex; flex-direction:column; align-items:center;
-    border:2px solid var(--ink);
-    padding:6px 10px;
-    transform:rotate(-4deg);
-    margin-top:26px;
-  }
-  .stamp-badge .sb-top{
-    font-family:'Special Elite', monospace;
-    font-size:10px;
-    letter-spacing:0.14em;
-  }
-  .stamp-badge .sb-bottom{
-    font-family:'Special Elite', monospace;
-    font-size:9px;
-    letter-spacing:0.08em;
-    color:#726d5f;
-  }
-
-  .hero-meta{
-    margin-top:44px;
-    display:flex; flex-wrap:wrap;
-    gap:0;
-    border-top:1px solid var(--line);
-  }
-  .hero-meta div{
-    flex:1; min-width:150px;
-    padding:16px 20px 0 0;
-    border-right:1px solid var(--line);
-  }
-  .hero-meta div:last-child{ border-right:none; }
-  .hero-meta .k{
-    font-family:'Space Mono', monospace;
-    font-size:11px;
-    text-transform:uppercase;
-    letter-spacing:0.08em;
-    color:#726d5f;
-    margin-bottom:6px;
-  }
-  .hero-meta .v{ font-size:15px; font-weight:600; }
-
-  /* ---------- type coder ---------- */
-  .typecoder{
+    display:grid;
+    grid-template-columns:1.3fr 1fr;
+    gap:40px;
     margin-top:34px;
-    max-width:560px;
-    background:var(--ink);
-    color:var(--paper);
-    border-radius:4px;
-    overflow:hidden;
-    box-shadow:6px 6px 0 var(--line);
+    align-items:end;
   }
-  .typecoder-bar{
-    display:flex; align-items:center; gap:8px;
-    padding:10px 14px;
-    background:#0000000d;
-    border-bottom:1px solid rgba(234,231,220,0.15);
+  .hero-sub p{
+    font-size:17px;
+    line-height:1.6;
+    max-width:46ch;
+    color:#3a3a35;
   }
-  .typecoder-bar .tc-dot{
-    width:9px; height:9px; border-radius:50%;
-    background:rgba(234,231,220,0.25);
+  .hero-meta{
+    font-family:var(--mono);
+    font-size:12px;
+    line-height:2;
+    color:var(--ink);
+    border-left:1px solid var(--line);
+    padding-left:20px;
   }
-  .typecoder-bar .tc-dot:nth-child(1){ background:var(--pink); }
-  .typecoder-bar .tc-dot:nth-child(2){ background:var(--ochre); }
-  .typecoder-bar .tc-dot:nth-child(3){ background:var(--teal); }
-  .typecoder-bar .tc-label{
-    margin-left:8px;
-    font-family:'Space Mono', monospace;
-    font-size:11px;
-    color:rgba(234,231,220,0.55);
-    text-transform:uppercase;
-    letter-spacing:0.06em;
-  }
-  .typecoder-body{
-    padding:20px 18px 24px;
-    font-family:'Space Mono', monospace;
-    font-size:15px;
-    min-height:78px;
-  }
-  .typecoder-line{ display:flex; gap:10px; }
-  .typecoder-line .tc-prompt{ color:var(--teal); flex-shrink:0; }
-  .typecoder-line .tc-text{ color:var(--paper); }
-  .typecoder-line .tc-cursor{
-    display:inline-block;
-    width:8px; height:16px;
-    background:var(--pink);
-    margin-left:2px;
-    vertical-align:-3px;
-    animation:tc-blink 1s step-end infinite;
-  }
-  @keyframes tc-blink{ 0%,100%{ opacity:1; } 50%{ opacity:0; } }
-  @media (prefers-reduced-motion: reduce){
-    .typecoder-line .tc-cursor{ animation:none; }
+  @media (max-width:760px){
+    .hero-sub{grid-template-columns:1fr;}
+    .hero-meta{border-left:none;border-top:1px solid var(--line);padding-left:0;padding-top:14px;}
   }
 
-  /* ---------- section shell ---------- */
-  section{ position:relative; padding:70px 0; }
-  .section-head{
-    display:flex; align-items:baseline; gap:16px;
-    margin-bottom:44px;
-    border-bottom:1px solid var(--line);
-    padding-bottom:16px;
+  .scroll-cue{
+    margin-top:56px;
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.08em;
+    color:var(--grey-frame);
+    display:flex;align-items:center;gap:10px;
   }
-  .section-tag{
-    font-family:'Space Mono', monospace;
-    font-size:13px;
-    color:var(--pink);
-    white-space:nowrap;
+  .scroll-cue .line{width:60px;height:1px;background:var(--grey-frame);position:relative;overflow:hidden;}
+  .scroll-cue .line::after{
+    content:'';position:absolute;left:-60px;top:0;width:60px;height:1px;background:var(--safelight);
+    animation:travel 2.4s linear infinite;
   }
-  .section-title{
-    font-family:'Bebas Neue', sans-serif;
+  @keyframes travel{to{left:100%;}}
+
+  /* ---------- section label ---------- */
+  .section{padding:100px 0;border-top:1px solid var(--line);}
+  .section-label{
+    display:flex;align-items:baseline;gap:14px;margin-bottom:52px;
+  }
+  .section-label .num{font-family:var(--mono);color:var(--safelight);font-size:13px;}
+  .section-label h2{
+    font-family:var(--display);
     font-size:clamp(34px,5vw,56px);
     text-transform:uppercase;
+    letter-spacing:0.5px;
   }
 
   /* ---------- about ---------- */
-  .about-grid{
-    display:grid;
-    grid-template-columns: 1.1fr 0.9fr;
-    gap:60px;
-    align-items:start;
-  }
-  .about-grid p{ font-size:17px; color:#3a3730; margin-bottom:16px; max-width:52ch; }
-  .about-grid p strong{ color:var(--ink); }
-
-  .skill-list{ list-style:none; }
-  .skill-list li{
-    display:flex; justify-content:space-between; align-items:center;
-    padding:14px 0;
-    border-bottom:1px solid var(--line);
-    font-family:'Space Mono', monospace;
-    font-size:14px;
-  }
-  .skill-list li span:last-child{ color:#726d5f; }
-
-  /* ---------- services ---------- */
-  .services-grid{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    border-top:1px solid var(--line);
-    border-left:1px solid var(--line);
-  }
-  .service-card{
-    border-right:1px solid var(--line);
-    border-bottom:1px solid var(--line);
-    padding:30px 24px;
-    transition:background .2s ease;
-  }
-  .service-card:hover{ background:var(--paper-2); }
-  .service-num{
-    font-family:'Space Mono', monospace;
-    font-size:12px;
-    color:var(--teal);
-    margin-bottom:22px;
-  }
-  .service-card h3{
-    font-family:'Bebas Neue', sans-serif;
-    font-size:24px;
-    text-transform:uppercase;
-    margin-bottom:10px;
-  }
-  .service-card p{ font-size:14px; color:#3a3730; }
-
-  /* ---------- portfolio (contact sheet style) ---------- */
-  .plate-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:2px;
-    background:var(--ink);
+  .about{display:grid;grid-template-columns:0.9fr 1.4fr;gap:60px;align-items:start;}
+  .about-frame{
+    aspect-ratio:4/5;
+    background:#000;
+    position:relative;
     border:1px solid var(--ink);
   }
-  .plate{
-    background:var(--paper);
-    padding:0;
-    position:relative;
-    cursor:default;
+  .about-frame img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.05);display:block;}
+  .about-frame .corner{
+    position:absolute;font-family:var(--mono);font-size:10px;color:var(--paper);
+    background:var(--ink);padding:3px 7px;
   }
-  .plate-swatch{
-    height:190px;
-    position:relative;
-    overflow:hidden;
-  }
-  .plate-swatch .tex{
-    position:absolute; inset:0;
-    opacity:0.9;
-  }
-  .plate-info{
-    padding:18px 20px 22px;
-    border-top:1px solid var(--ink);
-  }
-  .plate-cat{
-    font-family:'Space Mono', monospace;
-    font-size:11px;
-    text-transform:uppercase;
-    color:var(--pink);
-    letter-spacing:0.06em;
-    margin-bottom:8px;
-  }
-  .plate-info h3{
-    font-family:'Bebas Neue', sans-serif;
-    font-size:26px;
-    text-transform:uppercase;
-    margin-bottom:6px;
-  }
-  .plate-info p{ font-size:13px; color:#726d5f; }
-  .plate-frame{
-    position:absolute; inset:10px;
-    border:1px solid rgba(21,19,15,0.35);
-    pointer-events:none;
-  }
-  .plate-tape{
-    position:absolute; top:-6px; left:50%;
-    width:70px; height:22px;
-    background:rgba(242,169,59,0.55);
-    transform:translateX(-50%) rotate(-2deg);
-    box-shadow:0 1px 2px rgba(21,19,15,0.2);
-    z-index:2;
-  }
-  .plate-caption{
-    position:absolute; bottom:8px; left:12px;
-    font-family:'Caveat', cursive;
-    font-weight:600;
-    font-size:18px;
-    color:var(--paper);
-    text-shadow:0 1px 3px rgba(0,0,0,0.6);
-    z-index:2;
-  }
-  .plate-target{
-    position:absolute; top:10px; right:10px;
-    width:26px; height:26px;
-    z-index:2;
-  }
+  .about-frame .corner.tl{top:0;left:0;}
+  .about-frame .corner.br{bottom:0;right:0;background:var(--safelight);}
 
-  /* swatch pattern generators */
-  .p1{ background: repeating-linear-gradient(45deg, var(--pink) 0 14px, var(--ochre) 14px 28px); }
-  .p2{ background: radial-gradient(circle at 30% 30%, var(--teal) 0 40%, transparent 41%), radial-gradient(circle at 70% 65%, var(--ink) 0 30%, transparent 31%), var(--paper-2); }
-  .p3{ background: linear-gradient(180deg, var(--ink) 0 50%, var(--paper-2) 50%); }
-  .p4{ background: repeating-linear-gradient(90deg, var(--teal) 0 8px, var(--paper-2) 8px 16px); }
-  .p5{ background: conic-gradient(var(--pink), var(--ochre), var(--teal), var(--ink), var(--pink)); }
-  .p6{ background: repeating-radial-gradient(circle, var(--ochre) 0 3px, var(--paper-2) 3px 18px); }
+  .about-text p{font-size:16.5px;line-height:1.75;color:#3a3a35;margin-bottom:20px;max-width:60ch;}
+  .about-text strong{color:var(--ink);}
 
-  /* ---------- process ---------- */
-  .process{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:0;
-    counter-reset:step;
-  }
-  .step{
-    padding:0 22px 0 0;
-    border-left:1px solid var(--line);
-    padding-left:22px;
-  }
-  .step:first-child{ border-left:none; padding-left:0; }
-  .step-num{
-    font-family:'Bebas Neue', sans-serif;
-    font-size:48px;
-    color:var(--paper);
-    -webkit-text-stroke:1.4px var(--ink);
-    margin-bottom:14px;
-  }
-  .step h4{
-    font-family:'Bebas Neue', sans-serif;
-    font-size:21px;
-    text-transform:uppercase;
-    margin-bottom:8px;
-  }
-  .step p{ font-size:14px; color:#3a3730; }
-
-  /* ---------- contact ---------- */
-  .contact{
-    background:var(--ink);
-    color:var(--paper);
+  .stats{
+    display:grid;grid-template-columns:repeat(3,1fr);
+    margin-top:40px;
     border-top:1px solid var(--line);
+  }
+  .stat{padding:22px 0;border-right:1px solid var(--line);}
+  .stat:last-child{border-right:none;}
+  .stat b{display:block;font-family:var(--display);font-size:44px;color:var(--safelight);line-height:1;}
+  .stat span{font-family:var(--mono);font-size:11px;color:var(--grey-frame);text-transform:uppercase;letter-spacing:0.05em;}
+
+  @media (max-width:800px){
+    .about{grid-template-columns:1fr;}
+  }
+
+  /* ---------- gallery (signature element) ---------- */
+  .gallery-wrap{border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .gallery{
+    display:grid;grid-template-columns:repeat(4,1fr);
+  }
+  .frame{
     position:relative;
+    aspect-ratio:3/4;
+    overflow:hidden;
+    border-right:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    background:#000;
+    cursor:pointer;
   }
-  .contact .section-title{ color:var(--paper); }
-  .contact .section-tag{ color:var(--ochre); }
-  .contact .section-head{ border-bottom-color:rgba(234,231,220,0.2); }
-  .contact-cta{
-    font-family:'Bebas Neue', sans-serif;
-    font-size:clamp(40px,7vw,84px);
-    text-transform:uppercase;
-    line-height:0.95;
-    max-width:820px;
+  .frame img{
+    width:100%;height:100%;object-fit:cover;
+    filter:grayscale(1) brightness(0.85);
+    transition:filter .5s ease, transform .6s ease;
   }
-  .contact-cta a{
-    text-decoration:none;
-    border-bottom:4px solid var(--pink);
+  .frame:hover img{filter:grayscale(0) brightness(1); transform:scale(1.04);}
+  .frame .fnum{
+    position:absolute;top:10px;left:10px;
+    font-family:var(--mono);font-size:11px;color:var(--paper);
+    background:rgba(0,0,0,0.55);padding:3px 7px;
+    letter-spacing:0.04em;
   }
-  .contact-links{
-    margin-top:46px;
-    display:flex; flex-wrap:wrap; gap:0;
-    border-top:1px solid rgba(234,231,220,0.2);
+  .frame .fmeta{
+    position:absolute;left:0;right:0;bottom:0;
+    padding:14px;
+    background:linear-gradient(to top, rgba(0,0,0,0.75), transparent);
+    color:var(--paper);
+    opacity:0;transform:translateY(8px);
+    transition:opacity .35s ease, transform .35s ease;
   }
-  .contact-links a{
-    flex:1; min-width:160px;
-    text-decoration:none;
-    padding:20px 0;
-    border-right:1px solid rgba(234,231,220,0.2);
-    font-family:'Space Mono', monospace;
+  .frame:hover .fmeta{opacity:1;transform:translateY(0);}
+  .fmeta .cat{font-family:var(--mono);font-size:10px;text-transform:uppercase;color:var(--kodak);letter-spacing:0.06em;}
+  .fmeta .ttl{font-family:var(--display);font-size:22px;letter-spacing:0.3px;margin-top:2px;}
+
+  .frame.pick::before{
+    content:'';
+    position:absolute;inset:8px;
+    border:2px solid var(--safelight);
+    border-radius:50% / 45%;
+    transform:rotate(-3deg);
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .3s ease;
+  }
+  .frame.pick:hover::before{opacity:0.85;}
+  .frame.pick .fnum::after{content:' — DIPILIH';color:var(--safelight);}
+
+  @media (max-width:900px){.gallery{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:520px){.gallery{grid-template-columns:1fr;}}
+
+  /* ---------- skills (contact sheet) ---------- */
+  .services{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);}
+  .service{background:var(--paper);padding:40px;}
+  .service .sindex{font-family:var(--mono);font-size:12px;color:var(--safelight);}
+  .service h3{font-family:var(--display);font-size:32px;text-transform:uppercase;margin:10px 0 16px;letter-spacing:0.3px;}
+  .service ul{list-style:none;}
+  .service li{
+    font-size:15px;color:#3a3a35;padding:9px 0;border-top:1px dashed var(--line);
+    display:flex;justify-content:space-between;
+  }
+  .service li:first-of-type{border-top:none;}
+  .service li span{font-family:var(--mono);font-size:11px;color:var(--grey-frame);}
+
+  @media (max-width:760px){.services{grid-template-columns:1fr;}}
+
+  /* ---------- tools ---------- */
+  .tools{
+    display:flex;flex-wrap:wrap;gap:0;
+    border-top:1px solid var(--line);
+  }
+  .tool{
+    font-family:var(--mono);
     font-size:13px;
+    letter-spacing:0.08em;
     text-transform:uppercase;
-    letter-spacing:0.06em;
-    display:flex; align-items:center; gap:8px;
-    transition:color .2s ease;
-  }
-  .contact-links a:last-child{ border-right:none; }
-  .contact-links a:hover{ color:var(--ochre); }
-  .contact-links a .arrow{ transition:transform .2s ease; }
-  .contact-links a:hover .arrow{ transform:translateX(4px); }
-
-  footer{
-    background:var(--ink);
-    color:rgba(234,231,220,0.5);
-    padding:20px 0 34px;
-    font-family:'Space Mono', monospace;
-    font-size:12px;
-    display:flex; justify-content:space-between;
-    flex-wrap:wrap; gap:10px;
+    padding:20px 26px;
+    border-right:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    color:var(--grey-frame);
+    flex:1 1 auto;
+    white-space:nowrap;
   }
 
-  /* ---------- responsive ---------- */
-  @media (max-width:860px){
-    .about-grid{ grid-template-columns:1fr; gap:36px; }
-    .services-grid{ grid-template-columns:repeat(2,1fr); }
-    .plate-grid{ grid-template-columns:repeat(2,1fr); }
-    .process{ grid-template-columns:repeat(2,1fr); gap:26px 0; }
-    .step{ border-left:none; padding-left:0; }
-    .hero-meta div{ min-width:44%; margin-bottom:14px; }
+  /* ---------- setup / spec sheet ---------- */
+  .spec-sheet{
+    display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);
   }
-  @media (max-width:600px){
-    nav ul{
-      position:fixed; top:64px; left:0; right:0;
-      background:var(--paper);
-      flex-direction:column; gap:0;
-      border-bottom:1px solid var(--line);
-      max-height:0; overflow:hidden;
-      transition:max-height .25s ease;
-    }
-    nav ul.open{ max-height:300px; }
-    nav ul li{ border-top:1px solid var(--line); }
-    nav ul a{ display:block; padding:16px 28px; }
-    .nav-toggle{
-      display:block;
-      background:none; border:1px solid var(--ink);
-      padding:8px 12px;
-      font-family:'Space Mono', monospace;
-      font-size:12px;
-      cursor:pointer;
-    }
-    .services-grid{ grid-template-columns:1fr; }
-    .plate-grid{ grid-template-columns:1fr; }
-    .process{ grid-template-columns:1fr; }
-    .contact-links a{ flex:1 1 100%; border-right:none; border-bottom:1px solid rgba(234,231,220,0.2); }
+  .spec-block{background:var(--paper);padding:40px;position:relative;}
+  .spec-block .sindex{font-family:var(--mono);font-size:12px;color:var(--safelight);}
+  .spec-block h3{font-family:var(--display);font-size:32px;text-transform:uppercase;margin:10px 0 20px;letter-spacing:0.3px;}
+  .spec-row{
+    display:flex;justify-content:space-between;gap:16px;
+    padding:11px 0;border-top:1px dashed var(--line);
+    font-family:var(--mono);font-size:13px;
+    cursor:default;
+    transition:background .2s ease;
+  }
+  .spec-row:hover{background:var(--paper-dim);}
+  .spec-row:first-of-type{border-top:none;}
+  .spec-row .label{color:var(--grey-frame);text-transform:uppercase;letter-spacing:0.05em;font-size:11px;white-space:nowrap;}
+  .spec-row .value{text-align:right;color:var(--ink);}
+
+  .spec-preview{
+    position:absolute;top:38px;right:40px;
+    width:168px;height:120px;
+    border:1px solid var(--ink);
+    background:#000;
+    overflow:hidden;
+    opacity:0;transform:translateY(-8px);
+    transition:opacity .25s ease, transform .25s ease;
+    pointer-events:none;
+    z-index:8;
+    box-shadow:4px 4px 0 var(--footer-bg);
+  }
+  .spec-preview.show{opacity:1;transform:translateY(0);}
+  .spec-preview img{width:100%;height:100%;object-fit:cover;display:block;}
+  .spec-preview .ptag{
+    position:absolute;top:0;left:0;
+    font-family:var(--mono);font-size:9px;letter-spacing:0.05em;
+    background:rgba(0,0,0,0.6);color:var(--paper);padding:2px 6px;
+  }
+  .spec-preview .pcap{
+    position:absolute;left:0;right:0;bottom:0;
+    font-family:var(--mono);font-size:10px;letter-spacing:0.03em;
+    background:linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    color:var(--paper);padding:12px 8px 6px;
+  }
+
+  @media (max-width:760px){
+    .spec-preview{display:none;}
+  }
+
+  .spec-note{
+    margin-top:20px;padding-top:16px;border-top:1px solid var(--line);
+    font-family:var(--body);font-size:13.5px;line-height:1.65;color:var(--grey-frame);
+  }
+
+  @media (max-width:760px){
+    .spec-sheet{grid-template-columns:1fr;}
+    .spec-row{flex-direction:column;gap:2px;}
+    .spec-row .value{text-align:left;}
+  }
+
+  /* ---------- musik & tontonan ---------- */
+  .media-sheet{
+    display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);
+  }
+  .media-block{background:var(--paper);padding:40px;}
+  .media-block .sindex{font-family:var(--mono);font-size:12px;color:var(--safelight);}
+  .media-block h3{font-family:var(--display);font-size:32px;text-transform:uppercase;margin:10px 0 20px;letter-spacing:0.3px;}
+  .media-block p.media-note{
+    margin-top:16px;font-family:var(--body);font-size:13.5px;line-height:1.6;color:var(--grey-frame);
+  }
+  .spotify-frame{border-radius:2px;overflow:hidden;border:1px solid var(--ink);}
+  .spotify-frame iframe{display:block;width:100%;}
+
+  .watch-row{
+    display:flex;align-items:center;justify-content:space-between;gap:14px;
+    padding:13px 4px;border-top:1px dashed var(--line);
+    text-decoration:none;color:var(--ink);
+    transition:background .2s ease, padding-left .2s ease;
+  }
+  .watch-row:first-of-type{border-top:none;}
+  .watch-row:hover{background:var(--paper-dim);padding-left:12px;}
+  .watch-row:focus-visible{outline:2px solid var(--safelight);outline-offset:-2px;}
+
+  .watch-main{display:flex;flex-direction:column;gap:3px;min-width:0;}
+  .watch-name{font-family:var(--body);font-weight:600;font-size:15px;}
+  .watch-sub{font-family:var(--mono);font-size:11px;color:var(--grey-frame);text-transform:uppercase;letter-spacing:0.05em;}
+
+  .rt-badge{
+    font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:0.03em;
+    padding:5px 10px;border-radius:20px;white-space:nowrap;
+    display:flex;align-items:center;gap:6px;
+  }
+  .rt-badge.fresh{background:rgba(107,143,71,0.16);color:#5c7a3c;}
+  .rt-badge.rotten{background:rgba(200,29,47,0.14);color:var(--safelight);}
+  body[data-theme="dark"] .rt-badge.fresh{color:#9fc57a;background:rgba(159,197,122,0.14);}
+  .rt-badge .dot{width:7px;height:7px;border-radius:50%;background:currentColor;}
+
+  @media (max-width:760px){.media-sheet{grid-template-columns:1fr;}}
+
+  /* ---------- link list (game & sosial) ---------- */
+  .link-sheet{
+    display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);
+  }
+  .link-block{background:var(--paper);padding:40px;}
+  .link-block .sindex{font-family:var(--mono);font-size:12px;color:var(--safelight);}
+  .link-block h3{font-family:var(--display);font-size:32px;text-transform:uppercase;margin:10px 0 20px;letter-spacing:0.3px;}
+
+  .link-row{
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+    padding:14px 4px;border-top:1px dashed var(--line);
+    text-decoration:none;color:var(--ink);
+    transition:background .2s ease, padding-left .2s ease;
+  }
+  .link-row:first-of-type{border-top:none;}
+  .link-row:hover{background:var(--paper-dim);padding-left:12px;}
+  .link-row:focus-visible{outline:2px solid var(--safelight);outline-offset:-2px;}
+
+  .link-main{display:flex;flex-direction:column;gap:3px;}
+  .link-name{font-family:var(--body);font-weight:600;font-size:15px;}
+  .link-sub{font-family:var(--mono);font-size:11px;color:var(--grey-frame);text-transform:uppercase;letter-spacing:0.05em;}
+
+  .link-cta{
+    font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:0.05em;
+    color:var(--safelight);white-space:nowrap;
+    display:flex;align-items:center;gap:6px;
+  }
+  .link-cta .arrow{transition:transform .2s ease;}
+  .link-row:hover .link-cta .arrow{transform:translate(3px,-3px);}
+
+  @media (max-width:760px){.link-sheet{grid-template-columns:1fr;}}
+
+  /* ---------- closing statement ---------- */
+  .quote{
+    max-width:780px;
+    font-family:var(--display);
+    font-size:clamp(26px,3.4vw,40px);
+    line-height:1.25;
+    text-transform:none;
+    letter-spacing:0.2px;
+  }
+  .quote span{color:var(--safelight);}
+  .quote-by{margin-top:22px;font-family:var(--mono);font-size:12px;color:var(--grey-frame);text-transform:uppercase;letter-spacing:0.05em;}
+
+  /* ---------- footer ---------- */
+  .contact{
+    background:var(--footer-bg);
+    color:var(--footer-fg);
+    padding:90px 0 50px;
+    transition:background .35s ease;
+  }
+  .contact .section-label h2{color:var(--footer-fg);}
+  .contact .section-label .num{color:var(--kodak);}
+  .contact-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:50px;}
+  .contact h3{
+    font-family:var(--display);
+    font-size:clamp(30px,4.5vw,52px);
+    line-height:1.05;
+    text-transform:uppercase;
+  }
+  .contact-info{font-family:var(--mono);font-size:13px;line-height:2.1;color:var(--footer-fg-dim);}
+  .contact-info a:hover{color:var(--kodak);}
+
+  .stamp{
+    margin-top:60px;
+    display:flex;align-items:center;justify-content:space-between;
+    border-top:1px solid rgba(233,228,214,0.2);
+    padding-top:22px;
+    font-family:var(--mono);
+    font-size:11px;
+    color:#9a967f;
+    flex-wrap:wrap;gap:10px;
+  }
+  .stamp .badge{
+    border:1px solid var(--safelight);color:var(--safelight);
+    padding:4px 10px;border-radius:50%/40%;transform:rotate(-4deg);
+    display:inline-block;
+  }
+
+  @media (max-width:760px){.contact-grid{grid-template-columns:1fr;}}
+
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important;transition:none !important;}
   }
 </style>
 </head>
 <body>
-<div class="frame-border" aria-hidden="true"></div>
+
+<div class="sprockets" aria-hidden="true">
+  <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+</div>
 
 <header>
-  <div class="nav-inner">
-    <div class="logo">NADIA<span>.</span>P</div>
-    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navList">MENU</button>
-    <nav>
-      <ul id="navList">
-        <li><a href="#tentang">Tentang</a></li>
-        <li><a href="#layanan">Layanan</a></li>
-        <li><a href="#karya">Karya</a></li>
-        <li><a href="#proses">Proses</a></li>
-        <li><a href="#kontak">Kontak</a></li>
-      </ul>
-    </nav>
-  </div>
+  <nav>
+    <a href="#top" class="logo">RAKA<span>.</span>A</a>
+    <div class="navlinks">
+      <a href="#tentang">Tentang</a>
+      <a href="#karya">Karya</a>
+      <a href="#keahlian">Keahlian</a>
+      <a href="#setup">Setup</a>
+      <a href="#tautan">Tautan</a>
+      <a href="#musik">Musik</a>
+    </div>
+    <div class="nav-right">
+      <button class="theme-toggle" id="themeToggle" aria-pressed="false">
+        <span class="dot" aria-hidden="true"></span>
+        <span id="themeLabel">MODE GELAP</span>
+      </button>
+      <button class="menu-btn" onclick="document.querySelector('.navlinks').classList.toggle('mopen')">MENU</button>
+    </div>
+  </nav>
 </header>
 
-<div class="colorbar"><span class="cb-c"></span><span class="cb-m"></span><span class="cb-y"></span><span class="cb-k"></span></div>
+<main id="top">
 
-<section class="hero">
-  <div class="reg-mark reg-tl"><span class="circ"></span></div>
-  <div class="reg-mark reg-tr"><span class="circ"></span></div>
-
-  <div class="hero-siderail">
-    <span class="date-rail">EST. 2018 — BANDUNG, ID</span>
-    <span class="hero-note">buatan tangan,<br>bukan template</span>
-  </div>
-
-  <div class="wrap">
-    <p class="hero-eyebrow"><span class="dot"></span>TERSEDIA UNTUK PROYEK BARU — Q3 2026</p>
-    <h1 class="hero-title blackletter">Nadia<br>Prameswari</h1>
-    <p class="hero-sub">Desainer grafis & art director yang tinggal di Bandung. Saya membangun identitas visual, materi cetak, dan sistem desain digital untuk brand yang ingin terlihat berani sekaligus rapi.</p>
-
-    <div class="quote-lines">
-      <div class="quote-line">
-        <span class="crosshair" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.4"/><line x1="12" y1="0" x2="12" y2="24" stroke="currentColor" stroke-width="1"/><line x1="0" y1="12" x2="24" y2="12" stroke="currentColor" stroke-width="1"/></svg></span>
-        <p>Desain yang bertahan lebih lama dari trennya</p>
-      </div>
-      <div class="quote-line">
-        <span class="crosshair" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.4"/><line x1="12" y1="0" x2="12" y2="24" stroke="currentColor" stroke-width="1"/><line x1="0" y1="12" x2="24" y2="12" stroke="currentColor" stroke-width="1"/></svg></span>
-        <p>Setiap detail punya alasan, bukan hiasan</p>
+  <section class="hero wrap">
+    <div class="frame-tag">
+      <span>KODAK PORTRA 400 — ROLL 01</span>
+      <span>JAKARTA, ID — SEJAK 2016</span>
+    </div>
+    <h1 class="title">DESAIN GRAFIS<br>&amp; <span class="accent">FOTOGRAFI</span></h1>
+    <div class="hero-sub">
+      <p>Saya Raka Aditya, desainer grafis dan fotografer. Ruang ini adalah arsip pribadi dari apa yang saya buat — identitas visual, tata letak, dan gambar yang saya ambil selama bertahun-tahun praktik.</p>
+      <div class="hero-meta">
+        DISIPLIN — Branding, Editorial, Potret<br>
+        BERBASIS DI — Jakarta, Indonesia<br>
+        AKTIF SEJAK — 2016<br>
+        FORMAT — Cetak, Digital, Gerak
       </div>
     </div>
+    <div class="scroll-cue"><div class="line"></div>GULIR UNTUK LIHAT ARSIP</div>
+  </section>
 
-    <div class="stamp-badge">
-      <span class="sb-top">KARYA ORISINAL</span>
-      <span class="sb-bottom">STUDIO NP · SEJAK 2018</span>
-    </div>
-
-    <div class="typecoder">
-      <div class="typecoder-bar">
-        <span class="tc-dot"></span><span class="tc-dot"></span><span class="tc-dot"></span>
-        <span class="tc-label">sedang_mengerjakan.txt</span>
+  <section class="section wrap reveal" id="tentang">
+    <div class="section-label"><span class="num">01</span><h2>Tentang</h2></div>
+    <div class="about">
+      <div class="about-frame">
+        <img src="https://picsum.photos/seed/rakaportrait/700/875" alt="Potret Raka Aditya sedang bekerja di studio">
+        <span class="corner tl">NEG. 04A</span>
+        <span class="corner br">RA</span>
       </div>
-      <div class="typecoder-body">
-        <div class="typecoder-line">
-          <span class="tc-prompt">&gt;</span>
-          <span class="tc-text" id="tcText"></span><span class="tc-cursor" aria-hidden="true"></span>
+      <div class="about-text">
+        <p>Saya memulai sebagai desainer grafis, lalu jatuh cinta pada kamera saat memotret hasil desain saya sendiri untuk dokumentasi. Sekarang keduanya berjalan beriringan: <strong>desain memberi struktur, fotografi memberi jiwa</strong>.</p>
+        <p>Pendekatan saya sederhana — memahami dulu apa yang ingin disampaikan sebuah gambar atau lembar, baru menentukan bentuk visualnya. Hasil akhirnya harus terasa jujur dan mudah diingat.</p>
+        <p>Di luar itu, saya senang mendokumentasikan jalanan kota dan arsip cetak lama — kebiasaan yang selalu menyelinap masuk ke dalam cara saya menyusun tata letak.</p>
+        <div class="stats">
+          <div class="stat"><b>09</b><span>Tahun Praktik</span></div>
+          <div class="stat"><b>120+</b><span>Karya Terkumpul</span></div>
+          <div class="stat"><b>34</b><span>Roll Terarsip</span></div>
         </div>
       </div>
     </div>
+  </section>
 
-    <div class="hero-meta">
+  <section class="section reveal" id="karya" style="padding-bottom:0;">
+    <div class="wrap">
+      <div class="section-label"><span class="num">02</span><h2>Arsip Karya</h2></div>
+    </div>
+    <div class="gallery-wrap">
+      <div class="gallery">
+
+        <div class="frame pick">
+          <img src="https://picsum.photos/seed/karya1/600/800" alt="Identitas visual kafe Tanaya">
+          <span class="fnum">NEG. 01A</span>
+          <div class="fmeta"><div class="cat">Branding</div><div class="ttl">Kafe Tanaya</div></div>
+        </div>
+
+        <div class="frame">
+          <img src="https://picsum.photos/seed/karya2/600/800" alt="Potret editorial untuk majalah lokal">
+          <span class="fnum">NEG. 01B</span>
+          <div class="fmeta"><div class="cat">Editorial</div><div class="ttl">Wajah Kota</div></div>
+        </div>
+
+        <div class="frame">
+          <img src="https://picsum.photos/seed/karya3/600/800" alt="Fotografi produk untuk label fesyen">
+          <span class="fnum">NEG. 01C</span>
+          <div class="fmeta"><div class="cat">Produk</div><div class="ttl">Studio Anin</div></div>
+        </div>
+
+        <div class="frame pick">
+          <img src="https://picsum.photos/seed/karya4/600/800" alt="Sampul buku puisi independen">
+          <span class="fnum">NEG. 01D</span>
+          <div class="fmeta"><div class="cat">Layout</div><div class="ttl">Sunyi, Kumpulan Puisi</div></div>
+        </div>
+
+        <div class="frame">
+          <img src="https://picsum.photos/seed/karya5/600/800" alt="Dokumentasi acara peluncuran produk">
+          <span class="fnum">NEG. 02A</span>
+          <div class="fmeta"><div class="cat">Acara</div><div class="ttl">Peluncuran Ossa</div></div>
+        </div>
+
+        <div class="frame">
+          <img src="https://picsum.photos/seed/karya6/600/800" alt="Poster festival musik independen">
+          <span class="fnum">NEG. 02B</span>
+          <div class="fmeta"><div class="cat">Poster</div><div class="ttl">Festival Ambang</div></div>
+        </div>
+
+        <div class="frame pick">
+          <img src="https://picsum.photos/seed/karya7/600/800" alt="Sesi potret keluarga natural light">
+          <span class="fnum">NEG. 02C</span>
+          <div class="fmeta"><div class="cat">Potret</div><div class="ttl">Keluarga Wirawan</div></div>
+        </div>
+
+        <div class="frame">
+          <img src="https://picsum.photos/seed/karya8/600/800" alt="Sistem kemasan minuman kombucha lokal">
+          <span class="fnum">NEG. 02D</span>
+          <div class="fmeta"><div class="cat">Kemasan</div><div class="ttl">Kombucha Rimba</div></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="section wrap reveal" id="keahlian">
+    <div class="section-label"><span class="num">03</span><h2>Keahlian</h2></div>
+    <div class="services">
+      <div class="service">
+        <div class="sindex">A — VISUAL</div>
+        <h3>Desain Grafis</h3>
+        <ul>
+          <li>Identitas &amp; Logo <span>SISTEM MEREK</span></li>
+          <li>Tata Letak Editorial <span>BUKU / MAJALAH</span></li>
+          <li>Desain Kemasan <span>CETAK</span></li>
+          <li>Poster &amp; Materi Kampanye <span>CETAK / DIGITAL</span></li>
+          <li>Ilustrasi Pendukung <span>VEKTOR</span></li>
+        </ul>
+      </div>
+      <div class="service">
+        <div class="sindex">B — LENSA</div>
+        <h3>Fotografi</h3>
+        <ul>
+          <li>Potret &amp; Editorial <span>STUDIO / LOKASI</span></li>
+          <li>Fotografi Produk <span>KATALOG</span></li>
+          <li>Dokumentasi Acara <span>FULL DAY</span></li>
+          <li>Foto Arsitektur &amp; Interior <span>KOMERSIAL</span></li>
+          <li>Retouching &amp; Color Grading <span>PASCA-PRODUKSI</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section wrap reveal" id="setup">
+    <div class="section-label"><span class="num">04</span><h2>Setup &amp; Spesifikasi</h2></div>
+    <div class="spec-sheet">
+      <div class="spec-block">
+        <div class="sindex">A — WORKSTATION</div>
+        <h3>PC Editing</h3>
+        <div class="spec-row" data-img="https://picsum.photos/seed/cpu-ryzen5600/300/220" data-cap="AMD Ryzen 5 5600"><span class="label">Prosesor</span><span class="value">AMD Ryzen 5 5600</span></div>
+        <div class="spec-row" data-img="https://picsum.photos/seed/gpu-gtx1650s/300/220" data-cap="Gigabyte GTX 1650 Super"><span class="label">Kartu Grafis</span><span class="value">Gigabyte GeForce GTX 1650 Super 4GB DDR6</span></div>
+        <div class="spec-row" data-img="https://picsum.photos/seed/motherboard-b550m/300/220" data-cap="MSI B550M Pro VDH WiFi"><span class="label">Motherboard</span><span class="value">MSI B550M Pro VDH WiFi</span></div>
+        <div class="spec-row" data-img="https://picsum.photos/seed/ram-vengeance/300/220" data-cap="Corsair Vengeance LPX 16GB"><span class="label">RAM</span><span class="value">Corsair Vengeance LPX 2x8GB 3200MHz</span></div>
+        <div class="spec-row" data-img="https://picsum.photos/seed/kyo-kaizen/300/220" data-cap="KYO Kaizen 1TB M.2"><span class="label">Penyimpanan</span><span class="value">KYO Kaizen 1TB M.2 SATA</span></div>
+        <div class="spec-row" data-img="https://picsum.photos/seed/psu-fsp/300/220" data-cap="FSP HV Pro 650W Bronze"><span class="label">PSU</span><span class="value">FSP HV Pro 650W 80+ Bronze</span></div>
+        <div class="spec-row" data-img="https://picsum.photos/seed/case-vbr/300/220" data-cap="VBR Z8 Dual Chamber"><span class="label">Casing</span><span class="value">VBR Z8 Dual Chamber</span></div>
+        <div class="spec-row" data-img="https://picsum.photos/seed/fan-ocypus/300/220" data-cap="Ocypus Gamma F12 ARGB"><span class="label">Fan Casing</span><span class="value">Ocypus Gamma F12 ARGB</span></div>
+        <div class="spec-row" data-img="https://picsum.photos/seed/monitor-ocypus/300/220" data-cap="Ocypus Delta EH10"><span class="label">Monitor</span><span class="value">Ocypus Delta EH10</span></div>
+        <div class="spec-note">Dikalibrasi rutin dengan colorimeter agar warna cetak dan layar tetap konsisten.</div>
+        <div class="spec-preview" data-target="a"><span class="ptag">REF</span><img src="" alt=""><span class="pcap"></span></div>
+      </div>
+      <div class="spec-block">
+        <div class="sindex">B — GEAR &amp; PERALATAN</div>
+        <h3>Kamera &amp; Input</h3>
+        <div class="spec-row" data-img="https://picsum.photos/seed/camera-main/300/220" data-cap="Mirrorless Full Frame"><span class="label">Kamera Utama</span><span class="value">Mirrorless Full Frame</span></div>
+        <div class="spec-row" data-img="https://picsum.photos/seed/lens-35mm/300/220" data-cap="Lensa 35mm f/1.4"><span class="label">Lensa 1</span><span class="value">35mm f/1.4</span></div>
+        <div class="spec-row" data-img="https://picsum.photos/seed/lens-85mm/300/220" data-cap="Lensa 85mm f/1.8"><span class="label">Lensa 2</span><span class="value">85mm f/1.8</span></div>
+        <div class="spec-row" data-img="https://picsum.photos/seed/camera-film/300/220" data-cap="Kamera Film 35mm"><span class="label">Kamera Film</span><span class="value">35mm Rangefinder</span></div>
+        <div class="spec-row" data-img="https://picsum.photos/seed/tablet-cintiq/300/220" data-cap="Wacom Cintiq Pro"><span class="label">Tablet Grafis</span><span class="value">Wacom Cintiq Pro 16"</span></div>
+        <div class="spec-row" data-img="https://picsum.photos/seed/lighting-softbox/300/220" data-cap="Softbox + Reflector"><span class="label">Lighting</span><span class="value">2x Softbox + Reflector</span></div>
+        <div class="spec-row" data-img="https://picsum.photos/seed/ssd-portable/300/220" data-cap="SSD Portabel 2TB"><span class="label">Storage Eksternal</span><span class="value">SSD Portabel 2TB</span></div>
+        <div class="spec-row" data-img="https://picsum.photos/seed/printer-photo/300/220" data-cap="Printer Foto A3+"><span class="label">Printer</span><span class="value">A3+ Photo Printer</span></div>
+        <div class="spec-row" data-img="https://picsum.photos/seed/desk-standing/300/220" data-cap="Sit-Stand Desk"><span class="label">Kursi &amp; Meja</span><span class="value">Ergonomis, Sit-Stand Desk</span></div>
+        <div class="spec-row" data-img="https://picsum.photos/seed/studio-speaker/300/220" data-cap="Studio Monitor Speaker"><span class="label">Audio</span><span class="value">Studio Monitor Speaker</span></div>
+        <div class="spec-note">Kombinasi alat analog dan digital — sebagian untuk hasil akhir, sebagian untuk proses berpikir.</div>
+        <div class="spec-preview" data-target="b"><span class="ptag">REF</span><img src="" alt=""><span class="pcap"></span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section wrap reveal" id="tautan">
+    <div class="section-label"><span class="num">05</span><h2>Game &amp; Tautan</h2></div>
+    <div class="link-sheet">
+      <div class="link-block">
+        <div class="sindex">A — MAIN</div>
+        <h3>Game</h3>
+
+        <a class="link-row" href="#" target="_blank" rel="noopener">
+          <div class="link-main">
+            <span class="link-name">Counter-Strike 2</span>
+            <span class="link-sub">Steam</span>
+          </div>
+          <span class="link-cta">Lihat Profil <span class="arrow">↗</span></span>
+        </a>
+
+        <a class="link-row" href="#" target="_blank" rel="noopener">
+          <div class="link-main">
+            <span class="link-name">Dota 2</span>
+            <span class="link-sub">Steam</span>
+          </div>
+          <span class="link-cta">Lihat Profil <span class="arrow">↗</span></span>
+        </a>
+
+        <a class="link-row" href="#" target="_blank" rel="noopener">
+          <div class="link-main">
+            <span class="link-name">Valorant</span>
+            <span class="link-sub">Riot ID</span>
+          </div>
+          <span class="link-cta">Tambah Teman <span class="arrow">↗</span></span>
+        </a>
+
+        <a class="link-row" href="#" target="_blank" rel="noopener">
+          <div class="link-main">
+            <span class="link-name">Mobile Legends</span>
+            <span class="link-sub">ID: 000000000 (0000)</span>
+          </div>
+          <span class="link-cta">Tambah Teman <span class="arrow">↗</span></span>
+        </a>
+
+        <a class="link-row" href="#" target="_blank" rel="noopener">
+          <div class="link-main">
+            <span class="link-name">Genshin Impact</span>
+            <span class="link-sub">UID: 000000000</span>
+          </div>
+          <span class="link-cta">Tambah Teman <span class="arrow">↗</span></span>
+        </a>
+
+        <a class="link-row" href="#" target="_blank" rel="noopener">
+          <div class="link-main">
+            <span class="link-name">Profil Steam</span>
+            <span class="link-sub">Semua Game</span>
+          </div>
+          <span class="link-cta">Kunjungi Steam <span class="arrow">↗</span></span>
+        </a>
+      </div>
+
+      <div class="link-block">
+        <div class="sindex">B — SOSIAL</div>
+        <h3>Tautan</h3>
+
+        <a class="link-row" href="#" target="_blank" rel="noopener">
+          <div class="link-main">
+            <span class="link-name">Instagram</span>
+            <span class="link-sub">@rakaaditya.visual</span>
+          </div>
+          <span class="link-cta">Kunjungi <span class="arrow">↗</span></span>
+        </a>
+
+        <a class="link-row" href="#" target="_blank" rel="noopener">
+          <div class="link-main">
+            <span class="link-name">Behance</span>
+            <span class="link-sub">behance.net/rakaaditya</span>
+          </div>
+          <span class="link-cta">Kunjungi <span class="arrow">↗</span></span>
+        </a>
+
+        <a class="link-row" href="#" target="_blank" rel="noopener">
+          <div class="link-main">
+            <span class="link-name">X / Twitter</span>
+            <span class="link-sub">@rakaaditya</span>
+          </div>
+          <span class="link-cta">Kunjungi <span class="arrow">↗</span></span>
+        </a>
+
+        <a class="link-row" href="#" target="_blank" rel="noopener">
+          <div class="link-main">
+            <span class="link-name">Discord</span>
+            <span class="link-sub">rakaaditya#0000</span>
+          </div>
+          <span class="link-cta">Tambah Teman <span class="arrow">↗</span></span>
+        </a>
+
+        <a class="link-row" href="#" target="_blank" rel="noopener">
+          <div class="link-main">
+            <span class="link-name">TikTok</span>
+            <span class="link-sub">@rakaaditya</span>
+          </div>
+          <span class="link-cta">Kunjungi <span class="arrow">↗</span></span>
+        </a>
+
+        <a class="link-row" href="#" target="_blank" rel="noopener">
+          <div class="link-main">
+            <span class="link-name">YouTube</span>
+            <span class="link-sub">Raka Aditya</span>
+          </div>
+          <span class="link-cta">Kunjungi <span class="arrow">↗</span></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section wrap reveal" id="musik">
+    <div class="section-label"><span class="num">06</span><h2>Musik &amp; Tontonan</h2></div>
+    <div class="media-sheet">
+      <div class="media-block">
+        <div class="sindex">A — DENGAR</div>
+        <h3>Musik</h3>
+        <div class="spotify-frame">
+          <iframe src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M?utm_source=generator&theme=0"
+            width="100%" height="352" frameborder="0"
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy" title="Playlist Spotify"></iframe>
+        </div>
+        <p class="media-note">Playlist yang paling sering diputar saat sedang desain atau proses foto. Ganti embed di atas dengan playlist atau profil Spotify Anda sendiri.</p>
+      </div>
+
+      <div class="media-block">
+        <div class="sindex">B — TONTON</div>
+        <h3>Film &amp; Series</h3>
+
+        <a class="watch-row" href="#" target="_blank" rel="noopener">
+          <div class="watch-main">
+            <span class="watch-name">Blade Runner 2049</span>
+            <span class="watch-sub">Film · 2017</span>
+          </div>
+          <span class="rt-badge fresh"><span class="dot"></span>92%</span>
+        </a>
+
+        <a class="watch-row" href="#" target="_blank" rel="noopener">
+          <div class="watch-main">
+            <span class="watch-name">Severance</span>
+            <span class="watch-sub">Series · 2022–</span>
+          </div>
+          <span class="rt-badge fresh"><span class="dot"></span>97%</span>
+        </a>
+
+        <a class="watch-row" href="#" target="_blank" rel="noopener">
+          <div class="watch-main">
+            <span class="watch-name">Drive</span>
+            <span class="watch-sub">Film · 2011</span>
+          </div>
+          <span class="rt-badge fresh"><span class="dot"></span>93%</span>
+        </a>
+
+        <a class="watch-row" href="#" target="_blank" rel="noopener">
+          <div class="watch-main">
+            <span class="watch-name">Dark</span>
+            <span class="watch-sub">Series · 2017–2020</span>
+          </div>
+          <span class="rt-badge fresh"><span class="dot"></span>95%</span>
+        </a>
+
+        <a class="watch-row" href="#" target="_blank" rel="noopener">
+          <div class="watch-main">
+            <span class="watch-name">The Grand Budapest Hotel</span>
+            <span class="watch-sub">Film · 2014</span>
+          </div>
+          <span class="rt-badge fresh"><span class="dot"></span>91%</span>
+        </a>
+
+        <a class="watch-row" href="#" target="_blank" rel="noopener">
+          <div class="watch-main">
+            <span class="watch-name">Morbius</span>
+            <span class="watch-sub">Film · 2022</span>
+          </div>
+          <span class="rt-badge rotten"><span class="dot"></span>15%</span>
+        </a>
+
+        <p class="media-note">Skor mengikuti gaya Rotten Tomatoes. Klik judul untuk membuka halaman ulasan aslinya — arahkan ke Rotten Tomatoes, IMDb, atau Letterboxd sesuai preferensi Anda.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section wrap reveal">
+    <div class="section-label"><span class="num">07</span><h2>Perkakas</h2></div>
+    <p class="quote">Alat yang saya pakai setiap hari — <span>sebagian analog, sebagian digital</span>, semuanya bagian dari cara saya bekerja.</p>
+  </section>
+
+  <section class="wrap reveal" style="padding-bottom:40px;">
+    <div class="tools">
+      <div class="tool">Adobe Illustrator</div>
+      <div class="tool">Adobe Photoshop</div>
+      <div class="tool">Adobe InDesign</div>
+      <div class="tool">Lightroom Classic</div>
+      <div class="tool">Kamera Film 35mm</div>
+      <div class="tool">Kamera Mirrorless</div>
+      <div class="tool">Figma</div>
+      <div class="tool">Cetak Risograf</div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="contact" id="arsip">
+  <div class="wrap">
+    <div class="section-label"><span class="num">08</span><h2>Catatan Arsip</h2></div>
+    <div class="contact-grid">
       <div>
-        <div class="k mono">Pengalaman</div>
-        <div class="v">8 Tahun</div>
+        <h3>KUMPULAN INI DISUSUN<br>DAN DIRAWAT SECARA<br>PRIBADI DI JAKARTA.</h3>
       </div>
-      <div>
-        <div class="k mono">Fokus</div>
-        <div class="v">Branding & Cetak</div>
-      </div>
-      <div>
-        <div class="k mono">Lokasi</div>
-        <div class="v">Bandung, ID</div>
-      </div>
-      <div>
-        <div class="k mono">Klien</div>
-        <div class="v">40+ Brand</div>
+      <div class="contact-info">
+        DISIPLIN — Desain Grafis &amp; Fotografi<br>
+        AKTIF SEJAK — 2016<br>
+        LOKASI — Jakarta, Indonesia<br>
+        FORMAT — Cetak, Digital, Gerak
       </div>
     </div>
-  </div>
-</section>
-
-<section id="tentang">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="section-tag mono">01 / TENTANG</span>
-      <h2 class="section-title">Latar Belakang</h2>
+    <div class="stamp">
+      <span>© 2026 RAKA ADITYA — ARSIP KARYA PRIBADI</span>
+      <span class="badge">DIARSIPKAN</span>
     </div>
-    <div class="about-grid">
-      <div>
-        <p>Saya memulai karier sebagai desainer di studio cetak sebelum pindah fokus ke identitas brand digital — kombinasi itu yang membentuk cara saya bekerja sekarang: <strong>setiap elemen harus lulus uji cetak dan uji layar.</strong></p>
-        <p>Saya percaya desain yang baik bukan soal tren, tapi soal ketepatan — tipografi yang dipilih karena alasan, warna yang punya fungsi, dan grid yang membuat pembaca tahu ke mana harus melihat lebih dulu.</p>
-        <p>Di luar proyek klien, saya mengajar workshop tipografi dan mengoleksi risograf print lama dari studio-studio independen di Asia Tenggara.</p>
-      </div>
-      <ul class="skill-list">
-        <li><span>Identitas Visual & Logo</span><span>Ahli</span></li>
-        <li><span>Tipografi & Sistem Grid</span><span>Ahli</span></li>
-        <li><span>Desain Kemasan & Cetak</span><span>Ahli</span></li>
-        <li><span>Ilustrasi Editorial</span><span>Mahir</span></li>
-        <li><span>Motion & Desain Digital</span><span>Mahir</span></li>
-        <li><span>Adobe CC / Figma</span><span>Ahli</span></li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section id="layanan">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="section-tag mono">02 / LAYANAN</span>
-      <h2 class="section-title">Yang Saya Kerjakan</h2>
-    </div>
-  </div>
-  <div class="wrap" style="padding:0;">
-    <div class="services-grid">
-      <div class="service-card">
-        <div class="service-num mono">CMYK 01</div>
-        <h3>Branding &amp; Identitas</h3>
-        <p>Logo, panduan brand, dan sistem visual lengkap dari nol hingga siap pakai lintas media.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-num mono">CMYK 02</div>
-        <h3>Desain Cetak</h3>
-        <p>Kemasan, katalog, undangan, dan materi cetak lain — siap naik ke mesin cetak tanpa revisi.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-num mono">CMYK 03</div>
-        <h3>Desain Digital</h3>
-        <p>Aset sosial media, presentasi, dan tampilan web yang konsisten dengan identitas brand.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-num mono">CMYK 04</div>
-        <h3>Ilustrasi</h3>
-        <p>Ilustrasi editorial dan custom artwork untuk memberi karakter pada cerita brand Anda.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="karya">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="section-tag mono">03 / KARYA</span>
-      <h2 class="section-title">Proyek Terpilih</h2>
-    </div>
-  </div>
-  <div class="wrap" style="padding:0;">
-    <div class="plate-grid">
-      <div class="plate">
-        <div class="plate-swatch">
-          <div class="tex p1"></div>
-          <div class="plate-tape"></div>
-          <span class="plate-caption">@studiorimba</span>
-          <div class="plate-frame"></div>
-        </div>
-        <div class="plate-info">
-          <div class="plate-cat mono">BRANDING — 2025</div>
-          <h3>Kopi Rimba</h3>
-          <p>Identitas visual untuk roastery kopi lokal, dari logo hingga kemasan kraft.</p>
-        </div>
-      </div>
-      <div class="plate">
-        <div class="plate-swatch">
-          <div class="tex p2"></div>
-          <span class="crosshair plate-target" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="var(--paper)" stroke-width="1.4"/><line x1="12" y1="0" x2="12" y2="24" stroke="var(--paper)" stroke-width="1"/><line x1="0" y1="12" x2="24" y2="12" stroke="var(--paper)" stroke-width="1"/></svg></span>
-          <div class="plate-frame"></div>
-        </div>
-        <div class="plate-info">
-          <div class="plate-cat mono">EDITORIAL — 2024</div>
-          <h3>Majalah Ambang</h3>
-          <p>Tata letak dan ilustrasi untuk majalah budaya independen triwulanan.</p>
-        </div>
-      </div>
-      <div class="plate">
-        <div class="plate-swatch"><div class="tex p3"></div><div class="plate-frame"></div></div>
-        <div class="plate-info">
-          <div class="plate-cat mono">KEMASAN — 2024</div>
-          <h3>Studio Rempah</h3>
-          <p>Sistem kemasan bumbu dapur dengan kode warna berbasis jenis rempah.</p>
-        </div>
-      </div>
-      <div class="plate">
-        <div class="plate-swatch"><div class="tex p4"></div><div class="plate-frame"></div></div>
-        <div class="plate-info">
-          <div class="plate-cat mono">DIGITAL — 2023</div>
-          <h3>Arus Studio</h3>
-          <p>Desain ulang situs dan aset sosial media untuk studio arsitektur.</p>
-        </div>
-      </div>
-      <div class="plate">
-        <div class="plate-swatch"><div class="tex p5"></div><div class="plate-frame"></div></div>
-        <div class="plate-info">
-          <div class="plate-cat mono">FESTIVAL — 2023</div>
-          <h3>Bandung Type Fest</h3>
-          <p>Identitas acara tahunan komunitas tipografi, termasuk merchandise.</p>
-        </div>
-      </div>
-      <div class="plate">
-        <div class="plate-swatch"><div class="tex p6"></div><div class="plate-frame"></div></div>
-        <div class="plate-info">
-          <div class="plate-cat mono">ILUSTRASI — 2022</div>
-          <h3>Seri Riso "Musim"</h3>
-          <p>Seri poster riograf independen terinspirasi empat musim tropis.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="proses">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="section-tag mono">04 / PROSES</span>
-      <h2 class="section-title">Cara Kerja</h2>
-    </div>
-    <div class="process">
-      <div class="step">
-        <div class="step-num">01</div>
-        <h4>Riset &amp; Brief</h4>
-        <p>Memahami brand, audiens, dan kompetitor sebelum sketsa pertama dibuat.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">02</div>
-        <h4>Konsep</h4>
-        <p>Eksplorasi arah visual — 2–3 konsep berbeda untuk didiskusikan bersama.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">03</div>
-        <h4>Pengembangan</h4>
-        <p>Konsep terpilih disempurnakan: tipografi, warna, dan sistem grid.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">04</div>
-        <h4>Serah Terima</h4>
-        <p>File final, panduan penggunaan, dan pendampingan implementasi.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="contact" id="kontak">
-  <div class="reg-mark reg-bl" style="border-color:transparent;"><span class="circ" style="border-color:var(--paper);"></span></div>
-  <div class="reg-mark reg-br" style="border-color:transparent;"><span class="circ" style="border-color:var(--paper);"></span></div>
-  <div class="wrap">
-    <div class="section-head">
-      <span class="section-tag mono">05 / KONTAK</span>
-      <h2 class="section-title">Mari Bekerja Sama</h2>
-    </div>
-    <p class="contact-cta">Punya proyek yang butuh <a href="mailto:halo@nadiaprameswari.id">identitas visual baru</a>? Ceritakan idenya.</p>
-    <div class="contact-links">
-      <a href="mailto:halo@nadiaprameswari.id">Email <span class="arrow">→</span></a>
-      <a href="#">Instagram <span class="arrow">→</span></a>
-      <a href="#">Behance <span class="arrow">→</span></a>
-      <a href="#">LinkedIn <span class="arrow">→</span></a>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <div class="wrap" style="display:flex; justify-content:space-between; align-items:center; width:100%; flex-wrap:wrap; gap:10px;">
-    <span>© 2026 Jakha Phosa STUDIO</span>
-    <span class="handwritten" style="font-size:20px; color:var(--paper);">dirancang oleh Nadia sendiri</span>
-    <span>DIBUAT DI BANDUNG, INDONESIA</span>
   </div>
 </footer>
 
 <script>
-  const tcLines = [
-    'menyusun_grid_kemasan.ai',
-    'memilih_pasangan_tipografi.fig',
-    'menyesuaikan_warna_CMYK.indd',
-    'merapikan_logo_v14_final_fix.svg',
-    'menulis_panduan_brand.pdf'
-  ];
-  const tcEl = document.getElementById('tcText');
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // dark mode toggle
+  const themeBtn = document.getElementById('themeToggle');
+  const themeLabel = document.getElementById('themeLabel');
+  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  let isDark = prefersDark;
 
-  if(tcEl){
-    if(reduceMotion){
-      tcEl.textContent = tcLines[0];
-    } else {
-      let lineIndex = 0, charIndex = 0, deleting = false;
-
-      function tick(){
-        const current = tcLines[lineIndex];
-
-        if(!deleting){
-          charIndex++;
-          tcEl.textContent = current.slice(0, charIndex);
-          if(charIndex === current.length){
-            deleting = true;
-            setTimeout(tick, 1400);
-            return;
-          }
-        } else {
-          charIndex--;
-          tcEl.textContent = current.slice(0, charIndex);
-          if(charIndex === 0){
-            deleting = false;
-            lineIndex = (lineIndex + 1) % tcLines.length;
-          }
-        }
-        setTimeout(tick, deleting ? 28 : 46);
-      }
-      tick();
-    }
+  function applyTheme(){
+    document.body.setAttribute('data-theme', isDark ? 'dark' : 'light');
+    themeLabel.textContent = isDark ? 'MODE TERANG' : 'MODE GELAP';
+    themeBtn.setAttribute('aria-pressed', String(isDark));
   }
+  applyTheme();
 
-  const toggle = document.getElementById('navToggle');
-  const list = document.getElementById('navList');
-  if(toggle){
-    toggle.addEventListener('click', () => {
-      const isOpen = list.classList.toggle('open');
-      toggle.setAttribute('aria-expanded', isOpen);
+  themeBtn.addEventListener('click', ()=>{
+    isDark = !isDark;
+    applyTheme();
+  });
+
+  // spec row hover preview
+  document.querySelectorAll('.spec-block').forEach(block=>{
+    const preview = block.querySelector('.spec-preview');
+    if(!preview) return;
+    const img = preview.querySelector('img');
+    const cap = preview.querySelector('.pcap');
+    const rows = block.querySelectorAll('.spec-row[data-img]');
+    rows.forEach(row=>{
+      row.addEventListener('mouseenter', ()=>{
+        img.src = row.getAttribute('data-img');
+        img.alt = row.getAttribute('data-cap') || '';
+        cap.textContent = row.getAttribute('data-cap') || '';
+        preview.classList.add('show');
+      });
+      row.addEventListener('mouseleave', ()=>{
+        preview.classList.remove('show');
+      });
+      row.addEventListener('focus', ()=>{
+        img.src = row.getAttribute('data-img');
+        img.alt = row.getAttribute('data-cap') || '';
+        cap.textContent = row.getAttribute('data-cap') || '';
+        preview.classList.add('show');
+      });
+      row.addEventListener('blur', ()=>{
+        preview.classList.remove('show');
+      });
     });
-    list.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-      list.classList.remove('open');
-      toggle.setAttribute('aria-expanded', 'false');
-    }));
-  }
+  });
+
+  // scroll reveal
+  const els = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:0.12});
+  els.forEach(el=>io.observe(el));
+
+  // mobile menu simple toggle style
+  const style = document.createElement('style');
+  style.textContent = `.navlinks.mopen{display:flex !important;flex-direction:column;position:absolute;top:100%;right:0;background:var(--paper);border:1px solid var(--line);padding:18px 24px;gap:16px;}`;
+  document.head.appendChild(style);
 </script>
 
 </body>
