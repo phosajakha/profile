@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jakha Phosa — Desain Grafis & Fotografi</title>
+<title>Raka Aditya — Desain Grafis & Fotografi</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
@@ -267,6 +267,7 @@
   .frame:hover .fmeta{opacity:1;transform:translateY(0);}
   .fmeta .cat{font-family:var(--mono);font-size:10px;text-transform:uppercase;color:var(--kodak);letter-spacing:0.06em;}
   .fmeta .ttl{font-family:var(--display);font-size:22px;letter-spacing:0.3px;margin-top:2px;}
+  .fmeta .exif{font-family:var(--mono);font-size:9.5px;color:rgba(233,228,214,0.75);margin-top:5px;letter-spacing:0.02em;}
 
   .frame.pick::before{
     content:'';
@@ -503,9 +504,251 @@
   @media (prefers-reduced-motion: reduce){
     *{animation:none !important;transition:none !important;}
   }
+  /* ---------- nerd features ---------- */
+
+  /* film grain / light-leak canvas overlay */
+  #grainCanvas{
+    position:fixed;inset:0;z-index:9999;
+    pointer-events:none;
+    mix-blend-mode:overlay;
+    opacity:0.5;
+  }
+
+  /* konami flash overlay */
+  #konamiFlash{
+    position:fixed;inset:0;z-index:10000;
+    background:radial-gradient(circle at center, rgba(255,255,255,0.9), var(--safelight) 70%);
+    opacity:0;pointer-events:none;
+    transition:opacity .15s ease;
+  }
+  #konamiFlash.on{opacity:0.85;}
+  #konamiBanner{
+    position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0.9);
+    z-index:10001;
+    background:var(--footer-bg);color:var(--footer-fg);
+    border:2px solid var(--kodak);
+    padding:26px 34px;text-align:center;
+    font-family:var(--mono);
+    opacity:0;pointer-events:none;
+    transition:opacity .25s ease, transform .25s ease;
+  }
+  #konamiBanner.on{opacity:1;transform:translate(-50%,-50%) scale(1);}
+  #konamiBanner .kb-title{font-family:var(--display);font-size:30px;color:var(--kodak);letter-spacing:0.5px;}
+  #konamiBanner .kb-sub{font-size:11px;margin-top:8px;letter-spacing:0.05em;color:var(--footer-fg-dim);}
+
+  /* custom cursor reticle over gallery */
+  .gallery{cursor:none;}
+  #reticle{
+    position:fixed;top:0;left:0;
+    width:46px;height:46px;
+    pointer-events:none;z-index:60;
+    transform:translate(-50%,-50%);
+    opacity:0;transition:opacity .15s ease;
+  }
+  #reticle.show{opacity:1;}
+  #reticle svg{width:100%;height:100%;}
+  #reticle .ring{stroke:var(--safelight);fill:none;stroke-width:1.4;}
+  #reticle .tick{stroke:var(--kodak);stroke-width:1.4;}
+
+  /* terminal widget */
+  .terminal-wrap{
+    background:var(--footer-bg);
+    border:1px solid rgba(236,231,216,0.18);
+    font-family:var(--mono);font-size:12.5px;
+    color:var(--footer-fg);
+    max-width:100%;
+  }
+  .terminal-bar{
+    display:flex;align-items:center;gap:6px;
+    padding:9px 12px;border-bottom:1px solid rgba(236,231,216,0.15);
+  }
+  .terminal-dot{width:9px;height:9px;border-radius:50%;background:#7a766a;}
+  .terminal-dot:nth-child(1){background:var(--safelight);}
+  .terminal-dot:nth-child(2){background:var(--kodak);}
+  .terminal-bar span.tlabel{margin-left:8px;color:var(--footer-fg-dim);font-size:11px;letter-spacing:0.04em;}
+  .terminal-body{
+    padding:16px;height:260px;overflow-y:auto;
+    display:flex;flex-direction:column;gap:4px;
+  }
+  .terminal-body .line{white-space:pre-wrap;line-height:1.6;word-break:break-word;}
+  .terminal-body .line.cmd::before{content:'$ ';color:var(--kodak);}
+  .terminal-body .line.out{color:var(--footer-fg-dim);}
+  .terminal-input-row{
+    display:flex;align-items:center;gap:6px;
+    padding:10px 16px;border-top:1px solid rgba(236,231,216,0.15);
+  }
+  .terminal-input-row .prompt{color:var(--kodak);}
+  .terminal-input-row input{
+    flex:1;background:none;border:none;outline:none;
+    font-family:var(--mono);font-size:12.5px;color:var(--footer-fg);
+  }
+  .terminal-input-row input::placeholder{color:rgba(236,231,216,0.35);}
+
+  /* heatmap */
+  .heatmap-wrap{overflow-x:auto;padding-bottom:6px;}
+  .heatmap{display:grid;grid-auto-flow:column;grid-template-rows:repeat(7,1fr);gap:3px;width:max-content;}
+  .heatmap .cell{
+    width:11px;height:11px;border-radius:2px;
+    background:var(--paper-dim);
+    position:relative;
+  }
+  .heatmap .cell[data-level="1"]{background:#e0a9ad;}
+  .heatmap .cell[data-level="2"]{background:#cf6b73;}
+  .heatmap .cell[data-level="3"]{background:#c81d2f;}
+  .heatmap .cell[data-level="4"]{background:#7a1620;}
+  body[data-theme="dark"] .heatmap .cell{background:#1c1b17;}
+  body[data-theme="dark"] .heatmap .cell[data-level="1"]{background:#4a1418;}
+  body[data-theme="dark"] .heatmap .cell[data-level="2"]{background:#7a1620;}
+  body[data-theme="dark"] .heatmap .cell[data-level="3"]{background:#a52e38;}
+  body[data-theme="dark"] .heatmap .cell[data-level="4"]{background:#ff4d5e;}
+  .heatmap-legend{
+    display:flex;align-items:center;gap:6px;margin-top:14px;
+    font-family:var(--mono);font-size:10px;color:var(--grey-frame);text-transform:uppercase;letter-spacing:0.05em;
+  }
+  .heatmap-legend .cell{width:11px;height:11px;border-radius:2px;}
+  #heatTooltip{
+    position:fixed;pointer-events:none;z-index:70;
+    background:var(--footer-bg);color:var(--footer-fg);
+    font-family:var(--mono);font-size:11px;
+    padding:5px 9px;border-radius:2px;
+    opacity:0;transform:translate(-50%,-8px);
+    transition:opacity .12s ease;
+    white-space:nowrap;
+  }
+  #heatTooltip.show{opacity:1;}
+
+  /* darkroom timer */
+  .timer-wrap{
+    display:flex;flex-wrap:wrap;gap:40px;align-items:center;
+    border:1px solid var(--line);padding:36px;
+  }
+  .timer-dial{
+    width:170px;height:170px;border-radius:50%;
+    border:3px solid var(--ink);
+    display:flex;align-items:center;justify-content:center;
+    flex-direction:column;
+    position:relative;
+    flex-shrink:0;
+  }
+  .timer-dial .safelight-dot{
+    position:absolute;top:14px;left:50%;transform:translateX(-50%);
+    width:9px;height:9px;border-radius:50%;
+    background:var(--grey-frame);
+    transition:background .2s ease, box-shadow .2s ease;
+  }
+  .timer-dial.running .safelight-dot{
+    background:var(--safelight);
+    box-shadow:0 0 10px 2px var(--safelight);
+    animation:pulseSafelight 1s ease-in-out infinite;
+  }
+  @keyframes pulseSafelight{50%{opacity:0.4;}}
+  .timer-display{
+    font-family:var(--display);font-size:44px;letter-spacing:1px;color:var(--ink);
+  }
+  .timer-label{
+    font-family:var(--mono);font-size:9.5px;text-transform:uppercase;letter-spacing:0.08em;color:var(--grey-frame);margin-top:2px;
+  }
+  .timer-controls{display:flex;flex-direction:column;gap:12px;min-width:200px;}
+  .timer-presets{display:flex;gap:8px;flex-wrap:wrap;}
+  .timer-btn{
+    font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:0.05em;
+    background:none;border:1px solid var(--ink);color:var(--ink);
+    padding:8px 14px;cursor:pointer;transition:background .2s ease,color .2s ease;
+  }
+  .timer-btn:hover{background:var(--ink);color:var(--paper);}
+  .timer-btn.primary{background:var(--safelight);border-color:var(--safelight);color:#fff;}
+  .timer-btn.primary:hover{opacity:0.85;background:var(--safelight);color:#fff;}
+  .timer-actions{display:flex;gap:8px;}
+
+  /* now playing */
+  .now-playing{
+    display:flex;align-items:center;gap:12px;
+    border:1px solid var(--line);padding:16px 18px;
+    margin-top:20px;
+  }
+  .np-bars{display:flex;align-items:flex-end;gap:2px;height:18px;}
+  .np-bars span{width:3px;background:var(--safelight);animation:npbar 1s ease-in-out infinite;}
+  .np-bars span:nth-child(1){height:40%;animation-delay:0s;}
+  .np-bars span:nth-child(2){height:100%;animation-delay:.15s;}
+  .np-bars span:nth-child(3){height:65%;animation-delay:.3s;}
+  .np-bars span:nth-child(4){height:85%;animation-delay:.45s;}
+  @keyframes npbar{0%,100%{transform:scaleY(0.4);}50%{transform:scaleY(1);}}
+  .np-text{font-family:var(--mono);font-size:12px;line-height:1.5;}
+  .np-text .np-eyebrow{font-size:9.5px;color:var(--grey-frame);text-transform:uppercase;letter-spacing:0.08em;}
+  .np-text .np-track{color:var(--ink);}
+
+  /* keyboard shortcut overlay */
+  #shortcutOverlay{
+    position:fixed;inset:0;z-index:9998;
+    background:rgba(19,19,17,0.78);
+    display:flex;align-items:center;justify-content:center;
+    opacity:0;pointer-events:none;
+    transition:opacity .2s ease;
+  }
+  #shortcutOverlay.on{opacity:1;pointer-events:auto;}
+  .shortcut-panel{
+    background:var(--paper);border:1px solid var(--ink);
+    padding:34px 38px;max-width:420px;width:90%;
+  }
+  .shortcut-panel h3{font-family:var(--display);font-size:28px;text-transform:uppercase;margin-bottom:18px;}
+  .shortcut-row{
+    display:flex;justify-content:space-between;padding:8px 0;
+    border-top:1px dashed var(--line);
+    font-family:var(--mono);font-size:12px;
+  }
+  .shortcut-row:first-of-type{border-top:none;}
+  .shortcut-row kbd{
+    background:var(--ink);color:var(--paper);
+    padding:2px 7px;border-radius:3px;font-size:11px;
+  }
+  .shortcut-hint{
+    position:fixed;bottom:18px;left:18px;z-index:40;
+    font-family:var(--mono);font-size:10.5px;color:var(--grey-frame);
+    background:var(--paper);border:1px solid var(--line);
+    padding:6px 10px;
+  }
+  .shortcut-hint kbd{background:var(--ink);color:var(--paper);padding:1px 6px;border-radius:3px;}
+
+  @media (max-width:760px){
+    .gallery{cursor:auto;}
+    #reticle{display:none;}
+    .shortcut-hint{display:none;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    #grainCanvas{display:none;}
+  }
+
 </style>
 </head>
 <body>
+
+<canvas id="grainCanvas" aria-hidden="true"></canvas>
+<div id="konamiFlash" aria-hidden="true"></div>
+<div id="konamiBanner" role="status">
+  <div class="kb-title">ROLL SELESAI!</div>
+  <div class="kb-sub">KODE RAHASIA DITEMUKAN — TERIMA KASIH SUDAH IKUT BERMAIN</div>
+</div>
+<div id="reticle" aria-hidden="true">
+  <svg viewBox="0 0 46 46">
+    <circle class="ring" cx="23" cy="23" r="16"/>
+    <line class="tick" x1="23" y1="2" x2="23" y2="10"/>
+    <line class="tick" x1="23" y1="36" x2="23" y2="44"/>
+    <line class="tick" x1="2" y1="23" x2="10" y2="23"/>
+    <line class="tick" x1="36" y1="23" x2="44" y2="23"/>
+  </svg>
+</div>
+<div id="shortcutOverlay">
+  <div class="shortcut-panel">
+    <h3>Pintasan</h3>
+    <div class="shortcut-row"><span>Ke Arsip Karya</span><kbd>G</kbd> <kbd>K</kbd></div>
+    <div class="shortcut-row"><span>Ke Setup &amp; Spek</span><kbd>G</kbd> <kbd>S</kbd></div>
+    <div class="shortcut-row"><span>Ke Terminal</span><kbd>G</kbd> <kbd>T</kbd></div>
+    <div class="shortcut-row"><span>Ganti Mode Gelap</span><kbd>D</kbd></div>
+    <div class="shortcut-row"><span>Tutup Panel Ini</span><kbd>ESC</kbd></div>
+  </div>
+</div>
+<div class="shortcut-hint">TEKAN <kbd>?</kbd> UNTUK PINTASAN</div>
 
 <div class="sprockets" aria-hidden="true">
   <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
@@ -515,7 +758,7 @@
 
 <header>
   <nav>
-    <a href="#top" class="logo">Jakha<span>.</span>A</a>
+    <a href="#top" class="logo">RAKA<span>.</span>A</a>
     <div class="navlinks">
       <a href="#tentang">Tentang</a>
       <a href="#karya">Karya</a>
@@ -523,6 +766,7 @@
       <a href="#setup">Setup</a>
       <a href="#tautan">Tautan</a>
       <a href="#musik">Musik</a>
+      <a href="#terminal">Terminal</a>
     </div>
     <div class="nav-right">
       <button class="theme-toggle" id="themeToggle" aria-pressed="false">
@@ -543,7 +787,7 @@
     </div>
     <h1 class="title">DESAIN GRAFIS<br>&amp; <span class="accent">FOTOGRAFI</span></h1>
     <div class="hero-sub">
-      <p>Saya Jakha Phosa, desainer grafis dan fotografer. Ruang ini adalah arsip pribadi dari apa yang saya buat — identitas visual, tata letak, dan gambar yang saya ambil selama bertahun-tahun praktik.</p>
+      <p>Saya Raka Aditya, desainer grafis dan fotografer. Ruang ini adalah arsip pribadi dari apa yang saya buat — identitas visual, tata letak, dan gambar yang saya ambil selama bertahun-tahun praktik.</p>
       <div class="hero-meta">
         DISIPLIN — Branding, Editorial, Potret<br>
         BERBASIS DI — Jakarta, Indonesia<br>
@@ -558,7 +802,7 @@
     <div class="section-label"><span class="num">01</span><h2>Tentang</h2></div>
     <div class="about">
       <div class="about-frame">
-        <img src="me.JPG" alt="Potret Raka Aditya sedang bekerja di studio">
+        <img src="https://picsum.photos/seed/rakaportrait/700/875" alt="Potret Raka Aditya sedang bekerja di studio">
         <span class="corner tl">NEG. 04A</span>
         <span class="corner br">RA</span>
       </div>
@@ -585,49 +829,49 @@
         <div class="frame pick">
           <img src="https://picsum.photos/seed/karya1/600/800" alt="Identitas visual kafe Tanaya">
           <span class="fnum">NEG. 01A</span>
-          <div class="fmeta"><div class="cat">Branding</div><div class="ttl">Kafe Tanaya</div></div>
+          <div class="fmeta"><div class="cat">Branding</div><div class="ttl">Kafe Tanaya</div><div class="exif">50mm · f/2.8 · 1/125 · ISO 200</div></div>
         </div>
 
         <div class="frame">
           <img src="https://picsum.photos/seed/karya2/600/800" alt="Potret editorial untuk majalah lokal">
           <span class="fnum">NEG. 01B</span>
-          <div class="fmeta"><div class="cat">Editorial</div><div class="ttl">Wajah Kota</div></div>
+          <div class="fmeta"><div class="cat">Editorial</div><div class="ttl">Wajah Kota</div><div class="exif">85mm · f/1.8 · 1/250 · ISO 400</div></div>
         </div>
 
         <div class="frame">
           <img src="https://picsum.photos/seed/karya3/600/800" alt="Fotografi produk untuk label fesyen">
           <span class="fnum">NEG. 01C</span>
-          <div class="fmeta"><div class="cat">Produk</div><div class="ttl">Studio Anin</div></div>
+          <div class="fmeta"><div class="cat">Produk</div><div class="ttl">Studio Anin</div><div class="exif">100mm · f/8 · 1/160 · ISO 100</div></div>
         </div>
 
         <div class="frame pick">
           <img src="https://picsum.photos/seed/karya4/600/800" alt="Sampul buku puisi independen">
           <span class="fnum">NEG. 01D</span>
-          <div class="fmeta"><div class="cat">Layout</div><div class="ttl">Sunyi, Kumpulan Puisi</div></div>
+          <div class="fmeta"><div class="cat">Layout</div><div class="ttl">Sunyi, Kumpulan Puisi</div><div class="exif">Vektor · CMYK · 300DPI</div></div>
         </div>
 
         <div class="frame">
           <img src="https://picsum.photos/seed/karya5/600/800" alt="Dokumentasi acara peluncuran produk">
           <span class="fnum">NEG. 02A</span>
-          <div class="fmeta"><div class="cat">Acara</div><div class="ttl">Peluncuran Ossa</div></div>
+          <div class="fmeta"><div class="cat">Acara</div><div class="ttl">Peluncuran Ossa</div><div class="exif">35mm · f/2 · 1/200 · ISO 800</div></div>
         </div>
 
         <div class="frame">
           <img src="https://picsum.photos/seed/karya6/600/800" alt="Poster festival musik independen">
           <span class="fnum">NEG. 02B</span>
-          <div class="fmeta"><div class="cat">Poster</div><div class="ttl">Festival Ambang</div></div>
+          <div class="fmeta"><div class="cat">Poster</div><div class="ttl">Festival Ambang</div><div class="exif">Vektor · RGB · A2</div></div>
         </div>
 
         <div class="frame pick">
           <img src="https://picsum.photos/seed/karya7/600/800" alt="Sesi potret keluarga natural light">
           <span class="fnum">NEG. 02C</span>
-          <div class="fmeta"><div class="cat">Potret</div><div class="ttl">Keluarga Wirawan</div></div>
+          <div class="fmeta"><div class="cat">Potret</div><div class="ttl">Keluarga Wirawan</div><div class="exif">50mm · f/2.2 · 1/320 · ISO 200</div></div>
         </div>
 
         <div class="frame">
           <img src="https://picsum.photos/seed/karya8/600/800" alt="Sistem kemasan minuman kombucha lokal">
           <span class="fnum">NEG. 02D</span>
-          <div class="fmeta"><div class="cat">Kemasan</div><div class="ttl">Kombucha Rimba</div></div>
+          <div class="fmeta"><div class="cat">Kemasan</div><div class="ttl">Kombucha Rimba</div><div class="exif">100mm · f/11 · 1/125 · ISO 100</div></div>
         </div>
 
       </div>
@@ -762,7 +1006,7 @@
         <a class="link-row" href="#" target="_blank" rel="noopener">
           <div class="link-main">
             <span class="link-name">Instagram</span>
-            <span class="link-sub">@phosajakha</span>
+            <span class="link-sub">@rakaaditya.visual</span>
           </div>
           <span class="link-cta">Kunjungi <span class="arrow">↗</span></span>
         </a>
@@ -794,7 +1038,7 @@
         <a class="link-row" href="#" target="_blank" rel="noopener">
           <div class="link-main">
             <span class="link-name">TikTok</span>
-            <span class="link-sub">@flowerjacx</span>
+            <span class="link-sub">@rakaaditya</span>
           </div>
           <span class="link-cta">Kunjungi <span class="arrow">↗</span></span>
         </a>
@@ -802,7 +1046,7 @@
         <a class="link-row" href="#" target="_blank" rel="noopener">
           <div class="link-main">
             <span class="link-name">YouTube</span>
-            <span class="link-sub">Jakha Phosa</span>
+            <span class="link-sub">Raka Aditya</span>
           </div>
           <span class="link-cta">Kunjungi <span class="arrow">↗</span></span>
         </a>
@@ -817,12 +1061,20 @@
         <div class="sindex">A — DENGAR</div>
         <h3>Musik</h3>
         <div class="spotify-frame">
-          <iframe src="<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/1Sjuy5P1xxvZJYu32scyyE?utm_source=generator&si=4378acf8c6d445ad" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>"
+          <iframe src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M?utm_source=generator&theme=0"
             width="100%" height="352" frameborder="0"
             allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
             loading="lazy" title="Playlist Spotify"></iframe>
         </div>
         <p class="media-note">Playlist yang paling sering diputar saat sedang desain atau proses foto. Ganti embed di atas dengan playlist atau profil Spotify Anda sendiri.</p>
+
+        <div class="now-playing">
+          <div class="np-bars"><span></span><span></span><span></span><span></span></div>
+          <div class="np-text">
+            <div class="np-eyebrow">Sedang Diputar (Demo)</div>
+            <div class="np-track" id="npTrack">Boards of Canada — Roygbiv</div>
+          </div>
+        </div>
       </div>
 
       <div class="media-block">
@@ -882,8 +1134,59 @@
     </div>
   </section>
 
+  <section class="section wrap reveal" id="kalender">
+    <div class="section-label"><span class="num">07</span><h2>Kalender Jepretan</h2></div>
+    <p style="font-family:var(--body);font-size:14.5px;color:#3a3a35;max-width:60ch;margin-bottom:24px;">Rekap kapan roll film atau file desain terakhir digarap — semakin gelap warnanya, semakin padat harinya.</p>
+    <div class="heatmap-wrap">
+      <div class="heatmap" id="heatmap"></div>
+    </div>
+    <div class="heatmap-legend">
+      SEPI <span class="cell" data-level="0"></span><span class="cell" data-level="1"></span><span class="cell" data-level="2"></span><span class="cell" data-level="3"></span><span class="cell" data-level="4"></span> PADAT
+    </div>
+  </section>
+
+  <section class="section wrap reveal" id="timer">
+    <div class="section-label"><span class="num">08</span><h2>Timer Kamar Gelap</h2></div>
+    <div class="timer-wrap">
+      <div class="timer-dial" id="timerDial">
+        <span class="safelight-dot" id="safelightDot"></span>
+        <div class="timer-display" id="timerDisplay">05:00</div>
+        <div class="timer-label" id="timerStage">Developer</div>
+      </div>
+      <div class="timer-controls">
+        <div class="timer-presets">
+          <button class="timer-btn" data-min="5">Developer 5:00</button>
+          <button class="timer-btn" data-min="1">Stop Bath 1:00</button>
+          <button class="timer-btn" data-min="8">Fixer 8:00</button>
+        </div>
+        <div class="timer-actions">
+          <button class="timer-btn primary" id="timerStart">Mulai</button>
+          <button class="timer-btn" id="timerReset">Reset</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section wrap reveal" id="terminal">
+    <div class="section-label"><span class="num">09</span><h2>Terminal</h2></div>
+    <p style="font-family:var(--body);font-size:14.5px;color:#3a3a35;max-width:60ch;margin-bottom:24px;">Ketik <code style="font-family:var(--mono);">help</code> untuk lihat daftar perintah.</p>
+    <div class="terminal-wrap">
+      <div class="terminal-bar">
+        <span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span>
+        <span class="tlabel">raka@arsip — zsh</span>
+      </div>
+      <div class="terminal-body" id="termBody">
+        <div class="line out">Selamat datang. Ketik 'help' untuk memulai.</div>
+      </div>
+      <div class="terminal-input-row">
+        <span class="prompt">$</span>
+        <input type="text" id="termInput" placeholder="ketik perintah..." autocomplete="off" spellcheck="false">
+      </div>
+    </div>
+  </section>
+
   <section class="section wrap reveal">
-    <div class="section-label"><span class="num">07</span><h2>Perkakas</h2></div>
+    <div class="section-label"><span class="num">10</span><h2>Perkakas</h2></div>
     <p class="quote">Alat yang saya pakai setiap hari — <span>sebagian analog, sebagian digital</span>, semuanya bagian dari cara saya bekerja.</p>
   </section>
 
@@ -904,7 +1207,7 @@
 
 <footer class="contact" id="arsip">
   <div class="wrap">
-    <div class="section-label"><span class="num">08</span><h2>Catatan Arsip</h2></div>
+    <div class="section-label"><span class="num">11</span><h2>Catatan Arsip</h2></div>
     <div class="contact-grid">
       <div>
         <h3>KUMPULAN INI DISUSUN<br>DAN DIRAWAT SECARA<br>PRIBADI DI JAKARTA.</h3>
@@ -916,9 +1219,12 @@
         FORMAT — Cetak, Digital, Gerak
       </div>
     </div>
-    <div class="stamp">
-      <span>© 2026 Jakha Phosa — ARSIP KARYA PRIBADI</span>
-      <span class="badge">DIARSIPKAN</span>
+    <div class="stamp" style="flex-direction:column;align-items:flex-start;gap:6px;">
+      <div style="display:flex;justify-content:space-between;width:100%;flex-wrap:wrap;gap:10px;">
+        <span>© 2026 RAKA ADITYA — ARSIP KARYA PRIBADI</span>
+        <span class="badge">DIARSIPKAN</span>
+      </div>
+      <div id="statusLine" style="opacity:0.85;">STATUS: MEMUAT... · BUILD v2.4.0</div>
     </div>
   </div>
 </footer>
@@ -982,6 +1288,308 @@
   const style = document.createElement('style');
   style.textContent = `.navlinks.mopen{display:flex !important;flex-direction:column;position:absolute;top:100%;right:0;background:var(--paper);border:1px solid var(--line);padding:18px 24px;gap:16px;}`;
   document.head.appendChild(style);
+
+  const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------------- film grain / light-leak canvas ---------------- */
+  (function grain(){
+    const canvas = document.getElementById('grainCanvas');
+    if(!canvas || reduceMotion) return;
+    const ctx = canvas.getContext('2d');
+    let w, h;
+    function resize(){ w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; }
+    resize();
+    window.addEventListener('resize', resize);
+
+    let mx = w/2, my = h/2;
+    window.addEventListener('mousemove', (e)=>{ mx = e.clientX; my = e.clientY; });
+
+    function frame(){
+      const imgData = ctx.createImageData(w, h);
+      const buf = imgData.data;
+      for(let i=0; i<buf.length; i+=4){
+        const n = Math.random() * 255;
+        buf[i] = n; buf[i+1] = n; buf[i+2] = n; buf[i+3] = 14;
+      }
+      ctx.putImageData(imgData, 0, 0);
+
+      const grad = ctx.createRadialGradient(mx, my, 0, mx, my, Math.max(w,h)*0.5);
+      grad.addColorStop(0, 'rgba(200,29,47,0.05)');
+      grad.addColorStop(1, 'rgba(200,29,47,0)');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0,0,w,h);
+
+      requestAnimationFrame(frame);
+    }
+    frame();
+  })();
+
+  /* ---------------- konami code easter egg ---------------- */
+  (function konami(){
+    const seq = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+    let pos = 0;
+    const flash = document.getElementById('konamiFlash');
+    const banner = document.getElementById('konamiBanner');
+    window.addEventListener('keydown', (e)=>{
+      const key = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+      if(key === seq[pos]){
+        pos++;
+        if(pos === seq.length){
+          pos = 0;
+          flash.classList.add('on');
+          setTimeout(()=>flash.classList.remove('on'), 180);
+          banner.classList.add('on');
+          setTimeout(()=>banner.classList.remove('on'), 2600);
+        }
+      } else {
+        pos = (key === seq[0]) ? 1 : 0;
+      }
+    });
+  })();
+
+  /* ---------------- custom cursor reticle over gallery ---------------- */
+  (function reticle(){
+    const ret = document.getElementById('reticle');
+    const gallery = document.querySelector('.gallery');
+    if(!ret || !gallery) return;
+    gallery.addEventListener('mousemove', (e)=>{
+      ret.style.left = e.clientX + 'px';
+      ret.style.top = e.clientY + 'px';
+      ret.classList.add('show');
+    });
+    gallery.addEventListener('mouseleave', ()=> ret.classList.remove('show'));
+  })();
+
+  /* ---------------- kalender jepretan (heatmap) ---------------- */
+  (function heatmap(){
+    const wrap = document.getElementById('heatmap');
+    const tooltip = document.getElementById('heatTooltip') || (()=>{
+      const t = document.createElement('div'); t.id = 'heatTooltip'; document.body.appendChild(t); return t;
+    })();
+    if(!wrap) return;
+    const weeks = 26;
+    const today = new Date();
+    const days = [];
+    for(let i = weeks*7 - 1; i >= 0; i--){
+      const d = new Date(today);
+      d.setDate(d.getDate() - i);
+      const seed = d.getFullYear()*400 + d.getMonth()*31 + d.getDate();
+      const rnd = Math.abs(Math.sin(seed)) ;
+      let level = 0;
+      if(rnd > 0.85) level = 4;
+      else if(rnd > 0.68) level = 3;
+      else if(rnd > 0.48) level = 2;
+      else if(rnd > 0.3) level = 1;
+      days.push({d, level});
+    }
+    days.forEach(({d, level})=>{
+      const cell = document.createElement('div');
+      cell.className = 'cell';
+      cell.setAttribute('data-level', level);
+      const label = d.toLocaleDateString('id-ID', {day:'numeric', month:'short', year:'numeric'});
+      const countTxt = level === 0 ? 'Tidak ada aktivitas' : `${level} karya dikerjakan`;
+      cell.addEventListener('mouseenter', (e)=>{
+        tooltip.textContent = `${label} — ${countTxt}`;
+        tooltip.classList.add('show');
+      });
+      cell.addEventListener('mousemove', (e)=>{
+        tooltip.style.left = e.clientX + 'px';
+        tooltip.style.top = (e.clientY - 30) + 'px';
+      });
+      cell.addEventListener('mouseleave', ()=> tooltip.classList.remove('show'));
+      wrap.appendChild(cell);
+    });
+  })();
+
+  /* ---------------- timer kamar gelap ---------------- */
+  (function darkroomTimer(){
+    const display = document.getElementById('timerDisplay');
+    const stage = document.getElementById('timerStage');
+    const dial = document.getElementById('timerDial');
+    const startBtn = document.getElementById('timerStart');
+    const resetBtn = document.getElementById('timerReset');
+    const presets = document.querySelectorAll('.timer-btn[data-min]');
+    if(!display) return;
+
+    let totalSeconds = 5*60;
+    let remaining = totalSeconds;
+    let running = false;
+    let intervalId = null;
+    let currentLabel = 'Developer';
+
+    function render(){
+      const m = Math.floor(remaining/60).toString().padStart(2,'0');
+      const s = Math.floor(remaining%60).toString().padStart(2,'0');
+      display.textContent = `${m}:${s}`;
+      stage.textContent = currentLabel;
+    }
+    render();
+
+    function tick(){
+      if(remaining <= 0){
+        pause();
+        display.textContent = '00:00';
+        return;
+      }
+      remaining--;
+      render();
+    }
+    function start(){
+      if(running) return;
+      running = true;
+      dial.classList.add('running');
+      startBtn.textContent = 'Jeda';
+      intervalId = setInterval(tick, 1000);
+    }
+    function pause(){
+      running = false;
+      dial.classList.remove('running');
+      startBtn.textContent = 'Mulai';
+      clearInterval(intervalId);
+    }
+    startBtn.addEventListener('click', ()=> running ? pause() : start());
+    resetBtn.addEventListener('click', ()=>{
+      pause();
+      remaining = totalSeconds;
+      render();
+    });
+    presets.forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        pause();
+        const mins = parseFloat(btn.getAttribute('data-min'));
+        totalSeconds = Math.round(mins*60);
+        remaining = totalSeconds;
+        currentLabel = btn.textContent.replace(/[\d:]+/g,'').trim();
+        render();
+      });
+    });
+  })();
+
+  /* ---------------- terminal ---------------- */
+  (function terminal(){
+    const body = document.getElementById('termBody');
+    const input = document.getElementById('termInput');
+    if(!body || !input) return;
+
+    const files = {
+      'about.txt': 'Raka Aditya — Desainer Grafis & Fotografer. Aktif sejak 2016, berbasis di Jakarta.',
+      'skills.txt': 'Desain Grafis: Branding, Editorial, Kemasan.\nFotografi: Potret, Produk, Acara, Arsitektur.'
+    };
+
+    function print(text, cls){
+      const div = document.createElement('div');
+      div.className = 'line ' + (cls || 'out');
+      div.textContent = text;
+      body.appendChild(div);
+      body.scrollTop = body.scrollHeight;
+    }
+
+    function run(raw){
+      const cmd = raw.trim();
+      if(cmd.length === 0) return;
+      print(cmd, 'cmd');
+      const [name, ...args] = cmd.split(' ');
+
+      switch(name){
+        case 'help':
+          print('Perintah tersedia: whoami, ls, cat [file], skills, contact, clear, sudo, help');
+          break;
+        case 'whoami':
+          print('raka-aditya — desainer grafis & fotografer');
+          break;
+        case 'ls':
+          print('about.txt  skills.txt  karya/  keahlian/  setup.spec');
+          break;
+        case 'cat':
+          if(files[args[0]]) print(files[args[0]]);
+          else print(`cat: ${args[0] || ''}: berkas tidak ditemukan`);
+          break;
+        case 'skills':
+          print('Adobe Illustrator, Photoshop, InDesign, Lightroom, Figma, Kamera Film & Mirrorless');
+          break;
+        case 'contact':
+          print('Lihat bagian Game & Tautan untuk semua tautan sosial.');
+          break;
+        case 'sudo':
+          print('nice try. akses ditolak — ini cuma portofolio, bukan server produksi.');
+          break;
+        case 'clear':
+          body.innerHTML = '';
+          break;
+        default:
+          print(`command not found: ${name} — coba ketik 'help'`);
+      }
+    }
+
+    input.addEventListener('keydown', (e)=>{
+      if(e.key === 'Enter'){
+        run(input.value);
+        input.value = '';
+      }
+    });
+  })();
+
+  /* ---------------- now playing (demo, tanpa API live) ---------------- */
+  (function nowPlaying(){
+    const el = document.getElementById('npTrack');
+    if(!el) return;
+    const tracks = [
+      'Boards of Canada — Roygbiv',
+      'Tycho — A Walk',
+      'Nujabes — Feather',
+      'Bonobo — Kerala',
+      'Cigarettes After Sex — Apocalypse'
+    ];
+    let i = 0;
+    setInterval(()=>{
+      i = (i+1) % tracks.length;
+      el.textContent = tracks[i];
+    }, 6000);
+  })();
+
+  /* ---------------- status / uptime footer ---------------- */
+  (function statusLine(){
+    const el = document.getElementById('statusLine');
+    if(!el) return;
+    const launch = new Date('2026-01-15T00:00:00');
+    const now = new Date();
+    const diffMs = now - launch;
+    const days = Math.floor(diffMs / 86400000);
+    el.textContent = `STATUS: OPERASIONAL · UPTIME: ${days} HARI · BUILD v2.4.0`;
+  })();
+
+  /* ---------------- keyboard shortcuts ---------------- */
+  (function shortcuts(){
+    const overlay = document.getElementById('shortcutOverlay');
+    if(!overlay) return;
+    let awaitingG = false;
+
+    function closeOverlay(){ overlay.classList.remove('on'); }
+
+    window.addEventListener('keydown', (e)=>{
+      const tag = (e.target.tagName || '').toLowerCase();
+      if(tag === 'input' || tag === 'textarea') return;
+
+      if(e.key === '?'){ overlay.classList.add('on'); return; }
+      if(e.key === 'Escape'){ closeOverlay(); return; }
+
+      if(awaitingG){
+        awaitingG = false;
+        const map = { k:'#karya', s:'#setup', t:'#terminal' };
+        const target = map[e.key.toLowerCase()];
+        if(target){
+          document.querySelector(target)?.scrollIntoView({behavior:'smooth'});
+        }
+        return;
+      }
+      if(e.key.toLowerCase() === 'g'){ awaitingG = true; setTimeout(()=>awaitingG=false, 900); return; }
+      if(e.key.toLowerCase() === 'd'){ themeBtn.click(); return; }
+    });
+
+    overlay.addEventListener('click', (e)=>{
+      if(e.target === overlay) closeOverlay();
+    });
+  })();
 </script>
 
 </body>
