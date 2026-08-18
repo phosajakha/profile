@@ -1917,7 +1917,7 @@
       const elapsed = now - start;
       progress = Math.min(100, Math.round((elapsed/duration)*100));
       fill.style.width = progress + '%';
-      pct.textContent = `MEMUAT ARSIP — ${progress}%`;
+      pct.textContent = `Loading — ${progress}%`;
       if(progress < 100){
         requestAnimationFrame(step);
       } else {
