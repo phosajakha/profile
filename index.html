@@ -719,9 +719,241 @@
     #grainCanvas{display:none;}
   }
 
+  /* ---------------- splash / loading screen ---------------- */
+  #splash{
+    position:fixed;inset:0;z-index:20000;
+    background:var(--footer-bg);
+    color:var(--footer-fg);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:22px;
+    transition:opacity .6s ease, visibility .6s ease;
+  }
+  #splash.hide{opacity:0;visibility:hidden;pointer-events:none;}
+  .splash-logo{
+    font-family:var(--display);
+    font-size:52px;letter-spacing:1px;text-transform:uppercase;
+  }
+  .splash-logo span{color:var(--safelight);}
+  .splash-bar-track{
+    width:min(280px,70vw);height:3px;
+    background:rgba(236,231,216,0.15);
+    position:relative;overflow:hidden;
+  }
+  .splash-bar-fill{
+    position:absolute;left:0;top:0;bottom:0;width:0%;
+    background:var(--safelight);
+    transition:width .15s ease;
+  }
+  .splash-pct{
+    font-family:var(--mono);font-size:11px;letter-spacing:0.08em;
+    color:var(--footer-fg-dim);
+  }
+  .splash-tip{
+    font-family:var(--mono);font-size:11px;letter-spacing:0.03em;
+    color:var(--footer-fg-dim);
+    max-width:320px;text-align:center;
+    min-height:32px;
+    opacity:0;transition:opacity .3s ease;
+  }
+  .splash-tip.show{opacity:1;}
+  .splash-tip::before{content:'TIPS — ';color:var(--kodak);}
+
+  @media (prefers-reduced-motion: reduce){
+    #splash{transition:opacity .01s linear;}
+  }
+
+  /* ---------------- hidden mini game ---------------- */
+  #gameOverlay{
+    position:fixed;inset:0;z-index:9997;
+    background:rgba(19,19,17,0.85);
+    display:flex;align-items:center;justify-content:center;
+    opacity:0;pointer-events:none;
+    transition:opacity .2s ease;
+  }
+  #gameOverlay.on{opacity:1;pointer-events:auto;}
+  .game-panel{
+    background:var(--paper);border:1px solid var(--ink);
+    padding:26px;text-align:center;
+    width:min(360px,92vw);
+  }
+  .game-panel h3{font-family:var(--display);font-size:26px;text-transform:uppercase;margin-bottom:4px;}
+  .game-panel .game-sub{font-family:var(--mono);font-size:10.5px;color:var(--grey-frame);letter-spacing:0.05em;margin-bottom:14px;}
+  #gameCanvas{
+    background:#0d1b18;
+    border:1px solid var(--ink);
+    display:block;margin:0 auto;
+    image-rendering:pixelated;
+    cursor:pointer;
+  }
+  .game-footer{
+    display:flex;justify-content:space-between;align-items:center;
+    margin-top:14px;
+    font-family:var(--mono);font-size:11px;color:var(--grey-frame);
+  }
+  .game-footer button{
+    font-family:var(--mono);font-size:11px;text-transform:uppercase;
+    background:none;border:1px solid var(--ink);color:var(--ink);
+    padding:6px 12px;cursor:pointer;
+  }
+  .game-footer button:hover{background:var(--ink);color:var(--paper);}
+
+  /* ---------------- tic-tac-toe ---------------- */
+  .ttt-wrap{
+    display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start;
+  }
+  .ttt-board{
+    display:grid;grid-template-columns:repeat(3,1fr);
+    gap:2px;background:var(--ink);
+    width:270px;max-width:100%;
+    border:1px solid var(--ink);
+    flex-shrink:0;
+  }
+  .ttt-cell{
+    aspect-ratio:1;background:var(--paper);
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--display);font-size:52px;line-height:1;
+    cursor:pointer;user-select:none;
+    transition:background .15s ease;
+  }
+  .ttt-cell:hover:not(.filled):not(.disabled){background:var(--paper-dim);}
+  .ttt-cell.x{color:var(--safelight);}
+  .ttt-cell.o{color:var(--ink);}
+  body[data-theme="dark"] .ttt-cell.o{color:var(--kodak);}
+  .ttt-cell.win{background:rgba(200,29,47,0.16);}
+
+  .ttt-side{min-width:200px;}
+  .ttt-status{
+    font-family:var(--mono);font-size:12.5px;
+    color:var(--ink);letter-spacing:0.03em;
+    margin-bottom:16px;min-height:20px;
+  }
+  .ttt-score{
+    display:flex;gap:18px;
+    font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:0.05em;
+    color:var(--grey-frame);margin-bottom:18px;
+  }
+  .ttt-score b{display:block;font-family:var(--display);font-size:26px;color:var(--ink);letter-spacing:0;}
+  .ttt-note{
+    font-family:var(--body);font-size:12.5px;line-height:1.6;color:var(--grey-frame);
+    margin-top:18px;max-width:32ch;
+  }
+
+  @media (max-width:600px){
+    .ttt-wrap{flex-direction:column;}
+  }
+
+  /* ---------------- cocokkan negatif (memory match) ---------------- */
+  .mem-wrap{display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start;}
+  .mem-board{
+    display:grid;grid-template-columns:repeat(4,1fr);
+    gap:8px;width:340px;max-width:100%;flex-shrink:0;
+  }
+  .mem-card{
+    aspect-ratio:3/4;
+    perspective:600px;
+    cursor:pointer;
+  }
+  .mem-card.matched{cursor:default;}
+  .mem-inner{
+    position:relative;width:100%;height:100%;
+    transform-style:preserve-3d;
+    transition:transform .45s ease;
+  }
+  .mem-card.flip .mem-inner, .mem-card.matched .mem-inner{transform:rotateY(180deg);}
+  .mem-face{
+    position:absolute;inset:0;
+    backface-visibility:hidden;
+    display:flex;align-items:center;justify-content:center;
+    border:1px solid var(--ink);
+  }
+  .mem-front{
+    background:#0d1b18;
+    color:var(--footer-fg-dim);
+    font-family:var(--mono);font-size:9px;letter-spacing:0.05em;
+    flex-direction:column;gap:4px;
+  }
+  .mem-front::before{content:'NEG';color:var(--safelight);font-size:9px;}
+  .mem-back{
+    background:var(--paper);
+    transform:rotateY(180deg);
+    color:var(--ink);
+  }
+  .mem-card.matched .mem-back{background:rgba(200,29,47,0.1);color:var(--safelight);}
+  .mem-back svg{width:34px;height:34px;stroke:currentColor;fill:none;stroke-width:1.6;}
+
+  .mem-side{min-width:200px;}
+  .mem-status{font-family:var(--mono);font-size:12.5px;color:var(--ink);margin-bottom:16px;min-height:20px;}
+  .mem-score{display:flex;gap:18px;font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:0.05em;color:var(--grey-frame);margin-bottom:18px;}
+  .mem-score b{display:block;font-family:var(--display);font-size:26px;color:var(--ink);letter-spacing:0;}
+  .mem-note{font-family:var(--body);font-size:12.5px;line-height:1.6;color:var(--grey-frame);margin-top:18px;max-width:32ch;}
+
+  @media (max-width:600px){
+    .mem-wrap{flex-direction:column;}
+    .mem-board{width:100%;}
+  }
+
+  /* ---------------- uji refleks rana ---------------- */
+  .rx-wrap{display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start;}
+  .rx-pad{
+    width:320px;max-width:100%;aspect-ratio:16/10;
+    flex-shrink:0;
+    background:#2a2622;
+    border:1px solid var(--ink);
+    display:flex;align-items:center;justify-content:center;
+    flex-direction:column;gap:6px;
+    cursor:pointer;
+    user-select:none;
+    transition:background .15s ease;
+    text-align:center;
+    padding:20px;
+  }
+  .rx-pad.waiting{background:#5c1015;}
+  .rx-pad.go{background:#3f6b3a;}
+  .rx-pad.early{background:#7a1620;}
+  .rx-pad .rx-main{
+    font-family:var(--display);font-size:26px;text-transform:uppercase;
+    color:var(--footer-fg);letter-spacing:0.5px;
+  }
+  .rx-pad .rx-sub{
+    font-family:var(--mono);font-size:10.5px;color:rgba(233,228,214,0.75);letter-spacing:0.04em;
+  }
+  .rx-pad .rx-ms{
+    font-family:var(--display);font-size:44px;color:var(--kodak);letter-spacing:0.5px;
+  }
+
+  .rx-side{min-width:200px;}
+  .rx-score{display:flex;gap:18px;font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:0.05em;color:var(--grey-frame);margin-bottom:18px;}
+  .rx-score b{display:block;font-family:var(--display);font-size:26px;color:var(--ink);letter-spacing:0;}
+  .rx-history{
+    font-family:var(--mono);font-size:11px;color:var(--grey-frame);
+    display:flex;flex-direction:column;gap:4px;margin-bottom:16px;
+  }
+  .rx-note{font-family:var(--body);font-size:12.5px;line-height:1.6;color:var(--grey-frame);max-width:32ch;}
+
+  @media (max-width:600px){.rx-wrap{flex-direction:column;}}
+
 </style>
 </head>
 <body>
+
+<div id="splash">
+  <div class="splash-logo">RAKA<span>.</span>A</div>
+  <div class="splash-bar-track"><div class="splash-bar-fill" id="splashFill"></div></div>
+  <div class="splash-pct" id="splashPct">MEMUAT ARSIP — 0%</div>
+  <div class="splash-tip" id="splashTip"></div>
+</div>
+
+<div id="gameOverlay">
+  <div class="game-panel">
+    <h3>Roll Runner</h3>
+    <div class="game-sub">KLIK / SPASI UNTUK LOMPAT — HINDARI SPROCKET</div>
+    <canvas id="gameCanvas" width="300" height="150"></canvas>
+    <div class="game-footer">
+      <span id="gameScore">SKOR: 0 · TERBAIK: 0</span>
+      <button id="gameClose">Tutup</button>
+    </div>
+  </div>
+</div>
 
 <canvas id="grainCanvas" aria-hidden="true"></canvas>
 <div id="konamiFlash" aria-hidden="true"></div>
@@ -744,6 +976,9 @@
     <div class="shortcut-row"><span>Ke Arsip Karya</span><kbd>G</kbd> <kbd>K</kbd></div>
     <div class="shortcut-row"><span>Ke Setup &amp; Spek</span><kbd>G</kbd> <kbd>S</kbd></div>
     <div class="shortcut-row"><span>Ke Terminal</span><kbd>G</kbd> <kbd>T</kbd></div>
+    <div class="shortcut-row"><span>Ke Tic-Tac-Toe</span><kbd>G</kbd> <kbd>G</kbd></div>
+    <div class="shortcut-row"><span>Ke Cocokkan Negatif</span><kbd>G</kbd> <kbd>M</kbd></div>
+    <div class="shortcut-row"><span>Ke Uji Refleks</span><kbd>G</kbd> <kbd>R</kbd></div>
     <div class="shortcut-row"><span>Ganti Mode Gelap</span><kbd>D</kbd></div>
     <div class="shortcut-row"><span>Tutup Panel Ini</span><kbd>ESC</kbd></div>
   </div>
@@ -767,6 +1002,9 @@
       <a href="#tautan">Tautan</a>
       <a href="#musik">Musik</a>
       <a href="#terminal">Terminal</a>
+      <a href="#tictactoe">Main</a>
+      <a href="#memori">Memori</a>
+      <a href="#refleks">Refleks</a>
     </div>
     <div class="nav-right">
       <button class="theme-toggle" id="themeToggle" aria-pressed="false">
@@ -1185,8 +1423,62 @@
     </div>
   </section>
 
+  <section class="section wrap reveal" id="tictactoe">
+    <div class="section-label"><span class="num">10</span><h2>Main — Tic-Tac-Toe</h2></div>
+    <div class="ttt-wrap">
+      <div class="ttt-board" id="tttBoard"></div>
+      <div class="ttt-side">
+        <div class="ttt-status" id="tttStatus">Giliran Anda — jalan X</div>
+        <div class="ttt-score">
+          <div>MENANG<b id="tttWins">0</b></div>
+          <div>SERI<b id="tttDraws">0</b></div>
+          <div>KALAH<b id="tttLosses">0</b></div>
+        </div>
+        <button class="timer-btn" id="tttReset">Main Lagi</button>
+        <p class="ttt-note">Lawannya main sempurna (algoritma minimax) — hasil terbaik yang bisa Anda dapat cuma seri. Anggap saja latihan logika, bukan ajang menang-menangan.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section wrap reveal" id="memori">
+    <div class="section-label"><span class="num">11</span><h2>Cocokkan Negatif</h2></div>
+    <div class="mem-wrap">
+      <div class="mem-board" id="memBoard"></div>
+      <div class="mem-side">
+        <div class="mem-status" id="memStatus">Balik dua kartu untuk mencari pasangannya.</div>
+        <div class="mem-score">
+          <div>GILIRAN<b id="memMoves">0</b></div>
+          <div>WAKTU<b id="memTime">00:00</b></div>
+          <div>TERBAIK<b id="memBest">—</b></div>
+        </div>
+        <button class="timer-btn" id="memReset">Kocok Ulang</button>
+        <p class="mem-note">8 pasang alat yang muncul berulang di halaman ini — kamera, lensa, printer, sampai timer kamar gelap. Cari pasangannya dengan giliran sesedikit mungkin.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section wrap reveal" id="refleks">
+    <div class="section-label"><span class="num">12</span><h2>Uji Refleks Rana</h2></div>
+    <div class="rx-wrap">
+      <div class="rx-pad" id="rxPad">
+        <div class="rx-main" id="rxMain">KLIK UNTUK MULAI</div>
+        <div class="rx-ms" id="rxMs" style="display:none;"></div>
+        <div class="rx-sub" id="rxSub">Tunggu sampai warnanya hijau, lalu klik secepat mungkin</div>
+      </div>
+      <div class="rx-side">
+        <div class="rx-score">
+          <div>TERAKHIR<b id="rxLast">—</b></div>
+          <div>RATA²<b id="rxAvg">—</b></div>
+          <div>TERBAIK<b id="rxBest">—</b></div>
+        </div>
+        <div class="rx-history" id="rxHistory"></div>
+        <p class="rx-note">Sama seperti menekan rana pada momen yang tepat — kecepatan reaksi manusia rata-rata ada di kisaran 200–300ms. Klik terlalu cepat sebelum hijau dan dianggap gagal.</p>
+      </div>
+    </div>
+  </section>
+
   <section class="section wrap reveal">
-    <div class="section-label"><span class="num">10</span><h2>Perkakas</h2></div>
+    <div class="section-label"><span class="num">13</span><h2>Perkakas</h2></div>
     <p class="quote">Alat yang saya pakai setiap hari — <span>sebagian analog, sebagian digital</span>, semuanya bagian dari cara saya bekerja.</p>
   </section>
 
@@ -1207,7 +1499,7 @@
 
 <footer class="contact" id="arsip">
   <div class="wrap">
-    <div class="section-label"><span class="num">11</span><h2>Catatan Arsip</h2></div>
+    <div class="section-label"><span class="num">14</span><h2>Catatan Arsip</h2></div>
     <div class="contact-grid">
       <div>
         <h3>KUMPULAN INI DISUSUN<br>DAN DIRAWAT SECARA<br>PRIBADI DI JAKARTA.</h3>
@@ -1575,7 +1867,7 @@
 
       if(awaitingG){
         awaitingG = false;
-        const map = { k:'#karya', s:'#setup', t:'#terminal' };
+        const map = { k:'#karya', s:'#setup', t:'#terminal', g:'#tictactoe', m:'#memori', r:'#refleks' };
         const target = map[e.key.toLowerCase()];
         if(target){
           document.querySelector(target)?.scrollIntoView({behavior:'smooth'});
@@ -1589,6 +1881,530 @@
     overlay.addEventListener('click', (e)=>{
       if(e.target === overlay) closeOverlay();
     });
+  })();
+  /* ---------------- splash / fake loading screen ---------------- */
+  (function splash(){
+    const splashEl = document.getElementById('splash');
+    const fill = document.getElementById('splashFill');
+    const pct = document.getElementById('splashPct');
+    const tipEl = document.getElementById('splashTip');
+    if(!splashEl) return;
+
+    const tips = [
+      'Foto hitam-putih di galeri jadi berwarna saat dipilih — coba arahkan kursor.',
+      'Tekan tombol panah rahasia untuk kejutan kecil di halaman ini.',
+      'Klik logo lima kali cepat untuk sesuatu yang tersembunyi.',
+      'Tekan tanda tanya ( ? ) untuk melihat pintasan keyboard.',
+      'Timer kamar gelap di bawah benar-benar berfungsi, coba jalankan.',
+      'Ketik "help" di terminal untuk daftar perintah rahasia.'
+    ];
+    let tipIndex = 0;
+    function showTip(){
+      tipEl.classList.remove('show');
+      setTimeout(()=>{
+        tipEl.textContent = tips[tipIndex % tips.length];
+        tipIndex++;
+        tipEl.classList.add('show');
+      }, 200);
+    }
+    showTip();
+    const tipInterval = setInterval(showTip, 1600);
+
+    let progress = 0;
+    const duration = 1900;
+    const start = performance.now();
+    function step(now){
+      const elapsed = now - start;
+      progress = Math.min(100, Math.round((elapsed/duration)*100));
+      fill.style.width = progress + '%';
+      pct.textContent = `MEMUAT ARSIP — ${progress}%`;
+      if(progress < 100){
+        requestAnimationFrame(step);
+      } else {
+        clearInterval(tipInterval);
+        setTimeout(()=>{
+          splashEl.classList.add('hide');
+          document.body.style.overflow = '';
+        }, 250);
+      }
+    }
+    document.body.style.overflow = 'hidden';
+    requestAnimationFrame(step);
+
+    // safety: never trap the user if something goes wrong
+    setTimeout(()=>{
+      splashEl.classList.add('hide');
+      document.body.style.overflow = '';
+    }, 5000);
+  })();
+
+  /* ---------------- hidden mini game: klik logo 5x ---------------- */
+  (function hiddenGame(){
+    const logo = document.querySelector('.logo');
+    const overlay = document.getElementById('gameOverlay');
+    const closeBtn = document.getElementById('gameClose');
+    const canvas = document.getElementById('gameCanvas');
+    const scoreEl = document.getElementById('gameScore');
+    if(!logo || !overlay || !canvas) return;
+
+    let clickCount = 0;
+    let clickTimer = null;
+    logo.addEventListener('click', (e)=>{
+      clickCount++;
+      clearTimeout(clickTimer);
+      clickTimer = setTimeout(()=> clickCount = 0, 900);
+      if(clickCount >= 5){
+        clickCount = 0;
+        e.preventDefault();
+        openGame();
+      }
+    });
+
+    let best = 0;
+    let running = false;
+    const ctx = canvas.getContext('2d');
+    const W = canvas.width, H = canvas.height;
+    const groundY = H - 24;
+
+    let player, obstacles, score, gameOver, animId, speed;
+
+    function resetGame(){
+      player = { x:36, y:groundY-14, w:14, h:14, vy:0, onGround:true };
+      obstacles = [];
+      score = 0;
+      gameOver = false;
+      speed = 2.6;
+      spawnObstacle();
+    }
+
+    function spawnObstacle(){
+      const gap = 140 + Math.random()*90;
+      obstacles.push({ x:W + gap, w:10, h:10 + Math.random()*10 });
+    }
+
+    function jump(){
+      if(!running) return;
+      if(gameOver){ resetGame(); return; }
+      if(player.onGround){
+        player.vy = -6.2;
+        player.onGround = false;
+      }
+    }
+
+    function update(){
+      player.vy += 0.32;
+      player.y += player.vy;
+      if(player.y >= groundY - player.h){
+        player.y = groundY - player.h;
+        player.vy = 0;
+        player.onGround = true;
+      }
+
+      obstacles.forEach(o => o.x -= speed);
+      if(obstacles.length && obstacles[0].x < -20){
+        obstacles.shift();
+        score++;
+        spawnObstacle();
+        speed = Math.min(6, speed + 0.08);
+      }
+
+      obstacles.forEach(o=>{
+        const oy = groundY - o.h;
+        const hit = player.x < o.x + o.w && player.x + player.w > o.x &&
+                    player.y < oy + o.h && player.y + player.h > oy;
+        if(hit){
+          gameOver = true;
+          best = Math.max(best, score);
+        }
+      });
+    }
+
+    function draw(){
+      ctx.fillStyle = '#0d1b18';
+      ctx.fillRect(0,0,W,H);
+
+      // sprocket-hole ground detail (theme reference)
+      ctx.fillStyle = '#1c2e2a';
+      ctx.fillRect(0, groundY+2, W, 2);
+      for(let i=0;i<W;i+=16){
+        ctx.fillStyle = '#e9e4d6';
+        ctx.fillRect((i - (Math.floor(performance.now()/16)%16)), groundY+7, 4, 4);
+      }
+
+      ctx.fillStyle = gameOver ? '#c81d2f' : '#e9e4d6';
+      ctx.fillRect(player.x, player.y, player.w, player.h);
+
+      ctx.fillStyle = '#c81d2f';
+      obstacles.forEach(o=>{
+        ctx.fillRect(o.x, groundY - o.h, o.w, o.h);
+      });
+
+      ctx.fillStyle = '#f0b429';
+      ctx.font = '10px monospace';
+      ctx.fillText('SKOR ' + score, 8, 14);
+
+      if(gameOver){
+        ctx.fillStyle = 'rgba(0,0,0,0.55)';
+        ctx.fillRect(0,0,W,H);
+        ctx.fillStyle = '#e9e4d6';
+        ctx.font = '11px monospace';
+        ctx.textAlign = 'center';
+        ctx.fillText('GAME OVER — KLIK UNTUK ULANG', W/2, H/2);
+        ctx.textAlign = 'left';
+      }
+    }
+
+    function loop(){
+      if(!running) return;
+      if(!gameOver) update();
+      draw();
+      scoreEl.textContent = `SKOR: ${score} · TERBAIK: ${best}`;
+      animId = requestAnimationFrame(loop);
+    }
+
+    function openGame(){
+      overlay.classList.add('on');
+      running = true;
+      resetGame();
+      loop();
+    }
+    function closeGame(){
+      overlay.classList.remove('on');
+      running = false;
+      cancelAnimationFrame(animId);
+    }
+
+    canvas.addEventListener('click', jump);
+    window.addEventListener('keydown', (e)=>{
+      if(e.code === 'Space' && overlay.classList.contains('on')){
+        e.preventDefault();
+        jump();
+      }
+    });
+    closeBtn.addEventListener('click', closeGame);
+    overlay.addEventListener('click', (e)=>{ if(e.target === overlay) closeGame(); });
+  })();
+  /* ---------------- tic-tac-toe (AI minimax) ---------------- */
+  (function tictactoe(){
+    const boardEl = document.getElementById('tttBoard');
+    const statusEl = document.getElementById('tttStatus');
+    const resetBtn = document.getElementById('tttReset');
+    const winsEl = document.getElementById('tttWins');
+    const drawsEl = document.getElementById('tttDraws');
+    const lossesEl = document.getElementById('tttLosses');
+    if(!boardEl) return;
+
+    const HUMAN = 'X', AI = 'O';
+    let board, gameOver, wins=0, draws=0, losses=0;
+
+    const lines = [
+      [0,1,2],[3,4,5],[6,7,8],
+      [0,3,6],[1,4,7],[2,5,8],
+      [0,4,8],[2,4,6]
+    ];
+
+    function checkWinner(b){
+      for(const [a,bb,c] of lines){
+        if(b[a] && b[a] === b[bb] && b[a] === b[c]) return { winner:b[a], line:[a,bb,c] };
+      }
+      if(b.every(c => c)) return { winner:'draw', line:[] };
+      return null;
+    }
+
+    function minimax(b, player){
+      const result = checkWinner(b);
+      if(result){
+        if(result.winner === AI) return { score: 1 };
+        if(result.winner === HUMAN) return { score: -1 };
+        return { score: 0 };
+      }
+      const moves = [];
+      for(let i=0;i<9;i++){
+        if(!b[i]){
+          const nb = b.slice();
+          nb[i] = player;
+          const res = minimax(nb, player === AI ? HUMAN : AI);
+          moves.push({ index:i, score: res.score });
+        }
+      }
+      if(player === AI){
+        return moves.reduce((best, m) => m.score > best.score ? m : best, { score:-Infinity });
+      } else {
+        return moves.reduce((best, m) => m.score < best.score ? m : best, { score:Infinity });
+      }
+    }
+
+    function render(winLine){
+      boardEl.innerHTML = '';
+      board.forEach((val, i)=>{
+        const cell = document.createElement('div');
+        cell.className = 'ttt-cell' + (val ? ' filled ' + val.toLowerCase() : '') + (gameOver ? ' disabled' : '');
+        if(winLine && winLine.includes(i)) cell.classList.add('win');
+        cell.textContent = val || '';
+        cell.addEventListener('click', ()=> handleMove(i));
+        boardEl.appendChild(cell);
+      });
+    }
+
+    function updateScoreUI(){
+      winsEl.textContent = wins;
+      drawsEl.textContent = draws;
+      lossesEl.textContent = losses;
+    }
+
+    function handleMove(i){
+      if(gameOver || board[i]) return;
+      board[i] = HUMAN;
+      let result = checkWinner(board);
+      if(result){ return endGame(result); }
+
+      statusEl.textContent = 'Lawan berpikir...';
+      render();
+
+      setTimeout(()=>{
+        const best = minimax(board, AI);
+        if(typeof best.index === 'number') board[best.index] = AI;
+        result = checkWinner(board);
+        if(result){ return endGame(result); }
+        statusEl.textContent = 'Giliran Anda — jalan X';
+        render();
+      }, 350);
+    }
+
+    function endGame(result){
+      gameOver = true;
+      if(result.winner === HUMAN){ wins++; statusEl.textContent = 'Anda menang! Mengesankan.'; }
+      else if(result.winner === AI){ losses++; statusEl.textContent = 'Lawan menang. Coba lagi?'; }
+      else { draws++; statusEl.textContent = 'Seri — satu-satunya cara menang memang tidak bermain.'; }
+      updateScoreUI();
+      render(result.line);
+    }
+
+    function newGame(){
+      board = Array(9).fill(null);
+      gameOver = false;
+      statusEl.textContent = 'Giliran Anda — jalan X';
+      render();
+    }
+
+    resetBtn.addEventListener('click', newGame);
+    newGame();
+  })();
+  /* ---------------- cocokkan negatif (memory match) ---------------- */
+  (function memoryGame(){
+    const boardEl = document.getElementById('memBoard');
+    const statusEl = document.getElementById('memStatus');
+    const movesEl = document.getElementById('memMoves');
+    const timeEl = document.getElementById('memTime');
+    const bestEl = document.getElementById('memBest');
+    const resetBtn = document.getElementById('memReset');
+    if(!boardEl) return;
+
+    const ICONS = {
+      kamera: '<svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><circle cx="12" cy="14" r="4"/><path d="M8 7l1.5-3h5L16 7"/></svg>',
+      lensa: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M12 3v4M12 17v4M3 12h4M17 12h4"/></svg>',
+      film: '<svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 8h18M3 16h18M8 3v18M16 3v18"/></svg>',
+      printer: '<svg viewBox="0 0 24 24"><rect x="5" y="8" width="14" height="8" rx="1"/><path d="M7 8V4h10v4M7 16v4h10v-4"/></svg>',
+      monitor: '<svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="1"/><path d="M8 20h8M12 16v4"/></svg>',
+      tablet: '<svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M9 19h6"/></svg>',
+      lampu: '<svg viewBox="0 0 24 24"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.6.6 1 1.4 1 2.5h6c0-1.1.4-1.9 1-2.5A6 6 0 0 0 12 3z"/></svg>',
+      timer: '<svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9 2h6"/></svg>'
+    };
+    const keys = Object.keys(ICONS);
+
+    let cards, flipped, matchedCount, moves, timerId, seconds, locked, best = null;
+
+    function shuffle(arr){
+      const a = arr.slice();
+      for(let i=a.length-1;i>0;i--){
+        const j = Math.floor(Math.random()*(i+1));
+        [a[i],a[j]] = [a[j],a[i]];
+      }
+      return a;
+    }
+
+    function formatTime(s){
+      const m = Math.floor(s/60).toString().padStart(2,'0');
+      const ss = (s%60).toString().padStart(2,'0');
+      return `${m}:${ss}`;
+    }
+
+    function startTimer(){
+      clearInterval(timerId);
+      seconds = 0;
+      timeEl.textContent = formatTime(0);
+      timerId = setInterval(()=>{
+        seconds++;
+        timeEl.textContent = formatTime(seconds);
+      }, 1000);
+    }
+
+    function render(){
+      boardEl.innerHTML = '';
+      cards.forEach((card, i)=>{
+        const el = document.createElement('div');
+        el.className = 'mem-card' + (card.flipped ? ' flip' : '') + (card.matched ? ' matched' : '');
+        el.innerHTML = `
+          <div class="mem-inner">
+            <div class="mem-face mem-front"><span>NEG ${String(i+1).padStart(2,'0')}</span></div>
+            <div class="mem-face mem-back">${ICONS[card.key]}</div>
+          </div>`;
+        el.addEventListener('click', ()=> flipCard(i));
+        boardEl.appendChild(el);
+      });
+    }
+
+    function flipCard(i){
+      if(locked) return;
+      const card = cards[i];
+      if(card.flipped || card.matched) return;
+
+      card.flipped = true;
+      flipped.push(i);
+      render();
+
+      if(flipped.length === 2){
+        moves++;
+        movesEl.textContent = moves;
+        locked = true;
+        const [a, b] = flipped;
+        if(cards[a].key === cards[b].key){
+          cards[a].matched = true;
+          cards[b].matched = true;
+          matchedCount += 2;
+          flipped = [];
+          locked = false;
+          render();
+          if(matchedCount === cards.length){
+            clearInterval(timerId);
+            if(best === null || moves < best){
+              best = moves;
+              bestEl.textContent = best;
+            }
+            statusEl.textContent = `Selesai dalam ${moves} giliran, ${formatTime(seconds)}. Mantap.`;
+          } else {
+            statusEl.textContent = 'Cocok! Lanjutkan.';
+          }
+        } else {
+          setTimeout(()=>{
+            cards[a].flipped = false;
+            cards[b].flipped = false;
+            flipped = [];
+            locked = false;
+            statusEl.textContent = 'Belum cocok, coba lagi.';
+            render();
+          }, 700);
+        }
+      }
+    }
+
+    function newGame(){
+      const deck = shuffle([...keys, ...keys]).map(key => ({ key, flipped:false, matched:false }));
+      cards = deck;
+      flipped = [];
+      matchedCount = 0;
+      moves = 0;
+      locked = false;
+      movesEl.textContent = 0;
+      statusEl.textContent = 'Balik dua kartu untuk mencari pasangannya.';
+      if(best !== null) bestEl.textContent = best;
+      startTimer();
+      render();
+    }
+
+    resetBtn.addEventListener('click', newGame);
+    newGame();
+  })();
+  /* ---------------- uji refleks rana ---------------- */
+  (function reflexGame(){
+    const pad = document.getElementById('rxPad');
+    const mainEl = document.getElementById('rxMain');
+    const msEl = document.getElementById('rxMs');
+    const subEl = document.getElementById('rxSub');
+    const lastEl = document.getElementById('rxLast');
+    const avgEl = document.getElementById('rxAvg');
+    const bestEl = document.getElementById('rxBest');
+    const historyEl = document.getElementById('rxHistory');
+    if(!pad) return;
+
+    let state = 'idle'; // idle | waiting | go | early | result
+    let timeoutId = null;
+    let goTime = 0;
+    let results = [];
+    let best = null;
+
+    function setState(s){ state = s; }
+
+    function renderHistory(){
+      historyEl.innerHTML = results.slice(-5).reverse()
+        .map(ms => `<div>${ms} ms</div>`).join('');
+    }
+
+    function updateStats(){
+      if(results.length){
+        lastEl.textContent = results[results.length-1] + ' ms';
+        const avg = Math.round(results.reduce((a,b)=>a+b,0) / results.length);
+        avgEl.textContent = avg + ' ms';
+      }
+      if(best !== null) bestEl.textContent = best + ' ms';
+      renderHistory();
+    }
+
+    function toIdle(){
+      setState('idle');
+      pad.className = 'rx-pad';
+      mainEl.style.display = '';
+      mainEl.textContent = 'KLIK UNTUK MULAI';
+      msEl.style.display = 'none';
+      subEl.textContent = 'Tunggu sampai warnanya hijau, lalu klik secepat mungkin';
+    }
+
+    function armRound(){
+      setState('waiting');
+      pad.className = 'rx-pad waiting';
+      mainEl.style.display = '';
+      mainEl.textContent = 'TUNGGU...';
+      msEl.style.display = 'none';
+      subEl.textContent = 'Jangan klik dulu';
+      const delay = 1000 + Math.random()*2800;
+      timeoutId = setTimeout(()=>{
+        setState('go');
+        pad.className = 'rx-pad go';
+        mainEl.textContent = 'TEMBAK!';
+        subEl.textContent = 'Klik sekarang';
+        goTime = performance.now();
+      }, delay);
+    }
+
+    function handleClick(){
+      if(state === 'idle' || state === 'result' || state === 'early'){
+        armRound();
+        return;
+      }
+      if(state === 'waiting'){
+        clearTimeout(timeoutId);
+        setState('early');
+        pad.className = 'rx-pad early';
+        mainEl.textContent = 'TERLALU CEPAT!';
+        subEl.textContent = 'Klik lagi untuk coba sekali lagi';
+        return;
+      }
+      if(state === 'go'){
+        const ms = Math.round(performance.now() - goTime);
+        results.push(ms);
+        if(best === null || ms < best) best = ms;
+        updateStats();
+        setState('result');
+        pad.className = 'rx-pad go';
+        mainEl.style.display = 'none';
+        msEl.style.display = '';
+        msEl.textContent = ms + ' ms';
+        subEl.textContent = 'Klik untuk coba lagi';
+      }
+    }
+
+    pad.addEventListener('click', handleClick);
+    toIdle();
   })();
 </script>
 
