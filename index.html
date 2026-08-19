@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jakha Phosa — Desain Grafis & Fotografi</title>
+<title>Jakha Phosa — Graphic Design & Photography</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
@@ -280,7 +280,7 @@
     transition:opacity .3s ease;
   }
   .frame.pick:hover::before{opacity:0.85;}
-  .frame.pick .fnum::after{content:' — DIPILIH';color:var(--safelight);}
+  .frame.pick .fnum::after{content:' — SELECTED';color:var(--safelight);}
 
   @media (max-width:900px){.gallery{grid-template-columns:repeat(2,1fr);}}
   @media (max-width:520px){.gallery{grid-template-columns:1fr;}}
@@ -378,7 +378,7 @@
     .spec-row .value{text-align:left;}
   }
 
-  /* ---------- musik & tontonan ---------- */
+  /* ---------- music & watching ---------- */
   .media-sheet{
     display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);
   }
@@ -417,7 +417,7 @@
 
   @media (max-width:760px){.media-sheet{grid-template-columns:1fr;}}
 
-  /* ---------- link list (game & sosial) ---------- */
+  /* ---------- link list (games & social) ---------- */
   .link-sheet{
     display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);
   }
@@ -756,7 +756,7 @@
     opacity:0;transition:opacity .3s ease;
   }
   .splash-tip.show{opacity:1;}
-  .splash-tip::before{content:'TIPS — ';color:var(--kodak);}
+  .splash-tip::before{content:'TIP — ';color:var(--kodak);}
 
   @media (prefers-reduced-motion: reduce){
     #splash{transition:opacity .01s linear;}
@@ -842,7 +842,7 @@
     .ttt-wrap{flex-direction:column;}
   }
 
-  /* ---------------- cocokkan negatif (memory match) ---------------- */
+  /* ---------------- match the negative (memory match) ---------------- */
   .mem-wrap{display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start;}
   .mem-board{
     display:grid;grid-template-columns:repeat(4,1fr);
@@ -892,7 +892,7 @@
     .mem-board{width:100%;}
   }
 
-  /* ---------------- uji refleks rana ---------------- */
+  /* ---------------- shutter reflex test ---------------- */
   .rx-wrap{display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start;}
   .rx-pad{
     width:320px;max-width:100%;aspect-ratio:16/10;
@@ -932,6 +932,77 @@
 
   @media (max-width:600px){.rx-wrap{flex-direction:column;}}
 
+  /* ---------------- arcade hub ---------------- */
+  .arcade-intro{font-family:var(--body);font-size:14.5px;color:#3a3a35;max-width:60ch;margin-bottom:28px;}
+  .arcade-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
+  .arcade-card{
+    background:var(--paper);border:none;
+    padding:28px 22px;text-align:left;cursor:pointer;
+    font-family:var(--body);color:var(--ink);
+    display:flex;flex-direction:column;gap:8px;
+    transition:background .2s ease;
+  }
+  .arcade-card:hover{background:var(--paper-dim);}
+  .arcade-card .ac-num{font-family:var(--mono);font-size:11px;color:var(--safelight);}
+  .arcade-card .ac-title{font-family:var(--display);font-size:26px;text-transform:uppercase;letter-spacing:0.3px;}
+  .arcade-card .ac-sub{font-family:var(--body);font-size:12.5px;color:var(--grey-frame);line-height:1.5;min-height:34px;}
+  .arcade-card .ac-score{font-family:var(--mono);font-size:11px;color:var(--ink);text-transform:uppercase;letter-spacing:0.04em;border-top:1px dashed var(--line);padding-top:10px;margin-top:auto;}
+  .arcade-card .ac-score b{color:var(--safelight);}
+
+  @media (max-width:760px){.arcade-grid{grid-template-columns:1fr 1fr;}}
+  @media (max-width:480px){.arcade-grid{grid-template-columns:1fr;}}
+
+  /* generic game modal */
+  .game-modal{
+    position:fixed;inset:0;z-index:9996;
+    background:rgba(19,19,17,0.85);
+    display:flex;align-items:center;justify-content:center;
+    opacity:0;pointer-events:none;
+    padding:20px;
+    transition:opacity .2s ease;
+  }
+  .game-modal.on{opacity:1;pointer-events:auto;}
+  .game-modal-panel{
+    background:var(--paper);border:1px solid var(--ink);
+    padding:32px;width:min(640px,96vw);max-height:92vh;overflow-y:auto;
+    position:relative;
+  }
+  .game-modal-close{
+    position:absolute;top:14px;right:14px;
+    font-family:var(--mono);font-size:11px;text-transform:uppercase;
+    background:none;border:1px solid var(--ink);color:var(--ink);
+    padding:6px 12px;cursor:pointer;
+  }
+  .game-modal-close:hover{background:var(--ink);color:var(--paper);}
+  .game-modal-panel h2{
+    font-family:var(--display);font-size:30px;text-transform:uppercase;margin-bottom:18px;letter-spacing:0.3px;
+  }
+  .top-score-line{
+    font-family:var(--mono);font-size:11px;color:var(--grey-frame);text-transform:uppercase;letter-spacing:0.04em;
+    margin-bottom:16px;
+  }
+  .top-score-line b{color:var(--safelight);}
+
+  /* ---------------- tetris ---------------- */
+  .tetris-wrap{display:flex;flex-wrap:wrap;gap:28px;align-items:flex-start;}
+  #tetrisCanvas{
+    background:#0d1b18;border:1px solid var(--ink);
+    image-rendering:pixelated;display:block;
+  }
+  .tetris-side{min-width:150px;display:flex;flex-direction:column;gap:16px;}
+  .tetris-stat{font-family:var(--mono);font-size:11px;color:var(--grey-frame);text-transform:uppercase;letter-spacing:0.05em;}
+  .tetris-stat b{display:block;font-family:var(--display);font-size:28px;color:var(--ink);letter-spacing:0;}
+  #tetrisNext{background:#0d1b18;border:1px solid var(--ink);image-rendering:pixelated;}
+  .tetris-controls-note{font-family:var(--body);font-size:12px;line-height:1.6;color:var(--grey-frame);}
+  .tetris-overlay-msg{
+    position:absolute;inset:0;display:none;
+    align-items:center;justify-content:center;flex-direction:column;gap:10px;
+    background:rgba(13,27,24,0.85);color:#e9e4d6;
+    font-family:var(--mono);font-size:12px;text-align:center;
+  }
+  .tetris-canvas-wrap{position:relative;}
+
+
 </style>
 </head>
 <body>
@@ -946,11 +1017,11 @@
 <div id="gameOverlay">
   <div class="game-panel">
     <h3>Roll Runner</h3>
-    <div class="game-sub">KLIK / SPASI UNTUK LOMPAT — HINDARI SPROCKET</div>
+    <div class="game-sub">CLICK / SPACE TO JUMP — AVOID SPROCKETS</div>
     <canvas id="gameCanvas" width="300" height="150"></canvas>
     <div class="game-footer">
-      <span id="gameScore">SKOR: 0 · TERBAIK: 0</span>
-      <button id="gameClose">Tutup</button>
+      <span id="gameScore">SCORE: 0 · BEST: 0</span>
+      <button id="gameClose">Close</button>
     </div>
   </div>
 </div>
@@ -958,8 +1029,8 @@
 <canvas id="grainCanvas" aria-hidden="true"></canvas>
 <div id="konamiFlash" aria-hidden="true"></div>
 <div id="konamiBanner" role="status">
-  <div class="kb-title">ROLL SELESAI!</div>
-  <div class="kb-sub">KODE RAHASIA DITEMUKAN — TERIMA KASIH SUDAH IKUT BERMAIN</div>
+  <div class="kb-title">ROLL COMPLETE!</div>
+  <div class="kb-sub">SECRET CODE FOUND — THANKS FOR PLAYING</div>
 </div>
 <div id="reticle" aria-hidden="true">
   <svg viewBox="0 0 46 46">
@@ -972,18 +1043,16 @@
 </div>
 <div id="shortcutOverlay">
   <div class="shortcut-panel">
-    <h3>Pintasan</h3>
-    <div class="shortcut-row"><span>Ke Arsip Karya</span><kbd>G</kbd> <kbd>K</kbd></div>
-    <div class="shortcut-row"><span>Ke Setup &amp; Spek</span><kbd>G</kbd> <kbd>S</kbd></div>
-    <div class="shortcut-row"><span>Ke Terminal</span><kbd>G</kbd> <kbd>T</kbd></div>
-    <div class="shortcut-row"><span>Ke Tic-Tac-Toe</span><kbd>G</kbd> <kbd>G</kbd></div>
-    <div class="shortcut-row"><span>Ke Cocokkan Negatif</span><kbd>G</kbd> <kbd>M</kbd></div>
-    <div class="shortcut-row"><span>Ke Uji Refleks</span><kbd>G</kbd> <kbd>R</kbd></div>
-    <div class="shortcut-row"><span>Ganti Mode Gelap</span><kbd>D</kbd></div>
-    <div class="shortcut-row"><span>Tutup Panel Ini</span><kbd>ESC</kbd></div>
+    <h3>Shortcuts</h3>
+    <div class="shortcut-row"><span>Go to Work Archive</span><kbd>G</kbd> <kbd>K</kbd></div>
+    <div class="shortcut-row"><span>Go to Setup &amp; Specs</span><kbd>G</kbd> <kbd>S</kbd></div>
+    <div class="shortcut-row"><span>Go to Terminal</span><kbd>G</kbd> <kbd>T</kbd></div>
+    <div class="shortcut-row"><span>Go to Arcade</span><kbd>G</kbd> <kbd>G</kbd></div>
+    <div class="shortcut-row"><span>Toggle Dark Mode</span><kbd>D</kbd></div>
+    <div class="shortcut-row"><span>Close This Panel</span><kbd>ESC</kbd></div>
   </div>
 </div>
-<div class="shortcut-hint">TEKAN <kbd>?</kbd> UNTUK PINTASAN</div>
+<div class="shortcut-hint">PRESS <kbd>?</kbd> FOR SHORTCUTS</div>
 
 <div class="sprockets" aria-hidden="true">
   <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
@@ -995,21 +1064,19 @@
   <nav>
     <a href="#top" class="logo">jakha<span>.</span>phosa</a>
     <div class="navlinks">
-      <a href="#tentang">Tentang</a>
-      <a href="#karya">Karya</a>
-      <a href="#keahlian">Keahlian</a>
+      <a href="#about">About</a>
+      <a href="#work">Work</a>
+      <a href="#skills">Skills</a>
       <a href="#setup">Setup</a>
-      <a href="#tautan">Tautan</a>
-      <a href="#musik">Musik</a>
+      <a href="#links">Links</a>
+      <a href="#music">Music</a>
       <a href="#terminal">Terminal</a>
-      <a href="#tictactoe">Main</a>
-      <a href="#memori">Memori</a>
-      <a href="#refleks">Refleks</a>
+      <a href="#arcade">Arcade</a>
     </div>
     <div class="nav-right">
       <button class="theme-toggle" id="themeToggle" aria-pressed="false">
         <span class="dot" aria-hidden="true"></span>
-        <span id="themeLabel">MODE GELAP</span>
+        <span id="themeLabel">DARK MODE</span>
       </button>
       <button class="menu-btn" onclick="document.querySelector('.navlinks').classList.toggle('mopen')">MENU</button>
     </div>
@@ -1023,177 +1090,177 @@
       <span>KODAK PORTRA 400 — ROLL 01</span>
       <span>Kupang, ID — 2026</span>
     </div>
-    <h1 class="title">DESAIN GRAFIS<br>&amp; <span class="accent">FOTOGRAFI</span></h1>
+    <h1 class="title">GRAPHIC DESIGN<br>&amp; <span class="accent">PHOTOGRAPHY</span></h1>
     <div class="hero-sub">
-      <p>Saya Jakha Phosa, desainer grafis dan fotografer. Ruang ini adalah arsip pribadi dari apa yang saya buat — identitas visual, tata letak, dan gambar yang saya ambil selama bertahun-tahun praktik.</p>
+      <p>I'm Jakha Phosa, a graphic designer and photographer. This space is a personal archive of what I make — visual identities, layouts, and images I've shot over years of practice.</p>
       <div class="hero-meta">
-        DISIPLIN — Branding, Editorial, Potret<br>
-        BERBASIS DI — Jakarta, Indonesia<br>
-        AKTIF SEJAK — 2016<br>
-        FORMAT — Cetak, Digital, Gerak
+        DISCIPLINE — Branding, Editorial, Portraits<br>
+        BASED IN — Jakarta, Indonesia<br>
+        ACTIVE SINCE — 2016<br>
+        FORMAT — Print, Digital, Motion
       </div>
     </div>
-    <div class="scroll-cue"><div class="line"></div>GULIR UNTUK LIHAT ARSIP</div>
+    <div class="scroll-cue"><div class="line"></div>SCROLL TO VIEW ARCHIVE</div>
   </section>
 
-  <section class="section wrap reveal" id="tentang">
-    <div class="section-label"><span class="num">01</span><h2>Tentang</h2></div>
+  <section class="section wrap reveal" id="about">
+    <div class="section-label"><span class="num">01</span><h2>About</h2></div>
     <div class="about">
       <div class="about-frame">
-        <img src="me.JPG" alt="Potret Jakha Phosa sedang bekerja di studio">
+        <img id="aboutPhoto" src="me.JPG" data-light="me.JPG" data-dark="me-dark.JPG" alt="Portrait of Jakha Phosa working in the studio">
         <span class="corner tl">NEG. 04A</span>
-        <span class="corner br">RA</span>
+        <span class="corner br">JP</span>
       </div>
       <div class="about-text">
-        <p>Saya memulai sebagai desainer grafis, lalu jatuh cinta pada kamera saat memotret hasil desain saya sendiri untuk dokumentasi. Sekarang keduanya berjalan beriringan: <strong>desain memberi struktur, fotografi memberi jiwa</strong>.</p>
-        <p>Pendekatan saya sederhana — memahami dulu apa yang ingin disampaikan sebuah gambar atau lembar, baru menentukan bentuk visualnya. Hasil akhirnya harus terasa jujur dan mudah diingat.</p>
-        <p>Di luar itu, saya senang mendokumentasikan jalanan kota dan arsip cetak lama — kebiasaan yang selalu menyelinap masuk ke dalam cara saya menyusun tata letak.</p>
+        <p>I started as a graphic designer, then fell in love with the camera while photographing my own design work for documentation. Now the two go hand in hand: <strong>design gives structure, photography gives soul</strong>.</p>
+        <p>My approach is simple — first understand what an image or layout is trying to say, then decide its visual form. The end result has to feel honest and easy to remember.</p>
+        <p>Beyond that, I enjoy documenting city streets and old print archives — a habit that always sneaks its way into how I build a layout.</p>
         <div class="stats">
-          <div class="stat"><b>09</b><span>Tahun Praktik</span></div>
-          <div class="stat"><b>120+</b><span>Karya Terkumpul</span></div>
-          <div class="stat"><b>34</b><span>Roll Terarsip</span></div>
+          <div class="stat"><b>09</b><span>Years of Practice</span></div>
+          <div class="stat"><b>120+</b><span>Works Collected</span></div>
+          <div class="stat"><b>34</b><span>Rolls Archived</span></div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section reveal" id="karya" style="padding-bottom:0;">
+  <section class="section reveal" id="work" style="padding-bottom:0;">
     <div class="wrap">
-      <div class="section-label"><span class="num">02</span><h2>Arsip Karya</h2></div>
+      <div class="section-label"><span class="num">02</span><h2>Archive of Work</h2></div>
     </div>
     <div class="gallery-wrap">
       <div class="gallery">
 
         <div class="frame pick">
-          <img src="https://picsum.photos/seed/karya1/600/800" alt="Identitas visual kafe Tanaya">
+          <img src="https://picsum.photos/seed/karya1/600/800" alt="Visual identity for Kafe Tanaya">
           <span class="fnum">NEG. 01A</span>
           <div class="fmeta"><div class="cat">Branding</div><div class="ttl">Kafe Tanaya</div><div class="exif">50mm · f/2.8 · 1/125 · ISO 200</div></div>
         </div>
 
         <div class="frame">
-          <img src="https://picsum.photos/seed/karya2/600/800" alt="Potret editorial untuk majalah lokal">
+          <img src="https://picsum.photos/seed/karya2/600/800" alt="Editorial portrait for a local magazine">
           <span class="fnum">NEG. 01B</span>
-          <div class="fmeta"><div class="cat">Editorial</div><div class="ttl">Wajah Kota</div><div class="exif">85mm · f/1.8 · 1/250 · ISO 400</div></div>
+          <div class="fmeta"><div class="cat">Editorial</div><div class="ttl">City Faces</div><div class="exif">85mm · f/1.8 · 1/250 · ISO 400</div></div>
         </div>
 
         <div class="frame">
-          <img src="https://picsum.photos/seed/karya3/600/800" alt="Fotografi produk untuk label fesyen">
+          <img src="https://picsum.photos/seed/karya3/600/800" alt="Product photography for a fashion label">
           <span class="fnum">NEG. 01C</span>
-          <div class="fmeta"><div class="cat">Produk</div><div class="ttl">Studio Anin</div><div class="exif">100mm · f/8 · 1/160 · ISO 100</div></div>
+          <div class="fmeta"><div class="cat">Product</div><div class="ttl">Studio Anin</div><div class="exif">100mm · f/8 · 1/160 · ISO 100</div></div>
         </div>
 
         <div class="frame pick">
-          <img src="https://picsum.photos/seed/karya4/600/800" alt="Sampul buku puisi independen">
+          <img src="https://picsum.photos/seed/karya4/600/800" alt="Cover for an independent poetry book">
           <span class="fnum">NEG. 01D</span>
-          <div class="fmeta"><div class="cat">Layout</div><div class="ttl">Sunyi, Kumpulan Puisi</div><div class="exif">Vektor · CMYK · 300DPI</div></div>
+          <div class="fmeta"><div class="cat">Layout</div><div class="ttl">Silence, A Poetry Collection</div><div class="exif">Vector · CMYK · 300DPI</div></div>
         </div>
 
         <div class="frame">
-          <img src="https://picsum.photos/seed/karya5/600/800" alt="Dokumentasi acara peluncuran produk">
+          <img src="https://picsum.photos/seed/karya5/600/800" alt="Product launch event documentation">
           <span class="fnum">NEG. 02A</span>
-          <div class="fmeta"><div class="cat">Acara</div><div class="ttl">Peluncuran Ossa</div><div class="exif">35mm · f/2 · 1/200 · ISO 800</div></div>
+          <div class="fmeta"><div class="cat">Event</div><div class="ttl">Ossa Launch</div><div class="exif">35mm · f/2 · 1/200 · ISO 800</div></div>
         </div>
 
         <div class="frame">
-          <img src="https://picsum.photos/seed/karya6/600/800" alt="Poster festival musik independen">
+          <img src="https://picsum.photos/seed/karya6/600/800" alt="Poster for an independent music festival">
           <span class="fnum">NEG. 02B</span>
-          <div class="fmeta"><div class="cat">Poster</div><div class="ttl">Festival Ambang</div><div class="exif">Vektor · RGB · A2</div></div>
+          <div class="fmeta"><div class="cat">Poster</div><div class="ttl">Ambang Festival</div><div class="exif">Vector · RGB · A2</div></div>
         </div>
 
         <div class="frame pick">
-          <img src="https://picsum.photos/seed/karya7/600/800" alt="Sesi potret keluarga natural light">
+          <img src="https://picsum.photos/seed/karya7/600/800" alt="Natural light family portrait session">
           <span class="fnum">NEG. 02C</span>
-          <div class="fmeta"><div class="cat">Potret</div><div class="ttl">Keluarga Wirawan</div><div class="exif">50mm · f/2.2 · 1/320 · ISO 200</div></div>
+          <div class="fmeta"><div class="cat">Portrait</div><div class="ttl">The Wirawan Family</div><div class="exif">50mm · f/2.2 · 1/320 · ISO 200</div></div>
         </div>
 
         <div class="frame">
-          <img src="https://picsum.photos/seed/karya8/600/800" alt="Sistem kemasan minuman kombucha lokal">
+          <img src="https://picsum.photos/seed/karya8/600/800" alt="Packaging system for a local kombucha drink">
           <span class="fnum">NEG. 02D</span>
-          <div class="fmeta"><div class="cat">Kemasan</div><div class="ttl">Kombucha Rimba</div><div class="exif">100mm · f/11 · 1/125 · ISO 100</div></div>
+          <div class="fmeta"><div class="cat">Packaging</div><div class="ttl">Kombucha Rimba</div><div class="exif">100mm · f/11 · 1/125 · ISO 100</div></div>
         </div>
 
       </div>
     </div>
   </section>
 
-  <section class="section wrap reveal" id="keahlian">
-    <div class="section-label"><span class="num">03</span><h2>Keahlian</h2></div>
+  <section class="section wrap reveal" id="skills">
+    <div class="section-label"><span class="num">03</span><h2>Skills</h2></div>
     <div class="services">
       <div class="service">
         <div class="sindex">A — VISUAL</div>
-        <h3>Desain Grafis</h3>
+        <h3>Graphic Design</h3>
         <ul>
-          <li>Identitas &amp; Logo <span>SISTEM MEREK</span></li>
-          <li>Tata Letak Editorial <span>BUKU / MAJALAH</span></li>
-          <li>Desain Kemasan <span>CETAK</span></li>
-          <li>Poster &amp; Materi Kampanye <span>CETAK / DIGITAL</span></li>
-          <li>Ilustrasi Pendukung <span>VEKTOR</span></li>
+          <li>Identity &amp; Logo <span>BRAND SYSTEM</span></li>
+          <li>Editorial Layout <span>BOOK / MAGAZINE</span></li>
+          <li>Packaging Design <span>PRINT</span></li>
+          <li>Posters &amp; Campaign Assets <span>PRINT / DIGITAL</span></li>
+          <li>Supporting Illustration <span>VECTOR</span></li>
         </ul>
       </div>
       <div class="service">
-        <div class="sindex">B — LENSA</div>
-        <h3>Fotografi</h3>
+        <div class="sindex">B — LENS</div>
+        <h3>Photography</h3>
         <ul>
-          <li>Potret &amp; Editorial <span>STUDIO / LOKASI</span></li>
-          <li>Fotografi Produk <span>KATALOG</span></li>
-          <li>Dokumentasi Acara <span>FULL DAY</span></li>
-          <li>Foto Arsitektur &amp; Interior <span>KOMERSIAL</span></li>
-          <li>Retouching &amp; Color Grading <span>PASCA-PRODUKSI</span></li>
+          <li>Portrait &amp; Editorial <span>STUDIO / LOCATION</span></li>
+          <li>Product Photography <span>CATALOG</span></li>
+          <li>Event Documentation <span>FULL DAY</span></li>
+          <li>Architecture &amp; Interior Photography <span>COMMERCIAL</span></li>
+          <li>Retouching &amp; Color Grading <span>POST-PRODUCTION</span></li>
         </ul>
       </div>
     </div>
   </section>
 
   <section class="section wrap reveal" id="setup">
-    <div class="section-label"><span class="num">04</span><h2>Setup &amp; Spesifikasi</h2></div>
+    <div class="section-label"><span class="num">04</span><h2>Setup &amp; Specs</h2></div>
     <div class="spec-sheet">
       <div class="spec-block">
         <div class="sindex">A — WORKSTATION</div>
-        <h3>PC Editing</h3>
-        <div class="spec-row" data-img="https://picsum.photos/seed/cpu-ryzen5600/300/220" data-cap="AMD Ryzen 5 5600"><span class="label">Prosesor</span><span class="value">AMD Ryzen 5 5600</span></div>
-        <div class="spec-row" data-img="https://picsum.photos/seed/gpu-gtx1650s/300/220" data-cap="Gigabyte GTX 1650 Super"><span class="label">Kartu Grafis</span><span class="value">Gigabyte GeForce GTX 1650 Super 4GB DDR6</span></div>
+        <h3>Editing PC</h3>
+        <div class="spec-row" data-img="https://picsum.photos/seed/cpu-ryzen5600/300/220" data-cap="AMD Ryzen 5 5600"><span class="label">Processor</span><span class="value">AMD Ryzen 5 5600</span></div>
+        <div class="spec-row" data-img="https://picsum.photos/seed/gpu-gtx1650s/300/220" data-cap="Gigabyte GTX 1650 Super"><span class="label">Graphics Card</span><span class="value">Gigabyte GeForce GTX 1650 Super 4GB DDR6</span></div>
         <div class="spec-row" data-img="https://picsum.photos/seed/motherboard-b550m/300/220" data-cap="MSI B550M Pro VDH WiFi"><span class="label">Motherboard</span><span class="value">MSI B550M Pro VDH WiFi</span></div>
         <div class="spec-row" data-img="https://picsum.photos/seed/ram-vengeance/300/220" data-cap="Corsair Vengeance LPX 16GB"><span class="label">RAM</span><span class="value">Corsair Vengeance LPX 2x8GB 3200MHz</span></div>
-        <div class="spec-row" data-img="https://picsum.photos/seed/kyo-kaizen/300/220" data-cap="KYO Kaizen 1TB M.2"><span class="label">Penyimpanan</span><span class="value">KYO Kaizen 1TB M.2 SATA</span></div>
+        <div class="spec-row" data-img="https://picsum.photos/seed/kyo-kaizen/300/220" data-cap="KYO Kaizen 1TB M.2"><span class="label">Storage</span><span class="value">KYO Kaizen 1TB M.2 SATA</span></div>
         <div class="spec-row" data-img="https://picsum.photos/seed/psu-fsp/300/220" data-cap="FSP HV Pro 650W Bronze"><span class="label">PSU</span><span class="value">FSP HV Pro 650W 80+ Bronze</span></div>
-        <div class="spec-row" data-img="https://picsum.photos/seed/case-vbr/300/220" data-cap="VBR Z8 Dual Chamber"><span class="label">Casing</span><span class="value">VBR Z8 Dual Chamber</span></div>
-        <div class="spec-row" data-img="https://picsum.photos/seed/fan-ocypus/300/220" data-cap="Ocypus Gamma F12 ARGB"><span class="label">Fan Casing</span><span class="value">Ocypus Gamma F12 ARGB</span></div>
+        <div class="spec-row" data-img="https://picsum.photos/seed/case-vbr/300/220" data-cap="VBR Z8 Dual Chamber"><span class="label">Case</span><span class="value">VBR Z8 Dual Chamber</span></div>
+        <div class="spec-row" data-img="https://picsum.photos/seed/fan-ocypus/300/220" data-cap="Ocypus Gamma F12 ARGB"><span class="label">Case Fan</span><span class="value">Ocypus Gamma F12 ARGB</span></div>
         <div class="spec-row" data-img="https://picsum.photos/seed/monitor-ocypus/300/220" data-cap="Ocypus Delta EH10"><span class="label">Monitor</span><span class="value">Ocypus Delta EH10</span></div>
-        <div class="spec-note">Dikalibrasi rutin dengan colorimeter agar warna cetak dan layar tetap konsisten.</div>
+        <div class="spec-note">Calibrated regularly with a colorimeter to keep print and screen colors consistent.</div>
         <div class="spec-preview" data-target="a"><span class="ptag">REF</span><img src="" alt=""><span class="pcap"></span></div>
       </div>
       <div class="spec-block">
-        <div class="sindex">B — GEAR &amp; PERALATAN</div>
-        <h3>Kamera &amp; Input</h3>
-        <div class="spec-row" data-img="https://picsum.photos/seed/camera-main/300/220" data-cap="Mirrorless Full Frame"><span class="label">Kamera Utama</span><span class="value">Mirrorless Full Frame</span></div>
-        <div class="spec-row" data-img="https://picsum.photos/seed/lens-35mm/300/220" data-cap="Lensa 35mm f/1.4"><span class="label">Lensa 1</span><span class="value">35mm f/1.4</span></div>
-        <div class="spec-row" data-img="https://picsum.photos/seed/lens-85mm/300/220" data-cap="Lensa 85mm f/1.8"><span class="label">Lensa 2</span><span class="value">85mm f/1.8</span></div>
-        <div class="spec-row" data-img="https://picsum.photos/seed/camera-film/300/220" data-cap="Kamera Film 35mm"><span class="label">Kamera Film</span><span class="value">35mm Rangefinder</span></div>
-        <div class="spec-row" data-img="https://picsum.photos/seed/tablet-cintiq/300/220" data-cap="Wacom Cintiq Pro"><span class="label">Tablet Grafis</span><span class="value">Wacom Cintiq Pro 16"</span></div>
+        <div class="sindex">B — GEAR &amp; EQUIPMENT</div>
+        <h3>Camera &amp; Input</h3>
+        <div class="spec-row" data-img="https://picsum.photos/seed/camera-main/300/220" data-cap="Mirrorless Full Frame"><span class="label">Main Camera</span><span class="value">Mirrorless Full Frame</span></div>
+        <div class="spec-row" data-img="https://picsum.photos/seed/lens-35mm/300/220" data-cap="35mm f/1.4 Lens"><span class="label">Lens 1</span><span class="value">35mm f/1.4</span></div>
+        <div class="spec-row" data-img="https://picsum.photos/seed/lens-85mm/300/220" data-cap="85mm f/1.8 Lens"><span class="label">Lens 2</span><span class="value">85mm f/1.8</span></div>
+        <div class="spec-row" data-img="https://picsum.photos/seed/camera-film/300/220" data-cap="35mm Film Camera"><span class="label">Film Camera</span><span class="value">35mm Rangefinder</span></div>
+        <div class="spec-row" data-img="https://picsum.photos/seed/tablet-cintiq/300/220" data-cap="Wacom Cintiq Pro"><span class="label">Graphics Tablet</span><span class="value">Wacom Cintiq Pro 16"</span></div>
         <div class="spec-row" data-img="https://picsum.photos/seed/lighting-softbox/300/220" data-cap="Softbox + Reflector"><span class="label">Lighting</span><span class="value">2x Softbox + Reflector</span></div>
-        <div class="spec-row" data-img="https://picsum.photos/seed/ssd-portable/300/220" data-cap="SSD Portabel 2TB"><span class="label">Storage Eksternal</span><span class="value">SSD Portabel 2TB</span></div>
-        <div class="spec-row" data-img="https://picsum.photos/seed/printer-photo/300/220" data-cap="Printer Foto A3+"><span class="label">Printer</span><span class="value">A3+ Photo Printer</span></div>
-        <div class="spec-row" data-img="https://picsum.photos/seed/desk-standing/300/220" data-cap="Sit-Stand Desk"><span class="label">Kursi &amp; Meja</span><span class="value">Ergonomis, Sit-Stand Desk</span></div>
+        <div class="spec-row" data-img="https://picsum.photos/seed/ssd-portable/300/220" data-cap="Portable SSD 2TB"><span class="label">External Storage</span><span class="value">Portable SSD 2TB</span></div>
+        <div class="spec-row" data-img="https://picsum.photos/seed/printer-photo/300/220" data-cap="A3+ Photo Printer"><span class="label">Printer</span><span class="value">A3+ Photo Printer</span></div>
+        <div class="spec-row" data-img="https://picsum.photos/seed/desk-standing/300/220" data-cap="Sit-Stand Desk"><span class="label">Chair &amp; Desk</span><span class="value">Ergonomic, Sit-Stand Desk</span></div>
         <div class="spec-row" data-img="https://picsum.photos/seed/studio-speaker/300/220" data-cap="Studio Monitor Speaker"><span class="label">Audio</span><span class="value">Studio Monitor Speaker</span></div>
-        <div class="spec-note">Kombinasi alat analog dan digital — sebagian untuk hasil akhir, sebagian untuk proses berpikir.</div>
+        <div class="spec-note">A mix of analog and digital tools — some for the final output, some for the thinking process.</div>
         <div class="spec-preview" data-target="b"><span class="ptag">REF</span><img src="" alt=""><span class="pcap"></span></div>
       </div>
     </div>
   </section>
 
-  <section class="section wrap reveal" id="tautan">
-    <div class="section-label"><span class="num">05</span><h2>Game &amp; Tautan</h2></div>
+  <section class="section wrap reveal" id="links">
+    <div class="section-label"><span class="num">05</span><h2>Games &amp; Links</h2></div>
     <div class="link-sheet">
       <div class="link-block">
-        <div class="sindex">A — MAIN</div>
-        <h3>Game</h3>
+        <div class="sindex">A — PLAY</div>
+        <h3>Games</h3>
 
         <a class="link-row" href="https://steamcommunity.com/id/jphosa/" target="_blank" rel="noopener">
           <div class="link-main">
             <span class="link-name">Counter-Strike 2</span>
             <span class="link-sub">Steam</span>
           </div>
-          <span class="link-cta">Lihat Profil <span class="arrow">↗</span></span>
+          <span class="link-cta">View Profile <span class="arrow">↗</span></span>
         </a>
 
         <a class="link-row" href="#" target="_blank" rel="noopener">
@@ -1201,7 +1268,7 @@
             <span class="link-name">Dota 2</span>
             <span class="link-sub">Steam</span>
           </div>
-          <span class="link-cta">Lihat Profil <span class="arrow">↗</span></span>
+          <span class="link-cta">View Profile <span class="arrow">↗</span></span>
         </a>
 
         <a class="link-row" href="#" target="_blank" rel="noopener">
@@ -1209,7 +1276,7 @@
             <span class="link-name">Valorant</span>
             <span class="link-sub">Riot ID</span>
           </div>
-          <span class="link-cta">Tambah Teman <span class="arrow">↗</span></span>
+          <span class="link-cta">Add Friend <span class="arrow">↗</span></span>
         </a>
 
         <a class="link-row" href="#" target="_blank" rel="noopener">
@@ -1217,7 +1284,7 @@
             <span class="link-name">Mobile Legends</span>
             <span class="link-sub">ID: 000000000 (0000)</span>
           </div>
-          <span class="link-cta">Tambah Teman <span class="arrow">↗</span></span>
+          <span class="link-cta">Add Friend <span class="arrow">↗</span></span>
         </a>
 
         <a class="link-row" href="#" target="_blank" rel="noopener">
@@ -1225,28 +1292,28 @@
             <span class="link-name">Genshin Impact</span>
             <span class="link-sub">UID: 000000000</span>
           </div>
-          <span class="link-cta">Tambah Teman <span class="arrow">↗</span></span>
+          <span class="link-cta">Add Friend <span class="arrow">↗</span></span>
         </a>
 
-        <a class="link-row" href="#" target="_blank" rel="noopener">
+        <a class="link-row" href="https://steamcommunity.com/id/jphosa/" target="_blank" rel="noopener">
           <div class="link-main">
-            <span class="link-name">Profil Steam</span>
-            <span class="link-sub">Semua Game</span>
+            <span class="link-name">Steam Profile <span data-miniprofile="76561199175575686" id="steamMini" style="border-bottom:1px dashed var(--grey-frame);cursor:help;">(hover for live status)</span></span>
+            <span class="link-sub">All Games</span>
           </div>
-          <span class="link-cta">Kunjungi Steam <span class="arrow">↗</span></span>
+          <span class="link-cta">Visit Steam <span class="arrow">↗</span></span>
         </a>
       </div>
 
       <div class="link-block">
-        <div class="sindex">B — SOSIAL</div>
-        <h3>Tautan</h3>
+        <div class="sindex">B — SOCIAL</div>
+        <h3>Links</h3>
 
         <a class="link-row" href="https://www.instagram.com/phosajakha/" target="_blank" rel="noopener">
           <div class="link-main">
             <span class="link-name">Instagram</span>
             <span class="link-sub">@phosajakha</span>
           </div>
-          <span class="link-cta">Kunjungi <span class="arrow">↗</span></span>
+          <span class="link-cta">Visit <span class="arrow">↗</span></span>
         </a>
 
         <a class="link-row" href="#" target="_blank" rel="noopener">
@@ -1254,7 +1321,7 @@
             <span class="link-name">Behance</span>
             <span class="link-sub">behance.net/JakhaPhosa</span>
           </div>
-          <span class="link-cta">Kunjungi <span class="arrow">↗</span></span>
+          <span class="link-cta">Visit <span class="arrow">↗</span></span>
         </a>
 
         <a class="link-row" href="#" target="_blank" rel="noopener">
@@ -1262,7 +1329,7 @@
             <span class="link-name">X / Twitter</span>
             <span class="link-sub">@JakhaPhosa</span>
           </div>
-          <span class="link-cta">Kunjungi <span class="arrow">↗</span></span>
+          <span class="link-cta">Visit <span class="arrow">↗</span></span>
         </a>
 
         <a class="link-row" href="#" target="_blank" rel="noopener">
@@ -1270,7 +1337,7 @@
             <span class="link-name">Discord</span>
             <span class="link-sub">JakhaPhosa#0000</span>
           </div>
-          <span class="link-cta">Tambah Teman <span class="arrow">↗</span></span>
+          <span class="link-cta">Add Friend <span class="arrow">↗</span></span>
         </a>
 
         <a class="link-row" href="#" target="_blank" rel="noopener">
@@ -1278,7 +1345,7 @@
             <span class="link-name">TikTok</span>
             <span class="link-sub">@JakhaPhosa</span>
           </div>
-          <span class="link-cta">Kunjungi <span class="arrow">↗</span></span>
+          <span class="link-cta">Visit <span class="arrow">↗</span></span>
         </a>
 
         <a class="link-row" href="https://www.youtube.com/@jphosa" target="_blank" rel="noopener">
@@ -1286,43 +1353,47 @@
             <span class="link-name">YouTube</span>
             <span class="link-sub">Jakha Phosa</span>
           </div>
-          <span class="link-cta">Kunjungi <span class="arrow">↗</span></span>
+          <span class="link-cta">Visit <span class="arrow">↗</span></span>
         </a>
       </div>
     </div>
   </section>
 
-  <section class="section wrap reveal" id="musik">
-    <div class="section-label"><span class="num">06</span><h2>Musik &amp; Tontonan</h2></div>
+  <section class="section wrap reveal" id="music">
+    <div class="section-label"><span class="num">06</span><h2>Music &amp; Watching</h2></div>
     <div class="media-sheet">
       <div class="media-block">
-        <div class="sindex">A — DENGAR</div>
-        <h3>Musik</h3>
+        <div class="sindex">A — LISTEN</div>
+        <h3>Music</h3>
         <div class="spotify-frame">
           <iframe src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M?utm_source=generator&theme=0"
             width="100%" height="352" frameborder="0"
             allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-            loading="lazy" title="Playlist Spotify"></iframe>
+            loading="lazy" title="Spotify playlist"></iframe>
         </div>
-        <p class="media-note">Playlist yang paling sering diputar saat sedang desain atau proses foto. Ganti embed di atas dengan playlist atau profil Spotify Anda sendiri.</p>
+        <p class="media-note">The playlist I have on repeat while designing or editing photos. Swap the embed above with your own Spotify playlist or profile.</p>
 
-        <div class="now-playing">
+        <div class="now-playing" id="npLive" style="display:none;">
+          <img id="npLiveImg" src="" alt="Live Spotify status" style="height:56px;border:1px solid var(--ink);display:block;">
+        </div>
+        <div class="now-playing" id="npDemo">
           <div class="np-bars"><span></span><span></span><span></span><span></span></div>
           <div class="np-text">
-            <div class="np-eyebrow">Sedang Diputar (Demo)</div>
+            <div class="np-eyebrow">Now Playing (Demo)</div>
             <div class="np-track" id="npTrack">Boards of Canada — Roygbiv</div>
           </div>
         </div>
+        <p class="media-note" style="margin-top:8px;">Live status via <code style="font-family:var(--mono);">spotify-github-profile</code> — set your own Spotify UID in the code to replace the demo with your real currently-playing track.</p>
       </div>
 
       <div class="media-block">
-        <div class="sindex">B — TONTON</div>
-        <h3>Film &amp; Series</h3>
+        <div class="sindex">B — WATCH</div>
+        <h3>Movies &amp; Series</h3>
 
         <a class="watch-row" href="#" target="_blank" rel="noopener">
           <div class="watch-main">
             <span class="watch-name">Blade Runner 2049</span>
-            <span class="watch-sub">Film · 2017</span>
+            <span class="watch-sub">Movie · 2017</span>
           </div>
           <span class="rt-badge fresh"><span class="dot"></span>92%</span>
         </a>
@@ -1338,7 +1409,7 @@
         <a class="watch-row" href="#" target="_blank" rel="noopener">
           <div class="watch-main">
             <span class="watch-name">Drive</span>
-            <span class="watch-sub">Film · 2011</span>
+            <span class="watch-sub">Movie · 2011</span>
           </div>
           <span class="rt-badge fresh"><span class="dot"></span>93%</span>
         </a>
@@ -1354,7 +1425,7 @@
         <a class="watch-row" href="#" target="_blank" rel="noopener">
           <div class="watch-main">
             <span class="watch-name">The Grand Budapest Hotel</span>
-            <span class="watch-sub">Film · 2014</span>
+            <span class="watch-sub">Movie · 2014</span>
           </div>
           <span class="rt-badge fresh"><span class="dot"></span>91%</span>
         </a>
@@ -1362,29 +1433,29 @@
         <a class="watch-row" href="#" target="_blank" rel="noopener">
           <div class="watch-main">
             <span class="watch-name">Morbius</span>
-            <span class="watch-sub">Film · 2022</span>
+            <span class="watch-sub">Movie · 2022</span>
           </div>
           <span class="rt-badge rotten"><span class="dot"></span>15%</span>
         </a>
 
-        <p class="media-note">Skor mengikuti gaya Rotten Tomatoes. Klik judul untuk membuka halaman ulasan aslinya — arahkan ke Rotten Tomatoes, IMDb, atau Letterboxd sesuai preferensi Anda.</p>
+        <p class="media-note">Scores follow the Rotten Tomatoes style. Click a title to open its actual review page — point it to Rotten Tomatoes, IMDb, or Letterboxd, whichever you prefer.</p>
       </div>
     </div>
   </section>
 
-  <section class="section wrap reveal" id="kalender">
-    <div class="section-label"><span class="num">07</span><h2>Kalender Jepretan</h2></div>
-    <p style="font-family:var(--body);font-size:14.5px;color:#3a3a35;max-width:60ch;margin-bottom:24px;">Rekap kapan roll film atau file desain terakhir digarap — semakin gelap warnanya, semakin padat harinya.</p>
+  <section class="section wrap reveal" id="calendar">
+    <div class="section-label"><span class="num">07</span><h2>Shooting Calendar</h2></div>
+    <p style="font-family:var(--body);font-size:14.5px;color:#3a3a35;max-width:60ch;margin-bottom:24px;">A recap of when a roll of film or design file was last worked on — the darker the color, the busier the day.</p>
     <div class="heatmap-wrap">
       <div class="heatmap" id="heatmap"></div>
     </div>
     <div class="heatmap-legend">
-      SEPI <span class="cell" data-level="0"></span><span class="cell" data-level="1"></span><span class="cell" data-level="2"></span><span class="cell" data-level="3"></span><span class="cell" data-level="4"></span> PADAT
+      QUIET <span class="cell" data-level="0"></span><span class="cell" data-level="1"></span><span class="cell" data-level="2"></span><span class="cell" data-level="3"></span><span class="cell" data-level="4"></span> BUSY
     </div>
   </section>
 
   <section class="section wrap reveal" id="timer">
-    <div class="section-label"><span class="num">08</span><h2>Timer Kamar Gelap</h2></div>
+    <div class="section-label"><span class="num">08</span><h2>Darkroom Timer</h2></div>
     <div class="timer-wrap">
       <div class="timer-dial" id="timerDial">
         <span class="safelight-dot" id="safelightDot"></span>
@@ -1398,7 +1469,7 @@
           <button class="timer-btn" data-min="8">Fixer 8:00</button>
         </div>
         <div class="timer-actions">
-          <button class="timer-btn primary" id="timerStart">Mulai</button>
+          <button class="timer-btn primary" id="timerStart">Start</button>
           <button class="timer-btn" id="timerReset">Reset</button>
         </div>
       </div>
@@ -1407,79 +1478,146 @@
 
   <section class="section wrap reveal" id="terminal">
     <div class="section-label"><span class="num">09</span><h2>Terminal</h2></div>
-    <p style="font-family:var(--body);font-size:14.5px;color:#3a3a35;max-width:60ch;margin-bottom:24px;">Ketik <code style="font-family:var(--mono);">help</code> untuk lihat daftar perintah.</p>
+    <p style="font-family:var(--body);font-size:14.5px;color:#3a3a35;max-width:60ch;margin-bottom:24px;">Type <code style="font-family:var(--mono);">help</code> to see the list of commands.</p>
     <div class="terminal-wrap">
       <div class="terminal-bar">
         <span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span>
-        <span class="tlabel">jakha@arsip — zsh</span>
+        <span class="tlabel">jakha@archive — zsh</span>
       </div>
       <div class="terminal-body" id="termBody">
-        <div class="line out">Selamat datang. Ketik 'help' untuk memulai.</div>
+        <div class="line out">Welcome. Type 'help' to get started.</div>
       </div>
       <div class="terminal-input-row">
         <span class="prompt">$</span>
-        <input type="text" id="termInput" placeholder="ketik perintah..." autocomplete="off" spellcheck="false">
+        <input type="text" id="termInput" placeholder="type a command..." autocomplete="off" spellcheck="false">
       </div>
     </div>
   </section>
 
-  <section class="section wrap reveal" id="tictactoe">
-    <div class="section-label"><span class="num">10</span><h2>Main — Tic-Tac-Toe</h2></div>
-    <div class="ttt-wrap">
-      <div class="ttt-board" id="tttBoard"></div>
-      <div class="ttt-side">
-        <div class="ttt-status" id="tttStatus">Giliran Anda — jalan X</div>
-        <div class="ttt-score">
-          <div>MENANG<b id="tttWins">0</b></div>
-          <div>SERI<b id="tttDraws">0</b></div>
-          <div>KALAH<b id="tttLosses">0</b></div>
-        </div>
-        <button class="timer-btn" id="tttReset">Main Lagi</button>
-        <p class="ttt-note">Lawannya main sempurna (algoritma minimax) — hasil terbaik yang bisa Anda dapat cuma seri. Anggap saja latihan logika, bukan ajang menang-menangan.</p>
-      </div>
+  <section class="section wrap reveal" id="arcade">
+    <div class="section-label"><span class="num">10</span><h2>Arcade — Pick a Mode</h2></div>
+    <p class="arcade-intro">Four small games hiding in this portfolio. Pick a mode below and it opens right here — high scores are shared across everyone who visits this page.</p>
+    <div class="arcade-grid">
+      <button class="arcade-card" data-game="ttt">
+        <div class="ac-num">MODE 01</div>
+        <div class="ac-title">Tic-Tac-Toe</div>
+        <div class="ac-sub">Beat a perfect minimax AI. Good luck getting more than a draw.</div>
+        <div class="ac-score">TOP WINS <b id="topWinsCard">—</b></div>
+      </button>
+      <button class="arcade-card" data-game="mem">
+        <div class="ac-num">MODE 02</div>
+        <div class="ac-title">Match the Negative</div>
+        <div class="ac-sub">Memory match, 8 pairs of tools from around this site.</div>
+        <div class="ac-score">FEWEST MOVES <b id="topMovesCard">—</b></div>
+      </button>
+      <button class="arcade-card" data-game="rx">
+        <div class="ac-num">MODE 03</div>
+        <div class="ac-title">Shutter Reflex</div>
+        <div class="ac-sub">Click the instant it turns green. Measured in milliseconds.</div>
+        <div class="ac-score">FASTEST <b id="topRxCard">—</b></div>
+      </button>
+      <button class="arcade-card" data-game="tetris">
+        <div class="ac-num">MODE 04</div>
+        <div class="ac-title">Tetris</div>
+        <div class="ac-sub">The classic. Arrow keys to move/rotate, space to drop.</div>
+        <div class="ac-score">HIGH SCORE <b id="topTetrisCard">—</b></div>
+      </button>
     </div>
   </section>
 
-  <section class="section wrap reveal" id="memori">
-    <div class="section-label"><span class="num">11</span><h2>Cocokkan Negatif</h2></div>
-    <div class="mem-wrap">
-      <div class="mem-board" id="memBoard"></div>
-      <div class="mem-side">
-        <div class="mem-status" id="memStatus">Balik dua kartu untuk mencari pasangannya.</div>
-        <div class="mem-score">
-          <div>GILIRAN<b id="memMoves">0</b></div>
-          <div>WAKTU<b id="memTime">00:00</b></div>
-          <div>TERBAIK<b id="memBest">—</b></div>
+  <div class="game-modal" id="tttModal">
+    <div class="game-modal-panel">
+      <button class="game-modal-close" data-close-modal="tttModal">Close</button>
+      <h2>Tic-Tac-Toe</h2>
+      <div class="top-score-line">TOP SCORE (ALL VISITORS): <b id="topWinsLine">—</b> wins</div>
+      <div class="ttt-wrap">
+        <div class="ttt-board" id="tttBoard"></div>
+        <div class="ttt-side">
+          <div class="ttt-status" id="tttStatus">Your turn — play X</div>
+          <div class="ttt-score">
+            <div>WINS<b id="tttWins">0</b></div>
+            <div>DRAWS<b id="tttDraws">0</b></div>
+            <div>LOSSES<b id="tttLosses">0</b></div>
+          </div>
+          <button class="timer-btn" id="tttReset">Play Again</button>
+          <p class="ttt-note">The opponent plays perfectly (minimax algorithm) — the best you can get is a draw. Think of it as a logic exercise, not a chance to win.</p>
         </div>
-        <button class="timer-btn" id="memReset">Kocok Ulang</button>
-        <p class="mem-note">8 pasang alat yang muncul berulang di halaman ini — kamera, lensa, printer, sampai timer kamar gelap. Cari pasangannya dengan giliran sesedikit mungkin.</p>
       </div>
     </div>
-  </section>
+  </div>
 
-  <section class="section wrap reveal" id="refleks">
-    <div class="section-label"><span class="num">12</span><h2>Uji Refleks Rana</h2></div>
-    <div class="rx-wrap">
-      <div class="rx-pad" id="rxPad">
-        <div class="rx-main" id="rxMain">KLIK UNTUK MULAI</div>
-        <div class="rx-ms" id="rxMs" style="display:none;"></div>
-        <div class="rx-sub" id="rxSub">Tunggu sampai warnanya hijau, lalu klik secepat mungkin</div>
-      </div>
-      <div class="rx-side">
-        <div class="rx-score">
-          <div>TERAKHIR<b id="rxLast">—</b></div>
-          <div>RATA²<b id="rxAvg">—</b></div>
-          <div>TERBAIK<b id="rxBest">—</b></div>
+  <div class="game-modal" id="memModal">
+    <div class="game-modal-panel">
+      <button class="game-modal-close" data-close-modal="memModal">Close</button>
+      <h2>Match the Negative</h2>
+      <div class="top-score-line">TOP SCORE (ALL VISITORS): <b id="topMovesLine">—</b> moves</div>
+      <div class="mem-wrap">
+        <div class="mem-board" id="memBoard"></div>
+        <div class="mem-side">
+          <div class="mem-status" id="memStatus">Flip two cards to find their match.</div>
+          <div class="mem-score">
+            <div>MOVES<b id="memMoves">0</b></div>
+            <div>TIME<b id="memTime">00:00</b></div>
+            <div>BEST<b id="memBest">—</b></div>
+          </div>
+          <button class="timer-btn" id="memReset">Shuffle Again</button>
+          <p class="mem-note">8 pairs of tools that show up throughout this page — camera, lens, printer, even the darkroom timer. Find the matches in as few moves as possible.</p>
         </div>
-        <div class="rx-history" id="rxHistory"></div>
-        <p class="rx-note">Sama seperti menekan rana pada momen yang tepat — kecepatan reaksi manusia rata-rata ada di kisaran 200–300ms. Klik terlalu cepat sebelum hijau dan dianggap gagal.</p>
       </div>
     </div>
-  </section>
+  </div>
+
+  <div class="game-modal" id="rxModal">
+    <div class="game-modal-panel">
+      <button class="game-modal-close" data-close-modal="rxModal">Close</button>
+      <h2>Shutter Reflex Test</h2>
+      <div class="top-score-line">TOP SCORE (ALL VISITORS): <b id="topRxLine">—</b> ms</div>
+      <div class="rx-wrap">
+        <div class="rx-pad" id="rxPad">
+          <div class="rx-main" id="rxMain">CLICK TO START</div>
+          <div class="rx-ms" id="rxMs" style="display:none;"></div>
+          <div class="rx-sub" id="rxSub">Wait until it turns green, then click as fast as you can</div>
+        </div>
+        <div class="rx-side">
+          <div class="rx-score">
+            <div>LAST<b id="rxLast">—</b></div>
+            <div>AVG<b id="rxAvg">—</b></div>
+            <div>BEST<b id="rxBest">—</b></div>
+          </div>
+          <div class="rx-history" id="rxHistory"></div>
+          <p class="rx-note">Just like pressing the shutter at the right moment — average human reaction time sits around 200–300ms. Click too early before green and it counts as a fail.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="game-modal" id="tetrisModal">
+    <div class="game-modal-panel">
+      <button class="game-modal-close" data-close-modal="tetrisModal">Close</button>
+      <h2>Tetris</h2>
+      <div class="top-score-line">TOP SCORE (ALL VISITORS): <b id="topTetrisLine">—</b></div>
+      <div class="tetris-wrap">
+        <div class="tetris-canvas-wrap">
+          <canvas id="tetrisCanvas" width="200" height="400"></canvas>
+          <div class="tetris-overlay-msg" id="tetrisOverlayMsg">
+            <div>GAME OVER</div>
+            <button class="timer-btn primary" id="tetrisRestart">Play Again</button>
+          </div>
+        </div>
+        <div class="tetris-side">
+          <div class="tetris-stat">SCORE<b id="tetrisScore">0</b></div>
+          <div class="tetris-stat">LINES<b id="tetrisLines">0</b></div>
+          <div class="tetris-stat">LEVEL<b id="tetrisLevel">1</b></div>
+          <div class="tetris-stat">NEXT<canvas id="tetrisNext" width="80" height="80"></canvas></div>
+          <p class="tetris-controls-note">Arrow keys to move &amp; rotate, Space to hard drop, P to pause. Click the board first so it captures keys.</p>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <section class="section wrap reveal">
-    <div class="section-label"><span class="num">13</span><h2>Perkakas</h2></div>
-    <p class="quote">Alat yang saya pakai setiap hari — <span>sebagian analog, sebagian digital</span>, semuanya bagian dari cara saya bekerja.</p>
+    <div class="section-label"><span class="num">11</span><h2>Tools</h2></div>
+    <p class="quote">The tools I use every day — <span>some analog, some digital</span>, all part of how I work.</p>
   </section>
 
   <section class="wrap reveal" style="padding-bottom:40px;">
@@ -1488,39 +1626,41 @@
       <div class="tool">Adobe Photoshop</div>
       <div class="tool">Adobe InDesign</div>
       <div class="tool">Lightroom Classic</div>
-      <div class="tool">Kamera Film 35mm</div>
-      <div class="tool">Kamera Mirrorless</div>
+      <div class="tool">35mm Film Camera</div>
+      <div class="tool">Mirrorless Camera</div>
       <div class="tool">Figma</div>
-      <div class="tool">Cetak Risograf</div>
+      <div class="tool">Risograph Printing</div>
     </div>
   </section>
 
 </main>
 
-<footer class="contact" id="arsip">
+<footer class="contact" id="archive">
   <div class="wrap">
-    <div class="section-label"><span class="num">14</span><h2>Catatan Arsip</h2></div>
+    <div class="section-label"><span class="num">12</span><h2>Archive Notes</h2></div>
     <div class="contact-grid">
       <div>
-        <h3>KUMPULAN INI DISUSUN<br>DAN DIRAWAT SECARA<br>PRIBADI DI JAKARTA.</h3>
+        <h3>THIS COLLECTION IS<br>BUILT AND MAINTAINED<br>PERSONALLY IN JAKARTA.</h3>
       </div>
       <div class="contact-info">
-        DISIPLIN — Desain Grafis &amp; Fotografi<br>
-        AKTIF SEJAK — 2016<br>
-        LOKASI — Kupang, Indonesia<br>
-        FORMAT — Cetak, Digital, Gerak
+        DISCIPLINE — Graphic Design &amp; Photography<br>
+        ACTIVE SINCE — 2016<br>
+        LOCATION — Kupang, Indonesia<br>
+        FORMAT — Print, Digital, Motion
       </div>
     </div>
     <div class="stamp" style="flex-direction:column;align-items:flex-start;gap:6px;">
       <div style="display:flex;justify-content:space-between;width:100%;flex-wrap:wrap;gap:10px;">
-        <span>© 2026 Jakha Phosa — ARSIP KARYA PRIBADI</span>
-        <span class="badge">DIARSIPKAN</span>
+        <span>© 2026 Jakha Phosa — PERSONAL WORK ARCHIVE</span>
+        <span class="badge">ARCHIVED</span>
       </div>
-      <div id="statusLine" style="opacity:0.85;">STATUS: MEMUAT... · BUILD v2.4.0</div>
+      <div id="statusLine" style="opacity:0.85;">STATUS: LOADING... · BUILD v2.4.0</div>
+      <div id="visitorLine" style="opacity:0.85;font-family:var(--mono);">VISITOR NO. <b id="visitorCount" style="color:var(--kodak);">—</b></div>
     </div>
   </div>
 </footer>
 
+<script type="text/javascript" src="https://community.cloudflare.steamstatic.com/public/javascript/webui/miniprofile.js" data-miniprofile-lang="en"></script>
 <script>
   // dark mode toggle
   const themeBtn = document.getElementById('themeToggle');
@@ -1530,8 +1670,18 @@
 
   function applyTheme(){
     document.body.setAttribute('data-theme', isDark ? 'dark' : 'light');
-    themeLabel.textContent = isDark ? 'MODE TERANG' : 'MODE GELAP';
+    themeLabel.textContent = isDark ? 'LIGHT MODE' : 'DARK MODE';
     themeBtn.setAttribute('aria-pressed', String(isDark));
+
+    const photo = document.getElementById('aboutPhoto');
+    if(photo){
+      const wanted = isDark ? photo.getAttribute('data-dark') : photo.getAttribute('data-light');
+      const fallback = photo.getAttribute('data-light');
+      if(wanted && photo.getAttribute('src') !== wanted){
+        photo.onerror = function(){ this.onerror = null; this.src = fallback; };
+        photo.src = wanted;
+      }
+    }
   }
   applyTheme();
 
@@ -1652,7 +1802,7 @@
     gallery.addEventListener('mouseleave', ()=> ret.classList.remove('show'));
   })();
 
-  /* ---------------- kalender jepretan (heatmap) ---------------- */
+  /* ---------------- shooting calendar (heatmap) ---------------- */
   (function heatmap(){
     const wrap = document.getElementById('heatmap');
     const tooltip = document.getElementById('heatTooltip') || (()=>{
@@ -1678,8 +1828,8 @@
       const cell = document.createElement('div');
       cell.className = 'cell';
       cell.setAttribute('data-level', level);
-      const label = d.toLocaleDateString('id-ID', {day:'numeric', month:'short', year:'numeric'});
-      const countTxt = level === 0 ? 'Tidak ada aktivitas' : `${level} karya dikerjakan`;
+      const label = d.toLocaleDateString('en-US', {day:'numeric', month:'short', year:'numeric'});
+      const countTxt = level === 0 ? 'No activity' : `${level} pieces worked on`;
       cell.addEventListener('mouseenter', (e)=>{
         tooltip.textContent = `${label} — ${countTxt}`;
         tooltip.classList.add('show');
@@ -1693,7 +1843,7 @@
     });
   })();
 
-  /* ---------------- timer kamar gelap ---------------- */
+  /* ---------------- darkroom timer ---------------- */
   (function darkroomTimer(){
     const display = document.getElementById('timerDisplay');
     const stage = document.getElementById('timerStage');
@@ -1730,13 +1880,13 @@
       if(running) return;
       running = true;
       dial.classList.add('running');
-      startBtn.textContent = 'Jeda';
+      startBtn.textContent = 'Pause';
       intervalId = setInterval(tick, 1000);
     }
     function pause(){
       running = false;
       dial.classList.remove('running');
-      startBtn.textContent = 'Mulai';
+      startBtn.textContent = 'Start';
       clearInterval(intervalId);
     }
     startBtn.addEventListener('click', ()=> running ? pause() : start());
@@ -1764,8 +1914,8 @@
     if(!body || !input) return;
 
     const files = {
-      'about.txt': 'Jakha Phosa — Desainer Grafis & Fotografer. Aktif sejak 2016, berbasis di Jakarta.',
-      'skills.txt': 'Desain Grafis: Branding, Editorial, Kemasan.\nFotografi: Potret, Produk, Acara, Arsitektur.'
+      'about.txt': 'Jakha Phosa — Graphic Designer & Photographer. Active since 2016, based in Jakarta.',
+      'skills.txt': 'Graphic Design: Branding, Editorial, Packaging.\nPhotography: Portraits, Products, Events, Architecture.'
     };
 
     function print(text, cls){
@@ -1784,32 +1934,32 @@
 
       switch(name){
         case 'help':
-          print('Perintah tersedia: whoami, ls, cat [file], skills, contact, clear, sudo, help');
+          print('Available commands: whoami, ls, cat [file], skills, contact, clear, sudo, help');
           break;
         case 'whoami':
-          print('Jakha-Phosa — desainer grafis & fotografer');
+          print('jakha-phosa — graphic designer & photographer');
           break;
         case 'ls':
-          print('about.txt  skills.txt  karya/  keahlian/  setup.spec');
+          print('about.txt  skills.txt  work/  skills/  setup.spec');
           break;
         case 'cat':
           if(files[args[0]]) print(files[args[0]]);
-          else print(`cat: ${args[0] || ''}: berkas tidak ditemukan`);
+          else print(`cat: ${args[0] || ''}: file not found`);
           break;
         case 'skills':
-          print('Adobe Illustrator, Photoshop, InDesign, Lightroom, Figma, Kamera Film & Mirrorless');
+          print('Adobe Illustrator, Photoshop, InDesign, Lightroom, Figma, Film & Mirrorless Cameras');
           break;
         case 'contact':
-          print('Lihat bagian Game & Tautan untuk semua tautan sosial.');
+          print('Check the Games & Links section for all social links.');
           break;
         case 'sudo':
-          print('nice try. akses ditolak — ini cuma portofolio, bukan server produksi.');
+          print('nice try. access denied — this is just a portfolio, not a production server.');
           break;
         case 'clear':
           body.innerHTML = '';
           break;
         default:
-          print(`command not found: ${name} — coba ketik 'help'`);
+          print(`command not found: ${name} — try typing 'help'`);
       }
     }
 
@@ -1821,7 +1971,7 @@
     });
   })();
 
-  /* ---------------- now playing (demo, tanpa API live) ---------------- */
+  /* ---------------- now playing (demo, no live API) ---------------- */
   (function nowPlaying(){
     const el = document.getElementById('npTrack');
     if(!el) return;
@@ -1847,7 +1997,7 @@
     const now = new Date();
     const diffMs = now - launch;
     const days = Math.floor(diffMs / 86400000);
-    el.textContent = `STATUS: OPERASIONAL · UPTIME: ${days} HARI · BUILD v2.4.0`;
+    el.textContent = `STATUS: OPERATIONAL · UPTIME: ${days} DAYS · BUILD v2.4.0`;
   })();
 
   /* ---------------- keyboard shortcuts ---------------- */
@@ -1867,7 +2017,7 @@
 
       if(awaitingG){
         awaitingG = false;
-        const map = { k:'#karya', s:'#setup', t:'#terminal', g:'#tictactoe', m:'#memori', r:'#refleks' };
+        const map = { k:'#work', s:'#setup', t:'#terminal', g:'#arcade' };
         const target = map[e.key.toLowerCase()];
         if(target){
           document.querySelector(target)?.scrollIntoView({behavior:'smooth'});
@@ -1891,12 +2041,12 @@
     if(!splashEl) return;
 
     const tips = [
-      'Foto hitam-putih di galeri jadi berwarna saat dipilih — coba arahkan kursor.',
-      'Tekan tombol panah rahasia untuk kejutan kecil di halaman ini.',
-      'Klik logo lima kali cepat untuk sesuatu yang tersembunyi.',
-      'Tekan tanda tanya ( ? ) untuk melihat pintasan keyboard.',
-      'Timer kamar gelap di bawah benar-benar berfungsi, coba jalankan.',
-      'Ketik "help" di terminal untuk daftar perintah rahasia.'
+      'Black-and-white photos in the gallery turn to color when hovered — try it.',
+      'Press a secret arrow-key combo for a small surprise on this page.',
+      'Click the logo five times fast for something hidden.',
+      'Press the question mark ( ? ) to see keyboard shortcuts.',
+      'The darkroom timer below actually works, give it a try.',
+      'Type "help" in the terminal for a list of secret commands.'
     ];
     let tipIndex = 0;
     function showTip(){
@@ -1938,7 +2088,7 @@
     }, 5000);
   })();
 
-  /* ---------------- hidden mini game: klik logo 5x ---------------- */
+  /* ---------------- hidden mini game: click logo 5x ---------------- */
   (function hiddenGame(){
     const logo = document.querySelector('.logo');
     const overlay = document.getElementById('gameOverlay');
@@ -2041,7 +2191,7 @@
 
       ctx.fillStyle = '#f0b429';
       ctx.font = '10px monospace';
-      ctx.fillText('SKOR ' + score, 8, 14);
+      ctx.fillText('SCORE ' + score, 8, 14);
 
       if(gameOver){
         ctx.fillStyle = 'rgba(0,0,0,0.55)';
@@ -2049,7 +2199,7 @@
         ctx.fillStyle = '#e9e4d6';
         ctx.font = '11px monospace';
         ctx.textAlign = 'center';
-        ctx.fillText('GAME OVER — KLIK UNTUK ULANG', W/2, H/2);
+        ctx.fillText('GAME OVER — CLICK TO RESTART', W/2, H/2);
         ctx.textAlign = 'left';
       }
     }
@@ -2058,7 +2208,7 @@
       if(!running) return;
       if(!gameOver) update();
       draw();
-      scoreEl.textContent = `SKOR: ${score} · TERBAIK: ${best}`;
+      scoreEl.textContent = `SCORE: ${score} · BEST: ${best}`;
       animId = requestAnimationFrame(loop);
     }
 
@@ -2158,7 +2308,7 @@
       let result = checkWinner(board);
       if(result){ return endGame(result); }
 
-      statusEl.textContent = 'Lawan berpikir...';
+      statusEl.textContent = 'Opponent thinking...';
       render();
 
       setTimeout(()=>{
@@ -2166,16 +2316,21 @@
         if(typeof best.index === 'number') board[best.index] = AI;
         result = checkWinner(board);
         if(result){ return endGame(result); }
-        statusEl.textContent = 'Giliran Anda — jalan X';
+        statusEl.textContent = 'Your turn — play X';
         render();
       }, 350);
     }
 
     function endGame(result){
       gameOver = true;
-      if(result.winner === HUMAN){ wins++; statusEl.textContent = 'Anda menang! Mengesankan.'; }
-      else if(result.winner === AI){ losses++; statusEl.textContent = 'Lawan menang. Coba lagi?'; }
-      else { draws++; statusEl.textContent = 'Seri — satu-satunya cara menang memang tidak bermain.'; }
+      if(result.winner === HUMAN){
+        wins++;
+        statusEl.textContent = 'You won! Impressive.';
+        if(typeof TopScore !== 'undefined') TopScore.submit('topscore:ttt-wins', wins, true,
+          [document.getElementById('topWinsCard'), document.getElementById('topWinsLine')]);
+      }
+      else if(result.winner === AI){ losses++; statusEl.textContent = 'Opponent won. Try again?'; }
+      else { draws++; statusEl.textContent = 'Draw — the only winning move is not to play.'; }
       updateScoreUI();
       render(result.line);
     }
@@ -2183,14 +2338,14 @@
     function newGame(){
       board = Array(9).fill(null);
       gameOver = false;
-      statusEl.textContent = 'Giliran Anda — jalan X';
+      statusEl.textContent = 'Your turn — play X';
       render();
     }
 
     resetBtn.addEventListener('click', newGame);
     newGame();
   })();
-  /* ---------------- cocokkan negatif (memory match) ---------------- */
+  /* ---------------- match the negative (memory match) ---------------- */
   (function memoryGame(){
     const boardEl = document.getElementById('memBoard');
     const statusEl = document.getElementById('memStatus');
@@ -2281,9 +2436,11 @@
               best = moves;
               bestEl.textContent = best;
             }
-            statusEl.textContent = `Selesai dalam ${moves} giliran, ${formatTime(seconds)}. Mantap.`;
+            if(typeof TopScore !== 'undefined') TopScore.submit('topscore:mem-moves', moves, false,
+              [document.getElementById('topMovesCard'), document.getElementById('topMovesLine')]);
+            statusEl.textContent = `Finished in ${moves} moves, ${formatTime(seconds)}. Nice.`;
           } else {
-            statusEl.textContent = 'Cocok! Lanjutkan.';
+            statusEl.textContent = 'Match! Keep going.';
           }
         } else {
           setTimeout(()=>{
@@ -2291,7 +2448,7 @@
             cards[b].flipped = false;
             flipped = [];
             locked = false;
-            statusEl.textContent = 'Belum cocok, coba lagi.';
+            statusEl.textContent = 'No match, try again.';
             render();
           }, 700);
         }
@@ -2306,7 +2463,7 @@
       moves = 0;
       locked = false;
       movesEl.textContent = 0;
-      statusEl.textContent = 'Balik dua kartu untuk mencari pasangannya.';
+      statusEl.textContent = 'Flip two cards to find their match.';
       if(best !== null) bestEl.textContent = best;
       startTimer();
       render();
@@ -2315,7 +2472,7 @@
     resetBtn.addEventListener('click', newGame);
     newGame();
   })();
-  /* ---------------- uji refleks rana ---------------- */
+  /* ---------------- shutter reflex test ---------------- */
   (function reflexGame(){
     const pad = document.getElementById('rxPad');
     const mainEl = document.getElementById('rxMain');
@@ -2354,24 +2511,24 @@
       setState('idle');
       pad.className = 'rx-pad';
       mainEl.style.display = '';
-      mainEl.textContent = 'KLIK UNTUK MULAI';
+      mainEl.textContent = 'CLICK TO START';
       msEl.style.display = 'none';
-      subEl.textContent = 'Tunggu sampai warnanya hijau, lalu klik secepat mungkin';
+      subEl.textContent = 'Wait until it turns green, then click as fast as you can';
     }
 
     function armRound(){
       setState('waiting');
       pad.className = 'rx-pad waiting';
       mainEl.style.display = '';
-      mainEl.textContent = 'TUNGGU...';
+      mainEl.textContent = 'WAIT...';
       msEl.style.display = 'none';
-      subEl.textContent = 'Jangan klik dulu';
+      subEl.textContent = "Don't click yet";
       const delay = 1000 + Math.random()*2800;
       timeoutId = setTimeout(()=>{
         setState('go');
         pad.className = 'rx-pad go';
-        mainEl.textContent = 'TEMBAK!';
-        subEl.textContent = 'Klik sekarang';
+        mainEl.textContent = 'SHOOT!';
+        subEl.textContent = 'Click now';
         goTime = performance.now();
       }, delay);
     }
@@ -2385,26 +2542,349 @@
         clearTimeout(timeoutId);
         setState('early');
         pad.className = 'rx-pad early';
-        mainEl.textContent = 'TERLALU CEPAT!';
-        subEl.textContent = 'Klik lagi untuk coba sekali lagi';
+        mainEl.textContent = 'TOO EARLY!';
+        subEl.textContent = 'Click again to try once more';
         return;
       }
       if(state === 'go'){
         const ms = Math.round(performance.now() - goTime);
         results.push(ms);
-        if(best === null || ms < best) best = ms;
+        if(best === null || ms < best){
+          best = ms;
+          if(typeof TopScore !== 'undefined') TopScore.submit('topscore:rx-ms', ms, false,
+            [document.getElementById('topRxCard'), document.getElementById('topRxLine')], v => v + ' ms');
+        }
         updateStats();
         setState('result');
         pad.className = 'rx-pad go';
         mainEl.style.display = 'none';
         msEl.style.display = '';
         msEl.textContent = ms + ' ms';
-        subEl.textContent = 'Klik untuk coba lagi';
+        subEl.textContent = 'Click to try again';
       }
     }
 
     pad.addEventListener('click', handleClick);
     toIdle();
+  })();
+  /* ---------------- shared top-score storage ---------------- */
+  const TopScore = (function(){
+    const cache = {};
+    async function get(key){
+      try{
+        if(!window.storage) return null;
+        const res = await window.storage.get(key, true);
+        return res ? JSON.parse(res.value) : null;
+      }catch(e){ return null; }
+    }
+    async function set(key, value){
+      try{
+        if(!window.storage) return false;
+        await window.storage.set(key, JSON.stringify(value), true);
+        return true;
+      }catch(e){ return false; }
+    }
+    // higherIsBetter: true for scores like wins/points, false for scores like moves/ms
+    async function submit(key, value, higherIsBetter, displayEls, formatter){
+      const current = await get(key);
+      let best = current;
+      if(current === null || (higherIsBetter ? value > current : value < current)){
+        best = value;
+        await set(key, value);
+      }
+      cache[key] = best;
+      const text = formatter ? formatter(best) : String(best);
+      (displayEls || []).forEach(el => { if(el) el.textContent = text; });
+      return best;
+    }
+    async function refresh(key, displayEls, formatter){
+      const val = await get(key);
+      cache[key] = val;
+      const text = val === null ? '—' : (formatter ? formatter(val) : String(val));
+      (displayEls || []).forEach(el => { if(el) el.textContent = text; });
+      return val;
+    }
+    return { get, set, submit, refresh };
+  })();
+
+  // load initial top scores into arcade cards + modal headers
+  TopScore.refresh('topscore:ttt-wins', [document.getElementById('topWinsCard'), document.getElementById('topWinsLine')]);
+  TopScore.refresh('topscore:mem-moves', [document.getElementById('topMovesCard'), document.getElementById('topMovesLine')]);
+  TopScore.refresh('topscore:rx-ms', [document.getElementById('topRxCard'), document.getElementById('topRxLine')], v => v + ' ms');
+  TopScore.refresh('topscore:tetris-score', [document.getElementById('topTetrisCard'), document.getElementById('topTetrisLine')]);
+
+  /* ---------------- arcade modal open/close ---------------- */
+  (function arcadeModals(){
+    document.querySelectorAll('.arcade-card').forEach(card=>{
+      card.addEventListener('click', ()=>{
+        const game = card.getAttribute('data-game');
+        const map = { ttt:'tttModal', mem:'memModal', rx:'rxModal', tetris:'tetrisModal' };
+        const id = map[game];
+        if(id) openModal(id);
+      });
+    });
+    document.querySelectorAll('[data-close-modal]').forEach(btn=>{
+      btn.addEventListener('click', ()=> closeModal(btn.getAttribute('data-close-modal')));
+    });
+    document.querySelectorAll('.game-modal').forEach(modal=>{
+      modal.addEventListener('click', (e)=>{ if(e.target === modal) closeModal(modal.id); });
+    });
+  })();
+
+  function openModal(id){
+    const modal = document.getElementById(id);
+    if(!modal) return;
+    modal.classList.add('on');
+    if(id === 'tetrisModal') startTetrisIfNeeded();
+  }
+  function closeModal(id){
+    const modal = document.getElementById(id);
+    if(modal) modal.classList.remove('on');
+    if(id === 'tetrisModal') pauseTetris();
+  }
+
+  /* ---------------- live Spotify (with demo fallback) ---------------- */
+  (function liveSpotify(){
+    const SPOTIFY_UID = 'YOUR_SPOTIFY_UID'; // set your spotify-github-profile UID here
+    const liveWrap = document.getElementById('npLive');
+    const liveImg = document.getElementById('npLiveImg');
+    const demoWrap = document.getElementById('npDemo');
+    if(!liveImg) return;
+    if(SPOTIFY_UID === 'YOUR_SPOTIFY_UID'){ return; } // keep demo until configured
+    liveImg.onload = ()=>{ liveWrap.style.display = 'flex'; demoWrap.style.display = 'none'; };
+    liveImg.onerror = ()=>{ liveWrap.style.display = 'none'; demoWrap.style.display = 'flex'; };
+    liveImg.src = `https://spotify-github-profile.vercel.app/api/view.svg?uid=${SPOTIFY_UID}&cover_image=true&theme=natemoo-re&show_offline=true&background_color=121212&interchange=true&bar_color=53b14f&bar_color_cover=true`;
+  })();
+
+  /* ---------------- visitor counter (shared) ---------------- */
+  (async function visitorCounter(){
+    const el = document.getElementById('visitorCount');
+    if(!el || !window.storage) { if(el) el.textContent = '—'; return; }
+    try{
+      let current = 0;
+      try{
+        const res = await window.storage.get('visitor-count', true);
+        current = res ? parseInt(res.value, 10) || 0 : 0;
+      }catch(e){ current = 0; }
+      const next = current + 1;
+      await window.storage.set('visitor-count', String(next), true);
+      el.textContent = String(next).padStart(6, '0');
+    }catch(e){
+      el.textContent = '—';
+    }
+  })();
+
+  /* ---------------- tetris ---------------- */
+  let startTetrisIfNeeded = function(){};
+  let pauseTetris = function(){};
+  (function tetris(){
+    const canvas = document.getElementById('tetrisCanvas');
+    const nextCanvas = document.getElementById('tetrisNext');
+    const scoreEl = document.getElementById('tetrisScore');
+    const linesEl = document.getElementById('tetrisLines');
+    const levelEl = document.getElementById('tetrisLevel');
+    const overlayMsg = document.getElementById('tetrisOverlayMsg');
+    const restartBtn = document.getElementById('tetrisRestart');
+    if(!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    const nctx = nextCanvas.getContext('2d');
+    const COLS = 10, ROWS = 20, CELL = 20;
+
+    const COLORS = { I:'#53b1e0', O:'#f0b429', T:'#a15fc9', S:'#5c9e5c', Z:'#c81d2f', J:'#4a6fd6', L:'#e08a3c' };
+    const SHAPES = {
+      I: [[1,1,1,1]],
+      O: [[1,1],[1,1]],
+      T: [[0,1,0],[1,1,1]],
+      S: [[0,1,1],[1,1,0]],
+      Z: [[1,1,0],[0,1,1]],
+      J: [[1,0,0],[1,1,1]],
+      L: [[0,0,1],[1,1,1]]
+    };
+    const KEYS = Object.keys(SHAPES);
+
+    let grid, current, next, score, lines, level, dropTimer, gameOver, paused, running, initialized;
+
+    function emptyGrid(){
+      return Array.from({length:ROWS}, ()=> Array(COLS).fill(null));
+    }
+
+    function randomPiece(){
+      const key = KEYS[Math.floor(Math.random()*KEYS.length)];
+      const shape = SHAPES[key].map(r=>r.slice());
+      return { key, shape, x: Math.floor(COLS/2) - Math.ceil(shape[0].length/2), y: 0 };
+    }
+
+    function rotate(shape){
+      const rows = shape.length, cols = shape[0].length;
+      const out = Array.from({length:cols}, ()=>Array(rows).fill(0));
+      for(let r=0;r<rows;r++) for(let c=0;c<cols;c++) out[c][rows-1-r] = shape[r][c];
+      return out;
+    }
+
+    function collides(shape, x, y){
+      for(let r=0;r<shape.length;r++){
+        for(let c=0;c<shape[r].length;c++){
+          if(!shape[r][c]) continue;
+          const gx = x+c, gy = y+r;
+          if(gx < 0 || gx >= COLS || gy >= ROWS) return true;
+          if(gy >= 0 && grid[gy][gx]) return true;
+        }
+      }
+      return false;
+    }
+
+    function merge(){
+      current.shape.forEach((row,r)=>row.forEach((v,c)=>{
+        if(v){
+          const gy = current.y+r, gx = current.x+c;
+          if(gy >= 0) grid[gy][gx] = current.key;
+        }
+      }));
+    }
+
+    function clearLines(){
+      let cleared = 0;
+      for(let r=ROWS-1;r>=0;r--){
+        if(grid[r].every(cell=>cell)){
+          grid.splice(r,1);
+          grid.unshift(Array(COLS).fill(null));
+          cleared++;
+          r++;
+        }
+      }
+      if(cleared){
+        const points = [0,100,300,500,800][cleared] || 1000;
+        score += points * level;
+        lines += cleared;
+        level = 1 + Math.floor(lines/10);
+      }
+    }
+
+    function spawn(){
+      current = next || randomPiece();
+      next = randomPiece();
+      if(collides(current.shape, current.x, current.y)){
+        endTetris();
+      }
+    }
+
+    function endTetris(){
+      gameOver = true;
+      running = false;
+      clearInterval(dropTimer);
+      overlayMsg.style.display = 'flex';
+      TopScore.submit('topscore:tetris-score', score, true,
+        [document.getElementById('topTetrisCard'), document.getElementById('topTetrisLine')]);
+    }
+
+    function drop(){
+      if(!collides(current.shape, current.x, current.y+1)){
+        current.y++;
+      } else {
+        merge();
+        clearLines();
+        spawn();
+        draw();
+      }
+    }
+
+    function hardDrop(){
+      while(!collides(current.shape, current.x, current.y+1)) current.y++;
+      drop();
+    }
+
+    function move(dx){
+      if(!collides(current.shape, current.x+dx, current.y)) current.x += dx;
+    }
+
+    function doRotate(){
+      const rotated = rotate(current.shape);
+      if(!collides(rotated, current.x, current.y)) current.shape = rotated;
+    }
+
+    function drawCell(c, x, y, size, color){
+      c.fillStyle = color;
+      c.fillRect(x, y, size-1, size-1);
+    }
+
+    function draw(){
+      ctx.fillStyle = '#0d1b18';
+      ctx.fillRect(0,0,canvas.width,canvas.height);
+      for(let r=0;r<ROWS;r++){
+        for(let c=0;c<COLS;c++){
+          if(grid[r][c]) drawCell(ctx, c*CELL, r*CELL, CELL, COLORS[grid[r][c]]);
+        }
+      }
+      current.shape.forEach((row,r)=>row.forEach((v,c)=>{
+        if(v) drawCell(ctx, (current.x+c)*CELL, (current.y+r)*CELL, CELL, COLORS[current.key]);
+      }));
+
+      nctx.fillStyle = '#0d1b18';
+      nctx.fillRect(0,0,nextCanvas.width,nextCanvas.height);
+      if(next){
+        const size = 16;
+        const offX = (nextCanvas.width - next.shape[0].length*size)/2;
+        const offY = (nextCanvas.height - next.shape.length*size)/2;
+        next.shape.forEach((row,r)=>row.forEach((v,c)=>{
+          if(v) drawCell(nctx, offX+c*size, offY+r*size, size, COLORS[next.key]);
+        }));
+      }
+
+      scoreEl.textContent = score;
+      linesEl.textContent = lines;
+      levelEl.textContent = level;
+    }
+
+    function tick(){
+      if(paused || gameOver) return;
+      drop();
+      draw();
+    }
+
+    function scheduleDrop(){
+      clearInterval(dropTimer);
+      const speed = Math.max(120, 700 - (level-1)*60);
+      dropTimer = setInterval(tick, speed);
+    }
+
+    function resetTetris(){
+      grid = emptyGrid();
+      score = 0; lines = 0; level = 1;
+      gameOver = false; paused = false;
+      next = randomPiece();
+      spawn();
+      overlayMsg.style.display = 'none';
+      draw();
+      scheduleDrop();
+    }
+
+    startTetrisIfNeeded = function(){
+      running = true;
+      if(!initialized){ initialized = true; resetTetris(); }
+      else if(gameOver){ /* wait for explicit restart */ }
+      else { scheduleDrop(); }
+    };
+    pauseTetris = function(){
+      running = false;
+      clearInterval(dropTimer);
+    };
+
+    restartBtn.addEventListener('click', resetTetris);
+
+    canvas.addEventListener('click', ()=> canvas.focus());
+    window.addEventListener('keydown', (e)=>{
+      const modal = document.getElementById('tetrisModal');
+      if(!modal || !modal.classList.contains('on') || gameOver) return;
+      if(['ArrowLeft','ArrowRight','ArrowDown','ArrowUp',' '].includes(e.key)) e.preventDefault();
+      if(e.key === 'ArrowLeft') move(-1);
+      else if(e.key === 'ArrowRight') move(1);
+      else if(e.key === 'ArrowDown') drop();
+      else if(e.key === 'ArrowUp') doRotate();
+      else if(e.key === ' ') hardDrop();
+      else if(e.key.toLowerCase() === 'p'){ paused = !paused; }
+      draw();
+    });
   })();
 </script>
 
