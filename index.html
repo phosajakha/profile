@@ -201,9 +201,74 @@
   .about{display:grid;grid-template-columns:0.9fr 1.4fr;gap:60px;align-items:start;}
   .about-frame{
     aspect-ratio:4/5;
-    background:#000;
+    background:var(--paper);
     position:relative;
     border:1px solid var(--ink);
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
+  }
+
+  .af-top{
+    position:relative;
+    padding:16px 18px 10px;
+    flex-shrink:0;
+  }
+  .af-tagline{
+    font-family:var(--mono);font-size:10px;letter-spacing:0.06em;color:var(--grey-frame);
+    text-transform:uppercase;
+  }
+  .af-badge{
+    position:absolute;top:14px;right:16px;
+    border:1px solid var(--ink);
+    padding:5px 9px;
+    font-family:var(--mono);font-size:10px;letter-spacing:0.04em;text-transform:uppercase;
+    line-height:1.2;color:var(--ink);
+    background:var(--paper);
+  }
+  .af-index{
+    position:absolute;top:48px;right:16px;
+    font-family:var(--mono);font-size:9px;color:var(--grey-frame);letter-spacing:0.05em;
+  }
+  .af-title{
+    font-family:var(--display);
+    font-size:clamp(30px,5vw,40px);
+    line-height:0.92;
+    text-transform:uppercase;
+    color:var(--ink);
+    margin-top:22px;
+    display:flex;align-items:baseline;gap:6px;
+  }
+  .af-title .drop{
+    width:7px;height:7px;border-radius:50% 50% 50% 0;
+    background:var(--safelight);
+    display:inline-block;
+    transform:rotate(45deg);
+    margin-left:2px;
+  }
+  .af-sub{
+    font-family:var(--body);font-style:italic;font-size:12px;color:var(--grey-frame);
+    margin-top:4px;letter-spacing:0.02em;
+  }
+
+  .af-vertical{
+    position:absolute;
+    top:52px;right:14px;bottom:16px;
+    writing-mode:vertical-rl;
+    text-orientation:mixed;
+    font-family:var(--mono);font-size:10px;letter-spacing:0.12em;
+    color:var(--paper);text-transform:uppercase;
+    display:flex;align-items:flex-end;justify-content:flex-end;
+    pointer-events:none;
+    z-index:5;
+    mix-blend-mode:difference;
+  }
+
+  .af-photo{
+    position:relative;
+    flex:1;
+    background:#000;
+    min-height:0;
   }
   .about-frame img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.05);display:block;}
   .about-frame .corner{
@@ -212,6 +277,72 @@
   }
   .about-frame .corner.tl{top:0;left:0;}
   .about-frame .corner.br{bottom:0;right:0;background:var(--safelight);}
+
+  @media (max-width:480px){
+    .af-title{font-size:26px;}
+    .af-vertical{display:none;}
+  }
+
+  /* ---------- poster wall (horizontal carousel) ---------- */
+  .poster-intro{font-family:var(--body);font-size:14.5px;color:#3a3a35;max-width:60ch;margin-bottom:24px;}
+  .poster-nav{display:flex;gap:8px;margin-bottom:22px;}
+  .poster-nav button{
+    width:38px;height:38px;
+    border:1px solid var(--ink);background:none;color:var(--ink);
+    cursor:pointer;font-family:var(--mono);font-size:14px;
+    display:flex;align-items:center;justify-content:center;
+    transition:background .2s ease,color .2s ease;
+  }
+  .poster-nav button:hover{background:var(--ink);color:var(--paper);}
+
+  .poster-track{
+    display:flex;gap:18px;
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    padding-bottom:10px;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:thin;
+  }
+  .poster-track::-webkit-scrollbar{height:6px;}
+  .poster-track::-webkit-scrollbar-thumb{background:var(--line);}
+
+  .poster-card{
+    flex:0 0 auto;
+    width:280px;
+    aspect-ratio:4/5.6;
+    scroll-snap-align:start;
+    background:var(--paper);
+    border:1px solid var(--ink);
+    position:relative;
+    display:flex;flex-direction:column;
+    overflow:hidden;
+  }
+  .poster-card .af-top{padding:14px 16px 8px;}
+  .poster-card .af-title{font-size:26px;margin-top:16px;}
+  .poster-card .af-badge{font-size:9px;padding:4px 7px;}
+  .poster-card .af-index{font-size:8px;top:42px;}
+  .poster-card .af-vertical{top:44px;font-size:9px;}
+
+  .poster-media{
+    position:relative;flex:1;min-height:0;background:#000;
+  }
+  .poster-media img, .poster-media video{
+    width:100%;height:100%;object-fit:cover;display:block;
+    filter:grayscale(1) contrast(1.05) brightness(0.9);
+    transition:filter .5s ease;
+  }
+  .poster-card:hover .poster-media img,
+  .poster-card:hover .poster-media video{filter:grayscale(0) brightness(1);}
+
+  .poster-kind{
+    position:absolute;bottom:8px;left:8px;
+    font-family:var(--mono);font-size:9px;letter-spacing:0.05em;text-transform:uppercase;
+    background:rgba(0,0,0,0.6);color:var(--paper);padding:3px 7px;
+  }
+
+  @media (max-width:480px){
+    .poster-card{width:76vw;}
+  }
 
   .about-text p{font-size:16.5px;line-height:1.75;color:#3a3a35;margin-bottom:20px;max-width:60ch;}
   .about-text strong{color:var(--ink);}
@@ -934,7 +1065,7 @@
 
   /* ---------------- arcade hub ---------------- */
   .arcade-intro{font-family:var(--body);font-size:14.5px;color:#3a3a35;max-width:60ch;margin-bottom:28px;}
-  .arcade-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
+  .arcade-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);}
   .arcade-card{
     background:var(--paper);border:none;
     padding:28px 22px;text-align:left;cursor:pointer;
@@ -949,7 +1080,6 @@
   .arcade-card .ac-score{font-family:var(--mono);font-size:11px;color:var(--ink);text-transform:uppercase;letter-spacing:0.04em;border-top:1px dashed var(--line);padding-top:10px;margin-top:auto;}
   .arcade-card .ac-score b{color:var(--safelight);}
 
-  @media (max-width:760px){.arcade-grid{grid-template-columns:1fr 1fr;}}
   @media (max-width:480px){.arcade-grid{grid-template-columns:1fr;}}
 
   /* generic game modal */
@@ -1001,6 +1131,41 @@
     font-family:var(--mono);font-size:12px;text-align:center;
   }
   .tetris-canvas-wrap{position:relative;}
+
+  /* ---------------- double exposure (co-op sync game) ---------------- */
+  .sync-wrap{display:flex;flex-direction:column;gap:20px;}
+  .sync-pad{
+    width:100%;aspect-ratio:16/7;
+    background:#2a2622;
+    border:1px solid var(--ink);
+    display:flex;align-items:center;justify-content:center;
+    flex-direction:column;gap:6px;
+    cursor:pointer;user-select:none;text-align:center;padding:20px;
+    transition:background .15s ease;
+  }
+  .sync-pad.waiting{background:#5c1015;}
+  .sync-pad.go{background:#3f6b3a;}
+  .sync-pad.early{background:#7a1620;}
+  .sync-pad.result{background:#2a2622;}
+  .sync-pad .sync-main{
+    font-family:var(--display);font-size:24px;text-transform:uppercase;
+    color:var(--footer-fg);letter-spacing:0.5px;
+  }
+  .sync-pad .sync-sub{
+    font-family:var(--mono);font-size:10.5px;color:rgba(233,228,214,0.75);letter-spacing:0.04em;
+  }
+  .sync-pad .sync-gap{
+    font-family:var(--display);font-size:40px;color:var(--kodak);letter-spacing:0.5px;
+  }
+  .sync-players{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .sync-player{
+    border:1px solid var(--line);padding:14px 16px;
+    font-family:var(--mono);font-size:11px;color:var(--grey-frame);text-transform:uppercase;letter-spacing:0.04em;
+  }
+  .sync-player b{display:block;font-family:var(--display);font-size:22px;color:var(--ink);letter-spacing:0;margin-top:4px;}
+  .sync-player.ready b{color:var(--safelight);}
+  .sync-player kbd{background:var(--ink);color:var(--paper);padding:2px 7px;border-radius:3px;font-size:11px;}
+  .sync-note{font-family:var(--body);font-size:12.5px;line-height:1.6;color:var(--grey-frame);}
 
 
 </style>
@@ -1066,6 +1231,7 @@
     <div class="navlinks">
       <a href="#about">About</a>
       <a href="#work">Work</a>
+      <a href="#posters">Posters</a>
       <a href="#skills">Skills</a>
       <a href="#setup">Setup</a>
       <a href="#links">Links</a>
@@ -1107,9 +1273,19 @@
     <div class="section-label"><span class="num">01</span><h2>About</h2></div>
     <div class="about">
       <div class="about-frame">
-        <img id="aboutPhoto" src="me.JPG" data-light="me.JPG" data-dark="me-dark.JPG" alt="Portrait of Jakha Phosa working in the studio">
-        <span class="corner tl">NEG. 04A</span>
-        <span class="corner br">JP</span>
+        <div class="af-vertical">Jakha Phosa</div>
+        <div class="af-top">
+          <span class="af-tagline">(2016) •</span>
+          <span class="af-badge">jakha.</span>
+          <span class="af-index">001 / archive</span>
+          <h3 class="af-title">Grain<span class="drop"></span></h3>
+          <div class="af-sub">[practice]</div>
+        </div>
+        <div class="af-photo">
+          <img id="aboutPhoto" src="me.JPG" data-light="me.JPG" data-dark="me-dark.JPG" alt="Portrait of Jakha Phosa working in the studio">
+          <span class="corner tl">NEG. 04A</span>
+          <span class="corner br">JP</span>
+        </div>
       </div>
       <div class="about-text">
         <p>I started as a graphic designer, then fell in love with the camera while photographing my own design work for documentation. Now the two go hand in hand: <strong>design gives structure, photography gives soul</strong>.</p>
@@ -1183,8 +1359,99 @@
     </div>
   </section>
 
+  <section class="section wrap reveal" id="posters">
+    <div class="section-label"><span class="num">03</span><h2>Poster Wall</h2></div>
+    <p class="poster-intro">A row of poster experiments — some are stills, some are short looping clips. Scroll or use the arrows to move through them.</p>
+    <div class="poster-nav">
+      <button id="posterPrev" aria-label="Scroll left">←</button>
+      <button id="posterNext" aria-label="Scroll right">→</button>
+    </div>
+    <div class="poster-track" id="posterTrack">
+
+      <div class="poster-card">
+        <div class="af-vertical">Jakha Phosa</div>
+        <div class="af-top">
+          <span class="af-tagline">(2021) •</span>
+          <span class="af-badge">jakha.</span>
+          <span class="af-index">001 / 005</span>
+          <h3 class="af-title">Silhouette<span class="drop"></span></h3>
+          <div class="af-sub">[portrait series]</div>
+        </div>
+        <div class="poster-media">
+          <img src="https://picsum.photos/seed/poster1/500/700" alt="Silhouette portrait series poster">
+          <span class="poster-kind">Image</span>
+        </div>
+      </div>
+
+      <div class="poster-card">
+        <div class="af-vertical">Jakha Phosa</div>
+        <div class="af-top">
+          <span class="af-tagline">(2023) •</span>
+          <span class="af-badge">jakha.</span>
+          <span class="af-index">002 / 005</span>
+          <h3 class="af-title">Motion<span class="drop"></span></h3>
+          <div class="af-sub">[showreel]</div>
+        </div>
+        <div class="poster-media">
+          <video autoplay muted loop playsinline poster="https://picsum.photos/seed/posterv1/500/700">
+            <source src="video/showreel.mp4" type="video/mp4">
+          </video>
+          <span class="poster-kind">Video</span>
+        </div>
+      </div>
+
+      <div class="poster-card">
+        <div class="af-vertical">Jakha Phosa</div>
+        <div class="af-top">
+          <span class="af-tagline">(2022) •</span>
+          <span class="af-badge">jakha.</span>
+          <span class="af-index">003 / 005</span>
+          <h3 class="af-title">Structure<span class="drop"></span></h3>
+          <div class="af-sub">[editorial]</div>
+        </div>
+        <div class="poster-media">
+          <img src="https://picsum.photos/seed/poster3/500/700" alt="Structure editorial poster">
+          <span class="poster-kind">Image</span>
+        </div>
+      </div>
+
+      <div class="poster-card">
+        <div class="af-vertical">Jakha Phosa</div>
+        <div class="af-top">
+          <span class="af-tagline">(2024) •</span>
+          <span class="af-badge">jakha.</span>
+          <span class="af-index">004 / 005</span>
+          <h3 class="af-title">Process<span class="drop"></span></h3>
+          <div class="af-sub">[behind the scenes]</div>
+        </div>
+        <div class="poster-media">
+          <video autoplay muted loop playsinline poster="https://picsum.photos/seed/posterv2/500/700">
+            <source src="video/process.mp4" type="video/mp4">
+          </video>
+          <span class="poster-kind">Video</span>
+        </div>
+      </div>
+
+      <div class="poster-card">
+        <div class="af-vertical">Jakha Phosa</div>
+        <div class="af-top">
+          <span class="af-tagline">(2020) •</span>
+          <span class="af-badge">jakha.</span>
+          <span class="af-index">005 / 005</span>
+          <h3 class="af-title">Analog<span class="drop"></span></h3>
+          <div class="af-sub">[35mm film]</div>
+        </div>
+        <div class="poster-media">
+          <img src="https://picsum.photos/seed/poster5/500/700" alt="Analog film poster">
+          <span class="poster-kind">Image</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
   <section class="section wrap reveal" id="skills">
-    <div class="section-label"><span class="num">03</span><h2>Skills</h2></div>
+    <div class="section-label"><span class="num">04</span><h2>Skills</h2></div>
     <div class="services">
       <div class="service">
         <div class="sindex">A — VISUAL</div>
@@ -1212,7 +1479,7 @@
   </section>
 
   <section class="section wrap reveal" id="setup">
-    <div class="section-label"><span class="num">04</span><h2>Setup &amp; Specs</h2></div>
+    <div class="section-label"><span class="num">05</span><h2>Setup &amp; Specs</h2></div>
     <div class="spec-sheet">
       <div class="spec-block">
         <div class="sindex">A — WORKSTATION</div>
@@ -1249,7 +1516,7 @@
   </section>
 
   <section class="section wrap reveal" id="links">
-    <div class="section-label"><span class="num">05</span><h2>Games &amp; Links</h2></div>
+    <div class="section-label"><span class="num">06</span><h2>Games &amp; Links</h2></div>
     <div class="link-sheet">
       <div class="link-block">
         <div class="sindex">A — PLAY</div>
@@ -1297,7 +1564,7 @@
 
         <a class="link-row" href="https://steamcommunity.com/id/jphosa/" target="_blank" rel="noopener">
           <div class="link-main">
-            <span class="link-name">Steam Profile <span data-miniprofile="76561199175575686" id="steamMini" style="border-bottom:1px dashed var(--grey-frame);cursor:help;">(hover for live status)</span></span>
+            <span class="link-name">Steam Profile <span data-miniprofile="76500000000000000" id="steamMini" style="border-bottom:1px dashed var(--grey-frame);cursor:help;">(hover for live status)</span></span>
             <span class="link-sub">All Games</span>
           </div>
           <span class="link-cta">Visit Steam <span class="arrow">↗</span></span>
@@ -1360,7 +1627,7 @@
   </section>
 
   <section class="section wrap reveal" id="music">
-    <div class="section-label"><span class="num">06</span><h2>Music &amp; Watching</h2></div>
+    <div class="section-label"><span class="num">07</span><h2>Music &amp; Watching</h2></div>
     <div class="media-sheet">
       <div class="media-block">
         <div class="sindex">A — LISTEN</div>
@@ -1444,7 +1711,7 @@
   </section>
 
   <section class="section wrap reveal" id="calendar">
-    <div class="section-label"><span class="num">07</span><h2>Shooting Calendar</h2></div>
+    <div class="section-label"><span class="num">08</span><h2>Shooting Calendar</h2></div>
     <p style="font-family:var(--body);font-size:14.5px;color:#3a3a35;max-width:60ch;margin-bottom:24px;">A recap of when a roll of film or design file was last worked on — the darker the color, the busier the day.</p>
     <div class="heatmap-wrap">
       <div class="heatmap" id="heatmap"></div>
@@ -1455,7 +1722,7 @@
   </section>
 
   <section class="section wrap reveal" id="timer">
-    <div class="section-label"><span class="num">08</span><h2>Darkroom Timer</h2></div>
+    <div class="section-label"><span class="num">09</span><h2>Darkroom Timer</h2></div>
     <div class="timer-wrap">
       <div class="timer-dial" id="timerDial">
         <span class="safelight-dot" id="safelightDot"></span>
@@ -1477,7 +1744,7 @@
   </section>
 
   <section class="section wrap reveal" id="terminal">
-    <div class="section-label"><span class="num">09</span><h2>Terminal</h2></div>
+    <div class="section-label"><span class="num">10</span><h2>Terminal</h2></div>
     <p style="font-family:var(--body);font-size:14.5px;color:#3a3a35;max-width:60ch;margin-bottom:24px;">Type <code style="font-family:var(--mono);">help</code> to see the list of commands.</p>
     <div class="terminal-wrap">
       <div class="terminal-bar">
@@ -1495,7 +1762,7 @@
   </section>
 
   <section class="section wrap reveal" id="arcade">
-    <div class="section-label"><span class="num">10</span><h2>Arcade — Pick a Mode</h2></div>
+    <div class="section-label"><span class="num">11</span><h2>Arcade — Pick a Mode</h2></div>
     <p class="arcade-intro">Four small games hiding in this portfolio. Pick a mode below and it opens right here — high scores are shared across everyone who visits this page.</p>
     <div class="arcade-grid">
       <button class="arcade-card" data-game="ttt">
@@ -1521,6 +1788,18 @@
         <div class="ac-title">Tetris</div>
         <div class="ac-sub">The classic. Arrow keys to move/rotate, space to drop.</div>
         <div class="ac-score">HIGH SCORE <b id="topTetrisCard">—</b></div>
+      </button>
+      <button class="arcade-card" data-game="sync">
+        <div class="ac-num">MODE 05 · CO-OP</div>
+        <div class="ac-title">Double Exposure</div>
+        <div class="ac-sub">Two players, one keyboard. Fire both shutters at the exact same moment.</div>
+        <div class="ac-score">BEST SYNC <b id="topSyncCard">—</b></div>
+      </button>
+      <button class="arcade-card" data-game="snake">
+        <div class="ac-num">MODE 06</div>
+        <div class="ac-title">Film Roll</div>
+        <div class="ac-sub">Snake, but the trail is a strip of film. Eat frames, don't hit yourself.</div>
+        <div class="ac-score">HIGH SCORE <b id="topSnakeCard">—</b></div>
       </button>
     </div>
   </section>
@@ -1615,8 +1894,56 @@
     </div>
   </div>
 
+  <div class="game-modal" id="syncModal">
+    <div class="game-modal-panel">
+      <button class="game-modal-close" data-close-modal="syncModal">Close</button>
+      <h2>Double Exposure <span style="font-family:var(--mono);font-size:11px;color:var(--safelight);text-transform:none;">CO-OP</span></h2>
+      <div class="top-score-line">BEST SYNC (ALL VISITORS): <b id="topSyncLine">—</b></div>
+      <div class="sync-wrap">
+        <div class="sync-pad" id="syncPad">
+          <div class="sync-main" id="syncMain">CLICK TO ARM BOTH SHUTTERS</div>
+          <div class="sync-gap" id="syncGap" style="display:none;"></div>
+          <div class="sync-sub" id="syncSub">One camera, two shutters, one exact instant</div>
+        </div>
+        <div class="sync-players">
+          <div class="sync-player" id="syncP1Card">
+            PLAYER 1 — PRESS <kbd>A</kbd>
+            <b id="syncP1Time">—</b>
+          </div>
+          <div class="sync-player" id="syncP2Card">
+            PLAYER 2 — PRESS <kbd>L</kbd>
+            <b id="syncP2Time">—</b>
+          </div>
+        </div>
+        <p class="sync-note">Sit two people at one keyboard. When it turns green, both press your key at the exact same moment — the gap between your two presses (in milliseconds) is your sync score. Pressing before green resets the round. Lower gap wins.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="game-modal" id="snakeModal">
+    <div class="game-modal-panel">
+      <button class="game-modal-close" data-close-modal="snakeModal">Close</button>
+      <h2>Film Roll</h2>
+      <div class="top-score-line">TOP SCORE (ALL VISITORS): <b id="topSnakeLine">—</b></div>
+      <div class="tetris-wrap">
+        <div class="tetris-canvas-wrap">
+          <canvas id="snakeCanvas" width="320" height="320"></canvas>
+          <div class="tetris-overlay-msg" id="snakeOverlayMsg">
+            <div>GAME OVER</div>
+            <button class="timer-btn primary" id="snakeRestart">Play Again</button>
+          </div>
+        </div>
+        <div class="tetris-side">
+          <div class="tetris-stat">SCORE<b id="snakeScore">0</b></div>
+          <div class="tetris-stat">SPEED<b id="snakeSpeed">1</b></div>
+          <p class="tetris-controls-note">Arrow keys or WASD to steer, P to pause. Click the board first so it captures keys. Don't run into the strip or yourself.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <section class="section wrap reveal">
-    <div class="section-label"><span class="num">11</span><h2>Tools</h2></div>
+    <div class="section-label"><span class="num">12</span><h2>Tools</h2></div>
     <p class="quote">The tools I use every day — <span>some analog, some digital</span>, all part of how I work.</p>
   </section>
 
@@ -1637,7 +1964,7 @@
 
 <footer class="contact" id="archive">
   <div class="wrap">
-    <div class="section-label"><span class="num">12</span><h2>Archive Notes</h2></div>
+    <div class="section-label"><span class="num">13</span><h2>Archive Notes</h2></div>
     <div class="contact-grid">
       <div>
         <h3>THIS COLLECTION IS<br>BUILT AND MAINTAINED<br>PERSONALLY IN JAKARTA.</h3>
@@ -2612,13 +2939,15 @@
   TopScore.refresh('topscore:mem-moves', [document.getElementById('topMovesCard'), document.getElementById('topMovesLine')]);
   TopScore.refresh('topscore:rx-ms', [document.getElementById('topRxCard'), document.getElementById('topRxLine')], v => v + ' ms');
   TopScore.refresh('topscore:tetris-score', [document.getElementById('topTetrisCard'), document.getElementById('topTetrisLine')]);
+  TopScore.refresh('topscore:sync-gap', [document.getElementById('topSyncCard'), document.getElementById('topSyncLine')], v => v + ' ms');
+  TopScore.refresh('topscore:snake-score', [document.getElementById('topSnakeCard'), document.getElementById('topSnakeLine')]);
 
   /* ---------------- arcade modal open/close ---------------- */
   (function arcadeModals(){
     document.querySelectorAll('.arcade-card').forEach(card=>{
       card.addEventListener('click', ()=>{
         const game = card.getAttribute('data-game');
-        const map = { ttt:'tttModal', mem:'memModal', rx:'rxModal', tetris:'tetrisModal' };
+        const map = { ttt:'tttModal', mem:'memModal', rx:'rxModal', tetris:'tetrisModal', sync:'syncModal', snake:'snakeModal' };
         const id = map[game];
         if(id) openModal(id);
       });
@@ -2636,11 +2965,13 @@
     if(!modal) return;
     modal.classList.add('on');
     if(id === 'tetrisModal') startTetrisIfNeeded();
+    if(id === 'snakeModal') startSnakeIfNeeded();
   }
   function closeModal(id){
     const modal = document.getElementById(id);
     if(modal) modal.classList.remove('on');
     if(id === 'tetrisModal') pauseTetris();
+    if(id === 'snakeModal') pauseSnake();
   }
 
   /* ---------------- live Spotify (with demo fallback) ---------------- */
@@ -2885,6 +3216,261 @@
       else if(e.key.toLowerCase() === 'p'){ paused = !paused; }
       draw();
     });
+  })();
+
+  /* ---------------- poster wall carousel ---------------- */
+  (function posterCarousel(){
+    const track = document.getElementById('posterTrack');
+    const prevBtn = document.getElementById('posterPrev');
+    const nextBtn = document.getElementById('posterNext');
+    if(!track) return;
+    function step(){
+      const card = track.querySelector('.poster-card');
+      return card ? card.getBoundingClientRect().width + 18 : 300;
+    }
+    prevBtn.addEventListener('click', ()=> track.scrollBy({ left: -step(), behavior:'smooth' }));
+    nextBtn.addEventListener('click', ()=> track.scrollBy({ left: step(), behavior:'smooth' }));
+  })();
+
+  /* ---------------- snake (Film Roll) ---------------- */
+  let startSnakeIfNeeded = function(){};
+  let pauseSnake = function(){};
+  (function snakeGame(){
+    const canvas = document.getElementById('snakeCanvas');
+    const scoreEl = document.getElementById('snakeScore');
+    const speedEl = document.getElementById('snakeSpeed');
+    const overlayMsg = document.getElementById('snakeOverlayMsg');
+    const restartBtn = document.getElementById('snakeRestart');
+    if(!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    const CELL = 16, COLS = canvas.width/CELL, ROWS = canvas.height/CELL;
+
+    let snake, dir, nextDir, food, score, speedLevel, tickTimer, gameOver, paused, running, initialized;
+
+    function randomFood(){
+      let pos;
+      do{
+        pos = { x: Math.floor(Math.random()*COLS), y: Math.floor(Math.random()*ROWS) };
+      } while(snake.some(s => s.x === pos.x && s.y === pos.y));
+      return pos;
+    }
+
+    function resetSnake(){
+      snake = [{x:5,y:10},{x:4,y:10},{x:3,y:10}];
+      dir = {x:1,y:0};
+      nextDir = {x:1,y:0};
+      food = randomFood();
+      score = 0;
+      speedLevel = 1;
+      gameOver = false;
+      paused = false;
+      overlayMsg.style.display = 'none';
+      draw();
+      scheduleTick();
+    }
+
+    function scheduleTick(){
+      clearInterval(tickTimer);
+      const speed = Math.max(60, 160 - (speedLevel-1)*12);
+      tickTimer = setInterval(tick, speed);
+    }
+
+    function tick(){
+      if(paused || gameOver) return;
+      dir = nextDir;
+      const head = { x: snake[0].x + dir.x, y: snake[0].y + dir.y };
+
+      if(head.x < 0 || head.x >= COLS || head.y < 0 || head.y >= ROWS ||
+         snake.some(s => s.x === head.x && s.y === head.y)){
+        endSnake();
+        return;
+      }
+
+      snake.unshift(head);
+      if(head.x === food.x && head.y === food.y){
+        score += 10;
+        speedLevel = 1 + Math.floor(score/50);
+        food = randomFood();
+        scheduleTick();
+      } else {
+        snake.pop();
+      }
+      draw();
+    }
+
+    function endSnake(){
+      gameOver = true;
+      running = false;
+      clearInterval(tickTimer);
+      overlayMsg.style.display = 'flex';
+      if(typeof TopScore !== 'undefined') TopScore.submit('topscore:snake-score', score, true,
+        [document.getElementById('topSnakeCard'), document.getElementById('topSnakeLine')]);
+    }
+
+    function draw(){
+      ctx.fillStyle = '#0d1b18';
+      ctx.fillRect(0,0,canvas.width,canvas.height);
+
+      // sprocket-hole border, matching the site's film motif
+      ctx.fillStyle = '#1c2e2a';
+      for(let i=0;i<COLS;i++){
+        ctx.fillRect(i*CELL+4, 2, 4, 4);
+        ctx.fillRect(i*CELL+4, canvas.height-6, 4, 4);
+      }
+
+      snake.forEach((s,i)=>{
+        ctx.fillStyle = i === 0 ? '#e9e4d6' : '#c9c5b6';
+        ctx.fillRect(s.x*CELL, s.y*CELL, CELL-2, CELL-2);
+      });
+
+      ctx.fillStyle = '#c81d2f';
+      ctx.beginPath();
+      ctx.arc(food.x*CELL + CELL/2, food.y*CELL + CELL/2, CELL/2-2, 0, Math.PI*2);
+      ctx.fill();
+
+      scoreEl.textContent = score;
+      speedEl.textContent = speedLevel;
+    }
+
+    startSnakeIfNeeded = function(){
+      running = true;
+      if(!initialized){ initialized = true; resetSnake(); }
+      else if(gameOver){ /* wait for explicit restart */ }
+      else { scheduleTick(); }
+    };
+    pauseSnake = function(){
+      running = false;
+      clearInterval(tickTimer);
+    };
+
+    restartBtn.addEventListener('click', resetSnake);
+    canvas.addEventListener('click', ()=> canvas.focus());
+
+    window.addEventListener('keydown', (e)=>{
+      const modal = document.getElementById('snakeModal');
+      if(!modal || !modal.classList.contains('on') || gameOver) return;
+      const key = e.key.toLowerCase();
+      const arrows = ['arrowleft','arrowright','arrowup','arrowdown'];
+      if(arrows.includes(key)) e.preventDefault();
+
+      if((key === 'arrowleft' || key === 'a') && dir.x === 0){ nextDir = {x:-1,y:0}; }
+      else if((key === 'arrowright' || key === 'd') && dir.x === 0){ nextDir = {x:1,y:0}; }
+      else if((key === 'arrowup' || key === 'w') && dir.y === 0){ nextDir = {x:0,y:-1}; }
+      else if((key === 'arrowdown' || key === 's') && dir.y === 0){ nextDir = {x:0,y:1}; }
+      else if(key === 'p'){ paused = !paused; }
+    });
+  })();
+
+  /* ---------------- double exposure (co-op sync game) ---------------- */
+  (function syncGame(){
+    const pad = document.getElementById('syncPad');
+    const mainEl = document.getElementById('syncMain');
+    const subEl = document.getElementById('syncSub');
+    const gapEl = document.getElementById('syncGap');
+    const p1Card = document.getElementById('syncP1Card');
+    const p2Card = document.getElementById('syncP2Card');
+    const p1Time = document.getElementById('syncP1Time');
+    const p2Time = document.getElementById('syncP2Time');
+    if(!pad) return;
+
+    let state = 'idle'; // idle | waiting | go | early | result
+    let timeoutId = null;
+    let goTime = 0;
+    let p1Press = null, p2Press = null;
+    let best = null;
+
+    function resetPlayerUI(){
+      p1Card.classList.remove('ready');
+      p2Card.classList.remove('ready');
+      p1Time.textContent = '—';
+      p2Time.textContent = '—';
+      p1Press = null; p2Press = null;
+    }
+
+    function toIdle(){
+      state = 'idle';
+      pad.className = 'sync-pad';
+      mainEl.style.display = '';
+      mainEl.textContent = 'CLICK TO ARM BOTH SHUTTERS';
+      gapEl.style.display = 'none';
+      subEl.textContent = 'One camera, two shutters, one exact instant';
+      resetPlayerUI();
+    }
+
+    function armRound(){
+      state = 'waiting';
+      pad.className = 'sync-pad waiting';
+      mainEl.style.display = '';
+      mainEl.textContent = 'WAIT FOR IT...';
+      gapEl.style.display = 'none';
+      subEl.textContent = "Don't press yet — both of you";
+      resetPlayerUI();
+      const delay = 1200 + Math.random()*2800;
+      timeoutId = setTimeout(()=>{
+        state = 'go';
+        pad.className = 'sync-pad go';
+        mainEl.textContent = 'FIRE — PRESS NOW';
+        subEl.textContent = 'Player 1: A · Player 2: L';
+        goTime = performance.now();
+      }, delay);
+    }
+
+    function finishRound(){
+      const gap = Math.abs(p1Press - p2Press);
+      state = 'result';
+      pad.className = 'sync-pad result';
+      mainEl.style.display = 'none';
+      gapEl.style.display = '';
+      gapEl.textContent = gap + ' ms apart';
+      subEl.textContent = 'Click to try again';
+      if(best === null || gap < best){
+        best = gap;
+        if(typeof TopScore !== 'undefined') TopScore.submit('topscore:sync-gap', gap, false,
+          [document.getElementById('topSyncCard'), document.getElementById('topSyncLine')], v => v + ' ms');
+      }
+    }
+
+    function registerPress(player){
+      if(state === 'waiting'){
+        clearTimeout(timeoutId);
+        state = 'early';
+        pad.className = 'sync-pad early';
+        mainEl.style.display = '';
+        mainEl.textContent = `TOO EARLY (PLAYER ${player})`;
+        subEl.textContent = 'Both of you have to wait for green';
+        return;
+      }
+      if(state !== 'go') return;
+      const t = performance.now() - goTime;
+      if(player === 1 && p1Press === null){
+        p1Press = t;
+        p1Card.classList.add('ready');
+        p1Time.textContent = Math.round(t) + ' ms';
+      }
+      if(player === 2 && p2Press === null){
+        p2Press = t;
+        p2Card.classList.add('ready');
+        p2Time.textContent = Math.round(t) + ' ms';
+      }
+      if(p1Press !== null && p2Press !== null){
+        finishRound();
+      }
+    }
+
+    pad.addEventListener('click', ()=>{
+      if(state === 'idle' || state === 'result' || state === 'early') armRound();
+    });
+
+    window.addEventListener('keydown', (e)=>{
+      const modal = document.getElementById('syncModal');
+      if(!modal || !modal.classList.contains('on')) return;
+      const key = e.key.toLowerCase();
+      if(key === 'a'){ e.preventDefault(); registerPress(1); }
+      else if(key === 'l'){ e.preventDefault(); registerPress(2); }
+    });
+
+    toIdle();
   })();
 </script>
 
