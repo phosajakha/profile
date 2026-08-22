@@ -270,7 +270,8 @@
     background:#000;
     min-height:0;
   }
-  .about-frame img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.05);display:block;}
+  .about-frame img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.05);display:block;transition:filter .5s ease;}
+  .about-frame:hover img{filter:grayscale(0) contrast(1.05);}
   .about-frame .corner{
     position:absolute;font-family:var(--mono);font-size:10px;color:var(--paper);
     background:var(--ink);padding:3px 7px;
@@ -467,6 +468,12 @@
   .spec-row:first-of-type{border-top:none;}
   .spec-row .label{color:var(--grey-frame);text-transform:uppercase;letter-spacing:0.05em;font-size:11px;white-space:nowrap;}
   .spec-row .value{text-align:right;color:var(--ink);}
+  .spec-row .value a{color:inherit;text-decoration:none;border-bottom:1px dashed var(--grey-frame);padding-bottom:1px;transition:color .2s ease,border-color .2s ease;}
+  .spec-row .value a:hover, .spec-row .value a:focus-visible{color:var(--safelight);border-color:var(--safelight);}
+  .spec-row .value a::after{content:' ↗';font-size:10px;opacity:0.6;}
+  .spec-row .value a{color:var(--ink);text-decoration:none;border-bottom:1px dashed var(--grey-frame);transition:color .2s ease,border-color .2s ease;}
+  .spec-row .value a:hover{color:var(--safelight);border-color:var(--safelight);}
+  .spec-row .value a:focus-visible{outline:2px solid var(--safelight);outline-offset:2px;}
 
   .spec-preview{
     position:absolute;top:38px;right:40px;
@@ -840,6 +847,82 @@
   }
   .shortcut-hint kbd{background:var(--ink);color:var(--paper);padding:1px 6px;border-radius:3px;}
 
+  /* ---------------- achievements ---------------- */
+  .achv-btn{
+    position:fixed;bottom:18px;right:18px;z-index:41;
+    display:flex;align-items:center;gap:8px;
+    font-family:var(--mono);font-size:11px;letter-spacing:0.05em;text-transform:uppercase;
+    background:var(--paper);border:1px solid var(--ink);color:var(--ink);
+    padding:9px 14px;cursor:pointer;
+    box-shadow:3px 3px 0 var(--line);
+    transition:background .2s ease, color .2s ease, transform .15s ease;
+  }
+  .achv-btn:hover{background:var(--ink);color:var(--paper);transform:translateY(-1px);}
+  .achv-btn .achv-trophy{font-size:13px;line-height:1;}
+  .achv-btn .achv-count{color:var(--safelight);font-weight:700;}
+  .achv-btn:hover .achv-count{color:var(--kodak);}
+
+  .achv-overlay{
+    position:fixed;inset:0;z-index:10002;
+    background:rgba(19,19,17,0.78);
+    display:flex;align-items:center;justify-content:center;
+    padding:20px;
+    opacity:0;pointer-events:none;
+    transition:opacity .2s ease;
+  }
+  .achv-overlay.on{opacity:1;pointer-events:auto;}
+  .achv-panel{
+    background:var(--paper);border:1px solid var(--ink);
+    width:min(460px,96vw);max-height:86vh;overflow-y:auto;
+    padding:30px 30px 24px;
+  }
+  .achv-panel-head{
+    display:flex;align-items:baseline;justify-content:space-between;
+    margin-bottom:6px;
+  }
+  .achv-panel-head h3{font-family:var(--display);font-size:28px;text-transform:uppercase;letter-spacing:0.3px;}
+  .achv-panel-sub{
+    font-family:var(--mono);font-size:11px;color:var(--grey-frame);text-transform:uppercase;letter-spacing:0.05em;
+    margin-bottom:22px;
+  }
+  .achv-list{display:flex;flex-direction:column;gap:1px;background:var(--line);border:1px solid var(--line);}
+  .achv-item{
+    background:var(--paper);padding:14px 16px;
+    display:flex;align-items:center;gap:14px;
+  }
+  .achv-icon{
+    width:30px;height:30px;flex-shrink:0;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--mono);font-size:13px;
+    border:1px solid var(--grey-frame);color:var(--grey-frame);
+  }
+  .achv-item.done .achv-icon{border-color:var(--safelight);color:var(--paper);background:var(--safelight);}
+  .achv-title{font-family:var(--body);font-weight:600;font-size:13.5px;color:var(--ink);}
+  .achv-item:not(.done) .achv-title{color:var(--grey-frame);}
+  .achv-desc{font-family:var(--mono);font-size:10.5px;color:var(--grey-frame);margin-top:2px;letter-spacing:0.02em;}
+
+  .achv-toast{
+    position:fixed;top:18px;left:50%;
+    transform:translate(-50%,-14px);
+    z-index:10003;
+    background:var(--footer-bg);color:var(--footer-fg);
+    border:1px solid var(--kodak);
+    padding:12px 20px;
+    display:flex;flex-direction:column;gap:2px;
+    opacity:0;pointer-events:none;
+    transition:opacity .25s ease, transform .25s ease;
+    text-align:center;
+    box-shadow:0 6px 0 rgba(0,0,0,0.15);
+  }
+  .achv-toast.show{opacity:1;transform:translate(-50%,0);}
+  .achv-toast-eyebrow{font-family:var(--mono);font-size:9.5px;color:var(--kodak);text-transform:uppercase;letter-spacing:0.08em;}
+  .achv-toast-title{font-family:var(--display);font-size:19px;letter-spacing:0.3px;text-transform:uppercase;}
+
+  @media (max-width:600px){
+    .achv-btn{bottom:14px;right:14px;padding:8px 12px;}
+  }
+
+
   @media (max-width:760px){
     .gallery{cursor:auto;}
     #reticle{display:none;}
@@ -915,6 +998,7 @@
     display:block;margin:0 auto;
     image-rendering:pixelated;
     cursor:pointer;
+    max-width:100%;height:auto;
   }
   .game-footer{
     display:flex;justify-content:space-between;align-items:center;
@@ -1074,6 +1158,8 @@
     transition:background .2s ease;
   }
   .arcade-card:hover{background:var(--paper-dim);}
+  .arcade-card:active{background:var(--line);}
+  .arcade-card:focus-visible{outline:2px solid var(--safelight);outline-offset:-2px;z-index:1;position:relative;}
   .arcade-card .ac-num{font-family:var(--mono);font-size:11px;color:var(--safelight);}
   .arcade-card .ac-title{font-family:var(--display);font-size:26px;text-transform:uppercase;letter-spacing:0.3px;}
   .arcade-card .ac-sub{font-family:var(--body);font-size:12.5px;color:var(--grey-frame);line-height:1.5;min-height:34px;}
@@ -1081,6 +1167,7 @@
   .arcade-card .ac-score b{color:var(--safelight);}
 
   @media (max-width:480px){.arcade-grid{grid-template-columns:1fr;}}
+  @media (max-width:760px){.arcade-card{padding:22px 18px;}}
 
   /* generic game modal */
   .game-modal{
@@ -1098,28 +1185,36 @@
     position:relative;
   }
   .game-modal-close{
-    position:absolute;top:14px;right:14px;
+    position:sticky;top:0;float:right;margin-left:12px;
     font-family:var(--mono);font-size:11px;text-transform:uppercase;
-    background:none;border:1px solid var(--ink);color:var(--ink);
-    padding:6px 12px;cursor:pointer;
+    background:var(--paper);border:1px solid var(--ink);color:var(--ink);
+    padding:6px 12px;cursor:pointer;z-index:2;
   }
   .game-modal-close:hover{background:var(--ink);color:var(--paper);}
   .game-modal-panel h2{
     font-family:var(--display);font-size:30px;text-transform:uppercase;margin-bottom:18px;letter-spacing:0.3px;
+    padding-right:90px;
   }
   .top-score-line{
     font-family:var(--mono);font-size:11px;color:var(--grey-frame);text-transform:uppercase;letter-spacing:0.04em;
-    margin-bottom:16px;
+    margin-bottom:16px;clear:both;
   }
   .top-score-line b{color:var(--safelight);}
 
+  @media (max-width:600px){
+    .game-modal{padding:0;}
+    .game-modal-panel{width:100vw;max-width:100vw;height:100%;max-height:100%;padding:20px 16px 28px;border-left:none;border-right:none;}
+    .game-modal-panel h2{font-size:24px;padding-right:76px;}
+  }
+
   /* ---------------- tetris ---------------- */
-  .tetris-wrap{display:flex;flex-wrap:wrap;gap:28px;align-items:flex-start;}
+  .tetris-wrap{display:flex;flex-wrap:wrap;gap:28px;align-items:flex-start;justify-content:center;width:100%;}
   #tetrisCanvas{
     background:#0d1b18;border:1px solid var(--ink);
     image-rendering:pixelated;display:block;
+    max-width:100%;height:auto;
   }
-  .tetris-side{min-width:150px;display:flex;flex-direction:column;gap:16px;}
+  .tetris-side{min-width:150px;flex:1 1 150px;display:flex;flex-direction:column;gap:16px;}
   .tetris-stat{font-family:var(--mono);font-size:11px;color:var(--grey-frame);text-transform:uppercase;letter-spacing:0.05em;}
   .tetris-stat b{display:block;font-family:var(--display);font-size:28px;color:var(--ink);letter-spacing:0;}
   #tetrisNext{background:#0d1b18;border:1px solid var(--ink);image-rendering:pixelated;}
@@ -1129,8 +1224,10 @@
     align-items:center;justify-content:center;flex-direction:column;gap:10px;
     background:rgba(13,27,24,0.85);color:#e9e4d6;
     font-family:var(--mono);font-size:12px;text-align:center;
+    text-align:center;padding:16px;
   }
-  .tetris-canvas-wrap{position:relative;}
+  .tetris-canvas-wrap{position:relative;max-width:100%;line-height:0;}
+  .tetris-canvas-wrap canvas{max-width:100%;height:auto;}
 
   /* ---------------- double exposure (co-op sync game) ---------------- */
   .sync-wrap{display:flex;flex-direction:column;gap:20px;}
@@ -1167,6 +1264,170 @@
   .sync-player kbd{background:var(--ink);color:var(--paper);padding:2px 7px;border-radius:3px;font-size:11px;}
   .sync-note{font-family:var(--body);font-size:12.5px;line-height:1.6;color:var(--grey-frame);}
 
+  /* ---------------- flashback (memory flash sequence) ---------------- */
+  .fb-wrap{display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start;}
+  .fb-pad{
+    display:grid;grid-template-columns:repeat(2,1fr);
+    gap:10px;width:280px;max-width:100%;flex-shrink:0;
+  }
+  .fb-lamp{
+    aspect-ratio:1;border:1px solid var(--ink);
+    background:#2a2622;
+    display:flex;align-items:center;justify-content:center;
+    cursor:pointer;user-select:none;
+    transition:background .12s ease, transform .08s ease;
+    position:relative;
+  }
+  .fb-lamp svg{width:34%;height:34%;opacity:0.5;stroke:var(--footer-fg-dim);fill:none;stroke-width:1.5;transition:opacity .12s ease, stroke .12s ease;}
+  .fb-lamp.lit{transform:scale(0.97);}
+  .fb-lamp.lit svg{opacity:1;}
+  .fb-lamp[data-i="0"].lit{background:#c81d2f;}
+  .fb-lamp[data-i="1"].lit{background:#f0b429;}
+  .fb-lamp[data-i="2"].lit{background:#53b1e0;}
+  .fb-lamp[data-i="3"].lit{background:#5c9e5c;}
+  .fb-lamp.lit svg{stroke:#0d0d0b;}
+  .fb-lamp.disabled{cursor:default;opacity:0.5;}
+  .fb-lamp:not(.disabled):hover{background:#37312b;}
+
+  .fb-side{min-width:200px;}
+  .fb-status{font-family:var(--mono);font-size:12.5px;color:var(--ink);margin-bottom:16px;min-height:36px;line-height:1.5;}
+  .fb-score{display:flex;gap:18px;font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:0.05em;color:var(--grey-frame);margin-bottom:18px;}
+  .fb-score b{display:block;font-family:var(--display);font-size:26px;color:var(--ink);letter-spacing:0;}
+  .fb-note{font-family:var(--body);font-size:12.5px;line-height:1.6;color:var(--grey-frame);margin-top:18px;max-width:32ch;}
+
+  @media (max-width:600px){.fb-wrap{flex-direction:column;}}
+
+  /* ---------------- whack-a-neg (reaction grid) ---------------- */
+  .wk-wrap{display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start;}
+  .wk-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);
+    gap:8px;width:280px;max-width:100%;flex-shrink:0;
+  }
+  .wk-cell{
+    aspect-ratio:1;border:1px solid var(--ink);
+    background:var(--paper-dim);
+    display:flex;align-items:center;justify-content:center;
+    cursor:pointer;user-select:none;
+    transition:background .1s ease, transform .08s ease;
+  }
+  .wk-cell svg{width:38%;height:38%;stroke:var(--safelight);fill:none;stroke-width:1.6;opacity:0;transition:opacity .08s ease;}
+  .wk-cell.up{background:var(--safelight);transform:scale(0.96);}
+  .wk-cell.up svg{opacity:1;stroke:#fff;}
+  .wk-cell.hit{background:var(--kodak);}
+
+  .wk-side{min-width:200px;}
+  .wk-status{font-family:var(--mono);font-size:12.5px;color:var(--ink);margin-bottom:16px;min-height:36px;line-height:1.5;}
+  .wk-score{display:flex;gap:18px;font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:0.05em;color:var(--grey-frame);margin-bottom:18px;}
+  .wk-score b{display:block;font-family:var(--display);font-size:26px;color:var(--ink);letter-spacing:0;}
+  .wk-note{font-family:var(--body);font-size:12.5px;line-height:1.6;color:var(--grey-frame);margin-top:18px;max-width:32ch;}
+
+  @media (max-width:600px){.wk-wrap{flex-direction:column;}}
+
+  /* ---------------- odd one out (spot the shade) ---------------- */
+  .oo-wrap{display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start;}
+  .oo-grid{
+    display:grid;gap:6px;width:280px;max-width:100%;flex-shrink:0;
+  }
+  .oo-cell{
+    aspect-ratio:1;border:1px solid var(--ink);
+    cursor:pointer;transition:transform .08s ease;
+  }
+  .oo-cell:hover{transform:scale(0.96);}
+  .oo-cell.wrong{outline:2px solid var(--safelight);outline-offset:-2px;}
+
+  .oo-side{min-width:200px;}
+  .oo-status{font-family:var(--mono);font-size:12.5px;color:var(--ink);margin-bottom:16px;min-height:36px;line-height:1.5;}
+  .oo-score{display:flex;gap:18px;font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:0.05em;color:var(--grey-frame);margin-bottom:18px;}
+  .oo-score b{display:block;font-family:var(--display);font-size:26px;color:var(--ink);letter-spacing:0;}
+  .oo-note{font-family:var(--body);font-size:12.5px;line-height:1.6;color:var(--grey-frame);margin-top:18px;max-width:32ch;}
+
+  @media (max-width:600px){.oo-wrap{flex-direction:column;}}
+
+  /* ---------------- perfect exposure (timing meter) ---------------- */
+  .ex-wrap{display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start;}
+  .ex-meter-col{width:320px;max-width:100%;flex-shrink:0;}
+  .ex-readout{
+    display:flex;justify-content:space-between;align-items:baseline;
+    font-family:var(--mono);font-size:11px;color:var(--grey-frame);text-transform:uppercase;letter-spacing:0.05em;
+    margin-bottom:10px;
+  }
+  .ex-readout b{font-family:var(--display);font-size:20px;color:var(--ink);letter-spacing:0;text-transform:none;}
+  .ex-track{
+    position:relative;width:100%;height:56px;
+    border:1px solid var(--ink);background:#2a2622;
+    overflow:hidden;cursor:pointer;user-select:none;
+  }
+  .ex-scale{
+    position:absolute;inset:0;
+    background:repeating-linear-gradient(90deg, rgba(233,228,214,0.08) 0, rgba(233,228,214,0.08) 1px, transparent 1px, transparent 10%);
+  }
+  .ex-zone{
+    position:absolute;top:0;bottom:0;
+    background:rgba(92,158,92,0.35);
+    border-left:1px solid #5c9e5c;border-right:1px solid #5c9e5c;
+  }
+  .ex-needle{
+    position:absolute;top:0;bottom:0;width:3px;
+    background:var(--kodak);
+    transform:translateX(-50%);
+    box-shadow:0 0 6px 1px rgba(240,180,41,0.7);
+  }
+  .ex-track.result-good .ex-needle{background:#5c9e5c;box-shadow:0 0 8px 2px rgba(92,158,92,0.8);}
+  .ex-track.result-bad .ex-needle{background:var(--safelight);box-shadow:0 0 8px 2px rgba(200,29,47,0.8);}
+  .ex-hint{
+    margin-top:10px;font-family:var(--mono);font-size:10.5px;color:var(--grey-frame);text-transform:uppercase;letter-spacing:0.05em;text-align:center;
+  }
+
+  .ex-side{min-width:200px;}
+  .ex-status{font-family:var(--mono);font-size:12.5px;color:var(--ink);margin-bottom:16px;min-height:36px;line-height:1.5;}
+  .ex-score{display:flex;gap:18px;font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:0.05em;color:var(--grey-frame);margin-bottom:18px;}
+  .ex-score b{display:block;font-family:var(--display);font-size:26px;color:var(--ink);letter-spacing:0;}
+  .ex-note{font-family:var(--body);font-size:12.5px;line-height:1.6;color:var(--grey-frame);margin-top:18px;max-width:32ch;}
+
+  @media (max-width:600px){.ex-wrap{flex-direction:column;}}
+
+  /* ---------------- guestbook ---------------- */
+  .gb-wrap{display:grid;grid-template-columns:0.9fr 1.4fr;gap:40px;align-items:start;}
+  .gb-form{
+    display:flex;flex-direction:column;gap:12px;
+    border:1px solid var(--line);padding:26px;
+    position:sticky;top:90px;
+  }
+  .gb-form label{
+    font-family:var(--mono);font-size:10.5px;color:var(--grey-frame);text-transform:uppercase;letter-spacing:0.05em;
+  }
+  .gb-form input, .gb-form textarea{
+    width:100%;background:none;border:none;border-bottom:1px solid var(--line);
+    font-family:var(--body);font-size:14.5px;color:var(--ink);
+    padding:9px 2px;outline:none;
+    transition:border-color .2s ease;
+  }
+  .gb-form input:focus, .gb-form textarea:focus{border-color:var(--safelight);}
+  .gb-form input::placeholder, .gb-form textarea::placeholder{color:var(--grey-frame);}
+  .gb-form-field{display:flex;flex-direction:column;gap:5px;}
+  .gb-form .timer-btn{align-self:flex-start;margin-top:6px;}
+  .gb-form-note{font-family:var(--mono);font-size:10px;color:var(--grey-frame);letter-spacing:0.03em;line-height:1.5;}
+
+  .gb-list{
+    display:flex;flex-direction:column;gap:1px;
+    background:var(--line);border:1px solid var(--line);
+    max-height:520px;overflow-y:auto;
+  }
+  .gb-entry{background:var(--paper);padding:16px 18px;border-left:3px solid var(--safelight);}
+  .gb-entry-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:5px;}
+  .gb-entry-name{font-family:var(--body);font-weight:700;font-size:14px;color:var(--ink);}
+  .gb-entry-time{font-family:var(--mono);font-size:10px;color:var(--grey-frame);white-space:nowrap;text-transform:uppercase;letter-spacing:0.04em;}
+  .gb-entry-msg{font-family:var(--body);font-size:14px;line-height:1.55;color:#3a3a35;word-break:break-word;}
+  body[data-theme="dark"] .gb-entry-msg{color:var(--footer-fg-dim);}
+  .gb-empty{
+    background:var(--paper);padding:30px 18px;text-align:center;
+    font-family:var(--mono);font-size:12px;color:var(--grey-frame);text-transform:uppercase;letter-spacing:0.04em;
+  }
+
+  @media (max-width:800px){
+    .gb-wrap{grid-template-columns:1fr;}
+    .gb-form{position:static;}
+  }
 
 </style>
 </head>
@@ -1213,11 +1474,27 @@
     <div class="shortcut-row"><span>Go to Setup &amp; Specs</span><kbd>G</kbd> <kbd>S</kbd></div>
     <div class="shortcut-row"><span>Go to Terminal</span><kbd>G</kbd> <kbd>T</kbd></div>
     <div class="shortcut-row"><span>Go to Arcade</span><kbd>G</kbd> <kbd>G</kbd></div>
+    <div class="shortcut-row"><span>Go to Guestbook</span><kbd>G</kbd> <kbd>B</kbd></div>
     <div class="shortcut-row"><span>Toggle Dark Mode</span><kbd>D</kbd></div>
     <div class="shortcut-row"><span>Close This Panel</span><kbd>ESC</kbd></div>
   </div>
 </div>
 <div class="shortcut-hint">PRESS <kbd>?</kbd> FOR SHORTCUTS</div>
+
+<button class="achv-btn" id="achvBtn" aria-label="Achievements">
+  <span class="achv-trophy">🏆</span> <span class="achv-count" id="achvCount">0/10</span>
+</button>
+<div class="achv-overlay" id="achvOverlay">
+  <div class="achv-panel">
+    <div class="achv-panel-head">
+      <h3>Achievements</h3>
+      <button class="timer-btn" id="achvClose">Close</button>
+    </div>
+    <div class="achv-panel-sub" id="achvPanelSub">0 of 10 unlocked</div>
+    <div class="achv-list" id="achvList"></div>
+  </div>
+</div>
+<div class="achv-toast" id="achvToast" role="status"></div>
 
 <div class="sprockets" aria-hidden="true">
   <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
@@ -1238,6 +1515,7 @@
       <a href="#music">Music</a>
       <a href="#terminal">Terminal</a>
       <a href="#arcade">Arcade</a>
+      <a href="#guestbook">Guestbook</a>
     </div>
     <div class="nav-right">
       <button class="theme-toggle" id="themeToggle" aria-pressed="false">
@@ -1484,16 +1762,20 @@
       <div class="spec-block">
         <div class="sindex">A — WORKSTATION</div>
         <h3>Editing PC</h3>
-        <div class="spec-row" data-img="https://picsum.photos/seed/cpu-ryzen5600/300/220" data-cap="AMD Ryzen 5 5600"><span class="label">Processor</span><span class="value">AMD Ryzen 5 5600</span></div>
-        <div class="spec-row" data-img="https://picsum.photos/seed/gpu-gtx1650s/300/220" data-cap="Gigabyte GTX 1650 Super"><span class="label">Graphics Card</span><span class="value">Gigabyte GeForce GTX 1650 Super 4GB DDR6</span></div>
-        <div class="spec-row" data-img="https://picsum.photos/seed/motherboard-b550m/300/220" data-cap="MSI B550M Pro VDH WiFi"><span class="label">Motherboard</span><span class="value">MSI B550M Pro VDH WiFi</span></div>
-        <div class="spec-row" data-img="https://picsum.photos/seed/ram-vengeance/300/220" data-cap="Corsair Vengeance LPX 16GB"><span class="label">RAM</span><span class="value">Corsair Vengeance LPX 2x8GB 3200MHz</span></div>
-        <div class="spec-row" data-img="https://picsum.photos/seed/kyo-kaizen/300/220" data-cap="KYO Kaizen 1TB M.2"><span class="label">Storage</span><span class="value">KYO Kaizen 1TB M.2 SATA</span></div>
-        <div class="spec-row" data-img="https://picsum.photos/seed/psu-fsp/300/220" data-cap="FSP HV Pro 650W Bronze"><span class="label">PSU</span><span class="value">FSP HV Pro 650W 80+ Bronze</span></div>
-        <div class="spec-row" data-img="https://picsum.photos/seed/case-vbr/300/220" data-cap="VBR Z8 Dual Chamber"><span class="label">Case</span><span class="value">VBR Z8 Dual Chamber</span></div>
-        <div class="spec-row" data-img="https://picsum.photos/seed/fan-ocypus/300/220" data-cap="Ocypus Gamma F12 ARGB"><span class="label">Case Fan</span><span class="value">Ocypus Gamma F12 ARGB</span></div>
-        <div class="spec-row" data-img="https://picsum.photos/seed/monitor-ocypus/300/220" data-cap="Ocypus Delta EH10"><span class="label">Monitor</span><span class="value">Ocypus Delta EH10</span></div>
-        <div class="spec-note">Calibrated regularly with a colorimeter to keep print and screen colors consistent.</div>
+        <div class="spec-row" data-img="https://picsum.photos/seed/cpu-ryzen5600/300/220" data-cap="AMD Ryzen 5 5600"><span class="label">Processor</span><span class="value"><a href="https://shopee.co.id/search?keyword=AMD%20Ryzen%205%205600" target="_blank" rel="noopener">AMD Ryzen 5 5600</a></span></div>
+        <div class="spec-row" data-img="https://picsum.photos/seed/gpu-gtx1650s/300/220" data-cap="Gigabyte GTX 1650 Super"><span class="label">Graphics Card</span><span class="value"><a href="https://shopee.co.id/search?keyword=Gigabyte%20GTX%201650%20Super%204GB%20GDDR6" target="_blank" rel="noopener">Gigabyte GeForce GTX 1650 Super 4GB GDDR6</a></span></div>
+        <div class="spec-row" data-img="https://picsum.photos/seed/motherboard-b550m/300/220" data-cap="MSI B550M Pro VDH WiFi"><span class="label">Motherboard</span><span class="value"><a href="https://shopee.co.id/search?keyword=MSI%20B550M%20PRO-VDH%20WIFI" target="_blank" rel="noopener">MSI B550M PRO-VDH WIFI</a></span></div>
+        <div class="spec-row" data-img="https://picsum.photos/seed/ram-vengeance/300/220" data-cap="Corsair Vengeance LPX 16GB"><span class="label">RAM</span><span class="value"><a href="https://shopee.co.id/search?keyword=Corsair%20Vengeance%20LPX%202x8GB%203200MHz" target="_blank" rel="noopener">Corsair Vengeance LPX 2x8GB 3200MHz</a></span></div>
+        <div class="spec-row" data-img="https://picsum.photos/seed/kyo-kaizen/300/220" data-cap="KYO Kaizen 1TB M.2"><span class="label">Storage</span><span class="value"><a href="https://shopee.co.id/search?keyword=KYO%20Kaizen%201TB%20M.2%20SATA" target="_blank" rel="noopener">KYO Kaizen 1TB M.2 SATA</a></span></div>
+        <div class="spec-row" data-img="https://picsum.photos/seed/psu-fsp/300/220" data-cap="FSP HV Pro 650W Bronze"><span class="label">PSU</span><span class="value"><a href="https://shopee.co.id/search?keyword=FSP%20HV%20PRO%20650W%2080%2B%20Bronze" target="_blank" rel="noopener">FSP HV PRO 650W 80+ Bronze</a></span></div>
+        <div class="spec-row" data-img="https://picsum.photos/seed/case-vbr/300/220" data-cap="VBR Z8 Dual Chamber"><span class="label">Case</span><span class="value"><a href="https://shopee.co.id/search?keyword=VBR%20Z8%20Dual%20Chamber" target="_blank" rel="noopener">VBR Z8 Dual Chamber</a></span></div>
+        <div class="spec-row" data-img="https://picsum.photos/seed/fan-ocypus/300/220" data-cap="Ocypus Gamma F12 ARGB"><span class="label">Case Fan</span><span class="value"><a href="https://shopee.co.id/search?keyword=Ocypus%20Gamma%20F12%20ARGB" target="_blank" rel="noopener">Ocypus Gamma F12 ARGB</a></span></div>
+        <div class="spec-row" data-img="https://picsum.photos/seed/monitor-msi-g24i/300/220" data-cap="MSI G24i"><span class="label">Monitor 1</span><span class="value"><a href="https://shopee.co.id/search?keyword=MSI%20G24i" target="_blank" rel="noopener">MSI G24i</a></span></div>
+        <div class="spec-row" data-img="https://picsum.photos/seed/monitor-ocypus/300/220" data-cap="Ocypus Delta EH10"><span class="label">Monitor 2</span><span class="value"><a href="https://shopee.co.id/search?keyword=Ocypus%20Delta%20EH10" target="_blank" rel="noopener">Ocypus Delta EH10</a></span></div>
+        <div class="spec-row" data-img="https://picsum.photos/seed/keyboard-gprox/300/220" data-cap="Logitech G Pro X"><span class="label">Keyboard</span><span class="value"><a href="https://shopee.co.id/search?keyword=Logitech%20G%20Pro%20X" target="_blank" rel="noopener">Logitech G Pro X</a></span></div>
+        <div class="spec-row" data-img="https://picsum.photos/seed/mouse-g502/300/220" data-cap="Logitech G502 HERO"><span class="label">Mouse</span><span class="value"><a href="https://shopee.co.id/search?keyword=Logitech%20G502%20HERO" target="_blank" rel="noopener">Logitech G502 HERO</a></span></div>
+        <div class="spec-row" data-img="https://picsum.photos/seed/headset-g633/300/220" data-cap="Logitech G633"><span class="label">Headset</span><span class="value"><a href="https://shopee.co.id/search?keyword=Logitech%20G633" target="_blank" rel="noopener">Logitech G633</a></span></div>
+        <div class="spec-note">Calibrated regularly with a colorimeter to keep print and screen colors consistent. Item names link out to a Shopee search if you want to see current listings.</div>
         <div class="spec-preview" data-target="a"><span class="ptag">REF</span><img src="" alt=""><span class="pcap"></span></div>
       </div>
       <div class="spec-block">
@@ -1763,7 +2045,7 @@
 
   <section class="section wrap reveal" id="arcade">
     <div class="section-label"><span class="num">11</span><h2>Arcade — Pick a Mode</h2></div>
-    <p class="arcade-intro">Four small games hiding in this portfolio. Pick a mode below and it opens right here — high scores are shared across everyone who visits this page.</p>
+    <p class="arcade-intro">Small games hiding in this portfolio. Pick a mode below and it opens right here — high scores are shared across everyone who visits this page.</p>
     <div class="arcade-grid">
       <button class="arcade-card" data-game="ttt">
         <div class="ac-num">MODE 01</div>
@@ -1800,6 +2082,30 @@
         <div class="ac-title">Film Roll</div>
         <div class="ac-sub">Snake, but the trail is a strip of film. Eat frames, don't hit yourself.</div>
         <div class="ac-score">HIGH SCORE <b id="topSnakeCard">—</b></div>
+      </button>
+      <button class="arcade-card" data-game="flashback">
+        <div class="ac-num">MODE 07</div>
+        <div class="ac-title">Flashback</div>
+        <div class="ac-sub">Four studio lamps flash a sequence. Repeat it back, one flash longer each round.</div>
+        <div class="ac-score">LONGEST STREAK <b id="topFlashbackCard">—</b></div>
+      </button>
+      <button class="arcade-card" data-game="whack">
+        <div class="ac-num">MODE 08</div>
+        <div class="ac-title">Whack-a-Neg</div>
+        <div class="ac-sub">A lens flashes red across a 3x3 grid. Click it before it hides — three misses and it's over.</div>
+        <div class="ac-score">TOP HITS <b id="topWhackCard">—</b></div>
+      </button>
+      <button class="arcade-card" data-game="oddoneout">
+        <div class="ac-num">MODE 09</div>
+        <div class="ac-title">Odd One Out</div>
+        <div class="ac-sub">One swatch is a slightly different shade. Spot it fast — the grid grows every round.</div>
+        <div class="ac-score">HIGHEST ROUND <b id="topOddCard">—</b></div>
+      </button>
+      <button class="arcade-card" data-game="exposure">
+        <div class="ac-num">MODE 10</div>
+        <div class="ac-title">Perfect Exposure</div>
+        <div class="ac-sub">A needle sweeps the meter. Stop it inside the sweet spot — it shrinks and speeds up each round.</div>
+        <div class="ac-score">BEST STREAK <b id="topExposureCard">—</b></div>
       </button>
     </div>
   </section>
@@ -1942,8 +2248,124 @@
     </div>
   </div>
 
+  <div class="game-modal" id="flashbackModal">
+    <div class="game-modal-panel">
+      <button class="game-modal-close" data-close-modal="flashbackModal">Close</button>
+      <h2>Flashback</h2>
+      <div class="top-score-line">LONGEST STREAK (ALL VISITORS): <b id="topFlashbackLine">—</b></div>
+      <div class="fb-wrap">
+        <div class="fb-pad" id="fbPad">
+          <div class="fb-lamp" data-i="0"><svg viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0-4 10.5c.6.6 1 1.4 1 2.5h6c0-1.1.4-1.9 1-2.5A6 6 0 0 0 12 3z"/><path d="M9 18h6M10 21h4"/></svg></div>
+          <div class="fb-lamp" data-i="1"><svg viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0-4 10.5c.6.6 1 1.4 1 2.5h6c0-1.1.4-1.9 1-2.5A6 6 0 0 0 12 3z"/><path d="M9 18h6M10 21h4"/></svg></div>
+          <div class="fb-lamp" data-i="2"><svg viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0-4 10.5c.6.6 1 1.4 1 2.5h6c0-1.1.4-1.9 1-2.5A6 6 0 0 0 12 3z"/><path d="M9 18h6M10 21h4"/></svg></div>
+          <div class="fb-lamp" data-i="3"><svg viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0-4 10.5c.6.6 1 1.4 1 2.5h6c0-1.1.4-1.9 1-2.5A6 6 0 0 0 12 3z"/><path d="M9 18h6M10 21h4"/></svg></div>
+        </div>
+        <div class="fb-side">
+          <div class="fb-status" id="fbStatus">Watch the lamps flash, then click them back in the same order.</div>
+          <div class="fb-score">
+            <div>ROUND<b id="fbRound">0</b></div>
+            <div>BEST<b id="fbBest">—</b></div>
+          </div>
+          <button class="timer-btn primary" id="fbStart">Start</button>
+          <p class="fb-note">Each round adds one more flash to the sequence. Miss a step and the streak resets — how far back can you remember?</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="game-modal" id="whackModal">
+    <div class="game-modal-panel">
+      <button class="game-modal-close" data-close-modal="whackModal">Close</button>
+      <h2>Whack-a-Neg</h2>
+      <div class="top-score-line">TOP HITS (ALL VISITORS): <b id="topWhackLine">—</b></div>
+      <div class="wk-wrap">
+        <div class="wk-grid" id="wkGrid"></div>
+        <div class="wk-side">
+          <div class="wk-status" id="wkStatus">Click Start — hit the lens before it disappears.</div>
+          <div class="wk-score">
+            <div>HITS<b id="wkHits">0</b></div>
+            <div>MISSES<b id="wkMisses">0</b></div>
+            <div>BEST<b id="wkBest">—</b></div>
+          </div>
+          <button class="timer-btn primary" id="wkStart">Start</button>
+          <p class="wk-note">A lens icon pops up in a random cell for a moment. Click it in time to score — it gets faster as you go. Three misses ends the round.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="game-modal" id="oddModal">
+    <div class="game-modal-panel">
+      <button class="game-modal-close" data-close-modal="oddModal">Close</button>
+      <h2>Odd One Out</h2>
+      <div class="top-score-line">HIGHEST ROUND (ALL VISITORS): <b id="topOddLine">—</b></div>
+      <div class="oo-wrap">
+        <div class="oo-grid" id="ooGrid"></div>
+        <div class="oo-side">
+          <div class="oo-status" id="ooStatus">Click Start — one tile is a slightly different shade.</div>
+          <div class="oo-score">
+            <div>ROUND<b id="ooRound">0</b></div>
+            <div>BEST<b id="ooBest">—</b></div>
+          </div>
+          <button class="timer-btn primary" id="ooStart">Start</button>
+          <p class="oo-note">Every round the grid gets a little bigger and the shade difference gets a little smaller. One wrong click ends it.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="game-modal" id="exposureModal">
+    <div class="game-modal-panel">
+      <button class="game-modal-close" data-close-modal="exposureModal">Close</button>
+      <h2>Perfect Exposure</h2>
+      <div class="top-score-line">BEST STREAK (ALL VISITORS): <b id="topExposureLine">—</b></div>
+      <div class="ex-wrap">
+        <div class="ex-meter-col">
+          <div class="ex-readout">UNDER<b id="exReadout">—</b>OVER</div>
+          <div class="ex-track" id="exTrack">
+            <div class="ex-scale"></div>
+            <div class="ex-zone" id="exZone"></div>
+            <div class="ex-needle" id="exNeedle" style="left:0%;"></div>
+          </div>
+          <div class="ex-hint">Click the meter or press Space to stop the needle</div>
+        </div>
+        <div class="ex-side">
+          <div class="ex-status" id="exStatus">Click Start — stop the needle inside the green zone.</div>
+          <div class="ex-score">
+            <div>STREAK<b id="exStreak">0</b></div>
+            <div>BEST<b id="exBest">—</b></div>
+          </div>
+          <button class="timer-btn primary" id="exStart">Start</button>
+          <p class="ex-note">The needle sweeps back and forth across the exposure meter. Stop it inside the sweet spot to keep your streak alive — the zone shrinks and the needle speeds up each round.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="section wrap reveal" id="guestbook">
+    <div class="section-label"><span class="num">12</span><h2>Guestbook</h2></div>
+    <p class="poster-intro">Leave a note before you go — every message here is shared and shows up for every visitor of this page.</p>
+    <div class="gb-wrap">
+      <form class="gb-form" id="gbForm">
+        <div class="gb-form-field">
+          <label for="gbName">Name</label>
+          <input type="text" id="gbName" placeholder="Your name" maxlength="40" required>
+        </div>
+        <div class="gb-form-field">
+          <label for="gbMessage">Message</label>
+          <textarea id="gbMessage" rows="3" placeholder="Say something nice..." maxlength="140" required></textarea>
+        </div>
+        <button type="submit" class="timer-btn primary">Sign the Guestbook</button>
+        <p class="gb-form-note">Entries are public and visible to anyone who visits this page.</p>
+      </form>
+      <div class="gb-list" id="gbList">
+        <div class="gb-empty" id="gbEmpty">Loading entries…</div>
+      </div>
+    </div>
+  </section>
+
   <section class="section wrap reveal">
-    <div class="section-label"><span class="num">12</span><h2>Tools</h2></div>
+    <div class="section-label"><span class="num">13</span><h2>Tools</h2></div>
     <p class="quote">The tools I use every day — <span>some analog, some digital</span>, all part of how I work.</p>
   </section>
 
@@ -1964,7 +2386,7 @@
 
 <footer class="contact" id="archive">
   <div class="wrap">
-    <div class="section-label"><span class="num">13</span><h2>Archive Notes</h2></div>
+    <div class="section-label"><span class="num">14</span><h2>Archive Notes</h2></div>
     <div class="contact-grid">
       <div>
         <h3>THIS COLLECTION IS<br>BUILT AND MAINTAINED<br>PERSONALLY IN JAKARTA.</h3>
@@ -1983,6 +2405,8 @@
       </div>
       <div id="statusLine" style="opacity:0.85;">STATUS: LOADING... · BUILD v2.4.0</div>
       <div id="visitorLine" style="opacity:0.85;font-family:var(--mono);">VISITOR NO. <b id="visitorCount" style="color:var(--kodak);">—</b></div>
+      <div id="visitorDeviceLine" style="opacity:0.85;font-family:var(--mono);font-size:11px;">THIS VISIT — <span id="visitorDevice">detecting…</span></div>
+      <div id="visitorStatsLine" style="opacity:0.85;font-family:var(--mono);font-size:11px;">ALL VISITORS — <span id="visitorStats">loading stats…</span></div>
     </div>
   </div>
 </footer>
@@ -2015,6 +2439,7 @@
   themeBtn.addEventListener('click', ()=>{
     isDark = !isDark;
     applyTheme();
+    if(isDark && typeof Achievements !== 'undefined') Achievements.unlock('nightOwl');
   });
 
   // spec row hover preview
@@ -2052,6 +2477,19 @@
     entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
   }, {threshold:0.12});
   els.forEach(el=>io.observe(el));
+
+  const footerEl = document.getElementById('archive');
+  if(footerEl){
+    const footerIo = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          if(typeof Achievements !== 'undefined') Achievements.unlock('fullRoll');
+          footerIo.unobserve(e.target);
+        }
+      });
+    }, {threshold:0.25});
+    footerIo.observe(footerEl);
+  }
 
   // mobile menu simple toggle style
   const style = document.createElement('style');
@@ -2109,6 +2547,7 @@
           setTimeout(()=>flash.classList.remove('on'), 180);
           banner.classList.add('on');
           setTimeout(()=>banner.classList.remove('on'), 2600);
+          if(typeof Achievements !== 'undefined') Achievements.unlock('konami');
         }
       } else {
         pos = (key === seq[0]) ? 1 : 0;
@@ -2253,10 +2692,13 @@
       body.scrollTop = body.scrollHeight;
     }
 
+    let commandCount = 0;
     function run(raw){
       const cmd = raw.trim();
       if(cmd.length === 0) return;
       print(cmd, 'cmd');
+      commandCount++;
+      if(commandCount >= 5 && typeof Achievements !== 'undefined') Achievements.unlock('terminal');
       const [name, ...args] = cmd.split(' ');
 
       switch(name){
@@ -2339,12 +2781,12 @@
       const tag = (e.target.tagName || '').toLowerCase();
       if(tag === 'input' || tag === 'textarea') return;
 
-      if(e.key === '?'){ overlay.classList.add('on'); return; }
+      if(e.key === '?'){ overlay.classList.add('on'); if(typeof Achievements !== 'undefined') Achievements.unlock('shortcuts'); return; }
       if(e.key === 'Escape'){ closeOverlay(); return; }
 
       if(awaitingG){
         awaitingG = false;
-        const map = { k:'#work', s:'#setup', t:'#terminal', g:'#arcade' };
+        const map = { k:'#work', s:'#setup', t:'#terminal', g:'#arcade', b:'#guestbook' };
         const target = map[e.key.toLowerCase()];
         if(target){
           document.querySelector(target)?.scrollIntoView({behavior:'smooth'});
@@ -2544,6 +2986,7 @@
       running = true;
       resetGame();
       loop();
+      if(typeof Achievements !== 'undefined') Achievements.unlock('hiddenRunner');
     }
     function closeGame(){
       overlay.classList.remove('on');
@@ -2894,6 +3337,94 @@
     pad.addEventListener('click', handleClick);
     toIdle();
   })();
+  /* ---------------- achievements (personal progress) ---------------- */
+  const Achievements = (function(){
+    const DEFS = [
+      { id:'konami', title:'Secret Code', desc:'Entered the Konami code.' },
+      { id:'hiddenRunner', title:'Roll Runner', desc:'Found the hidden game by clicking the logo 5 times fast.' },
+      { id:'nightOwl', title:'Night Owl', desc:'Switched the site into dark mode.' },
+      { id:'shortcuts', title:'Power User', desc:'Opened the keyboard shortcuts panel.' },
+      { id:'arcade3', title:'Arcade Regular', desc:'Opened 3 different games in the Arcade.' },
+      { id:'allGames', title:'Completionist', desc:'Opened every game in the Arcade.' },
+      { id:'highScore', title:'Top of the Board', desc:'Set a new shared high score on any game.' },
+      { id:'fullRoll', title:'Full Roll', desc:'Scrolled all the way down to the Archive Notes.' },
+      { id:'terminal', title:'Terminal Hacker', desc:'Ran 5 commands in the terminal.' },
+      { id:'guestbook', title:'Left Your Mark', desc:'Signed the guestbook.' }
+    ];
+    const STORAGE_KEY = 'achievements-unlocked';
+    let unlocked = new Set();
+    let loaded = false;
+
+    const btn = document.getElementById('achvBtn');
+    const countEl = document.getElementById('achvCount');
+    const subEl = document.getElementById('achvPanelSub');
+    const overlay = document.getElementById('achvOverlay');
+    const listEl = document.getElementById('achvList');
+    const closeBtn = document.getElementById('achvClose');
+    const toastEl = document.getElementById('achvToast');
+    let toastTimer = null;
+
+    function render(){
+      if(!countEl) return;
+      countEl.textContent = `${unlocked.size}/${DEFS.length}`;
+      if(subEl) subEl.textContent = `${unlocked.size} of ${DEFS.length} unlocked`;
+      if(listEl){
+        listEl.innerHTML = DEFS.map(a=>{
+          const done = unlocked.has(a.id);
+          return `<div class="achv-item${done ? ' done' : ''}">
+            <div class="achv-icon">${done ? '✓' : '—'}</div>
+            <div>
+              <div class="achv-title">${a.title}</div>
+              <div class="achv-desc">${done ? a.desc : 'Locked — keep exploring the site.'}</div>
+            </div>
+          </div>`;
+        }).join('');
+      }
+    }
+
+    async function load(){
+      try{
+        if(window.storage){
+          const res = await window.storage.get(STORAGE_KEY, false);
+          if(res) unlocked = new Set(JSON.parse(res.value));
+        }
+      }catch(e){ /* first visit or storage unavailable */ }
+      loaded = true;
+      render();
+    }
+
+    async function persist(){
+      try{ if(window.storage) await window.storage.set(STORAGE_KEY, JSON.stringify([...unlocked]), false); }
+      catch(e){}
+    }
+
+    function showToast(a){
+      if(!toastEl) return;
+      toastEl.innerHTML = `<div class="achv-toast-eyebrow">Achievement Unlocked</div><div class="achv-toast-title">${a.title}</div>`;
+      toastEl.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(()=> toastEl.classList.remove('show'), 3200);
+    }
+
+    function unlock(id){
+      if(unlocked.has(id)) return;
+      const def = DEFS.find(a => a.id === id);
+      if(!def) return;
+      unlocked.add(id);
+      render();
+      persist();
+      showToast(def);
+    }
+
+    if(btn) btn.addEventListener('click', ()=> overlay.classList.add('on'));
+    if(closeBtn) closeBtn.addEventListener('click', ()=> overlay.classList.remove('on'));
+    if(overlay) overlay.addEventListener('click', (e)=>{ if(e.target === overlay) overlay.classList.remove('on'); });
+
+    load();
+
+    return { unlock, total: DEFS.length };
+  })();
+
   /* ---------------- shared top-score storage ---------------- */
   const TopScore = (function(){
     const cache = {};
@@ -2915,13 +3446,16 @@
     async function submit(key, value, higherIsBetter, displayEls, formatter){
       const current = await get(key);
       let best = current;
+      let improved = false;
       if(current === null || (higherIsBetter ? value > current : value < current)){
         best = value;
+        improved = true;
         await set(key, value);
       }
       cache[key] = best;
       const text = formatter ? formatter(best) : String(best);
       (displayEls || []).forEach(el => { if(el) el.textContent = text; });
+      if(improved && typeof Achievements !== 'undefined') Achievements.unlock('highScore');
       return best;
     }
     async function refresh(key, displayEls, formatter){
@@ -2941,15 +3475,28 @@
   TopScore.refresh('topscore:tetris-score', [document.getElementById('topTetrisCard'), document.getElementById('topTetrisLine')]);
   TopScore.refresh('topscore:sync-gap', [document.getElementById('topSyncCard'), document.getElementById('topSyncLine')], v => v + ' ms');
   TopScore.refresh('topscore:snake-score', [document.getElementById('topSnakeCard'), document.getElementById('topSnakeLine')]);
+  TopScore.refresh('topscore:flashback-streak', [document.getElementById('topFlashbackCard'), document.getElementById('topFlashbackLine')]);
+  TopScore.refresh('topscore:whack-hits', [document.getElementById('topWhackCard'), document.getElementById('topWhackLine')]);
+  TopScore.refresh('topscore:odd-round', [document.getElementById('topOddCard'), document.getElementById('topOddLine')]);
+  TopScore.refresh('topscore:exposure-streak', [document.getElementById('topExposureCard'), document.getElementById('topExposureLine')]);
 
   /* ---------------- arcade modal open/close ---------------- */
+  const ARCADE_GAME_IDS = ['ttt','mem','rx','tetris','sync','snake','flashback','whack','oddoneout','exposure'];
+  const openedGames = new Set();
   (function arcadeModals(){
     document.querySelectorAll('.arcade-card').forEach(card=>{
       card.addEventListener('click', ()=>{
         const game = card.getAttribute('data-game');
-        const map = { ttt:'tttModal', mem:'memModal', rx:'rxModal', tetris:'tetrisModal', sync:'syncModal', snake:'snakeModal' };
+        const map = { ttt:'tttModal', mem:'memModal', rx:'rxModal', tetris:'tetrisModal', sync:'syncModal', snake:'snakeModal', flashback:'flashbackModal', whack:'whackModal', oddoneout:'oddModal', exposure:'exposureModal' };
         const id = map[game];
         if(id) openModal(id);
+        if(game){
+          openedGames.add(game);
+          if(typeof Achievements !== 'undefined'){
+            if(openedGames.size >= 3) Achievements.unlock('arcade3');
+            if(openedGames.size >= ARCADE_GAME_IDS.length) Achievements.unlock('allGames');
+          }
+        }
       });
     });
     document.querySelectorAll('[data-close-modal]').forEach(btn=>{
@@ -2987,22 +3534,207 @@
     liveImg.src = `https://spotify-github-profile.vercel.app/api/view.svg?uid=${SPOTIFY_UID}&cover_image=true&theme=natemoo-re&show_offline=true&background_color=121212&interchange=true&bar_color=53b14f&bar_color_cover=true`;
   })();
 
-  /* ---------------- visitor counter (shared) ---------------- */
-  (async function visitorCounter(){
-    const el = document.getElementById('visitorCount');
-    if(!el || !window.storage) { if(el) el.textContent = '—'; return; }
-    try{
-      let current = 0;
-      try{
-        const res = await window.storage.get('visitor-count', true);
-        current = res ? parseInt(res.value, 10) || 0 : 0;
-      }catch(e){ current = 0; }
-      const next = current + 1;
-      await window.storage.set('visitor-count', String(next), true);
-      el.textContent = String(next).padStart(6, '0');
-    }catch(e){
-      el.textContent = '—';
+  /* ---------------- visitor counter + auto device/country stats (shared, aggregate only) ---------------- */
+  (async function visitorInsights(){
+    const countEl = document.getElementById('visitorCount');
+    const deviceEl = document.getElementById('visitorDevice');
+    const statsEl = document.getElementById('visitorStats');
+
+    // 1. Detect device type + browser + OS automatically — no input needed, nothing sent anywhere.
+    function detectDevice(){
+      const ua = navigator.userAgent || '';
+      let type = 'Desktop';
+      if(/iPad|Tablet|PlayBook/i.test(ua) || (/Android/i.test(ua) && !/Mobile/i.test(ua))) type = 'Tablet';
+      else if(/Mobi|Android|iPhone|iPod/i.test(ua)) type = 'Mobile';
+
+      let browser = 'Unknown browser';
+      if(/Edg\//.test(ua)) browser = 'Edge';
+      else if(/OPR\//.test(ua)) browser = 'Opera';
+      else if(/Chrome\//.test(ua) && !/Chromium/.test(ua)) browser = 'Chrome';
+      else if(/Firefox\//.test(ua)) browser = 'Firefox';
+      else if(/Safari\//.test(ua) && !/Chrome/.test(ua)) browser = 'Safari';
+
+      let os = 'Unknown OS';
+      if(/Windows/.test(ua)) os = 'Windows';
+      else if(/Mac OS X/.test(ua) && !/iPhone|iPad/.test(ua)) os = 'macOS';
+      else if(/Android/.test(ua)) os = 'Android';
+      else if(/iPhone|iPad|iPod/.test(ua)) os = 'iOS';
+      else if(/Linux/.test(ua)) os = 'Linux';
+
+      return { type, browser, os };
     }
+
+    // 2. Resolve an approximate country from the visitor's own IP, client-side.
+    //    We deliberately only keep the country name — never the raw IP — and only
+    //    ever store/display aggregate counts, never a per-visitor public record.
+    async function detectCountry(){
+      try{
+        const ctrl = new AbortController();
+        const timeout = setTimeout(()=> ctrl.abort(), 3000);
+        const res = await fetch('https://ipapi.co/json/', { signal: ctrl.signal });
+        clearTimeout(timeout);
+        if(!res.ok) throw new Error('lookup failed');
+        const data = await res.json();
+        return data.country_name || null;
+      }catch(e){
+        return null;
+      }
+    }
+
+    function formatBreakdown(counts, max){
+      const total = Object.values(counts).reduce((a,b)=>a+b, 0);
+      if(!total) return '—';
+      return Object.entries(counts)
+        .sort((a,b)=> b[1]-a[1])
+        .slice(0, max)
+        .map(([k,v]) => `${k} ${Math.round(v/total*100)}%`)
+        .join(' · ');
+    }
+
+    async function bumpAggregate(key, label){
+      if(!window.storage || !label) return;
+      try{
+        let counts = {};
+        try{
+          const res = await window.storage.get(key, true);
+          counts = res ? JSON.parse(res.value) : {};
+        }catch(e){ counts = {}; }
+        counts[label] = (counts[label] || 0) + 1;
+        await window.storage.set(key, JSON.stringify(counts), true);
+      }catch(e){ /* non-critical, skip */ }
+    }
+
+    async function readAggregate(key){
+      if(!window.storage) return {};
+      try{
+        const res = await window.storage.get(key, true);
+        return res ? JSON.parse(res.value) : {};
+      }catch(e){ return {}; }
+    }
+
+    // Visitor count (existing behavior, unchanged)
+    if(countEl){
+      try{
+        let current = 0;
+        try{
+          const res = await window.storage.get('visitor-count', true);
+          current = res ? parseInt(res.value, 10) || 0 : 0;
+        }catch(e){ current = 0; }
+        const next = current + 1;
+        await window.storage.set('visitor-count', String(next), true);
+        countEl.textContent = String(next).padStart(6, '0');
+      }catch(e){
+        countEl.textContent = '—';
+      }
+    }
+
+    // This visit — shown immediately, purely local detection, nothing typed
+    const device = detectDevice();
+    if(deviceEl){
+      deviceEl.textContent = `${device.type} · ${device.browser} · ${device.os}`;
+    }
+
+    // Record this visit into aggregate-only shared counters
+    await bumpAggregate('visitor-stats-device', device.type);
+    const country = await detectCountry();
+    if(country) await bumpAggregate('visitor-stats-country', country);
+
+    // Render aggregate stats for everyone (percentages only, no individual records)
+    if(statsEl){
+      const [deviceCounts, countryCounts] = await Promise.all([
+        readAggregate('visitor-stats-device'),
+        readAggregate('visitor-stats-country')
+      ]);
+      const deviceStr = formatBreakdown(deviceCounts, 3);
+      const countryStr = formatBreakdown(countryCounts, 3);
+      statsEl.textContent = countryStr === '—' ? deviceStr : `${deviceStr} — Top: ${countryStr}`;
+    }
+  })();
+
+  /* ---------------- guestbook (shared) ---------------- */
+  (function guestbook(){
+    const form = document.getElementById('gbForm');
+    const nameInput = document.getElementById('gbName');
+    const msgInput = document.getElementById('gbMessage');
+    const listEl = document.getElementById('gbList');
+    if(!form || !listEl) return;
+
+    const KEY = 'guestbook-entries';
+    const MAX_ENTRIES = 60;
+
+    function escapeHtml(str){
+      return String(str).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    }
+
+    function timeAgo(ts){
+      const diff = Date.now() - ts;
+      const mins = Math.floor(diff / 60000);
+      if(mins < 1) return 'just now';
+      if(mins < 60) return mins + 'm ago';
+      const hrs = Math.floor(mins / 60);
+      if(hrs < 24) return hrs + 'h ago';
+      const days = Math.floor(hrs / 24);
+      if(days < 30) return days + 'd ago';
+      return new Date(ts).toLocaleDateString();
+    }
+
+    function render(entries){
+      if(!entries || !entries.length){
+        listEl.innerHTML = '<div class="gb-empty">No entries yet — be the first to sign.</div>';
+        return;
+      }
+      listEl.innerHTML = entries.slice().reverse().map(e => `
+        <div class="gb-entry">
+          <div class="gb-entry-head">
+            <span class="gb-entry-name">${escapeHtml(e.name)}</span>
+            <span class="gb-entry-time">${timeAgo(e.time)}</span>
+          </div>
+          <div class="gb-entry-msg">${escapeHtml(e.message)}</div>
+        </div>
+      `).join('');
+    }
+
+    async function load(){
+      try{
+        if(!window.storage){ listEl.innerHTML = '<div class="gb-empty">Guestbook is unavailable right now.</div>'; return; }
+        const res = await window.storage.get(KEY, true);
+        const entries = res ? JSON.parse(res.value) : [];
+        render(entries);
+      }catch(e){
+        render([]);
+      }
+    }
+
+    form.addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      const name = nameInput.value.trim();
+      const message = msgInput.value.trim();
+      if(!name || !message) return;
+      const submitBtn = form.querySelector('button[type="submit"]');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Signing...';
+      try{
+        let entries = [];
+        try{
+          const res = await window.storage.get(KEY, true);
+          entries = res ? JSON.parse(res.value) : [];
+        }catch(err){ entries = []; }
+        entries.push({ name: name.slice(0, 40), message: message.slice(0, 140), time: Date.now() });
+        if(entries.length > MAX_ENTRIES) entries = entries.slice(entries.length - MAX_ENTRIES);
+        await window.storage.set(KEY, JSON.stringify(entries), true);
+        render(entries);
+        nameInput.value = '';
+        msgInput.value = '';
+        if(typeof Achievements !== 'undefined') Achievements.unlock('guestbook');
+      }catch(err){
+        alert('Could not save your entry — please try again in a moment.');
+      }finally{
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Sign the Guestbook';
+      }
+    });
+
+    load();
   })();
 
   /* ---------------- tetris ---------------- */
@@ -3471,6 +4203,421 @@
     });
 
     toIdle();
+  })();
+
+  /* ---------------- flashback (memory flash sequence) ---------------- */
+  (function flashbackGame(){
+    const pad = document.getElementById('fbPad');
+    const statusEl = document.getElementById('fbStatus');
+    const roundEl = document.getElementById('fbRound');
+    const bestEl = document.getElementById('fbBest');
+    const startBtn = document.getElementById('fbStart');
+    if(!pad) return;
+
+    const lamps = Array.from(pad.querySelectorAll('.fb-lamp'));
+    const N = lamps.length;
+
+    let sequence = [];
+    let userStep = 0;
+    let round = 0;
+    let best = null;
+    let accepting = false;
+    let playing = false;
+
+    function lightLamp(i, ms){
+      return new Promise(resolve=>{
+        lamps[i].classList.add('lit');
+        setTimeout(()=>{
+          lamps[i].classList.remove('lit');
+          setTimeout(resolve, 140);
+        }, ms);
+      });
+    }
+
+    async function playSequence(){
+      accepting = false;
+      lamps.forEach(l => l.classList.add('disabled'));
+      statusEl.textContent = `Round ${round} — watch closely...`;
+      await new Promise(r=>setTimeout(r, 500));
+      const flashMs = Math.max(280, 620 - round*18);
+      for(const step of sequence){
+        await lightLamp(step, flashMs);
+      }
+      userStep = 0;
+      accepting = true;
+      lamps.forEach(l => l.classList.remove('disabled'));
+      statusEl.textContent = 'Your turn — repeat the sequence.';
+    }
+
+    function nextRound(){
+      round++;
+      roundEl.textContent = round;
+      sequence.push(Math.floor(Math.random()*N));
+      playSequence();
+    }
+
+    function endRun(){
+      playing = false;
+      accepting = false;
+      lamps.forEach(l => l.classList.add('disabled'));
+      if(best === null || round - 1 > best){
+        best = round - 1;
+      }
+      bestEl.textContent = best === null ? '—' : best;
+      statusEl.textContent = round <= 1
+        ? 'Missed the very first flash. Hit Start to try again.'
+        : `Streak broken at round ${round}. Best kept at ${best}. Hit Start to try again.`;
+      startBtn.textContent = 'Start';
+      if(typeof TopScore !== 'undefined' && round - 1 > 0){
+        TopScore.submit('topscore:flashback-streak', round - 1, true,
+          [document.getElementById('topFlashbackCard'), document.getElementById('topFlashbackLine')]);
+      }
+    }
+
+    function handleLampClick(i){
+      if(!accepting || !playing) return;
+      if(i === sequence[userStep]){
+        lamps[i].classList.add('lit');
+        setTimeout(()=> lamps[i].classList.remove('lit'), 180);
+        userStep++;
+        if(userStep === sequence.length){
+          accepting = false;
+          statusEl.textContent = 'Correct! Next round coming up...';
+          setTimeout(nextRound, 700);
+        }
+      } else {
+        lamps[i].classList.add('lit');
+        setTimeout(()=> lamps[i].classList.remove('lit'), 180);
+        endRun();
+      }
+    }
+
+    lamps.forEach((lamp, i)=>{
+      lamp.addEventListener('click', ()=> handleLampClick(i));
+    });
+
+    function startGame(){
+      playing = true;
+      sequence = [];
+      round = 0;
+      roundEl.textContent = 0;
+      startBtn.textContent = 'Restart';
+      nextRound();
+    }
+
+    startBtn.addEventListener('click', startGame);
+    lamps.forEach(l => l.classList.add('disabled'));
+  })();
+
+  /* ---------------- whack-a-neg (reaction grid) ---------------- */
+  (function whackGame(){
+    const gridEl = document.getElementById('wkGrid');
+    const statusEl = document.getElementById('wkStatus');
+    const hitsEl = document.getElementById('wkHits');
+    const missesEl = document.getElementById('wkMisses');
+    const bestEl = document.getElementById('wkBest');
+    const startBtn = document.getElementById('wkStart');
+    if(!gridEl) return;
+
+    const SIZE = 9;
+    const LENS_SVG = '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M12 3v4M12 17v4M3 12h4M17 12h4"/></svg>';
+
+    let cells = [];
+    let hits = 0, misses = 0, best = null;
+    let playing = false;
+    let activeIndex = -1;
+    let upTimer = null;
+    let nextTimer = null;
+    let speed = 1000;
+
+    function buildGrid(){
+      gridEl.innerHTML = '';
+      cells = [];
+      for(let i=0;i<SIZE;i++){
+        const cell = document.createElement('div');
+        cell.className = 'wk-cell';
+        cell.innerHTML = LENS_SVG;
+        cell.addEventListener('click', ()=> handleHit(i));
+        gridEl.appendChild(cell);
+        cells.push(cell);
+      }
+    }
+
+    function clearActive(missed){
+      if(activeIndex >= 0){
+        cells[activeIndex].classList.remove('up');
+        if(missed) registerMiss();
+        activeIndex = -1;
+      }
+    }
+
+    function registerMiss(){
+      misses++;
+      missesEl.textContent = misses;
+      if(misses >= 3){ endGame(); return; }
+      scheduleNext();
+    }
+
+    function scheduleNext(){
+      clearTimeout(nextTimer);
+      nextTimer = setTimeout(popUp, 350 + Math.random()*450);
+    }
+
+    function popUp(){
+      if(!playing) return;
+      let idx;
+      do{ idx = Math.floor(Math.random()*SIZE); } while(idx === activeIndex);
+      activeIndex = idx;
+      cells[idx].classList.add('up');
+      clearTimeout(upTimer);
+      upTimer = setTimeout(()=> clearActive(true), speed);
+    }
+
+    function handleHit(i){
+      if(!playing || i !== activeIndex) return;
+      clearTimeout(upTimer);
+      cells[i].classList.remove('up');
+      cells[i].classList.add('hit');
+      setTimeout(()=> cells[i].classList.remove('hit'), 200);
+      activeIndex = -1;
+      hits++;
+      hitsEl.textContent = hits;
+      speed = Math.max(420, speed - 18);
+      statusEl.textContent = 'Nice hit — keep going.';
+      scheduleNext();
+    }
+
+    function endGame(){
+      playing = false;
+      clearTimeout(upTimer);
+      clearTimeout(nextTimer);
+      cells.forEach(c => c.classList.remove('up'));
+      if(best === null || hits > best) best = hits;
+      bestEl.textContent = best;
+      statusEl.textContent = `Three misses — final score ${hits} hits. Hit Start to try again.`;
+      startBtn.textContent = 'Start';
+      if(typeof TopScore !== 'undefined' && hits > 0){
+        TopScore.submit('topscore:whack-hits', hits, true,
+          [document.getElementById('topWhackCard'), document.getElementById('topWhackLine')]);
+      }
+    }
+
+    function startGame(){
+      clearTimeout(upTimer);
+      clearTimeout(nextTimer);
+      playing = true;
+      hits = 0; misses = 0; speed = 1000;
+      hitsEl.textContent = 0;
+      missesEl.textContent = 0;
+      startBtn.textContent = 'Restart';
+      statusEl.textContent = 'Click the lens the instant it appears.';
+      buildGrid();
+      scheduleNext();
+    }
+
+    startBtn.addEventListener('click', startGame);
+    buildGrid();
+  })();
+
+  /* ---------------- odd one out (spot the shade) ---------------- */
+  (function oddOneOutGame(){
+    const gridEl = document.getElementById('ooGrid');
+    const statusEl = document.getElementById('ooStatus');
+    const roundEl = document.getElementById('ooRound');
+    const bestEl = document.getElementById('ooBest');
+    const startBtn = document.getElementById('ooStart');
+    if(!gridEl) return;
+
+    let round = 0;
+    let best = null;
+    let playing = false;
+    let oddIndex = -1;
+
+    function gridSizeForRound(r){
+      // start 2x2, grow up to 5x5
+      return Math.min(5, 2 + Math.floor((r-1)/2));
+    }
+
+    function diffForRound(r){
+      // shade difference shrinks as rounds go up, floor to keep it fair
+      return Math.max(8, 46 - r*3);
+    }
+
+    function randomBaseColor(){
+      const h = Math.floor(Math.random()*360);
+      const s = 35 + Math.floor(Math.random()*30);
+      const l = 42 + Math.floor(Math.random()*14);
+      return { h, s, l };
+    }
+
+    function buildRound(){
+      const n = gridSizeForRound(round);
+      gridEl.style.gridTemplateColumns = `repeat(${n}, 1fr)`;
+      const total = n*n;
+      oddIndex = Math.floor(Math.random()*total);
+      const base = randomBaseColor();
+      const diff = diffForRound(round);
+      const oddL = Math.min(88, Math.max(8, base.l + (Math.random() < 0.5 ? diff : -diff)));
+
+      gridEl.innerHTML = '';
+      for(let i=0;i<total;i++){
+        const cell = document.createElement('div');
+        cell.className = 'oo-cell';
+        const l = i === oddIndex ? oddL : base.l;
+        cell.style.background = `hsl(${base.h}, ${base.s}%, ${l}%)`;
+        cell.addEventListener('click', ()=> handlePick(i, cell));
+        gridEl.appendChild(cell);
+      }
+    }
+
+    function handlePick(i, cell){
+      if(!playing) return;
+      if(i === oddIndex){
+        round++;
+        roundEl.textContent = round;
+        statusEl.textContent = 'Found it — next round.';
+        buildRound();
+      } else {
+        cell.classList.add('wrong');
+        endGame();
+      }
+    }
+
+    function endGame(){
+      playing = false;
+      if(best === null || round > best) best = round;
+      bestEl.textContent = best;
+      statusEl.textContent = round === 0
+        ? 'Wrong tile on round one. Hit Start to try again.'
+        : `Wrong tile — made it to round ${round}. Hit Start to try again.`;
+      startBtn.textContent = 'Start';
+      if(typeof TopScore !== 'undefined' && round > 0){
+        TopScore.submit('topscore:odd-round', round, true,
+          [document.getElementById('topOddCard'), document.getElementById('topOddLine')]);
+      }
+    }
+
+    function startGame(){
+      playing = true;
+      round = 1;
+      roundEl.textContent = round;
+      startBtn.textContent = 'Restart';
+      statusEl.textContent = 'Click the tile that looks slightly different.';
+      buildRound();
+    }
+
+    startBtn.addEventListener('click', startGame);
+    gridEl.style.gridTemplateColumns = 'repeat(2, 1fr)';
+  })();
+
+  /* ---------------- perfect exposure (timing meter) ---------------- */
+  (function exposureGame(){
+    const track = document.getElementById('exTrack');
+    const zoneEl = document.getElementById('exZone');
+    const needleEl = document.getElementById('exNeedle');
+    const readoutEl = document.getElementById('exReadout');
+    const statusEl = document.getElementById('exStatus');
+    const streakEl = document.getElementById('exStreak');
+    const bestEl = document.getElementById('exBest');
+    const startBtn = document.getElementById('exStart');
+    if(!track) return;
+
+    let pos = 0; // 0-100
+    let dir = 1;
+    let speed = 0.9; // percent per frame
+    let zoneWidth = 18; // percent
+    let zoneStart = 41;
+    let streak = 0;
+    let best = null;
+    let running = false;
+    let awaitingResult = false;
+    let rafId = null;
+
+    function newZone(){
+      zoneWidth = Math.max(7, 18 - streak * 1.2);
+      zoneStart = Math.random() * (100 - zoneWidth);
+      zoneEl.style.left = zoneStart + '%';
+      zoneEl.style.width = zoneWidth + '%';
+    }
+
+    function newSpeed(){
+      speed = Math.min(2.6, 0.9 + streak * 0.15);
+    }
+
+    function tick(){
+      if(!running) return;
+      pos += dir * speed;
+      if(pos >= 100){ pos = 100; dir = -1; }
+      if(pos <= 0){ pos = 0; dir = 1; }
+      needleEl.style.left = pos + '%';
+      const centered = Math.abs(pos - 50) < 1 ? '0' : (pos < 50 ? '-' : '+') + Math.round(Math.abs(pos-50));
+      readoutEl.textContent = centered === '0' ? '0' : centered;
+      rafId = requestAnimationFrame(tick);
+    }
+
+    function attemptStop(){
+      if(!running || awaitingResult) return;
+      awaitingResult = true;
+      running = false;
+      cancelAnimationFrame(rafId);
+      const hit = pos >= zoneStart && pos <= zoneStart + zoneWidth;
+      track.classList.remove('result-good','result-bad');
+      if(hit){
+        track.classList.add('result-good');
+        streak++;
+        streakEl.textContent = streak;
+        statusEl.textContent = `Nailed it — streak ${streak}. Next round starting...`;
+        setTimeout(nextRound, 650);
+      } else {
+        track.classList.add('result-bad');
+        endRun();
+      }
+    }
+
+    function nextRound(){
+      awaitingResult = false;
+      track.classList.remove('result-good','result-bad');
+      pos = Math.random() < 0.5 ? 0 : 100;
+      dir = pos === 0 ? 1 : -1;
+      newZone();
+      newSpeed();
+      running = true;
+      statusEl.textContent = 'Stop it inside the zone.';
+      rafId = requestAnimationFrame(tick);
+    }
+
+    function endRun(){
+      running = false;
+      awaitingResult = false;
+      cancelAnimationFrame(rafId);
+      if(best === null || streak > best) best = streak;
+      bestEl.textContent = best;
+      statusEl.textContent = streak === 0
+        ? 'Missed the zone on the first try. Hit Start to try again.'
+        : `Missed it — streak ended at ${streak}. Hit Start to try again.`;
+      startBtn.textContent = 'Start';
+      if(typeof TopScore !== 'undefined' && streak > 0){
+        TopScore.submit('topscore:exposure-streak', streak, true,
+          [document.getElementById('topExposureCard'), document.getElementById('topExposureLine')]);
+      }
+    }
+
+    function startGame(){
+      cancelAnimationFrame(rafId);
+      streak = 0;
+      streakEl.textContent = 0;
+      startBtn.textContent = 'Restart';
+      track.classList.remove('result-good','result-bad');
+      nextRound();
+    }
+
+    track.addEventListener('click', attemptStop);
+    window.addEventListener('keydown', (e)=>{
+      const modal = document.getElementById('exposureModal');
+      if(!modal || !modal.classList.contains('on')) return;
+      if(e.key === ' '){ e.preventDefault(); attemptStop(); }
+    });
+    startBtn.addEventListener('click', startGame);
   })();
 </script>
 
