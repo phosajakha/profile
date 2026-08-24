@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Jakha Phosa — Graphic Design & Photography</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@500;600;700&family=Archivo+Black&family=Inter:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --ink:#181815;
@@ -79,19 +79,24 @@
     display:flex;align-items:center;justify-content:space-between;
     padding:18px 32px;
     max-width:1240px;margin:0 auto;
+    gap:20px;
   }
   .logo{
     font-family:var(--display);
     font-size:26px;
     letter-spacing:0.5px;
+    white-space:nowrap;
+    flex-shrink:0;
   }
   .logo span{color:var(--safelight);}
   .navlinks{
-    display:flex;gap:34px;
+    display:flex;gap:26px;
     font-family:var(--mono);
     font-size:12px;
     letter-spacing:0.06em;
     text-transform:uppercase;
+    flex-wrap:nowrap;
+    white-space:nowrap;
   }
   .navlinks a{position:relative;padding-bottom:3px;}
   .navlinks a::after{
@@ -101,23 +106,40 @@
   .navlinks a:hover::after{width:100%;}
   .navlinks a:focus-visible, .logo:focus-visible{outline:2px solid var(--safelight);outline-offset:3px;}
 
-  .menu-btn{display:none;font-family:var(--mono);font-size:12px;background:none;border:1px solid var(--ink);padding:8px 14px;cursor:pointer;color:var(--ink);}
+  .menu-btn{display:none;font-family:var(--mono);font-size:12px;background:none;border:1px solid var(--ink);padding:8px 14px;cursor:pointer;color:var(--ink);flex-shrink:0;}
 
-  .theme-toggle{
+  .theme-toggle,
+  .playground-toggle{
     display:flex;align-items:center;gap:8px;
     font-family:var(--mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;
     background:none;border:1px solid var(--ink);color:var(--ink);
-    padding:7px 12px;cursor:pointer;
+    padding:7px 12px;line-height:1;cursor:pointer;
+    white-space:nowrap;
   }
-  .theme-toggle:hover{background:var(--ink);color:var(--paper);}
-  .theme-toggle:focus-visible{outline:2px solid var(--safelight);outline-offset:3px;}
+  .theme-toggle:hover,
+  .playground-toggle:hover{background:var(--ink);color:var(--paper);}
+  .theme-toggle:focus-visible,
+  .playground-toggle:focus-visible{outline:2px solid var(--safelight);outline-offset:3px;}
   .theme-toggle .dot{
-    width:8px;height:8px;border-radius:50%;background:var(--safelight);
+    width:8px;height:8px;border-radius:50%;background:var(--safelight);flex-shrink:0;
+  }
+  .playground-toggle .swatch{
+    width:8px;height:8px;border-radius:2px;flex-shrink:0;
+    background:linear-gradient(135deg, var(--safelight) 50%, var(--kodak) 50%);
   }
 
-  .nav-right{display:flex;align-items:center;gap:22px;}
+  .nav-right{display:flex;align-items:center;gap:10px;flex-shrink:0;}
 
-  @media (max-width:760px){
+  /* tier 1 — mid-width screens: tighten nav links, drop button text to icon-only */
+  @media (max-width:1320px){
+    .navlinks{gap:16px;font-size:10.5px;}
+    .playground-toggle .pg-label,
+    .theme-toggle #themeLabel{display:none;}
+    .theme-toggle, .playground-toggle{padding:8px 9px;}
+  }
+
+  /* tier 2 — collapse nav links into the hamburger menu */
+  @media (max-width:980px){
     .navlinks{display:none;}
     .menu-btn{display:block;}
   }
@@ -381,7 +403,12 @@
     filter:grayscale(1) brightness(0.85);
     transition:filter .5s ease, transform .6s ease;
   }
-  .frame:hover img{filter:grayscale(0) brightness(1); transform:scale(1.04);}
+  .frame:hover img{
+    filter:grayscale(0) brightness(1)
+      drop-shadow(-2px 0 0 rgba(200,29,47,0.45))
+      drop-shadow(2px 0 0 rgba(83,177,224,0.45));
+    transform:scale(1.04);
+  }
   .frame .fnum{
     position:absolute;top:10px;left:10px;
     font-family:var(--mono);font-size:11px;color:var(--paper);
@@ -413,6 +440,55 @@
   }
   .frame.pick:hover::before{opacity:0.85;}
   .frame.pick .fnum::after{content:' — SELECTED';color:var(--safelight);}
+
+  /* ---------------- photo lightbox ---------------- */
+  .lightbox{
+    position:fixed;inset:0;z-index:10005;
+    background:rgba(8,8,7,0.94);
+    display:flex;align-items:center;justify-content:center;
+    padding:60px 24px;
+    opacity:0;pointer-events:none;
+    transition:opacity .25s ease;
+  }
+  .lightbox.on{opacity:1;pointer-events:auto;}
+  .lightbox-close{
+    position:fixed;top:20px;right:20px;z-index:2;
+    font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:0.05em;
+    background:none;border:1px solid var(--footer-fg-dim);color:var(--footer-fg);
+    padding:8px 14px;cursor:pointer;
+  }
+  .lightbox-close:hover{background:var(--footer-fg);color:var(--footer-bg);}
+  .lightbox-nav{
+    position:fixed;top:50%;transform:translateY(-50%);z-index:2;
+    font-family:var(--display);font-size:34px;
+    background:none;border:1px solid var(--footer-fg-dim);color:var(--footer-fg);
+    width:48px;height:48px;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    transition:background .15s ease,color .15s ease;
+  }
+  .lightbox-nav:hover{background:var(--footer-fg);color:var(--footer-bg);}
+  .lightbox-nav.prev{left:20px;}
+  .lightbox-nav.next{right:20px;}
+  .lightbox-content{
+    max-width:min(900px,92vw);max-height:88vh;
+    display:flex;flex-direction:column;gap:16px;align-items:center;
+  }
+  .lightbox-content img{
+    max-width:100%;max-height:64vh;object-fit:contain;
+    border:1px solid rgba(233,228,214,0.2);
+  }
+  .lightbox-info{text-align:center;color:var(--footer-fg);}
+  .lightbox-cat{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:0.06em;color:var(--kodak);}
+  .lightbox-title{font-family:var(--display);font-size:28px;text-transform:uppercase;letter-spacing:0.3px;margin-top:4px;}
+  .lightbox-exif{font-family:var(--mono);font-size:11px;color:var(--footer-fg-dim);margin-top:6px;letter-spacing:0.02em;}
+  .lightbox-counter{font-family:var(--mono);font-size:10px;color:var(--footer-fg-dim);margin-top:10px;letter-spacing:0.05em;}
+
+  @media (max-width:700px){
+    .lightbox-nav{width:38px;height:38px;font-size:26px;}
+    .lightbox-nav.prev{left:8px;}
+    .lightbox-nav.next{right:8px;}
+    .lightbox-title{font-size:22px;}
+  }
 
   @media (max-width:900px){.gallery{grid-template-columns:repeat(2,1fr);}}
   @media (max-width:520px){.gallery{grid-template-columns:1fr;}}
@@ -636,8 +712,11 @@
 
   @media (max-width:760px){.contact-grid{grid-template-columns:1fr;}}
 
-  .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease, transform .7s ease;}
-  .reveal.in{opacity:1;transform:translateY(0);}
+  .reveal{
+    opacity:0;transform:translateY(18px);filter:blur(6px);
+    transition:opacity .6s ease, transform .6s ease, filter .6s ease;
+  }
+  .reveal.in{opacity:1;transform:translateY(0);filter:blur(0);}
 
   @media (prefers-reduced-motion: reduce){
     *{animation:none !important;transition:none !important;}
@@ -674,20 +753,6 @@
   #konamiBanner .kb-title{font-family:var(--display);font-size:30px;color:var(--kodak);letter-spacing:0.5px;}
   #konamiBanner .kb-sub{font-size:11px;margin-top:8px;letter-spacing:0.05em;color:var(--footer-fg-dim);}
 
-  /* custom cursor reticle over gallery */
-  .gallery{cursor:none;}
-  #reticle{
-    position:fixed;top:0;left:0;
-    width:46px;height:46px;
-    pointer-events:none;z-index:60;
-    transform:translate(-50%,-50%);
-    opacity:0;transition:opacity .15s ease;
-  }
-  #reticle.show{opacity:1;}
-  #reticle svg{width:100%;height:100%;}
-  #reticle .ring{stroke:var(--safelight);fill:none;stroke-width:1.4;}
-  #reticle .tick{stroke:var(--kodak);stroke-width:1.4;}
-
   /* terminal widget */
   .terminal-wrap{
     background:var(--footer-bg);
@@ -722,72 +787,6 @@
   }
   .terminal-input-row input::placeholder{color:rgba(236,231,216,0.35);}
 
-  /* heatmap */
-  .heatmap-wrap{overflow-x:auto;padding-bottom:6px;}
-  .heatmap{display:grid;grid-auto-flow:column;grid-template-rows:repeat(7,1fr);gap:3px;width:max-content;}
-  .heatmap .cell{
-    width:11px;height:11px;border-radius:2px;
-    background:var(--paper-dim);
-    position:relative;
-  }
-  .heatmap .cell[data-level="1"]{background:#e0a9ad;}
-  .heatmap .cell[data-level="2"]{background:#cf6b73;}
-  .heatmap .cell[data-level="3"]{background:#c81d2f;}
-  .heatmap .cell[data-level="4"]{background:#7a1620;}
-  body[data-theme="dark"] .heatmap .cell{background:#1c1b17;}
-  body[data-theme="dark"] .heatmap .cell[data-level="1"]{background:#4a1418;}
-  body[data-theme="dark"] .heatmap .cell[data-level="2"]{background:#7a1620;}
-  body[data-theme="dark"] .heatmap .cell[data-level="3"]{background:#a52e38;}
-  body[data-theme="dark"] .heatmap .cell[data-level="4"]{background:#ff4d5e;}
-  .heatmap-legend{
-    display:flex;align-items:center;gap:6px;margin-top:14px;
-    font-family:var(--mono);font-size:10px;color:var(--grey-frame);text-transform:uppercase;letter-spacing:0.05em;
-  }
-  .heatmap-legend .cell{width:11px;height:11px;border-radius:2px;}
-  #heatTooltip{
-    position:fixed;pointer-events:none;z-index:70;
-    background:var(--footer-bg);color:var(--footer-fg);
-    font-family:var(--mono);font-size:11px;
-    padding:5px 9px;border-radius:2px;
-    opacity:0;transform:translate(-50%,-8px);
-    transition:opacity .12s ease;
-    white-space:nowrap;
-  }
-  #heatTooltip.show{opacity:1;}
-
-  /* darkroom timer */
-  .timer-wrap{
-    display:flex;flex-wrap:wrap;gap:40px;align-items:center;
-    border:1px solid var(--line);padding:36px;
-  }
-  .timer-dial{
-    width:170px;height:170px;border-radius:50%;
-    border:3px solid var(--ink);
-    display:flex;align-items:center;justify-content:center;
-    flex-direction:column;
-    position:relative;
-    flex-shrink:0;
-  }
-  .timer-dial .safelight-dot{
-    position:absolute;top:14px;left:50%;transform:translateX(-50%);
-    width:9px;height:9px;border-radius:50%;
-    background:var(--grey-frame);
-    transition:background .2s ease, box-shadow .2s ease;
-  }
-  .timer-dial.running .safelight-dot{
-    background:var(--safelight);
-    box-shadow:0 0 10px 2px var(--safelight);
-    animation:pulseSafelight 1s ease-in-out infinite;
-  }
-  @keyframes pulseSafelight{50%{opacity:0.4;}}
-  .timer-display{
-    font-family:var(--display);font-size:44px;letter-spacing:1px;color:var(--ink);
-  }
-  .timer-label{
-    font-family:var(--mono);font-size:9.5px;text-transform:uppercase;letter-spacing:0.08em;color:var(--grey-frame);margin-top:2px;
-  }
-  .timer-controls{display:flex;flex-direction:column;gap:12px;min-width:200px;}
-  .timer-presets{display:flex;gap:8px;flex-wrap:wrap;}
   .timer-btn{
     font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:0.05em;
     background:none;border:1px solid var(--ink);color:var(--ink);
@@ -796,7 +795,6 @@
   .timer-btn:hover{background:var(--ink);color:var(--paper);}
   .timer-btn.primary{background:var(--safelight);border-color:var(--safelight);color:#fff;}
   .timer-btn.primary:hover{opacity:0.85;background:var(--safelight);color:#fff;}
-  .timer-actions{display:flex;gap:8px;}
 
   /* now playing */
   .now-playing{
@@ -922,10 +920,187 @@
     .achv-btn{bottom:14px;right:14px;padding:8px 12px;}
   }
 
+  /* ---------------- design playground ---------------- */
+  .pg-overlay{
+    position:fixed;inset:0;z-index:10004;
+    background:rgba(19,19,17,0.78);
+    display:flex;align-items:center;justify-content:center;
+    padding:20px;
+    opacity:0;pointer-events:none;
+    transition:opacity .2s ease;
+  }
+  .pg-overlay.on{opacity:1;pointer-events:auto;}
+  .pg-panel{
+    background:var(--paper);border:1px solid var(--ink);
+    width:min(480px,96vw);max-height:88vh;overflow-y:auto;
+    padding:30px 30px 26px;
+  }
+  .pg-panel-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:6px;}
+  .pg-panel-head h3{font-family:var(--display);font-size:28px;text-transform:uppercase;letter-spacing:0.3px;}
+  .pg-panel-sub{
+    font-family:var(--mono);font-size:11px;color:var(--grey-frame);text-transform:uppercase;letter-spacing:0.05em;
+    margin-bottom:24px;line-height:1.6;
+  }
+  .pg-group{margin-bottom:24px;}
+  .pg-group-label{
+    font-family:var(--mono);font-size:10.5px;color:var(--safelight);text-transform:uppercase;letter-spacing:0.06em;
+    margin-bottom:10px;display:block;
+  }
+  .pg-swatches{display:flex;gap:10px;flex-wrap:wrap;}
+  .pg-swatch{
+    width:32px;height:32px;border-radius:50%;
+    border:2px solid transparent;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    transition:transform .15s ease, border-color .15s ease;
+  }
+  .pg-swatch:hover{transform:scale(1.08);}
+  .pg-swatch.active{border-color:var(--ink);}
+  .pg-swatch.active::after{content:'✓';color:#fff;font-size:13px;text-shadow:0 0 2px rgba(0,0,0,0.5);}
+
+  .pg-bg-swatches{display:flex;gap:10px;flex-wrap:wrap;}
+  .pg-bg-swatch{
+    width:52px;height:36px;border:2px solid var(--line);cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--mono);font-size:9px;color:var(--grey-frame);
+    transition:border-color .15s ease;
+  }
+  .pg-bg-swatch.active{border-color:var(--safelight);}
+
+  .pg-options{display:flex;flex-direction:column;gap:8px;}
+  .pg-option{
+    display:flex;align-items:center;justify-content:space-between;gap:12px;
+    border:1px solid var(--line);padding:10px 14px;cursor:pointer;
+    transition:background .15s ease, border-color .15s ease;
+  }
+  .pg-option:hover{background:var(--paper-dim);}
+  .pg-option.active{border-color:var(--safelight);}
+  .pg-option-name{font-family:var(--body);font-size:13.5px;color:var(--ink);}
+  .pg-option-sample{font-family:var(--mono);font-size:11px;color:var(--grey-frame);}
+  .pg-option.active .pg-option-name{color:var(--safelight);font-weight:600;}
+
+  .pg-mode-row{display:flex;gap:10px;}
+  .pg-mode-btn{
+    flex:1;font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:0.05em;
+    border:1px solid var(--ink);background:none;color:var(--ink);
+    padding:10px;cursor:pointer;transition:background .15s ease,color .15s ease;
+  }
+  .pg-mode-btn.active{background:var(--ink);color:var(--paper);}
+
+  .pg-reset{
+    width:100%;margin-top:6px;
+    font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:0.05em;
+    background:none;border:1px dashed var(--grey-frame);color:var(--grey-frame);
+    padding:10px;cursor:pointer;transition:border-color .15s ease,color .15s ease;
+  }
+  .pg-reset:hover{border-color:var(--safelight);color:var(--safelight);}
+
+  @media (max-width:600px){
+    .pg-panel{padding:24px 20px 22px;}
+  }
+
+  /* secret CRT scanline flourish */
+  body.crt-mode::after{
+    content:'';
+    position:fixed;inset:0;pointer-events:none;z-index:9990;
+    background:repeating-linear-gradient(0deg, rgba(0,0,0,0.16) 0px, rgba(0,0,0,0.16) 1px, transparent 1px, transparent 3px);
+    mix-blend-mode:multiply;
+  }
+  body.crt-mode{ text-shadow:0 0 1px rgba(92,214,133,0.25); }
+  @media (prefers-reduced-motion: reduce){
+    body.crt-mode::after{ display:none; }
+  }
+
+  /* ---------------- secret DJ booth ---------------- */
+  .dj-wrap{display:flex;flex-direction:column;align-items:center;gap:28px;padding:10px 0 4px;}
+  .dj-turntable{position:relative;width:190px;height:190px;flex-shrink:0;}
+  .dj-vinyl{
+    width:190px;height:190px;border-radius:50%;
+    background:repeating-radial-gradient(circle, #0d0d0b 0px, #0d0d0b 2px, #1c1c19 3px, #0d0d0b 4px);
+    border:1px solid var(--ink);
+    position:relative;
+    animation:djSpin 3s linear infinite;
+    animation-play-state:paused;
+  }
+  .dj-vinyl.spinning{animation-play-state:running;}
+  .dj-vinyl-label{
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    width:64px;height:64px;border-radius:50%;background:var(--safelight);
+    display:flex;align-items:center;justify-content:center;
+    border:1px solid rgba(0,0,0,0.3);
+  }
+  .dj-vinyl-label::after{content:'';width:8px;height:8px;background:var(--paper);border-radius:50%;}
+  @keyframes djSpin{to{transform:rotate(360deg);}}
+  .dj-tonearm{
+    position:absolute;top:-6px;right:-4px;width:86px;height:6px;
+    background:var(--grey-frame);border-radius:3px;
+    transform-origin:right center;
+    transform:rotate(-30deg);
+    transition:transform .4s ease;
+  }
+  .dj-tonearm::after{
+    content:'';position:absolute;left:-3px;top:-3px;
+    width:12px;height:12px;border-radius:50%;background:var(--ink);
+  }
+  .dj-tonearm.playing{transform:rotate(-8deg);}
+
+  .dj-eq{display:flex;align-items:flex-end;gap:5px;height:46px;}
+  .dj-eq span{width:6px;background:var(--safelight);border-radius:2px;height:15%;transition:height .15s ease;}
+  .dj-eq.playing span{animation:djBar 0.9s ease-in-out infinite;}
+  .dj-eq.playing span:nth-child(1){animation-delay:0.0s;}
+  .dj-eq.playing span:nth-child(2){animation-delay:0.15s;}
+  .dj-eq.playing span:nth-child(3){animation-delay:0.05s;}
+  .dj-eq.playing span:nth-child(4){animation-delay:0.25s;}
+  .dj-eq.playing span:nth-child(5){animation-delay:0.1s;}
+  .dj-eq.playing span:nth-child(6){animation-delay:0.3s;}
+  .dj-eq.playing span:nth-child(7){animation-delay:0.2s;}
+  .dj-eq.playing span:nth-child(8){animation-delay:0.35s;}
+  @keyframes djBar{0%,100%{height:15%;}50%{height:95%;}}
+
+  .dj-track-info{text-align:center;}
+  .dj-track-name{font-family:var(--display);font-size:22px;text-transform:uppercase;letter-spacing:0.3px;margin-bottom:16px;min-height:26px;}
+  .dj-track-controls{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+
+  @media (max-width:480px){
+    .dj-turntable, .dj-vinyl{width:150px;height:150px;}
+    .dj-vinyl-label{width:52px;height:52px;}
+  }
+
+  /* ---------------- high score name prompt ---------------- */
+  .namemodal-overlay{
+    position:fixed;inset:0;z-index:10006;
+    background:rgba(19,19,17,0.82);
+    display:flex;align-items:center;justify-content:center;
+    padding:20px;
+    opacity:0;pointer-events:none;
+    transition:opacity .2s ease;
+  }
+  .namemodal-overlay.on{opacity:1;pointer-events:auto;}
+  .namemodal-panel{
+    background:var(--paper);border:1px solid var(--ink);
+    width:min(380px,94vw);
+    padding:32px 30px;
+    text-align:center;
+  }
+  .namemodal-panel h3{font-family:var(--display);font-size:26px;text-transform:uppercase;letter-spacing:0.3px;margin-bottom:6px;}
+  .namemodal-sub{
+    font-family:var(--mono);font-size:10.5px;color:var(--grey-frame);text-transform:uppercase;letter-spacing:0.05em;
+    margin-bottom:22px;
+  }
+  .namemodal-panel input{
+    width:100%;background:none;border:none;border-bottom:1px solid var(--line);
+    font-family:var(--body);font-size:15px;color:var(--ink);
+    padding:10px 2px;outline:none;text-align:center;
+    transition:border-color .2s ease;
+    margin-bottom:18px;
+  }
+  .namemodal-panel input:focus{border-color:var(--safelight);}
+  .namemodal-panel input::placeholder{color:var(--grey-frame);}
+  .namemodal-actions{display:flex;gap:10px;}
+  .namemodal-actions .timer-btn{flex:1;}
+
 
   @media (max-width:760px){
     .gallery{cursor:auto;}
-    #reticle{display:none;}
     .shortcut-hint{display:none;}
   }
 
@@ -1458,23 +1633,18 @@
   <div class="kb-title">ROLL COMPLETE!</div>
   <div class="kb-sub">SECRET CODE FOUND — THANKS FOR PLAYING</div>
 </div>
-<div id="reticle" aria-hidden="true">
-  <svg viewBox="0 0 46 46">
-    <circle class="ring" cx="23" cy="23" r="16"/>
-    <line class="tick" x1="23" y1="2" x2="23" y2="10"/>
-    <line class="tick" x1="23" y1="36" x2="23" y2="44"/>
-    <line class="tick" x1="2" y1="23" x2="10" y2="23"/>
-    <line class="tick" x1="36" y1="23" x2="44" y2="23"/>
-  </svg>
-</div>
 <div id="shortcutOverlay">
   <div class="shortcut-panel">
     <h3>Shortcuts</h3>
     <div class="shortcut-row"><span>Go to Work Archive</span><kbd>G</kbd> <kbd>K</kbd></div>
     <div class="shortcut-row"><span>Go to Setup &amp; Specs</span><kbd>G</kbd> <kbd>S</kbd></div>
     <div class="shortcut-row"><span>Go to Terminal</span><kbd>G</kbd> <kbd>T</kbd></div>
-    <div class="shortcut-row"><span>Go to Arcade</span><kbd>G</kbd> <kbd>G</kbd></div>
+    <div class="shortcut-row"><span>Go to Arcade</span><kbd>G</kbd> <kbd>A</kbd></div>
     <div class="shortcut-row"><span>Go to Guestbook</span><kbd>G</kbd> <kbd>B</kbd></div>
+    <div class="shortcut-row"><span>Go to Resume</span><kbd>G</kbd> <kbd>R</kbd></div>
+    <div class="shortcut-row"><span>Scroll to Top (vim)</span><kbd>G</kbd> <kbd>G</kbd></div>
+    <div class="shortcut-row"><span>Scroll to Bottom (vim)</span><kbd>Shift</kbd> <kbd>G</kbd></div>
+    <div class="shortcut-row"><span>Scroll Down / Up (vim)</span><kbd>J</kbd> <kbd>K</kbd></div>
     <div class="shortcut-row"><span>Toggle Dark Mode</span><kbd>D</kbd></div>
     <div class="shortcut-row"><span>Close This Panel</span><kbd>ESC</kbd></div>
   </div>
@@ -1482,7 +1652,7 @@
 <div class="shortcut-hint">PRESS <kbd>?</kbd> FOR SHORTCUTS</div>
 
 <button class="achv-btn" id="achvBtn" aria-label="Achievements">
-  <span class="achv-trophy">🏆</span> <span class="achv-count" id="achvCount">0/10</span>
+  <span class="achv-trophy">🏆</span> <span class="achv-count" id="achvCount">0/13</span>
 </button>
 <div class="achv-overlay" id="achvOverlay">
   <div class="achv-panel">
@@ -1490,11 +1660,125 @@
       <h3>Achievements</h3>
       <button class="timer-btn" id="achvClose">Close</button>
     </div>
-    <div class="achv-panel-sub" id="achvPanelSub">0 of 10 unlocked</div>
+    <div class="achv-panel-sub" id="achvPanelSub">0 of 13 unlocked</div>
     <div class="achv-list" id="achvList"></div>
   </div>
 </div>
 <div class="achv-toast" id="achvToast" role="status"></div>
+
+<div class="pg-overlay" id="pgOverlay">
+  <div class="pg-panel" role="dialog" aria-label="Design Playground">
+    <div class="pg-panel-head">
+      <h3>Design Playground</h3>
+      <button class="timer-btn" id="pgClose">Close</button>
+    </div>
+    <div class="pg-panel-sub">Make this portfolio feel like your own — every change is saved just for you.</div>
+
+    <div class="pg-group">
+      <span class="pg-group-label">A — Accent Color</span>
+      <div class="pg-swatches" id="pgAccentSwatches"></div>
+    </div>
+
+    <div class="pg-group">
+      <span class="pg-group-label">B — Background</span>
+      <div class="pg-bg-swatches" id="pgBgSwatches"></div>
+    </div>
+
+    <div class="pg-group">
+      <span class="pg-group-label">C — Heading Font</span>
+      <div class="pg-options" id="pgDisplayFonts"></div>
+    </div>
+
+    <div class="pg-group">
+      <span class="pg-group-label">D — Body Font</span>
+      <div class="pg-options" id="pgBodyFonts"></div>
+    </div>
+
+    <div class="pg-group">
+      <span class="pg-group-label">E — Mode</span>
+      <div class="pg-mode-row">
+        <button class="pg-mode-btn" id="pgLightBtn">☀ Light</button>
+        <button class="pg-mode-btn" id="pgDarkBtn">☾ Dark</button>
+      </div>
+    </div>
+
+    <button class="pg-reset" id="pgReset">Reset to Default</button>
+  </div>
+</div>
+
+<div class="lightbox" id="lightboxOverlay">
+  <button class="lightbox-close" id="lightboxClose">Close</button>
+  <button class="lightbox-nav prev" id="lightboxPrev" aria-label="Previous photo">‹</button>
+  <button class="lightbox-nav next" id="lightboxNext" aria-label="Next photo">›</button>
+  <div class="lightbox-content">
+    <img id="lightboxImg" src="" alt="">
+    <div class="lightbox-info">
+      <div class="lightbox-cat" id="lightboxCat"></div>
+      <div class="lightbox-title" id="lightboxTitle"></div>
+      <div class="lightbox-exif" id="lightboxExif"></div>
+      <div class="lightbox-counter" id="lightboxCounter"></div>
+    </div>
+  </div>
+</div>
+
+<div class="game-modal" id="hofModal">
+  <div class="game-modal-panel">
+    <button class="game-modal-close" data-close-modal="hofModal">Close</button>
+    <h2>Hall of Fame</h2>
+    <div class="top-score-line">Every best score on this page, in one place.</div>
+    <div class="achv-list" id="hofList"></div>
+  </div>
+</div>
+
+<div class="game-modal" id="debugModal">
+  <div class="game-modal-panel">
+    <button class="game-modal-close" data-close-modal="debugModal">Close</button>
+    <h2>About This Page</h2>
+    <div class="top-score-line">A little transparency for the curious.</div>
+    <div class="achv-list" id="debugList"></div>
+  </div>
+</div>
+
+<div class="game-modal" id="djModal">
+  <div class="game-modal-panel">
+    <button class="game-modal-close" data-close-modal="djModal">Close</button>
+    <h2>Secret DJ Booth</h2>
+    <div class="top-score-line">You found the hidden turntable. Great ears.</div>
+    <div class="dj-wrap">
+      <div class="dj-turntable">
+        <div class="dj-vinyl" id="djVinyl"><div class="dj-vinyl-label"></div></div>
+        <div class="dj-tonearm" id="djTonearm"></div>
+      </div>
+      <div class="dj-eq" id="djEq">
+        <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+      </div>
+      <div class="dj-track-info">
+        <div class="dj-track-name" id="djTrackName">Boards of Canada — Roygbiv</div>
+        <div class="dj-track-controls">
+          <button class="timer-btn" id="djPrev">‹ Prev</button>
+          <button class="timer-btn primary" id="djPlayPause">▶ Play</button>
+          <button class="timer-btn" id="djNext">Next ›</button>
+        </div>
+      </div>
+    </div>
+    <p class="ex-note" style="margin-top:20px;text-align:center;">No real audio here — just vibes and vinyl crackle in spirit. Swap your own tracklist into the code and this could spin for real.</p>
+  </div>
+</div>
+
+<div class="namemodal-overlay" id="nameModal">
+  <div class="namemodal-panel">
+    <h3>🏆 New High Score!</h3>
+    <div class="namemodal-sub">Enter your name for the Hall of Fame</div>
+    <form id="nameModalForm">
+      <input type="text" id="nameModalInput" placeholder="Your name" maxlength="24" autocomplete="off">
+      <div class="namemodal-actions">
+        <button type="button" class="timer-btn" id="nameModalSkip">Skip</button>
+        <button type="submit" class="timer-btn primary">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
+
 
 <div class="sprockets" aria-hidden="true">
   <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
@@ -1504,12 +1788,13 @@
 
 <header>
   <nav>
-    <a href="#top" class="logo">jakha<span>.</span>phosa</a>
+    <a href="#top" class="logo" title="👀 psst... try clicking me 5 times, fast">jakha<span>.</span>phosa</a>
     <div class="navlinks">
       <a href="#about">About</a>
       <a href="#work">Work</a>
       <a href="#posters">Posters</a>
       <a href="#skills">Skills</a>
+      <a href="#resume">Resume</a>
       <a href="#setup">Setup</a>
       <a href="#links">Links</a>
       <a href="#music">Music</a>
@@ -1518,6 +1803,10 @@
       <a href="#guestbook">Guestbook</a>
     </div>
     <div class="nav-right">
+      <button class="playground-toggle" id="playgroundBtn" aria-haspopup="dialog">
+        <span class="swatch" aria-hidden="true"></span>
+        <span class="pg-label">CUSTOMIZE</span>
+      </button>
       <button class="theme-toggle" id="themeToggle" aria-pressed="false">
         <span class="dot" aria-hidden="true"></span>
         <span id="themeLabel">DARK MODE</span>
@@ -1794,6 +2083,16 @@
         <div class="spec-note">A mix of analog and digital tools — some for the final output, some for the thinking process.</div>
         <div class="spec-preview" data-target="b"><span class="ptag">REF</span><img src="" alt=""><span class="pcap"></span></div>
       </div>
+      <div class="spec-block" style="grid-column:1 / -1;">
+        <div class="sindex">C — ON THE GO</div>
+        <h3>Laptop</h3>
+        <div class="spec-row" data-img="https://picsum.photos/seed/laptop-hp-pavilion/300/220" data-cap="HP Pavilion Gaming 15-EC0001AX"><span class="label">Model</span><span class="value">HP Pavilion Gaming 15-EC0001AX</span></div>
+        <div class="spec-row" data-img="https://picsum.photos/seed/cpu-ryzen3550h/300/220" data-cap="AMD Ryzen 5 3550H"><span class="label">Processor</span><span class="value">AMD Ryzen™ 5 3550H (2.1GHz base, up to 3.7GHz boost, 4 cores)</span></div>
+        <div class="spec-row" data-img="https://picsum.photos/seed/gpu-gtx1050/300/220" data-cap="NVIDIA GeForce GTX 1050"><span class="label">Graphics</span><span class="value">NVIDIA GeForce GTX 1050 (3GB GDDR5) + Radeon Vega 8</span></div>
+        <div class="spec-row" data-img="https://picsum.photos/seed/screen-hp/300/220" data-cap="15.6-inch FHD"><span class="label">Screen</span><span class="value">15.6" · 1920 × 1080</span></div>
+        <div class="spec-note">The travel setup — used for coding, light editing, and gaming on the move.</div>
+        <div class="spec-preview" data-target="c"><span class="ptag">REF</span><img src="" alt=""><span class="pcap"></span></div>
+      </div>
     </div>
   </section>
 
@@ -1857,26 +2156,50 @@
         <div class="sindex">B — SOCIAL</div>
         <h3>Links</h3>
 
-        <a class="link-row" href="https://www.instagram.com/phosajakha/" target="_blank" rel="noopener">
+        <a class="link-row" href="https://www.instagram.com/jphosa/?hl=id" target="_blank" rel="noopener">
           <div class="link-main">
             <span class="link-name">Instagram</span>
-            <span class="link-sub">@phosajakha</span>
+            <span class="link-sub">@jphosa</span>
           </div>
           <span class="link-cta">Visit <span class="arrow">↗</span></span>
+        </a>
+
+        <a class="link-row" href="https://www.linkedin.com/in/jakha-phosa-724998282/" target="_blank" rel="noopener">
+          <div class="link-main">
+            <span class="link-name">LinkedIn</span>
+            <span class="link-sub">Jakha Phosa</span>
+          </div>
+          <span class="link-cta">Visit <span class="arrow">↗</span></span>
+        </a>
+
+        <a class="link-row" href="https://web.facebook.com/jakha.phosa.9" target="_blank" rel="noopener">
+          <div class="link-main">
+            <span class="link-name">Facebook</span>
+            <span class="link-sub">Jakha Phosa</span>
+          </div>
+          <span class="link-cta">Visit <span class="arrow">↗</span></span>
+        </a>
+
+        <a class="link-row" href="https://twitter.com/jrphosa" target="_blank" rel="noopener">
+          <div class="link-main">
+            <span class="link-name">X / Twitter</span>
+            <span class="link-sub">@jrphosa</span>
+          </div>
+          <span class="link-cta">Visit <span class="arrow">↗</span></span>
+        </a>
+
+        <a class="link-row" href="https://wa.me/+6282340811497" target="_blank" rel="noopener">
+          <div class="link-main">
+            <span class="link-name">WhatsApp</span>
+            <span class="link-sub">+62 823-4081-1497</span>
+          </div>
+          <span class="link-cta">Chat <span class="arrow">↗</span></span>
         </a>
 
         <a class="link-row" href="#" target="_blank" rel="noopener">
           <div class="link-main">
             <span class="link-name">Behance</span>
             <span class="link-sub">behance.net/JakhaPhosa</span>
-          </div>
-          <span class="link-cta">Visit <span class="arrow">↗</span></span>
-        </a>
-
-        <a class="link-row" href="#" target="_blank" rel="noopener">
-          <div class="link-main">
-            <span class="link-name">X / Twitter</span>
-            <span class="link-sub">@JakhaPhosa</span>
           </div>
           <span class="link-cta">Visit <span class="arrow">↗</span></span>
         </a>
@@ -1926,7 +2249,7 @@
           <img id="npLiveImg" src="" alt="Live Spotify status" style="height:56px;border:1px solid var(--ink);display:block;">
         </div>
         <div class="now-playing" id="npDemo">
-          <div class="np-bars"><span></span><span></span><span></span><span></span></div>
+          <div class="np-bars" id="djTrigger" title="🎧 click 5x fast..." style="cursor:pointer;"><span></span><span></span><span></span><span></span></div>
           <div class="np-text">
             <div class="np-eyebrow">Now Playing (Demo)</div>
             <div class="np-track" id="npTrack">Boards of Canada — Roygbiv</div>
@@ -1992,41 +2315,8 @@
     </div>
   </section>
 
-  <section class="section wrap reveal" id="calendar">
-    <div class="section-label"><span class="num">08</span><h2>Shooting Calendar</h2></div>
-    <p style="font-family:var(--body);font-size:14.5px;color:#3a3a35;max-width:60ch;margin-bottom:24px;">A recap of when a roll of film or design file was last worked on — the darker the color, the busier the day.</p>
-    <div class="heatmap-wrap">
-      <div class="heatmap" id="heatmap"></div>
-    </div>
-    <div class="heatmap-legend">
-      QUIET <span class="cell" data-level="0"></span><span class="cell" data-level="1"></span><span class="cell" data-level="2"></span><span class="cell" data-level="3"></span><span class="cell" data-level="4"></span> BUSY
-    </div>
-  </section>
-
-  <section class="section wrap reveal" id="timer">
-    <div class="section-label"><span class="num">09</span><h2>Darkroom Timer</h2></div>
-    <div class="timer-wrap">
-      <div class="timer-dial" id="timerDial">
-        <span class="safelight-dot" id="safelightDot"></span>
-        <div class="timer-display" id="timerDisplay">05:00</div>
-        <div class="timer-label" id="timerStage">Developer</div>
-      </div>
-      <div class="timer-controls">
-        <div class="timer-presets">
-          <button class="timer-btn" data-min="5">Developer 5:00</button>
-          <button class="timer-btn" data-min="1">Stop Bath 1:00</button>
-          <button class="timer-btn" data-min="8">Fixer 8:00</button>
-        </div>
-        <div class="timer-actions">
-          <button class="timer-btn primary" id="timerStart">Start</button>
-          <button class="timer-btn" id="timerReset">Reset</button>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <section class="section wrap reveal" id="terminal">
-    <div class="section-label"><span class="num">10</span><h2>Terminal</h2></div>
+    <div class="section-label"><span class="num">08</span><h2>Terminal</h2></div>
     <p style="font-family:var(--body);font-size:14.5px;color:#3a3a35;max-width:60ch;margin-bottom:24px;">Type <code style="font-family:var(--mono);">help</code> to see the list of commands.</p>
     <div class="terminal-wrap">
       <div class="terminal-bar">
@@ -2044,8 +2334,9 @@
   </section>
 
   <section class="section wrap reveal" id="arcade">
-    <div class="section-label"><span class="num">11</span><h2>Arcade — Pick a Mode</h2></div>
+    <div class="section-label"><span class="num">09</span><h2>Arcade — Pick a Mode</h2></div>
     <p class="arcade-intro">Small games hiding in this portfolio. Pick a mode below and it opens right here — high scores are shared across everyone who visits this page.</p>
+    <button class="timer-btn" id="hallOfFameBtn" style="margin-bottom:24px;">🏆 View Hall of Fame</button>
     <div class="arcade-grid">
       <button class="arcade-card" data-game="ttt">
         <div class="ac-num">MODE 01</div>
@@ -2343,7 +2634,7 @@
   </div>
 
   <section class="section wrap reveal" id="guestbook">
-    <div class="section-label"><span class="num">12</span><h2>Guestbook</h2></div>
+    <div class="section-label"><span class="num">10</span><h2>Guestbook</h2></div>
     <p class="poster-intro">Leave a note before you go — every message here is shared and shows up for every visitor of this page.</p>
     <div class="gb-wrap">
       <form class="gb-form" id="gbForm">
@@ -2364,8 +2655,54 @@
     </div>
   </section>
 
+  <section class="section wrap reveal" id="resume">
+    <div class="section-label"><span class="num">11</span><h2>Resume</h2></div>
+    <p class="poster-intro">A quick look at my academic and professional background — the paper trail behind the portfolio.</p>
+
+    <div class="services" style="margin-bottom:1px;">
+      <div class="service">
+        <div class="sindex">A — EDUCATION</div>
+        <h3>Academic</h3>
+        <ul>
+          <li>Nusa Cendana University <span>2018 – 2022</span></li>
+          <li>1st Senior High School, West Sabu <span>2015 – 2018</span></li>
+          <li>2nd Junior High School, West Sabu <span>2012 – 2015</span></li>
+          <li>4th Elementary School, Koto Tuo <span>2006 – 2012</span></li>
+        </ul>
+      </div>
+      <div class="service">
+        <div class="sindex">B — EXPERIENCE &amp; RESEARCH</div>
+        <h3>Professional</h3>
+        <ul>
+          <li>AI for Junior Developer (Huawei) <span>2022</span></li>
+          <li>Thesis — Case-Based Reasoning for Computer Diagnostics <span>2022</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="spec-sheet" style="margin-top:1px;">
+      <div class="spec-block">
+        <div class="sindex">C — SKILLS</div>
+        <h3>Toolset</h3>
+        <div class="spec-row"><span class="label">Programming</span><span class="value">C#, HTML, PHP, CSS</span></div>
+        <div class="spec-row"><span class="label">Photo/Video Editing</span><span class="value">Photoshop, Premiere Pro, CapCut, KineMaster</span></div>
+        <div class="spec-row"><span class="label">Design Graphics</span><span class="value">Photoshop, Illustrator, Canva</span></div>
+        <div class="spec-row"><span class="label">Office</span><span class="value">Excel, PowerPoint, Word</span></div>
+      </div>
+      <div class="spec-block">
+        <div class="sindex">D — LANGUAGES</div>
+        <h3>Spoken</h3>
+        <div class="spec-row"><span class="label">Indonesian</span><span class="value">Native</span></div>
+        <div class="spec-row"><span class="label">English</span><span class="value">Proficient</span></div>
+        <div class="spec-note">The full CV has more detail on education, research, and work history — download it below.</div>
+      </div>
+    </div>
+
+    <a href="https://drive.google.com/file/d/1IxIOW7q-pRyRZB2IDUl7Z_kdVmOsygNP/view?usp=drive_link" target="_blank" rel="noopener" class="timer-btn primary" style="display:inline-block;margin-top:24px;text-decoration:none;">📄 Download Full Resume (PDF)</a>
+  </section>
+
   <section class="section wrap reveal">
-    <div class="section-label"><span class="num">13</span><h2>Tools</h2></div>
+    <div class="section-label"><span class="num">12</span><h2>Tools</h2></div>
     <p class="quote">The tools I use every day — <span>some analog, some digital</span>, all part of how I work.</p>
   </section>
 
@@ -2386,7 +2723,7 @@
 
 <footer class="contact" id="archive">
   <div class="wrap">
-    <div class="section-label"><span class="num">14</span><h2>Archive Notes</h2></div>
+    <div class="section-label"><span class="num">13</span><h2>Archive Notes</h2></div>
     <div class="contact-grid">
       <div>
         <h3>THIS COLLECTION IS<br>BUILT AND MAINTAINED<br>PERSONALLY IN JAKARTA.</h3>
@@ -2395,15 +2732,17 @@
         DISCIPLINE — Graphic Design &amp; Photography<br>
         ACTIVE SINCE — 2016<br>
         LOCATION — Kupang, Indonesia<br>
-        FORMAT — Print, Digital, Motion
+        FORMAT — Print, Digital, Motion<br>
+        EMAIL — <a href="mailto:phosajakha@gmail.com">phosajakha@gmail.com</a><br>
+        PHONE — <a href="tel:+6282340811497">+62 823-4081-1497</a>
       </div>
     </div>
     <div class="stamp" style="flex-direction:column;align-items:flex-start;gap:6px;">
       <div style="display:flex;justify-content:space-between;width:100%;flex-wrap:wrap;gap:10px;">
         <span>© 2026 Jakha Phosa — PERSONAL WORK ARCHIVE</span>
-        <span class="badge">ARCHIVED</span>
+        <span class="badge" id="archivedBadge" title="👀 click me 3 times fast">ARCHIVED</span>
       </div>
-      <div id="statusLine" style="opacity:0.85;">STATUS: LOADING... · BUILD v2.4.0</div>
+      <div id="statusLine" style="opacity:0.85;">STATUS: LOADING... · BUILD v2.7.0</div>
       <div id="visitorLine" style="opacity:0.85;font-family:var(--mono);">VISITOR NO. <b id="visitorCount" style="color:var(--kodak);">—</b></div>
       <div id="visitorDeviceLine" style="opacity:0.85;font-family:var(--mono);font-size:11px;">THIS VISIT — <span id="visitorDevice">detecting…</span></div>
       <div id="visitorStatsLine" style="opacity:0.85;font-family:var(--mono);font-size:11px;">ALL VISITORS — <span id="visitorStats">loading stats…</span></div>
@@ -2413,6 +2752,14 @@
 
 <script type="text/javascript" src="https://community.cloudflare.steamstatic.com/public/javascript/webui/miniprofile.js" data-miniprofile-lang="en"></script>
 <script>
+  /* ---------------- console easter egg ---------------- */
+  console.log('%c📸 jakha.phosa', 'font-size:22px;font-weight:bold;color:#c81d2f;');
+  console.log('%cPsst — kamu buka DevTools ya? Berarti kita jodoh 👋', 'font-size:12.5px;color:#8c887c;');
+  console.log('%cCoba klik nama "jakha.phosa" di pojok kiri atas, 5x cepat-cepat...', 'font-size:12px;color:#f0b429;');
+  console.log('%cAtau tekan "?" buat shortcut, ketik "help" di Terminal, atau coba j/k/gg/G ala Vim.', 'font-size:11.5px;color:#8c887c;');
+  console.log('%cAda 13 achievement tersembunyi di halaman ini. Selamat berburu.', 'font-size:11.5px;color:#8c887c;');
+  console.log('%c🎧 Pecinta musik... coba klik-klik area "Now Playing" di section Music.', 'font-size:11.5px;color:#5c9e5c;');
+
   // dark mode toggle
   const themeBtn = document.getElementById('themeToggle');
   const themeLabel = document.getElementById('themeLabel');
@@ -2436,11 +2783,179 @@
   }
   applyTheme();
 
-  themeBtn.addEventListener('click', ()=>{
-    isDark = !isDark;
+  function setDarkMode(next){
+    isDark = next;
     applyTheme();
     if(isDark && typeof Achievements !== 'undefined') Achievements.unlock('nightOwl');
-  });
+    if(typeof window.__reapplyPlaygroundTheme === 'function') window.__reapplyPlaygroundTheme();
+  }
+
+  themeBtn.addEventListener('click', ()=> setDarkMode(!isDark));
+
+  /* ---------------- design playground ---------------- */
+  (function designPlayground(){
+    const btn = document.getElementById('playgroundBtn');
+    const overlay = document.getElementById('pgOverlay');
+    const closeBtn = document.getElementById('pgClose');
+    const resetBtn = document.getElementById('pgReset');
+    const accentWrap = document.getElementById('pgAccentSwatches');
+    const bgWrap = document.getElementById('pgBgSwatches');
+    const displayWrap = document.getElementById('pgDisplayFonts');
+    const bodyWrap = document.getElementById('pgBodyFonts');
+    const lightBtn = document.getElementById('pgLightBtn');
+    const darkBtn = document.getElementById('pgDarkBtn');
+    if(!btn || !overlay) return;
+
+    const ACCENTS = {
+      red:{name:'Red', light:'#c81d2f', dark:'#ff4d5e'},
+      blue:{name:'Blue', light:'#1d5fc8', dark:'#5b9dff'},
+      green:{name:'Green', light:'#1d7a3c', dark:'#5cd685'},
+      purple:{name:'Purple', light:'#6a2dc8', dark:'#b085ff'},
+      orange:{name:'Orange', light:'#c86a1d', dark:'#ffab5b'},
+      pink:{name:'Pink', light:'#c81d78', dark:'#ff6bb8'}
+    };
+    const BACKGROUNDS = {
+      classic:{name:'Classic', light:'#e9e4d6', dark:'#131311', dimLight:'#dcd6c4', dimDark:'#1c1b17'},
+      ocean:{name:'Ocean', light:'#e4ecf0', dark:'#0d1620', dimLight:'#d3e0e6', dimDark:'#16212e'},
+      forest:{name:'Forest', light:'#e6ecdf', dark:'#0f1710', dimLight:'#d8e2cd', dimDark:'#182619'},
+      rose:{name:'Rose', light:'#f0e4e8', dark:'#1a0f14', dimLight:'#e6d3da', dimDark:'#26181e'},
+      crt:{name:'CRT', light:'#0a1f0f', dark:'#04120a', dimLight:'#0f2a15', dimDark:'#081a0f', secret:true}
+    };
+    const DISPLAY_FONTS = {
+      bebas:{name:'Bebas Neue', css:"'Bebas Neue', sans-serif"},
+      oswald:{name:'Oswald', css:"'Oswald', sans-serif"},
+      archivo:{name:'Archivo Black', css:"'Archivo Black', sans-serif"}
+    };
+    const BODY_FONTS = {
+      inter:{name:'Inter', css:"'Inter', sans-serif"},
+      plex:{name:'IBM Plex Sans', css:"'IBM Plex Sans', sans-serif"},
+      mono:{name:'Space Mono', css:"'Space Mono', monospace"}
+    };
+    const DEFAULT_PREFS = { accent:'red', background:'classic', displayFont:'bebas', bodyFont:'inter' };
+
+    let prefs = Object.assign({}, DEFAULT_PREFS);
+    let dirty = false;
+
+    function applyAccent(key){ document.body.style.setProperty('--safelight', isDark ? ACCENTS[key].dark : ACCENTS[key].light); }
+    function applyBackground(key){
+      const b = BACKGROUNDS[key];
+      document.body.style.setProperty('--paper', isDark ? b.dark : b.light);
+      document.body.style.setProperty('--paper-dim', isDark ? b.dimDark : b.dimLight);
+      document.body.classList.toggle('crt-mode', key === 'crt');
+    }
+    function applyDisplayFont(key){ document.body.style.setProperty('--display', DISPLAY_FONTS[key].css); }
+    function applyBodyFont(key){ document.body.style.setProperty('--body', BODY_FONTS[key].css); }
+
+    function applyAll(){
+      applyAccent(prefs.accent);
+      applyBackground(prefs.background);
+      applyDisplayFont(prefs.displayFont);
+      applyBodyFont(prefs.bodyFont);
+      renderActiveStates();
+    }
+
+    function visibleBackgrounds(){
+      const crtUnlocked = typeof Achievements !== 'undefined' && Achievements.hasCRT && Achievements.hasCRT();
+      return Object.entries(BACKGROUNDS).filter(([, b]) => !b.secret || crtUnlocked);
+    }
+
+    function renderSwatches(){
+      accentWrap.innerHTML = Object.entries(ACCENTS).map(([key,a])=>
+        `<button class="pg-swatch" data-key="${key}" data-group="accent" style="background:${a.light}" title="${a.name}" aria-label="${a.name} accent"></button>`
+      ).join('');
+      bgWrap.innerHTML = visibleBackgrounds().map(([key,b])=>
+        `<button class="pg-bg-swatch" data-key="${key}" data-group="background" style="background:${b.light}" title="${b.name}">${b.name.slice(0,2).toUpperCase()}</button>`
+      ).join('');
+      displayWrap.innerHTML = Object.entries(DISPLAY_FONTS).map(([key,f])=>
+        `<div class="pg-option" data-key="${key}" data-group="displayFont"><span class="pg-option-name" style="font-family:${f.css}">${f.name}</span><span class="pg-option-sample">Aa</span></div>`
+      ).join('');
+      bodyWrap.innerHTML = Object.entries(BODY_FONTS).map(([key,f])=>
+        `<div class="pg-option" data-key="${key}" data-group="bodyFont"><span class="pg-option-name" style="font-family:${f.css}">${f.name}</span><span class="pg-option-sample">Aa</span></div>`
+      ).join('');
+      renderActiveStates();
+    }
+
+    function renderActiveStates(){
+      accentWrap.querySelectorAll('.pg-swatch').forEach(el => el.classList.toggle('active', el.dataset.key === prefs.accent));
+      bgWrap.querySelectorAll('.pg-bg-swatch').forEach(el => el.classList.toggle('active', el.dataset.key === prefs.background));
+      displayWrap.querySelectorAll('.pg-option').forEach(el => el.classList.toggle('active', el.dataset.key === prefs.displayFont));
+      bodyWrap.querySelectorAll('.pg-option').forEach(el => el.classList.toggle('active', el.dataset.key === prefs.bodyFont));
+      if(lightBtn && darkBtn){
+        lightBtn.classList.toggle('active', !isDark);
+        darkBtn.classList.toggle('active', isDark);
+      }
+    }
+
+    async function persist(){
+      try{ if(window.storage) await window.storage.set('design-prefs', JSON.stringify(prefs), false); }catch(e){}
+    }
+
+    async function load(){
+      try{
+        if(window.storage){
+          const res = await window.storage.get('design-prefs', false);
+          if(res){
+            const saved = JSON.parse(res.value);
+            Object.keys(DEFAULT_PREFS).forEach(k => { if(saved[k]) prefs[k] = saved[k]; });
+          }
+        }
+      }catch(e){ /* first visit or unavailable */ }
+      renderSwatches();
+      applyAll();
+    }
+
+    function markChanged(){
+      if(!dirty){
+        dirty = true;
+        if(typeof Achievements !== 'undefined') Achievements.unlock('customizer');
+      }
+    }
+
+    function handleSelection(e){
+      const el = e.target.closest('[data-group]');
+      if(!el) return;
+      const group = el.dataset.group;
+      const key = el.dataset.key;
+      prefs[group] = key;
+      if(group === 'accent') applyAccent(key);
+      else if(group === 'background') applyBackground(key);
+      else if(group === 'displayFont') applyDisplayFont(key);
+      else if(group === 'bodyFont') applyBodyFont(key);
+      renderActiveStates();
+      persist();
+      markChanged();
+    }
+
+    accentWrap.addEventListener('click', handleSelection);
+    bgWrap.addEventListener('click', handleSelection);
+    displayWrap.addEventListener('click', handleSelection);
+    bodyWrap.addEventListener('click', handleSelection);
+
+    if(lightBtn) lightBtn.addEventListener('click', ()=>{ setDarkMode(false); markChanged(); });
+    if(darkBtn) darkBtn.addEventListener('click', ()=>{ setDarkMode(true); markChanged(); });
+
+    resetBtn.addEventListener('click', ()=>{
+      prefs = Object.assign({}, DEFAULT_PREFS);
+      applyAll();
+      renderActiveStates();
+      persist();
+    });
+
+    btn.addEventListener('click', ()=> overlay.classList.add('on'));
+    closeBtn.addEventListener('click', ()=> overlay.classList.remove('on'));
+    overlay.addEventListener('click', (e)=>{ if(e.target === overlay) overlay.classList.remove('on'); });
+
+    window.__reapplyPlaygroundTheme = applyAll;
+    window.__refreshPlaygroundLock = renderSwatches;
+    window.__getDesignPrefs = () => ({
+      accent: ACCENTS[prefs.accent] ? ACCENTS[prefs.accent].name : prefs.accent,
+      background: BACKGROUNDS[prefs.background] ? BACKGROUNDS[prefs.background].name : prefs.background,
+      displayFont: DISPLAY_FONTS[prefs.displayFont] ? DISPLAY_FONTS[prefs.displayFont].name : prefs.displayFont,
+      bodyFont: BODY_FONTS[prefs.bodyFont] ? BODY_FONTS[prefs.bodyFont].name : prefs.bodyFont
+    });
+
+    load();
+  })();
 
   // spec row hover preview
   document.querySelectorAll('.spec-block').forEach(block=>{
@@ -2555,121 +3070,160 @@
     });
   })();
 
-  /* ---------------- custom cursor reticle over gallery ---------------- */
-  (function reticle(){
-    const ret = document.getElementById('reticle');
-    const gallery = document.querySelector('.gallery');
-    if(!ret || !gallery) return;
-    gallery.addEventListener('mousemove', (e)=>{
-      ret.style.left = e.clientX + 'px';
-      ret.style.top = e.clientY + 'px';
-      ret.classList.add('show');
-    });
-    gallery.addEventListener('mouseleave', ()=> ret.classList.remove('show'));
-  })();
 
-  /* ---------------- shooting calendar (heatmap) ---------------- */
-  (function heatmap(){
-    const wrap = document.getElementById('heatmap');
-    const tooltip = document.getElementById('heatTooltip') || (()=>{
-      const t = document.createElement('div'); t.id = 'heatTooltip'; document.body.appendChild(t); return t;
-    })();
-    if(!wrap) return;
-    const weeks = 26;
-    const today = new Date();
-    const days = [];
-    for(let i = weeks*7 - 1; i >= 0; i--){
-      const d = new Date(today);
-      d.setDate(d.getDate() - i);
-      const seed = d.getFullYear()*400 + d.getMonth()*31 + d.getDate();
-      const rnd = Math.abs(Math.sin(seed)) ;
-      let level = 0;
-      if(rnd > 0.85) level = 4;
-      else if(rnd > 0.68) level = 3;
-      else if(rnd > 0.48) level = 2;
-      else if(rnd > 0.3) level = 1;
-      days.push({d, level});
-    }
-    days.forEach(({d, level})=>{
-      const cell = document.createElement('div');
-      cell.className = 'cell';
-      cell.setAttribute('data-level', level);
-      const label = d.toLocaleDateString('en-US', {day:'numeric', month:'short', year:'numeric'});
-      const countTxt = level === 0 ? 'No activity' : `${level} pieces worked on`;
-      cell.addEventListener('mouseenter', (e)=>{
-        tooltip.textContent = `${label} — ${countTxt}`;
-        tooltip.classList.add('show');
-      });
-      cell.addEventListener('mousemove', (e)=>{
-        tooltip.style.left = e.clientX + 'px';
-        tooltip.style.top = (e.clientY - 30) + 'px';
-      });
-      cell.addEventListener('mouseleave', ()=> tooltip.classList.remove('show'));
-      wrap.appendChild(cell);
-    });
-  })();
+  /* ---------------- photo lightbox ---------------- */
+  (function lightbox(){
+    const overlay = document.getElementById('lightboxOverlay');
+    const imgEl = document.getElementById('lightboxImg');
+    const catEl = document.getElementById('lightboxCat');
+    const titleEl = document.getElementById('lightboxTitle');
+    const exifEl = document.getElementById('lightboxExif');
+    const counterEl = document.getElementById('lightboxCounter');
+    const closeBtn = document.getElementById('lightboxClose');
+    const prevBtn = document.getElementById('lightboxPrev');
+    const nextBtn = document.getElementById('lightboxNext');
+    const frames = Array.from(document.querySelectorAll('.gallery .frame'));
+    if(!overlay || !frames.length) return;
 
-  /* ---------------- darkroom timer ---------------- */
-  (function darkroomTimer(){
-    const display = document.getElementById('timerDisplay');
-    const stage = document.getElementById('timerStage');
-    const dial = document.getElementById('timerDial');
-    const startBtn = document.getElementById('timerStart');
-    const resetBtn = document.getElementById('timerReset');
-    const presets = document.querySelectorAll('.timer-btn[data-min]');
-    if(!display) return;
+    const photos = frames.map(f => ({
+      src: f.querySelector('img')?.src || '',
+      alt: f.querySelector('img')?.alt || '',
+      cat: f.querySelector('.cat')?.textContent || '',
+      title: f.querySelector('.ttl')?.textContent || '',
+      exif: f.querySelector('.exif')?.textContent || ''
+    }));
 
-    let totalSeconds = 5*60;
-    let remaining = totalSeconds;
-    let running = false;
-    let intervalId = null;
-    let currentLabel = 'Developer';
+    let index = 0;
 
     function render(){
-      const m = Math.floor(remaining/60).toString().padStart(2,'0');
-      const s = Math.floor(remaining%60).toString().padStart(2,'0');
-      display.textContent = `${m}:${s}`;
-      stage.textContent = currentLabel;
+      const p = photos[index];
+      imgEl.src = p.src;
+      imgEl.alt = p.alt;
+      catEl.textContent = p.cat;
+      titleEl.textContent = p.title;
+      exifEl.textContent = p.exif;
+      counterEl.textContent = `${index + 1} / ${photos.length}`;
     }
-    render();
 
-    function tick(){
-      if(remaining <= 0){
-        pause();
-        display.textContent = '00:00';
-        return;
-      }
-      remaining--;
+    function open(i){
+      index = i;
       render();
+      overlay.classList.add('on');
     }
-    function start(){
-      if(running) return;
-      running = true;
-      dial.classList.add('running');
-      startBtn.textContent = 'Pause';
-      intervalId = setInterval(tick, 1000);
-    }
-    function pause(){
-      running = false;
-      dial.classList.remove('running');
-      startBtn.textContent = 'Start';
-      clearInterval(intervalId);
-    }
-    startBtn.addEventListener('click', ()=> running ? pause() : start());
-    resetBtn.addEventListener('click', ()=>{
-      pause();
-      remaining = totalSeconds;
-      render();
+    function close(){ overlay.classList.remove('on'); }
+    function next(){ index = (index + 1) % photos.length; render(); }
+    function prev(){ index = (index - 1 + photos.length) % photos.length; render(); }
+
+    frames.forEach((f, i) => f.addEventListener('click', () => open(i)));
+    closeBtn.addEventListener('click', close);
+    nextBtn.addEventListener('click', next);
+    prevBtn.addEventListener('click', prev);
+    overlay.addEventListener('click', (e)=>{ if(e.target === overlay) close(); });
+
+    window.addEventListener('keydown', (e)=>{
+      if(!overlay.classList.contains('on')) return;
+      if(e.key === 'Escape') close();
+      else if(e.key === 'ArrowRight') next();
+      else if(e.key === 'ArrowLeft') prev();
     });
-    presets.forEach(btn=>{
-      btn.addEventListener('click', ()=>{
-        pause();
-        const mins = parseFloat(btn.getAttribute('data-min'));
-        totalSeconds = Math.round(mins*60);
-        remaining = totalSeconds;
-        currentLabel = btn.textContent.replace(/[\d:]+/g,'').trim();
-        render();
-      });
+  })();
+
+  /* ---------------- hall of fame ---------------- */
+  (function hallOfFame(){
+    const btn = document.getElementById('hallOfFameBtn');
+    const modal = document.getElementById('hofModal');
+    const listEl = document.getElementById('hofList');
+    if(!btn || !modal || !listEl) return;
+
+    const GAMES = [
+      { key:'topscore:ttt-wins', label:'Tic-Tac-Toe', fmt: v => `${v} wins` },
+      { key:'topscore:mem-moves', label:'Match the Negative', fmt: v => `${v} moves` },
+      { key:'topscore:rx-ms', label:'Shutter Reflex', fmt: v => `${v} ms` },
+      { key:'topscore:tetris-score', label:'Tetris', fmt: v => `${v} points` },
+      { key:'topscore:sync-gap', label:'Double Exposure', fmt: v => `${v} ms` },
+      { key:'topscore:snake-score', label:'Film Roll', fmt: v => `${v} points` },
+      { key:'topscore:flashback-streak', label:'Flashback', fmt: v => `${v} streak` },
+      { key:'topscore:whack-hits', label:'Whack-a-Neg', fmt: v => `${v} hits` },
+      { key:'topscore:odd-round', label:'Odd One Out', fmt: v => `${v} rounds` },
+      { key:'topscore:exposure-streak', label:'Perfect Exposure', fmt: v => `${v} streak` }
+    ];
+
+    btn.addEventListener('click', async ()=>{
+      listEl.innerHTML = GAMES.map(g => `<div class="achv-item">
+        <div class="achv-icon">🏆</div>
+        <div>
+          <div class="achv-title">${g.label}</div>
+          <div class="achv-desc">Loading…</div>
+        </div>
+      </div>`).join('');
+      modal.classList.add('on');
+
+      const records = await Promise.all(GAMES.map(g => TopScore.get(g.key)));
+      listEl.innerHTML = GAMES.map((g, i) => {
+        const record = records[i];
+        const desc = record ? `${g.fmt(record.value)} — ${record.name}` : 'No record yet';
+        return `<div class="achv-item done">
+          <div class="achv-icon">🏆</div>
+          <div>
+            <div class="achv-title">${g.label}</div>
+            <div class="achv-desc">${desc}</div>
+          </div>
+        </div>`;
+      }).join('');
+    });
+  })();
+
+  /* ---------------- debug / about this page panel ---------------- */
+  (function debugPanel(){
+    const badge = document.getElementById('archivedBadge');
+    const modal = document.getElementById('debugModal');
+    const listEl = document.getElementById('debugList');
+    if(!badge || !modal || !listEl) return;
+
+    let clickCount = 0;
+    let clickTimer = null;
+
+    function detectDeviceQuick(){
+      const ua = navigator.userAgent || '';
+      let type = 'Desktop';
+      if(/iPad|Tablet/i.test(ua) || (/Android/i.test(ua) && !/Mobile/i.test(ua))) type = 'Tablet';
+      else if(/Mobi|Android|iPhone|iPod/i.test(ua)) type = 'Mobile';
+      return type;
+    }
+
+    function openPanel(){
+      const isDarkNow = document.body.getAttribute('data-theme') === 'dark';
+      const cs = getComputedStyle(document.body);
+      const rows = [
+        { label:'Viewport', value:`${window.innerWidth} × ${window.innerHeight}` },
+        { label:'Device', value: detectDeviceQuick() },
+        { label:'Connection', value: (navigator.connection && navigator.connection.effectiveType) || 'Unknown' },
+        { label:'Mode', value: isDarkNow ? 'Dark' : 'Light' },
+        { label:'Accent Color', value: cs.getPropertyValue('--safelight').trim() },
+        { label:'Background', value: cs.getPropertyValue('--paper').trim() },
+        { label:'Heading Font', value: cs.getPropertyValue('--display').trim() },
+        { label:'Body Font', value: cs.getPropertyValue('--body').trim() },
+        { label:'Achievements', value: (typeof Achievements !== 'undefined' && Achievements.unlockedCount) ? `${Achievements.unlockedCount()}/${Achievements.total}` : 'Unknown' },
+        { label:'Build', value: 'v2.7.0' }
+      ];
+      listEl.innerHTML = rows.map(r => `<div class="achv-item done">
+        <div class="achv-icon">·</div>
+        <div>
+          <div class="achv-title">${r.label}</div>
+          <div class="achv-desc">${r.value}</div>
+        </div>
+      </div>`).join('');
+      modal.classList.add('on');
+    }
+
+    badge.addEventListener('click', ()=>{
+      clickCount++;
+      clearTimeout(clickTimer);
+      clickTimer = setTimeout(()=> clickCount = 0, 700);
+      if(clickCount >= 3){
+        clickCount = 0;
+        openPanel();
+      }
     });
   })();
 
@@ -2703,7 +3257,7 @@
 
       switch(name){
         case 'help':
-          print('Available commands: whoami, ls, cat [file], skills, contact, clear, sudo, help');
+          print('Available commands: whoami, ls, cat [file], skills, contact, neofetch, clear, sudo, help');
           break;
         case 'whoami':
           print('jakha-phosa — graphic designer & photographer');
@@ -2724,6 +3278,37 @@
         case 'sudo':
           print('nice try. access denied — this is just a portfolio, not a production server.');
           break;
+        case 'neofetch': {
+          const ascii = [
+            '      _______      ',
+            '     /       \\     ',
+            '    |  ○───○  |    ',
+            '    |    ▽    |    ',
+            '     \\_______/     ',
+            '     jakha.phosa   '
+          ];
+          ascii.forEach(line => print(line, 'out'));
+
+          const isDarkNow = document.body.getAttribute('data-theme') === 'dark';
+          const launch = new Date('2026-01-15T00:00:00');
+          const days = Math.floor((Date.now() - launch) / 86400000);
+          let prefsInfo = { accent:'red', background:'classic', displayFont:'bebas', bodyFont:'inter' };
+          if(typeof window.__getDesignPrefs === 'function') prefsInfo = window.__getDesignPrefs();
+          let achvInfo = '?/13';
+          if(typeof Achievements !== 'undefined' && Achievements.unlockedCount) achvInfo = `${Achievements.unlockedCount()}/${Achievements.total}`;
+
+          print('-----------------------------', 'out');
+          print(`OS: JakhaOS (Photography Edition)`, 'out');
+          print(`Host: Personal Portfolio v2.7.0`, 'out');
+          print(`Shell: zsh (simulated)`, 'out');
+          print(`Theme: ${prefsInfo.accent} accent / ${prefsInfo.background} background`, 'out');
+          print(`Font: ${prefsInfo.displayFont} + ${prefsInfo.bodyFont}`, 'out');
+          print(`Mode: ${isDarkNow ? 'Dark' : 'Light'}`, 'out');
+          print(`Resolution: ${window.innerWidth}x${window.innerHeight}`, 'out');
+          print(`Uptime: ${days} days since launch`, 'out');
+          print(`Achievements: ${achvInfo} unlocked`, 'out');
+          break;
+        }
         case 'clear':
           body.innerHTML = '';
           break;
@@ -2758,6 +3343,70 @@
     }, 6000);
   })();
 
+  /* ---------------- secret DJ booth ---------------- */
+  (function djBooth(){
+    const trigger = document.getElementById('djTrigger');
+    const modal = document.getElementById('djModal');
+    const vinyl = document.getElementById('djVinyl');
+    const tonearm = document.getElementById('djTonearm');
+    const eq = document.getElementById('djEq');
+    const trackNameEl = document.getElementById('djTrackName');
+    const playBtn = document.getElementById('djPlayPause');
+    const prevBtn = document.getElementById('djPrev');
+    const nextBtn = document.getElementById('djNext');
+    if(!trigger || !modal) return;
+
+    const TRACKS = [
+      'Boards of Canada — Roygbiv',
+      'Tycho — A Walk',
+      'Nujabes — Feather',
+      'Bonobo — Kerala',
+      'Cigarettes After Sex — Apocalypse',
+      "Air — La Femme d'Argent",
+      'Emancipator — Soon It Will Be Cold Enough'
+    ];
+    let trackIndex = 0;
+    let playing = false;
+
+    function renderTrack(){
+      trackNameEl.textContent = TRACKS[trackIndex];
+    }
+
+    function setPlaying(next){
+      playing = next;
+      vinyl.classList.toggle('spinning', playing);
+      tonearm.classList.toggle('playing', playing);
+      eq.classList.toggle('playing', playing);
+      playBtn.textContent = playing ? '⏸ Pause' : '▶ Play';
+    }
+
+    playBtn.addEventListener('click', ()=> setPlaying(!playing));
+    prevBtn.addEventListener('click', ()=>{
+      trackIndex = (trackIndex - 1 + TRACKS.length) % TRACKS.length;
+      renderTrack();
+    });
+    nextBtn.addEventListener('click', ()=>{
+      trackIndex = (trackIndex + 1) % TRACKS.length;
+      renderTrack();
+    });
+
+    let clickCount = 0;
+    let clickTimer = null;
+    trigger.addEventListener('click', ()=>{
+      clickCount++;
+      clearTimeout(clickTimer);
+      clickTimer = setTimeout(()=> clickCount = 0, 800);
+      if(clickCount >= 5){
+        clickCount = 0;
+        trackIndex = 0;
+        renderTrack();
+        setPlaying(true);
+        modal.classList.add('on');
+        if(typeof Achievements !== 'undefined') Achievements.unlock('secretDJ');
+      }
+    });
+  })();
+
   /* ---------------- status / uptime footer ---------------- */
   (function statusLine(){
     const el = document.getElementById('statusLine');
@@ -2766,7 +3415,7 @@
     const now = new Date();
     const diffMs = now - launch;
     const days = Math.floor(diffMs / 86400000);
-    el.textContent = `STATUS: OPERATIONAL · UPTIME: ${days} DAYS · BUILD v2.4.0`;
+    el.textContent = `STATUS: OPERATIONAL · UPTIME: ${days} DAYS · BUILD v2.7.0`;
   })();
 
   /* ---------------- keyboard shortcuts ---------------- */
@@ -2776,6 +3425,7 @@
     let awaitingG = false;
 
     function closeOverlay(){ overlay.classList.remove('on'); }
+    function markVim(){ if(typeof Achievements !== 'undefined') Achievements.unlock('vimUser'); }
 
     window.addEventListener('keydown', (e)=>{
       const tag = (e.target.tagName || '').toLowerCase();
@@ -2786,14 +3436,34 @@
 
       if(awaitingG){
         awaitingG = false;
-        const map = { k:'#work', s:'#setup', t:'#terminal', g:'#arcade', b:'#guestbook' };
+        if(e.key === 'g'){
+          window.scrollTo({top:0, behavior:'smooth'});
+          markVim();
+          return;
+        }
+        const map = { k:'#work', s:'#setup', t:'#terminal', a:'#arcade', b:'#guestbook', r:'#resume' };
         const target = map[e.key.toLowerCase()];
         if(target){
           document.querySelector(target)?.scrollIntoView({behavior:'smooth'});
         }
         return;
       }
-      if(e.key.toLowerCase() === 'g'){ awaitingG = true; setTimeout(()=>awaitingG=false, 900); return; }
+      if(e.key === 'g'){ awaitingG = true; setTimeout(()=>awaitingG=false, 900); return; }
+      if(e.key === 'G'){
+        window.scrollTo({top: document.body.scrollHeight, behavior:'smooth'});
+        markVim();
+        return;
+      }
+      if(e.key === 'j'){
+        window.scrollBy({top: window.innerHeight * 0.75, behavior:'smooth'});
+        markVim();
+        return;
+      }
+      if(e.key === 'k'){
+        window.scrollBy({top: -window.innerHeight * 0.75, behavior:'smooth'});
+        markVim();
+        return;
+      }
       if(e.key.toLowerCase() === 'd'){ themeBtn.click(); return; }
     });
 
@@ -3349,7 +4019,10 @@
       { id:'highScore', title:'Top of the Board', desc:'Set a new shared high score on any game.' },
       { id:'fullRoll', title:'Full Roll', desc:'Scrolled all the way down to the Archive Notes.' },
       { id:'terminal', title:'Terminal Hacker', desc:'Ran 5 commands in the terminal.' },
-      { id:'guestbook', title:'Left Your Mark', desc:'Signed the guestbook.' }
+      { id:'guestbook', title:'Left Your Mark', desc:'Signed the guestbook.' },
+      { id:'customizer', title:'Make It Yours', desc:'Customized the accent, background, or fonts in the Design Playground.' },
+      { id:'vimUser', title:'Vim User', desc:'Navigated the page with j, k, gg, or G.' },
+      { id:'secretDJ', title:'Secret DJ', desc:'Found the hidden DJ booth by clicking Now Playing 5 times fast.' }
     ];
     const STORAGE_KEY = 'achievements-unlocked';
     let unlocked = new Set();
@@ -3414,6 +4087,17 @@
       render();
       persist();
       showToast(def);
+      if(typeof window.__refreshPlaygroundLock === 'function') window.__refreshPlaygroundLock();
+      if(unlocked.size === 8){
+        setTimeout(()=>{
+          if(toastEl){
+            toastEl.innerHTML = `<div class="achv-toast-eyebrow">Secret Unlocked</div><div class="achv-toast-title">🖥️ CRT Theme</div>`;
+            toastEl.classList.add('show');
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(()=> toastEl.classList.remove('show'), 3200);
+          }
+        }, 1700);
+      }
     }
 
     if(btn) btn.addEventListener('click', ()=> overlay.classList.add('on'));
@@ -3422,23 +4106,77 @@
 
     load();
 
-    return { unlock, total: DEFS.length };
+    return {
+      unlock,
+      total: DEFS.length,
+      unlockedCount: () => unlocked.size,
+      hasCRT: () => unlocked.size >= 8
+    };
+  })();
+
+  /* ---------------- high score name prompt ---------------- */
+  (function highScoreNamePrompt(){
+    const overlay = document.getElementById('nameModal');
+    const form = document.getElementById('nameModalForm');
+    const input = document.getElementById('nameModalInput');
+    const skipBtn = document.getElementById('nameModalSkip');
+    if(!overlay || !form || !input || !skipBtn){
+      window.__promptHighScoreName = async () => 'Anonymous';
+      return;
+    }
+
+    let pendingResolve = null;
+
+    function close(name){
+      overlay.classList.remove('on');
+      if(pendingResolve){
+        const resolve = pendingResolve;
+        pendingResolve = null;
+        resolve(name);
+      }
+    }
+
+    form.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const val = input.value.trim().slice(0, 24);
+      close(val || 'Anonymous');
+    });
+    skipBtn.addEventListener('click', ()=> close('Anonymous'));
+    overlay.addEventListener('click', (e)=>{ if(e.target === overlay) close('Anonymous'); });
+    window.addEventListener('keydown', (e)=>{
+      if(overlay.classList.contains('on') && e.key === 'Escape') close('Anonymous');
+    });
+
+    window.__promptHighScoreName = function(){
+      return new Promise(resolve => {
+        pendingResolve = resolve;
+        input.value = '';
+        overlay.classList.add('on');
+        setTimeout(()=> input.focus(), 60);
+      });
+    };
   })();
 
   /* ---------------- shared top-score storage ---------------- */
   const TopScore = (function(){
     const cache = {};
+    function normalize(raw){
+      if(raw === null || raw === undefined) return null;
+      if(typeof raw === 'object' && 'value' in raw) return { name: raw.name || 'Anonymous', value: raw.value };
+      // legacy: score was stored as a bare number before name tracking existed
+      return { name: 'Anonymous', value: raw };
+    }
     async function get(key){
       try{
         if(!window.storage) return null;
         const res = await window.storage.get(key, true);
-        return res ? JSON.parse(res.value) : null;
+        return res ? normalize(JSON.parse(res.value)) : null;
       }catch(e){ return null; }
     }
-    async function set(key, value){
+    async function set(key, record){
       try{
         if(!window.storage) return false;
-        await window.storage.set(key, JSON.stringify(value), true);
+        await window.storage.set(key, JSON.stringify(record), true);
         return true;
       }catch(e){ return false; }
     }
@@ -3447,25 +4185,29 @@
       const current = await get(key);
       let best = current;
       let improved = false;
-      if(current === null || (higherIsBetter ? value > current : value < current)){
-        best = value;
+      if(current === null || (higherIsBetter ? value > current.value : value < current.value)){
         improved = true;
-        await set(key, value);
+        let name = 'Anonymous';
+        if(typeof window.__promptHighScoreName === 'function'){
+          name = await window.__promptHighScoreName();
+        }
+        best = { name: name || 'Anonymous', value };
+        await set(key, best);
       }
       cache[key] = best;
-      const text = formatter ? formatter(best) : String(best);
+      const text = formatter ? formatter(best.value) : String(best.value);
       (displayEls || []).forEach(el => { if(el) el.textContent = text; });
       if(improved && typeof Achievements !== 'undefined') Achievements.unlock('highScore');
       return best;
     }
     async function refresh(key, displayEls, formatter){
-      const val = await get(key);
-      cache[key] = val;
-      const text = val === null ? '—' : (formatter ? formatter(val) : String(val));
+      const record = await get(key);
+      cache[key] = record;
+      const text = record === null ? '—' : (formatter ? formatter(record.value) : String(record.value));
       (displayEls || []).forEach(el => { if(el) el.textContent = text; });
-      return val;
+      return record;
     }
-    return { get, set, submit, refresh };
+    return { get, set, submit, refresh, getCached: (key) => cache[key] || null };
   })();
 
   // load initial top scores into arcade cards + modal headers
