@@ -663,6 +663,48 @@
 
   @media (max-width:760px){.link-sheet{grid-template-columns:1fr;}}
 
+  /* ---------------- steam profile card ---------------- */
+  .steam-card{
+    border:1px solid var(--ink);background:var(--paper);
+    padding:26px;margin-bottom:24px;
+    display:flex;flex-direction:column;gap:20px;
+  }
+  .steam-card-top{display:flex;align-items:center;gap:16px;}
+  .steam-avatar{
+    width:64px;height:64px;flex-shrink:0;
+    border:2px solid var(--ink);
+    object-fit:cover;background:#000;
+  }
+  .steam-card-id{flex:1;min-width:0;}
+  .steam-name{display:block;font-family:var(--display);font-size:24px;text-transform:uppercase;letter-spacing:0.3px;line-height:1;cursor:pointer;}
+  .steam-name:hover{color:var(--safelight);}
+  .steam-status{
+    display:flex;align-items:center;gap:6px;margin-top:6px;
+    font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:0.05em;color:var(--grey-frame);
+  }
+  .steam-status-dot{width:7px;height:7px;border-radius:50%;background:#5c9e5c;box-shadow:0 0 6px 1px rgba(92,158,92,0.6);flex-shrink:0;}
+  .steam-status.ingame .steam-status-dot{background:#53b1e0;box-shadow:0 0 6px 1px rgba(83,177,224,0.6);}
+
+  .steam-card-games{border-top:1px dashed var(--line);padding-top:16px;}
+  .steam-games-label{
+    font-family:var(--mono);font-size:10px;color:var(--safelight);text-transform:uppercase;letter-spacing:0.06em;
+    margin-bottom:10px;
+  }
+  .steam-game-row{
+    display:flex;justify-content:space-between;align-items:center;gap:10px;
+    padding:7px 0;font-family:var(--body);font-size:13.5px;color:var(--ink);
+  }
+  .steam-hrs{font-family:var(--mono);font-size:11px;color:var(--grey-frame);white-space:nowrap;}
+
+  .steam-card-note{
+    font-family:var(--mono);font-size:10px;color:var(--grey-frame);line-height:1.6;letter-spacing:0.02em;
+  }
+
+  @media (max-width:480px){
+    .steam-card-top{flex-wrap:wrap;}
+  }
+
+
   /* ---------- closing statement ---------- */
   .quote{
     max-width:780px;
@@ -1640,7 +1682,6 @@
     <div class="shortcut-row"><span>Go to Setup &amp; Specs</span><kbd>G</kbd> <kbd>S</kbd></div>
     <div class="shortcut-row"><span>Go to Terminal</span><kbd>G</kbd> <kbd>T</kbd></div>
     <div class="shortcut-row"><span>Go to Arcade</span><kbd>G</kbd> <kbd>A</kbd></div>
-    <div class="shortcut-row"><span>Go to Guestbook</span><kbd>G</kbd> <kbd>B</kbd></div>
     <div class="shortcut-row"><span>Go to Resume</span><kbd>G</kbd> <kbd>R</kbd></div>
     <div class="shortcut-row"><span>Scroll to Top (vim)</span><kbd>G</kbd> <kbd>G</kbd></div>
     <div class="shortcut-row"><span>Scroll to Bottom (vim)</span><kbd>Shift</kbd> <kbd>G</kbd></div>
@@ -1800,7 +1841,6 @@
       <a href="#music">Music</a>
       <a href="#terminal">Terminal</a>
       <a href="#arcade">Arcade</a>
-      <a href="#guestbook">Guestbook</a>
     </div>
     <div class="nav-right">
       <button class="playground-toggle" id="playgroundBtn" aria-haspopup="dialog">
@@ -1828,7 +1868,7 @@
       <p>I'm Jakha Phosa, a graphic designer and photographer. This space is a personal archive of what I make — visual identities, layouts, and images I've shot over years of practice.</p>
       <div class="hero-meta">
         DISCIPLINE — Branding, Editorial, Portraits<br>
-        BASED IN — Jakarta, Indonesia<br>
+        BASED IN — Kupang, Indonesia<br>
         ACTIVE SINCE — 2016<br>
         FORMAT — Print, Digital, Motion
       </div>
@@ -1940,12 +1980,12 @@
         <div class="af-top">
           <span class="af-tagline">(2021) •</span>
           <span class="af-badge">jakha.</span>
-          <span class="af-index">001 / 005</span>
-          <h3 class="af-title">Silhouette<span class="drop"></span></h3>
+          <span class="af-index">001 / 002</span>
+          <h3 class="af-title">Money Trees<span class="drop"></span></h3>
           <div class="af-sub">[portrait series]</div>
         </div>
         <div class="poster-media">
-          <img src="https://picsum.photos/seed/poster1/500/700" alt="Silhouette portrait series poster">
+          <img src="Money Trees.png">
           <span class="poster-kind">Image</span>
         </div>
       </div>
@@ -1955,8 +1995,8 @@
         <div class="af-top">
           <span class="af-tagline">(2023) •</span>
           <span class="af-badge">jakha.</span>
-          <span class="af-index">002 / 005</span>
-          <h3 class="af-title">Motion<span class="drop"></span></h3>
+          <span class="af-index">002 / 002</span>
+          <h3 class="af-title">Ryomen Sukuna<span class="drop"></span></h3>
           <div class="af-sub">[showreel]</div>
         </div>
         <div class="poster-media">
@@ -2098,6 +2138,22 @@
 
   <section class="section wrap reveal" id="links">
     <div class="section-label"><span class="num">06</span><h2>Games &amp; Links</h2></div>
+
+    <div class="steam-card" id="steamApiCard">
+      <div class="steam-card-top">
+        <img class="steam-avatar" id="steamApiAvatar" src="https://picsum.photos/seed/steam-avatar-placeholder/128/128" alt="Steam avatar">
+        <div class="steam-card-id">
+          <a class="steam-name" id="steamApiName" href="https://steamcommunity.com/id/jphosa/" target="_blank" rel="noopener" data-miniprofile="YOUR_STEAMID64" style="text-decoration:none;color:inherit;">jphosa</a>
+          <div class="steam-status" id="steamApiStatusRow"><span class="steam-status-dot"></span> <span id="steamApiStatus">Not connected</span></div>
+        </div>
+      </div>
+      <div class="steam-card-games" id="steamApiBody">
+        <p class="steam-card-note">This card calls the real Steam Web API (<code style="font-family:var(--mono);">GetPlayerSummaries</code> + <code style="font-family:var(--mono);">GetRecentlyPlayedGames</code>) — but Steam blocks direct requests from a browser and requires a secret API key, so it needs a small serverless proxy sitting in front of it. Set <code style="font-family:var(--mono);">STEAM_PROXY_URL</code> and <code style="font-family:var(--mono);">STEAM_ID64</code> in the code (see the comment right above the fetch call for a ready-to-deploy Cloudflare Worker) and this card starts showing real live status, avatar, and playtime.</p>
+      </div>
+      <a href="https://steamcommunity.com/id/jphosa/" target="_blank" rel="noopener" class="timer-btn" style="align-self:flex-start;text-decoration:none;">View Full Steam Profile ↗</a>
+      <p class="steam-card-note">Meanwhile, the name "jphosa" above is already wired to Valve's real embeddable mini-profile widget (no API key needed, works right now): find your 17-digit SteamID64 at <a href="https://www.steamidfinder.com/" target="_blank" rel="noopener" style="color:var(--safelight);">steamidfinder.com</a> and swap <code style="font-family:var(--mono);">YOUR_STEAMID64</code> in the code for a live hover-card straight from Steam.</p>
+    </div>
+
     <div class="link-sheet">
       <div class="link-block">
         <div class="sindex">A — PLAY</div>
@@ -2141,14 +2197,6 @@
             <span class="link-sub">UID: 000000000</span>
           </div>
           <span class="link-cta">Add Friend <span class="arrow">↗</span></span>
-        </a>
-
-        <a class="link-row" href="https://steamcommunity.com/id/jphosa/" target="_blank" rel="noopener">
-          <div class="link-main">
-            <span class="link-name">Steam Profile <span data-miniprofile="76500000000000000" id="steamMini" style="border-bottom:1px dashed var(--grey-frame);cursor:help;">(hover for live status)</span></span>
-            <span class="link-sub">All Games</span>
-          </div>
-          <span class="link-cta">Visit Steam <span class="arrow">↗</span></span>
         </a>
       </div>
 
@@ -2633,30 +2681,8 @@
     </div>
   </div>
 
-  <section class="section wrap reveal" id="guestbook">
-    <div class="section-label"><span class="num">10</span><h2>Guestbook</h2></div>
-    <p class="poster-intro">Leave a note before you go — every message here is shared and shows up for every visitor of this page.</p>
-    <div class="gb-wrap">
-      <form class="gb-form" id="gbForm">
-        <div class="gb-form-field">
-          <label for="gbName">Name</label>
-          <input type="text" id="gbName" placeholder="Your name" maxlength="40" required>
-        </div>
-        <div class="gb-form-field">
-          <label for="gbMessage">Message</label>
-          <textarea id="gbMessage" rows="3" placeholder="Say something nice..." maxlength="140" required></textarea>
-        </div>
-        <button type="submit" class="timer-btn primary">Sign the Guestbook</button>
-        <p class="gb-form-note">Entries are public and visible to anyone who visits this page.</p>
-      </form>
-      <div class="gb-list" id="gbList">
-        <div class="gb-empty" id="gbEmpty">Loading entries…</div>
-      </div>
-    </div>
-  </section>
-
   <section class="section wrap reveal" id="resume">
-    <div class="section-label"><span class="num">11</span><h2>Resume</h2></div>
+    <div class="section-label"><span class="num">10</span><h2>Resume</h2></div>
     <p class="poster-intro">A quick look at my academic and professional background — the paper trail behind the portfolio.</p>
 
     <div class="services" style="margin-bottom:1px;">
@@ -2702,7 +2728,7 @@
   </section>
 
   <section class="section wrap reveal">
-    <div class="section-label"><span class="num">12</span><h2>Tools</h2></div>
+    <div class="section-label"><span class="num">11</span><h2>Tools</h2></div>
     <p class="quote">The tools I use every day — <span>some analog, some digital</span>, all part of how I work.</p>
   </section>
 
@@ -2723,10 +2749,10 @@
 
 <footer class="contact" id="archive">
   <div class="wrap">
-    <div class="section-label"><span class="num">13</span><h2>Archive Notes</h2></div>
+    <div class="section-label"><span class="num">12</span><h2>Archive Notes</h2></div>
     <div class="contact-grid">
       <div>
-        <h3>THIS COLLECTION IS<br>BUILT AND MAINTAINED<br>PERSONALLY IN JAKARTA.</h3>
+        <h3>THIS COLLECTION IS<br>BUILT AND MAINTAINED<br>PERSONALLY IN KUPANG.</h3>
       </div>
       <div class="contact-info">
         DISCIPLINE — Graphic Design &amp; Photography<br>
@@ -2791,6 +2817,113 @@
   }
 
   themeBtn.addEventListener('click', ()=> setDarkMode(!isDark));
+
+  /* ---------------- achievements (personal progress) ---------------- */
+  const Achievements = (function(){
+    const DEFS = [
+      { id:'konami', title:'Secret Code', desc:'Entered the Konami code.' },
+      { id:'hiddenRunner', title:'Roll Runner', desc:'Found the hidden game by clicking the logo 5 times fast.' },
+      { id:'nightOwl', title:'Night Owl', desc:'Switched the site into dark mode.' },
+      { id:'shortcuts', title:'Power User', desc:'Opened the keyboard shortcuts panel.' },
+      { id:'arcade3', title:'Arcade Regular', desc:'Opened 3 different games in the Arcade.' },
+      { id:'allGames', title:'Completionist', desc:'Opened every game in the Arcade.' },
+      { id:'highScore', title:'Top of the Board', desc:'Set a new shared high score on any game.' },
+      { id:'fullRoll', title:'Full Roll', desc:'Scrolled all the way down to the Archive Notes.' },
+      { id:'terminal', title:'Terminal Hacker', desc:'Ran 5 commands in the terminal.' },
+      { id:'guestbook', title:'Left Your Mark', desc:'Signed the guestbook.' },
+      { id:'customizer', title:'Make It Yours', desc:'Customized the accent, background, or fonts in the Design Playground.' },
+      { id:'vimUser', title:'Vim User', desc:'Navigated the page with j, k, gg, or G.' },
+      { id:'secretDJ', title:'Secret DJ', desc:'Found the hidden DJ booth by clicking Now Playing 5 times fast.' }
+    ];
+    const STORAGE_KEY = 'achievements-unlocked';
+    let unlocked = new Set();
+    let loaded = false;
+
+    const btn = document.getElementById('achvBtn');
+    const countEl = document.getElementById('achvCount');
+    const subEl = document.getElementById('achvPanelSub');
+    const overlay = document.getElementById('achvOverlay');
+    const listEl = document.getElementById('achvList');
+    const closeBtn = document.getElementById('achvClose');
+    const toastEl = document.getElementById('achvToast');
+    let toastTimer = null;
+
+    function render(){
+      if(!countEl) return;
+      countEl.textContent = `${unlocked.size}/${DEFS.length}`;
+      if(subEl) subEl.textContent = `${unlocked.size} of ${DEFS.length} unlocked`;
+      if(listEl){
+        listEl.innerHTML = DEFS.map(a=>{
+          const done = unlocked.has(a.id);
+          return `<div class="achv-item${done ? ' done' : ''}">
+            <div class="achv-icon">${done ? '✓' : '—'}</div>
+            <div>
+              <div class="achv-title">${a.title}</div>
+              <div class="achv-desc">${done ? a.desc : 'Locked — keep exploring the site.'}</div>
+            </div>
+          </div>`;
+        }).join('');
+      }
+    }
+
+    async function load(){
+      try{
+        if(window.storage){
+          const res = await window.storage.get(STORAGE_KEY, false);
+          if(res) unlocked = new Set(JSON.parse(res.value));
+        }
+      }catch(e){ /* first visit or storage unavailable */ }
+      loaded = true;
+      render();
+    }
+
+    async function persist(){
+      try{ if(window.storage) await window.storage.set(STORAGE_KEY, JSON.stringify([...unlocked]), false); }
+      catch(e){}
+    }
+
+    function showToast(a){
+      if(!toastEl) return;
+      toastEl.innerHTML = `<div class="achv-toast-eyebrow">Achievement Unlocked</div><div class="achv-toast-title">${a.title}</div>`;
+      toastEl.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(()=> toastEl.classList.remove('show'), 3200);
+    }
+
+    function unlock(id){
+      if(unlocked.has(id)) return;
+      const def = DEFS.find(a => a.id === id);
+      if(!def) return;
+      unlocked.add(id);
+      render();
+      persist();
+      showToast(def);
+      if(typeof window.__refreshPlaygroundLock === 'function') window.__refreshPlaygroundLock();
+      if(unlocked.size === 8){
+        setTimeout(()=>{
+          if(toastEl){
+            toastEl.innerHTML = `<div class="achv-toast-eyebrow">Secret Unlocked</div><div class="achv-toast-title">🖥️ CRT Theme</div>`;
+            toastEl.classList.add('show');
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(()=> toastEl.classList.remove('show'), 3200);
+          }
+        }, 1700);
+      }
+    }
+
+    if(btn) btn.addEventListener('click', ()=> overlay.classList.add('on'));
+    if(closeBtn) closeBtn.addEventListener('click', ()=> overlay.classList.remove('on'));
+    if(overlay) overlay.addEventListener('click', (e)=>{ if(e.target === overlay) overlay.classList.remove('on'); });
+
+    load();
+
+    return {
+      unlock,
+      total: DEFS.length,
+      unlockedCount: () => unlocked.size,
+      hasCRT: () => unlocked.size >= 8
+    };
+  })();
 
   /* ---------------- design playground ---------------- */
   (function designPlayground(){
@@ -3234,7 +3367,7 @@
     if(!body || !input) return;
 
     const files = {
-      'about.txt': 'Jakha Phosa — Graphic Designer & Photographer. Active since 2016, based in Jakarta.',
+      'about.txt': 'Jakha Phosa — Graphic Designer & Photographer. Active since 2016, based in Kupang.',
       'skills.txt': 'Graphic Design: Branding, Editorial, Packaging.\nPhotography: Portraits, Products, Events, Architecture.'
     };
 
@@ -3441,7 +3574,7 @@
           markVim();
           return;
         }
-        const map = { k:'#work', s:'#setup', t:'#terminal', a:'#arcade', b:'#guestbook', r:'#resume' };
+        const map = { k:'#work', s:'#setup', t:'#terminal', a:'#arcade', r:'#resume' };
         const target = map[e.key.toLowerCase()];
         if(target){
           document.querySelector(target)?.scrollIntoView({behavior:'smooth'});
@@ -4007,112 +4140,6 @@
     pad.addEventListener('click', handleClick);
     toIdle();
   })();
-  /* ---------------- achievements (personal progress) ---------------- */
-  const Achievements = (function(){
-    const DEFS = [
-      { id:'konami', title:'Secret Code', desc:'Entered the Konami code.' },
-      { id:'hiddenRunner', title:'Roll Runner', desc:'Found the hidden game by clicking the logo 5 times fast.' },
-      { id:'nightOwl', title:'Night Owl', desc:'Switched the site into dark mode.' },
-      { id:'shortcuts', title:'Power User', desc:'Opened the keyboard shortcuts panel.' },
-      { id:'arcade3', title:'Arcade Regular', desc:'Opened 3 different games in the Arcade.' },
-      { id:'allGames', title:'Completionist', desc:'Opened every game in the Arcade.' },
-      { id:'highScore', title:'Top of the Board', desc:'Set a new shared high score on any game.' },
-      { id:'fullRoll', title:'Full Roll', desc:'Scrolled all the way down to the Archive Notes.' },
-      { id:'terminal', title:'Terminal Hacker', desc:'Ran 5 commands in the terminal.' },
-      { id:'guestbook', title:'Left Your Mark', desc:'Signed the guestbook.' },
-      { id:'customizer', title:'Make It Yours', desc:'Customized the accent, background, or fonts in the Design Playground.' },
-      { id:'vimUser', title:'Vim User', desc:'Navigated the page with j, k, gg, or G.' },
-      { id:'secretDJ', title:'Secret DJ', desc:'Found the hidden DJ booth by clicking Now Playing 5 times fast.' }
-    ];
-    const STORAGE_KEY = 'achievements-unlocked';
-    let unlocked = new Set();
-    let loaded = false;
-
-    const btn = document.getElementById('achvBtn');
-    const countEl = document.getElementById('achvCount');
-    const subEl = document.getElementById('achvPanelSub');
-    const overlay = document.getElementById('achvOverlay');
-    const listEl = document.getElementById('achvList');
-    const closeBtn = document.getElementById('achvClose');
-    const toastEl = document.getElementById('achvToast');
-    let toastTimer = null;
-
-    function render(){
-      if(!countEl) return;
-      countEl.textContent = `${unlocked.size}/${DEFS.length}`;
-      if(subEl) subEl.textContent = `${unlocked.size} of ${DEFS.length} unlocked`;
-      if(listEl){
-        listEl.innerHTML = DEFS.map(a=>{
-          const done = unlocked.has(a.id);
-          return `<div class="achv-item${done ? ' done' : ''}">
-            <div class="achv-icon">${done ? '✓' : '—'}</div>
-            <div>
-              <div class="achv-title">${a.title}</div>
-              <div class="achv-desc">${done ? a.desc : 'Locked — keep exploring the site.'}</div>
-            </div>
-          </div>`;
-        }).join('');
-      }
-    }
-
-    async function load(){
-      try{
-        if(window.storage){
-          const res = await window.storage.get(STORAGE_KEY, false);
-          if(res) unlocked = new Set(JSON.parse(res.value));
-        }
-      }catch(e){ /* first visit or storage unavailable */ }
-      loaded = true;
-      render();
-    }
-
-    async function persist(){
-      try{ if(window.storage) await window.storage.set(STORAGE_KEY, JSON.stringify([...unlocked]), false); }
-      catch(e){}
-    }
-
-    function showToast(a){
-      if(!toastEl) return;
-      toastEl.innerHTML = `<div class="achv-toast-eyebrow">Achievement Unlocked</div><div class="achv-toast-title">${a.title}</div>`;
-      toastEl.classList.add('show');
-      clearTimeout(toastTimer);
-      toastTimer = setTimeout(()=> toastEl.classList.remove('show'), 3200);
-    }
-
-    function unlock(id){
-      if(unlocked.has(id)) return;
-      const def = DEFS.find(a => a.id === id);
-      if(!def) return;
-      unlocked.add(id);
-      render();
-      persist();
-      showToast(def);
-      if(typeof window.__refreshPlaygroundLock === 'function') window.__refreshPlaygroundLock();
-      if(unlocked.size === 8){
-        setTimeout(()=>{
-          if(toastEl){
-            toastEl.innerHTML = `<div class="achv-toast-eyebrow">Secret Unlocked</div><div class="achv-toast-title">🖥️ CRT Theme</div>`;
-            toastEl.classList.add('show');
-            clearTimeout(toastTimer);
-            toastTimer = setTimeout(()=> toastEl.classList.remove('show'), 3200);
-          }
-        }, 1700);
-      }
-    }
-
-    if(btn) btn.addEventListener('click', ()=> overlay.classList.add('on'));
-    if(closeBtn) closeBtn.addEventListener('click', ()=> overlay.classList.remove('on'));
-    if(overlay) overlay.addEventListener('click', (e)=>{ if(e.target === overlay) overlay.classList.remove('on'); });
-
-    load();
-
-    return {
-      unlock,
-      total: DEFS.length,
-      unlockedCount: () => unlocked.size,
-      hasCRT: () => unlocked.size >= 8
-    };
-  })();
 
   /* ---------------- high score name prompt ---------------- */
   (function highScoreNamePrompt(){
@@ -4276,6 +4303,82 @@
     liveImg.src = `https://spotify-github-profile.vercel.app/api/view.svg?uid=${SPOTIFY_UID}&cover_image=true&theme=natemoo-re&show_offline=true&background_color=121212&interchange=true&bar_color=53b14f&bar_color_cover=true`;
   })();
 
+  /* ---------------- steam web api (real, not mocked) ----------------
+     Steam blocks direct browser calls (no CORS headers) and requires a secret
+     API key that must never ship in client-side code, so this needs a tiny
+     serverless proxy in between. Minimal example (Cloudflare Worker):
+
+       export default {
+         async fetch(req) {
+           const steamid = new URL(req.url).searchParams.get('steamid');
+           const KEY = STEAM_API_KEY; // set as a Worker secret — get a key at
+                                      // https://steamcommunity.com/dev/apikey
+           const [sum, recent] = await Promise.all([
+             fetch(`https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2/?key=${KEY}&steamids=${steamid}`).then(r => r.json()),
+             fetch(`https://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v1/?key=${KEY}&steamid=${steamid}`).then(r => r.json())
+           ]);
+           const p = sum.response.players[0];
+           const body = JSON.stringify({
+             name: p.personaname,
+             avatar: p.avatarfull,
+             state: p.personastate,
+             inGame: !!p.gameid,
+             games: (recent.response.games || []).slice(0, 3).map(g => ({
+               name: g.name,
+               hours: Math.round((g.playtime_2weeks || 0) / 60 * 10) / 10
+             }))
+           });
+           return new Response(body, {
+             headers: { 'content-type': 'application/json', 'access-control-allow-origin': '*' }
+           });
+         }
+       }
+
+     Deploy that (Cloudflare's free tier is enough), point STEAM_PROXY_URL at
+     it below, set your real SteamID64, and this card starts showing your
+     actual live status, avatar, and playtime pulled straight from Steam. ---- */
+  (function steamWebAPI(){
+    const STEAM_PROXY_URL = ''; // e.g. 'https://your-worker.your-name.workers.dev'
+    const STEAM_ID64 = 'YOUR_STEAMID64'; // find yours at steamidfinder.com
+
+    const nameEl = document.getElementById('steamApiName');
+    const avatarEl = document.getElementById('steamApiAvatar');
+    const statusEl = document.getElementById('steamApiStatus');
+    const statusRow = document.getElementById('steamApiStatusRow');
+    const bodyEl = document.getElementById('steamApiBody');
+    if(!nameEl) return;
+
+    if(!STEAM_PROXY_URL || STEAM_ID64 === 'YOUR_STEAMID64'){ return; } // keep the "not connected" message until configured
+
+    const STATE_LABELS = { 0:'Offline', 1:'Online', 2:'Busy', 3:'Away', 4:'Snooze', 5:'Looking to trade', 6:'Looking to play' };
+
+    async function load(){
+      statusEl.textContent = 'Connecting…';
+      try{
+        const res = await fetch(`${STEAM_PROXY_URL}?steamid=${STEAM_ID64}`);
+        if(!res.ok) throw new Error('proxy responded with ' + res.status);
+        const data = await res.json();
+
+        if(data.name) nameEl.textContent = data.name;
+        if(data.avatar) avatarEl.src = data.avatar;
+        statusEl.textContent = STATE_LABELS[data.state] ?? 'Online';
+        if(statusRow) statusRow.classList.toggle('ingame', data.state === 1 && !!data.inGame);
+
+        if(Array.isArray(data.games) && data.games.length){
+          bodyEl.innerHTML = '<div class="steam-games-label">RECENTLY PLAYED</div>' +
+            data.games.map(g => `<div class="steam-game-row"><span>${g.name}</span><span class="steam-hrs">${g.hours} hrs (2wk)</span></div>`).join('');
+        } else {
+          bodyEl.innerHTML = '<p class="steam-card-note">Connected — no recent playtime to show.</p>';
+        }
+      }catch(e){
+        statusEl.textContent = 'Offline';
+        bodyEl.innerHTML = `<p class="steam-card-note">Couldn't reach the Steam proxy just now. <a href="https://steamcommunity.com/id/jphosa/" target="_blank" rel="noopener" style="color:var(--safelight);">View the profile directly on Steam ↗</a></p>`;
+      }
+    }
+
+    load();
+  })();
+
   /* ---------------- visitor counter + auto device/country stats (shared, aggregate only) ---------------- */
   (async function visitorInsights(){
     const countEl = document.getElementById('visitorCount');
@@ -4391,92 +4494,6 @@
       const countryStr = formatBreakdown(countryCounts, 3);
       statsEl.textContent = countryStr === '—' ? deviceStr : `${deviceStr} — Top: ${countryStr}`;
     }
-  })();
-
-  /* ---------------- guestbook (shared) ---------------- */
-  (function guestbook(){
-    const form = document.getElementById('gbForm');
-    const nameInput = document.getElementById('gbName');
-    const msgInput = document.getElementById('gbMessage');
-    const listEl = document.getElementById('gbList');
-    if(!form || !listEl) return;
-
-    const KEY = 'guestbook-entries';
-    const MAX_ENTRIES = 60;
-
-    function escapeHtml(str){
-      return String(str).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-    }
-
-    function timeAgo(ts){
-      const diff = Date.now() - ts;
-      const mins = Math.floor(diff / 60000);
-      if(mins < 1) return 'just now';
-      if(mins < 60) return mins + 'm ago';
-      const hrs = Math.floor(mins / 60);
-      if(hrs < 24) return hrs + 'h ago';
-      const days = Math.floor(hrs / 24);
-      if(days < 30) return days + 'd ago';
-      return new Date(ts).toLocaleDateString();
-    }
-
-    function render(entries){
-      if(!entries || !entries.length){
-        listEl.innerHTML = '<div class="gb-empty">No entries yet — be the first to sign.</div>';
-        return;
-      }
-      listEl.innerHTML = entries.slice().reverse().map(e => `
-        <div class="gb-entry">
-          <div class="gb-entry-head">
-            <span class="gb-entry-name">${escapeHtml(e.name)}</span>
-            <span class="gb-entry-time">${timeAgo(e.time)}</span>
-          </div>
-          <div class="gb-entry-msg">${escapeHtml(e.message)}</div>
-        </div>
-      `).join('');
-    }
-
-    async function load(){
-      try{
-        if(!window.storage){ listEl.innerHTML = '<div class="gb-empty">Guestbook is unavailable right now.</div>'; return; }
-        const res = await window.storage.get(KEY, true);
-        const entries = res ? JSON.parse(res.value) : [];
-        render(entries);
-      }catch(e){
-        render([]);
-      }
-    }
-
-    form.addEventListener('submit', async (e)=>{
-      e.preventDefault();
-      const name = nameInput.value.trim();
-      const message = msgInput.value.trim();
-      if(!name || !message) return;
-      const submitBtn = form.querySelector('button[type="submit"]');
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Signing...';
-      try{
-        let entries = [];
-        try{
-          const res = await window.storage.get(KEY, true);
-          entries = res ? JSON.parse(res.value) : [];
-        }catch(err){ entries = []; }
-        entries.push({ name: name.slice(0, 40), message: message.slice(0, 140), time: Date.now() });
-        if(entries.length > MAX_ENTRIES) entries = entries.slice(entries.length - MAX_ENTRIES);
-        await window.storage.set(KEY, JSON.stringify(entries), true);
-        render(entries);
-        nameInput.value = '';
-        msgInput.value = '';
-        if(typeof Achievements !== 'undefined') Achievements.unlock('guestbook');
-      }catch(err){
-        alert('Could not save your entry — please try again in a moment.');
-      }finally{
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Sign the Guestbook';
-      }
-    });
-
-    load();
   })();
 
   /* ---------------- tetris ---------------- */
