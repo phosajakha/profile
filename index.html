@@ -4,6 +4,39 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Jakha Phosa — Graphic Design & Photography</title>
+
+<!-- Basic SEO -->
+<meta name="description" content="Jakha Phosa — graphic designer & photographer based in Kupang, Indonesia. Branding, editorial layout, portrait and product photography, plus a personal archive of work since 2016.">
+<meta name="author" content="Jakha Phosa">
+<meta name="keywords" content="Jakha Phosa, graphic designer, photographer, portfolio, branding, editorial design, portrait photography, Kupang, Indonesia">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://your-domain-here.example/">
+<!-- ^ replace with your real GitHub Pages / custom domain URL once deployed -->
+
+<!-- Open Graph (Facebook, WhatsApp, LinkedIn, Discord, etc.) -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Jakha Phosa — Graphic Design & Photography">
+<meta property="og:description" content="Graphic designer & photographer based in Kupang, Indonesia. Branding, editorial layout, portrait and product photography, plus a personal archive of work since 2016.">
+<meta property="og:url" content="https://your-domain-here.example/">
+<meta property="og:site_name" content="jakha.phosa">
+<meta property="og:image" content="https://your-domain-here.example/og-image.jpg">
+<!-- ^ og:image needs an actual hosted image (ideally 1200x630px) — a portrait or gallery
+     shot works well. Swap the URL once you've picked one and deployed the site. -->
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Jakha Phosa — Graphic Design & Photography">
+<meta name="twitter:description" content="Graphic designer & photographer based in Kupang, Indonesia. Branding, editorial layout, portrait and product photography, plus a personal archive of work since 2016.">
+<meta name="twitter:image" content="https://your-domain-here.example/og-image.jpg">
+
+<meta name="theme-color" content="#181815">
+
+<!-- Favicon — inline SVG, no separate file needed. A simple camera/aperture mark. -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='16' fill='%23181815'/%3E%3Crect x='18' y='34' width='64' height='42' rx='6' fill='none' stroke='%23e9e4d6' stroke-width='5'/%3E%3Cpath d='M34 34 L40 24 H60 L66 34' fill='none' stroke='%23e9e4d6' stroke-width='5' stroke-linejoin='round'/%3E%3Ccircle cx='50' cy='56' r='14' fill='none' stroke='%23e9e4d6' stroke-width='5'/%3E%3Ccircle cx='50' cy='56' r='4' fill='%23c81d2f'/%3E%3C/svg%3E">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@500;600;700&family=Archivo+Black&family=Inter:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
@@ -69,6 +102,30 @@
     border-radius:2px;
   }
 
+  /* ---------- scroll progress: film roll ---------- */
+  .filmroll-progress{
+    position:fixed;top:0;left:0;right:0;height:4px;z-index:70;
+    background:repeating-linear-gradient(90deg, rgba(233,228,214,0.12) 0px, rgba(233,228,214,0.12) 3px, transparent 3px, transparent 9px);
+    background-color:#0a0a08;
+  }
+  .filmroll-fill{
+    height:100%;width:0%;
+    background:var(--safelight);
+    box-shadow:0 0 6px rgba(200,29,47,0.6);
+    transition:width .08s linear;
+  }
+  .filmroll-counter{
+    position:fixed;top:10px;right:18px;z-index:70;
+    font-family:var(--mono);font-size:10px;letter-spacing:0.05em;
+    color:#e9e4d6;background:#0a0a08;
+    padding:3px 8px;border-radius:2px;
+    opacity:0;transition:opacity .3s ease;
+    pointer-events:none;
+  }
+  .filmroll-counter.show{opacity:0.9;}
+  @media (max-width:760px){ .filmroll-counter{display:none;} }
+  @media (prefers-reduced-motion: reduce){ .filmroll-fill{transition:none;} }
+
   /* ---------- nav ---------- */
   header{
     position:sticky;top:0;z-index:50;
@@ -109,7 +166,8 @@
   .menu-btn{display:none;font-family:var(--mono);font-size:12px;background:none;border:1px solid var(--ink);padding:8px 14px;cursor:pointer;color:var(--ink);flex-shrink:0;}
 
   .theme-toggle,
-  .playground-toggle{
+  .playground-toggle,
+  .lang-toggle{
     display:flex;align-items:center;gap:8px;
     font-family:var(--mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;
     background:none;border:1px solid var(--ink);color:var(--ink);
@@ -117,9 +175,11 @@
     white-space:nowrap;
   }
   .theme-toggle:hover,
-  .playground-toggle:hover{background:var(--ink);color:var(--paper);}
+  .playground-toggle:hover,
+  .lang-toggle:hover{background:var(--ink);color:var(--paper);}
   .theme-toggle:focus-visible,
-  .playground-toggle:focus-visible{outline:2px solid var(--safelight);outline-offset:3px;}
+  .playground-toggle:focus-visible,
+  .lang-toggle:focus-visible{outline:2px solid var(--safelight);outline-offset:3px;}
   .theme-toggle .dot{
     width:8px;height:8px;border-radius:50%;background:var(--safelight);flex-shrink:0;
   }
@@ -127,6 +187,7 @@
     width:8px;height:8px;border-radius:2px;flex-shrink:0;
     background:linear-gradient(135deg, var(--safelight) 50%, var(--kodak) 50%);
   }
+  .lang-toggle .lang-current{color:var(--safelight);font-weight:700;}
 
   .nav-right{display:flex;align-items:center;gap:10px;flex-shrink:0;}
 
@@ -135,7 +196,7 @@
     .navlinks{gap:16px;font-size:10.5px;}
     .playground-toggle .pg-label,
     .theme-toggle #themeLabel{display:none;}
-    .theme-toggle, .playground-toggle{padding:8px 9px;}
+    .theme-toggle, .playground-toggle, .lang-toggle{padding:8px 9px;}
   }
 
   /* tier 2 — collapse nav links into the hamburger menu */
@@ -483,17 +544,172 @@
   .lightbox-exif{font-family:var(--mono);font-size:11px;color:var(--footer-fg-dim);margin-top:6px;letter-spacing:0.02em;}
   .lightbox-counter{font-family:var(--mono);font-size:10px;color:var(--footer-fg-dim);margin-top:10px;letter-spacing:0.05em;}
 
+  .lightbox-case-btn{
+    margin-top:18px;
+    font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:0.05em;
+    background:none;border:1px solid rgba(233,228,214,0.4);color:var(--footer-fg);
+    padding:9px 18px;cursor:pointer;
+    transition:background .2s ease, border-color .2s ease;
+  }
+  .lightbox-case-btn:hover{background:rgba(233,228,214,0.1);border-color:var(--kodak);}
+  .lightbox-case{
+    margin-top:18px;padding-top:18px;border-top:1px solid rgba(233,228,214,0.15);
+    max-width:560px;text-align:left;
+    max-height:32vh;overflow-y:auto;
+  }
+  .lightbox-case-row{margin-bottom:14px;}
+  .lightbox-case-row:last-child{margin-bottom:0;}
+  .lightbox-case-label{
+    display:block;font-family:var(--mono);font-size:10px;color:var(--kodak);
+    text-transform:uppercase;letter-spacing:0.08em;margin-bottom:4px;
+  }
+  .lightbox-case-row p{
+    font-family:var(--body);font-size:13.5px;line-height:1.6;color:rgba(233,228,214,0.85);
+  }
+
   @media (max-width:700px){
     .lightbox-nav{width:38px;height:38px;font-size:26px;}
     .lightbox-nav.prev{left:8px;}
     .lightbox-nav.next{right:8px;}
     .lightbox-title{font-size:22px;}
+    .lightbox-case{max-height:26vh;}
   }
 
   @media (max-width:900px){.gallery{grid-template-columns:repeat(2,1fr);}}
   @media (max-width:520px){.gallery{grid-template-columns:1fr;}}
 
+  /* ---------------- completion certificate + confetti ---------------- */
+  #confettiCanvas{
+    position:fixed;inset:0;z-index:10010;
+    pointer-events:none;
+  }
+
+  .completion-overlay{
+    position:fixed;inset:0;z-index:10009;
+    background:rgba(8,8,7,0.92);
+    display:flex;align-items:center;justify-content:center;
+    padding:24px;
+    opacity:0;pointer-events:none;
+    transition:opacity .3s ease;
+  }
+  .completion-overlay.on{opacity:1;pointer-events:auto;}
+  .completion-panel{
+    background:var(--paper);border:1px solid var(--ink);
+    width:min(480px,96vw);max-height:92vh;overflow-y:auto;
+    padding:36px 32px 28px;
+    position:relative;
+    text-align:center;
+  }
+  .completion-panel .game-modal-close{position:absolute;top:14px;right:14px;}
+
+  .cert-frame{
+    border:2px dashed var(--safelight);
+    padding:32px 24px 26px;
+    margin-bottom:22px;
+  }
+  .cert-eyebrow{
+    font-family:var(--mono);font-size:10px;color:var(--grey-frame);
+    letter-spacing:0.08em;text-transform:uppercase;margin-bottom:14px;
+  }
+  .cert-trophy{font-size:44px;margin-bottom:10px;}
+  .cert-title{
+    font-family:var(--display);font-size:30px;text-transform:uppercase;
+    letter-spacing:0.3px;line-height:1.05;margin-bottom:14px;
+  }
+  .cert-sub{
+    font-family:var(--body);font-size:13.5px;line-height:1.6;color:var(--grey-frame);
+    max-width:36ch;margin:0 auto 20px;
+  }
+  .cert-code-row{
+    display:flex;justify-content:space-between;align-items:center;
+    border-top:1px dashed var(--line);padding-top:14px;
+    font-family:var(--mono);font-size:11px;
+  }
+  .cert-code-label{color:var(--grey-frame);text-transform:uppercase;letter-spacing:0.05em;}
+  .cert-code{color:var(--safelight);font-weight:700;letter-spacing:0.05em;}
+  .cert-date{
+    font-family:var(--mono);font-size:10px;color:var(--grey-frame);
+    margin-top:8px;letter-spacing:0.04em;
+  }
+
+  .cert-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:18px;}
+  .cert-actions .timer-btn{text-decoration:none;}
+  .cert-note{
+    font-family:var(--body);font-size:12px;line-height:1.6;color:var(--grey-frame);
+    max-width:38ch;margin:0 auto;
+  }
+
+  @media (max-width:480px){
+    .completion-panel{padding:28px 20px 22px;}
+    .cert-title{font-size:24px;}
+  }
+
+
   /* ---------- skills (contact sheet) ---------- */
+
+  /* ---------------- journey timeline ---------------- */
+  .tl-wrap{position:relative;padding-left:36px;}
+  .tl-line{
+    position:absolute;top:6px;bottom:6px;left:5px;width:2px;
+    background:var(--line);
+  }
+  .tl-line-fill{
+    position:absolute;top:0;left:0;width:100%;height:0%;
+    background:var(--safelight);
+    transition:height .1s linear;
+  }
+  .tl-items{display:flex;flex-direction:column;gap:44px;}
+  .tl-item{position:relative;}
+  .tl-dot{
+    position:absolute;left:-36px;top:5px;
+    width:12px;height:12px;border-radius:50%;
+    background:var(--paper);border:2px solid var(--grey-frame);
+    transition:border-color .3s ease, background .3s ease, box-shadow .3s ease;
+  }
+  .tl-item.in .tl-dot{
+    border-color:var(--safelight);background:var(--safelight);
+    box-shadow:0 0 0 4px rgba(200,29,47,0.15);
+  }
+  .tl-year{
+    font-family:var(--mono);font-size:11px;color:var(--safelight);
+    text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;
+  }
+  .tl-content h3{
+    font-family:var(--display);font-size:24px;text-transform:uppercase;
+    letter-spacing:0.3px;margin-bottom:8px;
+  }
+  .tl-content p{
+    font-family:var(--body);font-size:14.5px;line-height:1.65;color:#3a3a35;max-width:60ch;
+  }
+  body[data-theme="dark"] .tl-content p{color:var(--footer-fg-dim);}
+
+  @media (max-width:600px){
+    .tl-wrap{padding-left:28px;}
+    .tl-dot{left:-28px;}
+    .tl-content h3{font-size:20px;}
+  }
+
+  /* ---------------- skill radar chart ---------------- */
+  .radar-wrap{
+    display:flex;flex-wrap:wrap;gap:32px;align-items:center;justify-content:center;
+    border:1px solid var(--line);padding:32px;margin-bottom:1px;
+  }
+  .radar-svg{width:min(340px,80vw);height:auto;flex-shrink:0;}
+  .radar-grid{fill:none;stroke:var(--line);stroke-width:1;}
+  .radar-axis{stroke:var(--line);stroke-width:1;}
+  .radar-shape{fill:var(--safelight);fill-opacity:0.16;stroke:var(--safelight);stroke-width:2;stroke-linejoin:round;}
+  .radar-dot{fill:var(--safelight);}
+  .radar-label{
+    font-family:var(--mono);font-size:10px;fill:var(--grey-frame);
+    text-transform:uppercase;letter-spacing:0.04em;
+  }
+  .radar-legend{
+    display:flex;flex-direction:column;gap:8px;
+    font-family:var(--mono);font-size:11px;color:var(--grey-frame);
+  }
+  .radar-legend-row{display:flex;justify-content:space-between;gap:20px;min-width:180px;}
+  .radar-legend-row b{color:var(--safelight);font-family:var(--display);font-size:15px;letter-spacing:0;}
+
   .services{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);}
   .service{background:var(--paper);padding:40px;}
   .service .sindex{font-family:var(--mono);font-size:12px;color:var(--safelight);}
@@ -507,6 +723,66 @@
   .service li span{font-family:var(--mono);font-size:11px;color:var(--grey-frame);}
 
   @media (max-width:760px){.services{grid-template-columns:1fr;}}
+
+  /* ---------------- before/after retouching slider ---------------- */
+  .ba-section{margin-top:1px;}
+  .ba-intro{
+    font-family:var(--body);font-size:13.5px;line-height:1.6;color:var(--grey-frame);
+    padding:18px 4px 16px;max-width:66ch;
+  }
+  .ba-container{
+    position:relative;
+    aspect-ratio:3/2;
+    overflow:hidden;
+    border:1px solid var(--ink);
+    cursor:ew-resize;
+    user-select:none;
+    -webkit-user-select:none;
+    touch-action:pan-y;
+  }
+  .ba-container img{
+    position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;
+    display:block;pointer-events:none;
+  }
+  .ba-after{filter:saturate(1.15) contrast(1.08) brightness(1.03);}
+  .ba-before-wrap{
+    position:absolute;top:0;left:0;height:100%;width:50%;overflow:hidden;
+  }
+  .ba-before-wrap img{
+    filter:grayscale(0.45) contrast(0.82) brightness(0.88) saturate(0.7);
+  }
+  .ba-label{
+    position:absolute;top:12px;
+    font-family:var(--mono);font-size:10px;letter-spacing:0.06em;
+    background:rgba(0,0,0,0.6);color:#fff;padding:4px 9px;
+    pointer-events:none;
+  }
+  .ba-label-before{left:12px;}
+  .ba-label-after{right:12px;}
+  .ba-handle{
+    position:absolute;top:0;bottom:0;left:50%;
+    width:0;
+    transform:translateX(-50%);
+    pointer-events:none;
+  }
+  .ba-handle-line{
+    position:absolute;top:0;bottom:0;left:0;width:2px;
+    background:#fff;transform:translateX(-50%);
+    box-shadow:0 0 6px rgba(0,0,0,0.5);
+  }
+  .ba-handle-circle{
+    position:absolute;top:50%;left:0;
+    width:38px;height:38px;border-radius:50%;
+    background:#fff;color:var(--ink);
+    display:flex;align-items:center;justify-content:center;
+    font-size:16px;
+    transform:translate(-50%,-50%);
+    box-shadow:0 2px 8px rgba(0,0,0,0.4);
+  }
+
+  @media (max-width:480px){
+    .ba-handle-circle{width:32px;height:32px;font-size:14px;}
+  }
 
   /* ---------- tools ---------- */
   .tools{
@@ -886,6 +1162,72 @@
     padding:6px 10px;
   }
   .shortcut-hint kbd{background:var(--ink);color:var(--paper);padding:1px 6px;border-radius:3px;}
+
+  /* ---------------- command palette ---------------- */
+  .cmdk-overlay{
+    position:fixed;inset:0;z-index:10011;
+    background:rgba(8,8,7,0.72);
+    display:flex;align-items:flex-start;justify-content:center;
+    padding:14vh 20px 20px;
+    opacity:0;pointer-events:none;
+    transition:opacity .15s ease;
+  }
+  .cmdk-overlay.on{opacity:1;pointer-events:auto;}
+  .cmdk-panel{
+    background:var(--paper);border:1px solid var(--ink);
+    width:min(560px,94vw);max-height:64vh;
+    display:flex;flex-direction:column;
+    box-shadow:0 20px 60px rgba(0,0,0,0.4);
+  }
+  .cmdk-input-row{
+    display:flex;align-items:center;gap:10px;
+    padding:16px 18px;border-bottom:1px solid var(--line);
+    flex-shrink:0;
+  }
+  .cmdk-prompt{font-family:var(--mono);color:var(--safelight);font-size:16px;}
+  .cmdk-input-row input{
+    flex:1;background:none;border:none;outline:none;
+    font-family:var(--body);font-size:15px;color:var(--ink);
+  }
+  .cmdk-input-row input::placeholder{color:var(--grey-frame);}
+  .cmdk-esc{
+    font-family:var(--mono);font-size:9.5px;color:var(--grey-frame);
+    border:1px solid var(--line);padding:2px 6px;border-radius:3px;flex-shrink:0;
+  }
+  .cmdk-results{overflow-y:auto;flex:1;}
+  .cmdk-item{
+    display:flex;align-items:center;justify-content:space-between;gap:12px;
+    padding:12px 18px;cursor:pointer;
+    border-top:1px dashed var(--line);
+  }
+  .cmdk-item:first-child{border-top:none;}
+  .cmdk-item.active{background:var(--paper-dim);}
+  .cmdk-item-main{display:flex;align-items:center;gap:12px;min-width:0;}
+  .cmdk-item-icon{font-size:15px;flex-shrink:0;width:20px;text-align:center;}
+  .cmdk-item-label{font-family:var(--body);font-size:14px;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .cmdk-item-cat{
+    font-family:var(--mono);font-size:9.5px;color:var(--grey-frame);
+    text-transform:uppercase;letter-spacing:0.05em;flex-shrink:0;
+  }
+  .cmdk-empty{
+    padding:28px 18px;text-align:center;
+    font-family:var(--mono);font-size:12px;color:var(--grey-frame);
+  }
+  .cmdk-footer{
+    display:flex;gap:16px;padding:10px 18px;
+    border-top:1px solid var(--line);flex-shrink:0;
+    font-family:var(--mono);font-size:10px;color:var(--grey-frame);
+  }
+  .cmdk-footer kbd{
+    background:var(--ink);color:var(--paper);
+    padding:1px 5px;border-radius:2px;margin-right:1px;font-size:9.5px;
+  }
+
+  @media (max-width:600px){
+    .cmdk-overlay{padding:8vh 12px 12px;}
+    .cmdk-footer span:last-child{display:none;}
+  }
+
 
   /* ---------------- achievements ---------------- */
   .achv-btn{
@@ -1603,12 +1945,10 @@
 
   @media (max-width:600px){.ex-wrap{flex-direction:column;}}
 
-  /* ---------------- guestbook ---------------- */
-  .gb-wrap{display:grid;grid-template-columns:0.9fr 1.4fr;gap:40px;align-items:start;}
+  /* ---------------- contact form (reuses the old guestbook form styling) ---------------- */
   .gb-form{
     display:flex;flex-direction:column;gap:12px;
     border:1px solid var(--line);padding:26px;
-    position:sticky;top:90px;
   }
   .gb-form label{
     font-family:var(--mono);font-size:10.5px;color:var(--grey-frame);text-transform:uppercase;letter-spacing:0.05em;
@@ -1625,25 +1965,43 @@
   .gb-form .timer-btn{align-self:flex-start;margin-top:6px;}
   .gb-form-note{font-family:var(--mono);font-size:10px;color:var(--grey-frame);letter-spacing:0.03em;line-height:1.5;}
 
-  .gb-list{
-    display:flex;flex-direction:column;gap:1px;
-    background:var(--line);border:1px solid var(--line);
-    max-height:520px;overflow-y:auto;
-  }
-  .gb-entry{background:var(--paper);padding:16px 18px;border-left:3px solid var(--safelight);}
-  .gb-entry-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:5px;}
-  .gb-entry-name{font-family:var(--body);font-weight:700;font-size:14px;color:var(--ink);}
-  .gb-entry-time{font-family:var(--mono);font-size:10px;color:var(--grey-frame);white-space:nowrap;text-transform:uppercase;letter-spacing:0.04em;}
-  .gb-entry-msg{font-family:var(--body);font-size:14px;line-height:1.55;color:#3a3a35;word-break:break-word;}
-  body[data-theme="dark"] .gb-entry-msg{color:var(--footer-fg-dim);}
-  .gb-empty{
-    background:var(--paper);padding:30px 18px;text-align:center;
-    font-family:var(--mono);font-size:12px;color:var(--grey-frame);text-transform:uppercase;letter-spacing:0.04em;
-  }
+  /* ---------------- print stylesheet (Resume) ----------------
+     Printing shows only the Resume section, cleanly, on a white
+     background — everything else (nav, games, decoration, other
+     sections) is hidden. Trigger with Ctrl/Cmd+P while anywhere
+     on the page. */
+  @media print{
+    :root, body{
+      --ink:#000 !important; --paper:#fff !important; --paper-dim:#f2f2f2 !important;
+      --safelight:#900 !important; --kodak:#886400 !important;
+      --grey-frame:#444 !important; --line:#ccc !important;
+    }
+    body{background:#fff !important;}
+    body *{ box-shadow:none !important; text-shadow:none !important; animation:none !important; }
 
-  @media (max-width:800px){
-    .gb-wrap{grid-template-columns:1fr;}
-    .gb-form{position:static;}
+    header, .sprockets, #grainCanvas, #konamiFlash, #konamiBanner,
+    .shortcut-hint, #shortcutOverlay, .achv-btn, .achv-overlay, .achv-toast,
+    .playground-toggle, .pg-overlay, #splash, .lightbox, .game-modal,
+    #gameOverlay, footer.contact, .scroll-cue,
+    section:not(#resume), .hero{
+      display:none !important;
+    }
+
+    #resume{
+      display:block !important;
+      opacity:1 !important; transform:none !important; filter:none !important;
+      padding:0 !important; border:none !important; max-width:none !important;
+      margin:0 !important;
+    }
+    #resume .wrap{ padding:0 !important; max-width:none !important; }
+    #resume .section-label .num{ color:#900 !important; }
+    #resume .spec-preview{ display:none !important; }
+    #resume a[href^="https://drive.google.com"]{
+      border:1px solid #000 !important; color:#000 !important; background:none !important;
+    }
+
+    a{ color:#000 !important; text-decoration:underline; }
+    .service li, .spec-row{ break-inside:avoid; }
   }
 
 </style>
@@ -1683,17 +2041,19 @@
     <div class="shortcut-row"><span>Go to Terminal</span><kbd>G</kbd> <kbd>T</kbd></div>
     <div class="shortcut-row"><span>Go to Arcade</span><kbd>G</kbd> <kbd>A</kbd></div>
     <div class="shortcut-row"><span>Go to Resume</span><kbd>G</kbd> <kbd>R</kbd></div>
+    <div class="shortcut-row"><span>Go to Contact</span><kbd>G</kbd> <kbd>C</kbd></div>
     <div class="shortcut-row"><span>Scroll to Top (vim)</span><kbd>G</kbd> <kbd>G</kbd></div>
     <div class="shortcut-row"><span>Scroll to Bottom (vim)</span><kbd>Shift</kbd> <kbd>G</kbd></div>
     <div class="shortcut-row"><span>Scroll Down / Up (vim)</span><kbd>J</kbd> <kbd>K</kbd></div>
     <div class="shortcut-row"><span>Toggle Dark Mode</span><kbd>D</kbd></div>
+    <div class="shortcut-row"><span>Command Palette</span><kbd id="cmdkModKeyLabel">Ctrl</kbd> <kbd>K</kbd></div>
     <div class="shortcut-row"><span>Close This Panel</span><kbd>ESC</kbd></div>
   </div>
 </div>
 <div class="shortcut-hint">PRESS <kbd>?</kbd> FOR SHORTCUTS</div>
 
 <button class="achv-btn" id="achvBtn" aria-label="Achievements">
-  <span class="achv-trophy">🏆</span> <span class="achv-count" id="achvCount">0/13</span>
+  <span class="achv-trophy">🏆</span> <span class="achv-count" id="achvCount">0/12</span>
 </button>
 <div class="achv-overlay" id="achvOverlay">
   <div class="achv-panel">
@@ -1701,7 +2061,7 @@
       <h3>Achievements</h3>
       <button class="timer-btn" id="achvClose">Close</button>
     </div>
-    <div class="achv-panel-sub" id="achvPanelSub">0 of 13 unlocked</div>
+    <div class="achv-panel-sub" id="achvPanelSub">0 of 12 unlocked this session</div>
     <div class="achv-list" id="achvList"></div>
   </div>
 </div>
@@ -1758,16 +2118,54 @@
       <div class="lightbox-title" id="lightboxTitle"></div>
       <div class="lightbox-exif" id="lightboxExif"></div>
       <div class="lightbox-counter" id="lightboxCounter"></div>
+      <button class="lightbox-case-btn" id="lightboxCaseBtn" style="display:none;">Read Case Study ▾</button>
+      <div class="lightbox-case" id="lightboxCase" style="display:none;">
+        <div class="lightbox-case-row"><span class="lightbox-case-label">Problem</span><p id="lightboxCaseProblem"></p></div>
+        <div class="lightbox-case-row"><span class="lightbox-case-label">Process</span><p id="lightboxCaseProcess"></p></div>
+        <div class="lightbox-case-row"><span class="lightbox-case-label">Result</span><p id="lightboxCaseResult"></p></div>
+        <div class="lightbox-case-row"><span class="lightbox-case-label">Tools</span><p id="lightboxCaseTools"></p></div>
+      </div>
     </div>
   </div>
 </div>
 
-<div class="game-modal" id="hofModal">
-  <div class="game-modal-panel">
-    <button class="game-modal-close" data-close-modal="hofModal">Close</button>
-    <h2>Hall of Fame</h2>
-    <div class="top-score-line">Every best score on this page, in one place.</div>
-    <div class="achv-list" id="hofList"></div>
+<canvas id="confettiCanvas" aria-hidden="true"></canvas>
+
+<div class="completion-overlay" id="completionOverlay">
+  <div class="completion-panel">
+    <button class="game-modal-close" id="completionClose">Close</button>
+    <div class="cert-frame">
+      <div class="cert-eyebrow">NEG. 12/12 — FULLY EXPOSED</div>
+      <div class="cert-trophy">🏆</div>
+      <h2 class="cert-title">All Achievements<br>Unlocked</h2>
+      <p class="cert-sub">You explored every corner of this archive — every game, every easter egg, every hidden panel. That takes real curiosity.</p>
+      <div class="cert-code-row">
+        <span class="cert-code-label">Certificate Code</span>
+        <span class="cert-code" id="certCode">JP-000000</span>
+      </div>
+      <div class="cert-date" id="certDate"></div>
+    </div>
+    <div class="cert-actions">
+      <button class="timer-btn primary" id="certDownload">📥 Download Certificate</button>
+      <a class="timer-btn" id="certClaimBtn" href="mailto:phosajakha@gmail.com?subject=I%20unlocked%20all%2012%20achievements!" target="_blank" rel="noopener">🎁 Claim Your Prize</a>
+    </div>
+    <p class="cert-note">Screenshot this certificate (or download it above) and send it to <a href="mailto:phosajakha@gmail.com" style="color:var(--safelight);">phosajakha@gmail.com</a> or via <a href="https://wa.me/+6282340811497" target="_blank" rel="noopener" style="color:var(--safelight);">WhatsApp</a> with your certificate code to claim a small prize for making it all the way through. Limited to real humans who actually found everything — no shortcuts.</p>
+  </div>
+</div>
+
+<div class="cmdk-overlay" id="cmdkOverlay">
+  <div class="cmdk-panel">
+    <div class="cmdk-input-row">
+      <span class="cmdk-prompt">›</span>
+      <input type="text" id="cmdkInput" placeholder="Type a command or search..." autocomplete="off" spellcheck="false">
+      <kbd class="cmdk-esc">ESC</kbd>
+    </div>
+    <div class="cmdk-results" id="cmdkResults"></div>
+    <div class="cmdk-footer">
+      <span><kbd>↑</kbd><kbd>↓</kbd> navigate</span>
+      <span><kbd>↵</kbd> select</span>
+      <span><kbd id="cmdkModKeyFooter">Ctrl</kbd><kbd>K</kbd> toggle</span>
+    </div>
   </div>
 </div>
 
@@ -1806,20 +2204,11 @@
   </div>
 </div>
 
-<div class="namemodal-overlay" id="nameModal">
-  <div class="namemodal-panel">
-    <h3>🏆 New High Score!</h3>
-    <div class="namemodal-sub">Enter your name for the Hall of Fame</div>
-    <form id="nameModalForm">
-      <input type="text" id="nameModalInput" placeholder="Your name" maxlength="24" autocomplete="off">
-      <div class="namemodal-actions">
-        <button type="button" class="timer-btn" id="nameModalSkip">Skip</button>
-        <button type="submit" class="timer-btn primary">Save</button>
-      </div>
-    </form>
-  </div>
-</div>
 
+<div class="filmroll-progress" aria-hidden="true">
+  <div class="filmroll-fill" id="filmrollFill"></div>
+</div>
+<div class="filmroll-counter" id="filmrollCounter">FRAME 00/36</div>
 
 <div class="sprockets" aria-hidden="true">
   <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
@@ -1831,18 +2220,21 @@
   <nav>
     <a href="#top" class="logo" title="👀 psst... try clicking me 5 times, fast">jakha<span>.</span>phosa</a>
     <div class="navlinks">
-      <a href="#about">About</a>
-      <a href="#work">Work</a>
-      <a href="#posters">Posters</a>
-      <a href="#skills">Skills</a>
-      <a href="#resume">Resume</a>
-      <a href="#setup">Setup</a>
-      <a href="#links">Links</a>
-      <a href="#music">Music</a>
+      <a href="#about" data-id="Tentang">About</a>
+      <a href="#work" data-id="Karya">Work</a>
+      <a href="#posters" data-id="Poster">Posters</a>
+      <a href="#skills" data-id="Keahlian">Skills</a>
+      <a href="#resume" data-id="Riwayat">Resume</a>
+      <a href="#journey" data-id="Perjalanan">Journey</a>
+      <a href="#contact-form" data-id="Kontak">Contact</a>
+      <a href="#setup" data-id="Peralatan">Setup</a>
+      <a href="#links" data-id="Tautan">Links</a>
+      <a href="#music" data-id="Musik">Music</a>
       <a href="#terminal">Terminal</a>
       <a href="#arcade">Arcade</a>
     </div>
     <div class="nav-right">
+      <button class="lang-toggle" id="langToggle" aria-label="Switch language"><span class="lang-current" id="langCurrent">EN</span> / <span id="langOther">ID</span></button>
       <button class="playground-toggle" id="playgroundBtn" aria-haspopup="dialog">
         <span class="swatch" aria-hidden="true"></span>
         <span class="pg-label">CUSTOMIZE</span>
@@ -1863,21 +2255,21 @@
       <span>KODAK PORTRA 400 — ROLL 01</span>
       <span>Kupang, ID — 2026</span>
     </div>
-    <h1 class="title">GRAPHIC DESIGN<br>&amp; <span class="accent">PHOTOGRAPHY</span></h1>
+    <h1 class="title" data-id-html='DESAIN GRAFIS<br>&amp; <span class="accent">FOTOGRAFI</span>'>GRAPHIC DESIGN<br>&amp; <span class="accent">PHOTOGRAPHY</span></h1>
     <div class="hero-sub">
-      <p>I'm Jakha Phosa, a graphic designer and photographer. This space is a personal archive of what I make — visual identities, layouts, and images I've shot over years of practice.</p>
-      <div class="hero-meta">
+      <p data-id="Saya Jakha Phosa, desainer grafis dan fotografer. Ruang ini adalah arsip pribadi dari karya saya — identitas visual, tata letak, dan foto yang saya ambil selama bertahun-tahun berkarya.">I'm Jakha Phosa, a graphic designer and photographer. This space is a personal archive of what I make — visual identities, layouts, and images I've shot over years of practice.</p>
+      <div class="hero-meta" data-id-html="BIDANG — Branding, Editorial, Potret<br>BERDOMISILI DI — Kupang, Indonesia<br>AKTIF SEJAK — 2016<br>FORMAT — Cetak, Digital, Motion">
         DISCIPLINE — Branding, Editorial, Portraits<br>
         BASED IN — Kupang, Indonesia<br>
         ACTIVE SINCE — 2016<br>
         FORMAT — Print, Digital, Motion
       </div>
     </div>
-    <div class="scroll-cue"><div class="line"></div>SCROLL TO VIEW ARCHIVE</div>
+    <div class="scroll-cue"><div class="line"></div><span data-id="GULIR UNTUK LIHAT ARSIP">SCROLL TO VIEW ARCHIVE</span></div>
   </section>
 
   <section class="section wrap reveal" id="about">
-    <div class="section-label"><span class="num">01</span><h2>About</h2></div>
+    <div class="section-label"><span class="num">01</span><h2 data-id="Tentang">About</h2></div>
     <div class="about">
       <div class="about-frame">
         <div class="af-vertical">Jakha Phosa</div>
@@ -1895,13 +2287,13 @@
         </div>
       </div>
       <div class="about-text">
-        <p>I started as a graphic designer, then fell in love with the camera while photographing my own design work for documentation. Now the two go hand in hand: <strong>design gives structure, photography gives soul</strong>.</p>
-        <p>My approach is simple — first understand what an image or layout is trying to say, then decide its visual form. The end result has to feel honest and easy to remember.</p>
-        <p>Beyond that, I enjoy documenting city streets and old print archives — a habit that always sneaks its way into how I build a layout.</p>
+        <p data-id-html="Saya mulai sebagai desainer grafis, lalu jatuh cinta pada kamera saat memotret karya desain saya sendiri untuk dokumentasi. Sekarang keduanya berjalan beriringan: <strong>desain memberi struktur, fotografi memberi jiwa</strong>.">I started as a graphic designer, then fell in love with the camera while photographing my own design work for documentation. Now the two go hand in hand: <strong>design gives structure, photography gives soul</strong>.</p>
+        <p data-id="Pendekatan saya sederhana — pahami dulu apa yang ingin disampaikan sebuah gambar atau tata letak, baru tentukan bentuk visualnya. Hasil akhirnya harus terasa jujur dan mudah diingat.">My approach is simple — first understand what an image or layout is trying to say, then decide its visual form. The end result has to feel honest and easy to remember.</p>
+        <p data-id="Selain itu, saya suka mendokumentasikan jalanan kota dan arsip cetak lama — kebiasaan yang selalu terbawa ke cara saya membangun sebuah tata letak.">Beyond that, I enjoy documenting city streets and old print archives — a habit that always sneaks its way into how I build a layout.</p>
         <div class="stats">
-          <div class="stat"><b>09</b><span>Years of Practice</span></div>
-          <div class="stat"><b>120+</b><span>Works Collected</span></div>
-          <div class="stat"><b>34</b><span>Rolls Archived</span></div>
+          <div class="stat"><b>09</b><span data-id="Tahun Berkarya">Years of Practice</span></div>
+          <div class="stat"><b>120+</b><span data-id="Karya Terkumpul">Works Collected</span></div>
+          <div class="stat"><b>34</b><span data-id="Roll Terarsip">Rolls Archived</span></div>
         </div>
       </div>
     </div>
@@ -1909,57 +2301,75 @@
 
   <section class="section reveal" id="work" style="padding-bottom:0;">
     <div class="wrap">
-      <div class="section-label"><span class="num">02</span><h2>Archive of Work</h2></div>
+      <div class="section-label"><span class="num">02</span><h2 data-id="Arsip Karya">Archive of Work</h2></div>
     </div>
     <div class="gallery-wrap">
       <div class="gallery">
 
-        <div class="frame pick">
-          <img src="https://picsum.photos/seed/karya1/600/800" alt="Visual identity for Kafe Tanaya">
+        <div class="frame pick"
+          data-case-problem="Kafe Tanaya baru buka dan belum punya identitas visual yang konsisten — logo lama terasa generik dan sulit dikenali di tengah kompetitor kafe lain di area yang sama."
+          data-case-process="Riset kompetitor, moodboard warna earth-tone terinspirasi biji kopi & kayu, sketsa logogram, tiga putaran revisi bareng owner, lalu diterapkan ke seluruh aplikasi (kemasan cup, signage, menu)."
+          data-case-result="Brand recall meningkat dan identitas visualnya sekarang dipakai konsisten di semua titik sentuh fisik maupun digital kafe."
+          data-case-tools="Adobe Illustrator, Adobe Photoshop">
+          <img src="https://picsum.photos/seed/karya1/600/800" alt="Visual identity for Kafe Tanaya" loading="lazy">
           <span class="fnum">NEG. 01A</span>
           <div class="fmeta"><div class="cat">Branding</div><div class="ttl">Kafe Tanaya</div><div class="exif">50mm · f/2.8 · 1/125 · ISO 200</div></div>
         </div>
 
         <div class="frame">
-          <img src="https://picsum.photos/seed/karya2/600/800" alt="Editorial portrait for a local magazine">
+          <img src="https://picsum.photos/seed/karya2/600/800" alt="Editorial portrait for a local magazine" loading="lazy">
           <span class="fnum">NEG. 01B</span>
           <div class="fmeta"><div class="cat">Editorial</div><div class="ttl">City Faces</div><div class="exif">85mm · f/1.8 · 1/250 · ISO 400</div></div>
         </div>
 
         <div class="frame">
-          <img src="https://picsum.photos/seed/karya3/600/800" alt="Product photography for a fashion label">
+          <img src="https://picsum.photos/seed/karya3/600/800" alt="Product photography for a fashion label" loading="lazy">
           <span class="fnum">NEG. 01C</span>
           <div class="fmeta"><div class="cat">Product</div><div class="ttl">Studio Anin</div><div class="exif">100mm · f/8 · 1/160 · ISO 100</div></div>
         </div>
 
-        <div class="frame pick">
-          <img src="https://picsum.photos/seed/karya4/600/800" alt="Cover for an independent poetry book">
+        <div class="frame pick"
+          data-case-problem="Penulis ingin sampul yang menangkap tema kesunyian & introspeksi tanpa jatuh ke klise (bukan sekadar gambar orang termenung)."
+          data-case-process="Eksplorasi tipografi minimalis dengan negative space sebagai elemen utama, lalu beberapa iterasi palet monokrom sebelum akhirnya landing di kombinasi cream-charcoal yang tenang."
+          data-case-result="Cover terpilih jadi salah satu yang di-highlight di rak toko buku indie tempat kumpulan puisi ini dijual."
+          data-case-tools="Adobe InDesign, Adobe Illustrator">
+          <img src="https://picsum.photos/seed/karya4/600/800" alt="Cover for an independent poetry book" loading="lazy">
           <span class="fnum">NEG. 01D</span>
           <div class="fmeta"><div class="cat">Layout</div><div class="ttl">Silence, A Poetry Collection</div><div class="exif">Vector · CMYK · 300DPI</div></div>
         </div>
 
         <div class="frame">
-          <img src="https://picsum.photos/seed/karya5/600/800" alt="Product launch event documentation">
+          <img src="https://picsum.photos/seed/karya5/600/800" alt="Product launch event documentation" loading="lazy">
           <span class="fnum">NEG. 02A</span>
           <div class="fmeta"><div class="cat">Event</div><div class="ttl">Ossa Launch</div><div class="exif">35mm · f/2 · 1/200 · ISO 800</div></div>
         </div>
 
         <div class="frame">
-          <img src="https://picsum.photos/seed/karya6/600/800" alt="Poster for an independent music festival">
+          <img src="https://picsum.photos/seed/karya6/600/800" alt="Poster for an independent music festival" loading="lazy">
           <span class="fnum">NEG. 02B</span>
           <div class="fmeta"><div class="cat">Poster</div><div class="ttl">Ambang Festival</div><div class="exif">Vector · RGB · A2</div></div>
         </div>
 
         <div class="frame pick">
-          <img src="https://picsum.photos/seed/karya7/600/800" alt="Natural light family portrait session">
+          <img src="https://picsum.photos/seed/karya7/600/800" alt="Natural light family portrait session" loading="lazy">
           <span class="fnum">NEG. 02C</span>
           <div class="fmeta"><div class="cat">Portrait</div><div class="ttl">The Wirawan Family</div><div class="exif">50mm · f/2.2 · 1/320 · ISO 200</div></div>
         </div>
 
         <div class="frame">
-          <img src="https://picsum.photos/seed/karya8/600/800" alt="Packaging system for a local kombucha drink">
+          <img src="https://picsum.photos/seed/karya8/600/800" alt="Packaging system for a local kombucha drink" loading="lazy">
           <span class="fnum">NEG. 02D</span>
           <div class="fmeta"><div class="cat">Packaging</div><div class="ttl">Kombucha Rimba</div><div class="exif">100mm · f/11 · 1/125 · ISO 100</div></div>
+        </div>
+
+        <div class="frame pick"
+          data-case-problem="Banyak pengguna awam kesulitan mendiagnosis kerusakan komputer desktop sendiri, bahkan untuk masalah sederhana yang sebenarnya bisa dikenali lewat gejala-gejalanya sebelum harus bawa ke teknisi."
+          data-case-process="Dibangun sebagai skripsi menggunakan sistem Case-Based Reasoning (CBR) — menyusun basis data gejala & kerusakan, merancang alur diagnosa bertahap (Beranda → Diagnosa → Hasil Diagnosa), plus halaman referensi gejala dan kerusakan yang bisa dicari manual."
+          data-case-result="Sistem berhasil mencocokkan gejala yang diinput pengguna dengan kasus kerusakan serupa di database, memberi rekomendasi diagnosa awal sebelum keputusan bawa ke teknisi."
+          data-case-tools="PHP, HTML, CSS, Case-Based Reasoning">
+          <img src="https://picsum.photos/seed/peduli-komputer/600/800" alt="Peduli Komputer — computer damage diagnosis website, bachelor's thesis project" loading="lazy">
+          <span class="fnum">NEG. 03A</span>
+          <div class="fmeta"><div class="cat">Web / Thesis</div><div class="ttl">Peduli Komputer</div><div class="exif">PHP · Case-Based Reasoning · 2022</div></div>
         </div>
 
       </div>
@@ -1967,7 +2377,7 @@
   </section>
 
   <section class="section wrap reveal" id="posters">
-    <div class="section-label"><span class="num">03</span><h2>Poster Wall</h2></div>
+    <div class="section-label"><span class="num">03</span><h2 data-id="Dinding Poster">Poster Wall</h2></div>
     <p class="poster-intro">A row of poster experiments — some are stills, some are short looping clips. Scroll or use the arrows to move through them.</p>
     <div class="poster-nav">
       <button id="posterPrev" aria-label="Scroll left">←</button>
@@ -1980,38 +2390,23 @@
         <div class="af-top">
           <span class="af-tagline">(2021) •</span>
           <span class="af-badge">jakha.</span>
-          <span class="af-index">001 / 002</span>
-          <h3 class="af-title">Money Trees<span class="drop"></span></h3>
+          <span class="af-index">001 / 005</span>
+          <h3 class="af-title">Silhouette<span class="drop"></span></h3>
           <div class="af-sub">[portrait series]</div>
         </div>
         <div class="poster-media">
-          <img src="Money Trees.png">
+          <img src="https://picsum.photos/seed/poster1/500/700" alt="Silhouette portrait series poster" loading="lazy">
           <span class="poster-kind">Image</span>
         </div>
       </div>
 
-       <div class="poster-card">
-        <div class="af-vertical">Jakha Phosa</div>
-        <div class="af-top">
-          <span class="af-tagline">(2021) •</span>
-          <span class="af-badge">jakha.</span>
-          <span class="af-index">002 / 002</span>
-          <h3 class="af-title">Ryomen Sukuna<span class="drop"></span></h3>
-          <div class="af-sub">[portrait series]</div>
-        </div>
-        <div class="poster-media">
-          <img src="Ryomen Sukuna.png">
-          <span class="poster-kind">Image</span>
-        </div>
-      </div>
-<!--
       <div class="poster-card">
         <div class="af-vertical">Jakha Phosa</div>
         <div class="af-top">
           <span class="af-tagline">(2023) •</span>
           <span class="af-badge">jakha.</span>
-          <span class="af-index">002 / 002</span>
-          <h3 class="af-title">Ryomen Sukuna<span class="drop"></span></h3>
+          <span class="af-index">002 / 005</span>
+          <h3 class="af-title">Motion<span class="drop"></span></h3>
           <div class="af-sub">[showreel]</div>
         </div>
         <div class="poster-media">
@@ -2032,7 +2427,7 @@
           <div class="af-sub">[editorial]</div>
         </div>
         <div class="poster-media">
-          <img src="https://picsum.photos/seed/poster3/500/700" alt="Structure editorial poster">
+          <img src="https://picsum.photos/seed/poster3/500/700" alt="Structure editorial poster" loading="lazy">
           <span class="poster-kind">Image</span>
         </div>
       </div>
@@ -2064,44 +2459,66 @@
           <div class="af-sub">[35mm film]</div>
         </div>
         <div class="poster-media">
-          <img src="https://picsum.photos/seed/poster5/500/700" alt="Analog film poster">
+          <img src="https://picsum.photos/seed/poster5/500/700" alt="Analog film poster" loading="lazy">
           <span class="poster-kind">Image</span>
         </div>
       </div>
--->
+
     </div>
   </section>
 
   <section class="section wrap reveal" id="skills">
-    <div class="section-label"><span class="num">04</span><h2>Skills</h2></div>
+    <div class="section-label"><span class="num">04</span><h2 data-id="Keahlian">Skills</h2></div>
+
+    <div class="radar-wrap">
+      <svg id="skillRadar" class="radar-svg" viewBox="0 0 340 340" aria-label="Skill proficiency radar chart"></svg>
+      <div class="radar-legend" id="radarLegend"></div>
+    </div>
+
     <div class="services">
       <div class="service">
         <div class="sindex">A — VISUAL</div>
-        <h3>Graphic Design</h3>
+        <h3 data-id="Desain Grafis">Graphic Design</h3>
         <ul>
-          <li>Identity &amp; Logo <span>BRAND SYSTEM</span></li>
-          <li>Editorial Layout <span>BOOK / MAGAZINE</span></li>
-          <li>Packaging Design <span>PRINT</span></li>
-          <li>Posters &amp; Campaign Assets <span>PRINT / DIGITAL</span></li>
-          <li>Supporting Illustration <span>VECTOR</span></li>
+          <li><span data-id-html="Identitas &amp; Logo">Identity &amp; Logo</span> <span>BRAND SYSTEM</span></li>
+          <li><span data-id="Tata Letak Editorial">Editorial Layout</span> <span>BOOK / MAGAZINE</span></li>
+          <li><span data-id="Desain Kemasan">Packaging Design</span> <span>PRINT</span></li>
+          <li><span data-id-html="Poster &amp; Materi Kampanye">Posters &amp; Campaign Assets</span> <span>PRINT / DIGITAL</span></li>
+          <li><span data-id="Ilustrasi Pendukung">Supporting Illustration</span> <span>VECTOR</span></li>
         </ul>
       </div>
       <div class="service">
         <div class="sindex">B — LENS</div>
-        <h3>Photography</h3>
+        <h3 data-id="Fotografi">Photography</h3>
         <ul>
-          <li>Portrait &amp; Editorial <span>STUDIO / LOCATION</span></li>
-          <li>Product Photography <span>CATALOG</span></li>
-          <li>Event Documentation <span>FULL DAY</span></li>
-          <li>Architecture &amp; Interior Photography <span>COMMERCIAL</span></li>
-          <li>Retouching &amp; Color Grading <span>POST-PRODUCTION</span></li>
+          <li><span data-id-html="Potret &amp; Editorial">Portrait &amp; Editorial</span> <span>STUDIO / LOCATION</span></li>
+          <li><span data-id="Fotografi Produk">Product Photography</span> <span>CATALOG</span></li>
+          <li><span data-id="Dokumentasi Acara">Event Documentation</span> <span>FULL DAY</span></li>
+          <li><span data-id-html="Fotografi Arsitektur &amp; Interior">Architecture &amp; Interior Photography</span> <span>COMMERCIAL</span></li>
+          <li><span data-id-html="Retouching &amp; Color Grading">Retouching &amp; Color Grading</span> <span>POST-PRODUCTION</span></li>
         </ul>
+      </div>
+    </div>
+
+    <div class="ba-section">
+      <p class="ba-intro" data-id="Contoh interaktif proses retouching — geser buat lihat sebelum & sesudah. (Demo pakai satu foto placeholder dengan filter berbeda; ganti dengan pasangan foto RAW/edit asli kapan pun.)">A quick interactive look at the retouching process — drag to compare before & after. (Demo using one placeholder photo with different filters; swap in a real RAW/edit pair anytime.)</p>
+      <div class="ba-container" id="baContainer">
+        <img class="ba-after" src="https://picsum.photos/seed/retouch-demo/900/600" alt="After retouching" loading="lazy">
+        <div class="ba-before-wrap" id="baBeforeWrap">
+          <img class="ba-before" id="baBeforeImg" src="https://picsum.photos/seed/retouch-demo/900/600" alt="Before retouching" loading="lazy">
+        </div>
+        <span class="ba-label ba-label-before">BEFORE</span>
+        <span class="ba-label ba-label-after">AFTER</span>
+        <div class="ba-handle" id="baHandle">
+          <div class="ba-handle-line"></div>
+          <div class="ba-handle-circle">↔</div>
+        </div>
       </div>
     </div>
   </section>
 
   <section class="section wrap reveal" id="setup">
-    <div class="section-label"><span class="num">05</span><h2>Setup &amp; Specs</h2></div>
+    <div class="section-label"><span class="num">05</span><h2 data-id-html="Peralatan &amp; Spesifikasi">Setup &amp; Specs</h2></div>
     <div class="spec-sheet">
       <div class="spec-block">
         <div class="sindex">A — WORKSTATION</div>
@@ -2152,11 +2569,11 @@
   </section>
 
   <section class="section wrap reveal" id="links">
-    <div class="section-label"><span class="num">06</span><h2>Games &amp; Links</h2></div>
+    <div class="section-label"><span class="num">06</span><h2 data-id-html="Game &amp; Tautan">Games &amp; Links</h2></div>
 
     <div class="steam-card" id="steamApiCard">
       <div class="steam-card-top">
-        <img class="steam-avatar" id="steamApiAvatar" src="https://picsum.photos/seed/steam-avatar-placeholder/128/128" alt="Steam avatar">
+        <img class="steam-avatar" id="steamApiAvatar" src="https://picsum.photos/seed/steam-avatar-placeholder/128/128" alt="Steam avatar" loading="lazy">
         <div class="steam-card-id">
           <a class="steam-name" id="steamApiName" href="https://steamcommunity.com/id/jphosa/" target="_blank" rel="noopener" data-miniprofile="YOUR_STEAMID64" style="text-decoration:none;color:inherit;">jphosa</a>
           <div class="steam-status" id="steamApiStatusRow"><span class="steam-status-dot"></span> <span id="steamApiStatus">Not connected</span></div>
@@ -2295,7 +2712,7 @@
   </section>
 
   <section class="section wrap reveal" id="music">
-    <div class="section-label"><span class="num">07</span><h2>Music &amp; Watching</h2></div>
+    <div class="section-label"><span class="num">07</span><h2 data-id-html="Musik &amp; Tontonan">Music &amp; Watching</h2></div>
     <div class="media-sheet">
       <div class="media-block">
         <div class="sindex">A — LISTEN</div>
@@ -2397,9 +2814,8 @@
   </section>
 
   <section class="section wrap reveal" id="arcade">
-    <div class="section-label"><span class="num">09</span><h2>Arcade — Pick a Mode</h2></div>
-    <p class="arcade-intro">Small games hiding in this portfolio. Pick a mode below and it opens right here — high scores are shared across everyone who visits this page.</p>
-    <button class="timer-btn" id="hallOfFameBtn" style="margin-bottom:24px;">🏆 View Hall of Fame</button>
+    <div class="section-label"><span class="num">09</span><h2 data-id="Arcade — Pilih Mode">Arcade — Pick a Mode</h2></div>
+    <p class="arcade-intro">Small games hiding in this portfolio. Pick a mode below and it opens right here — best scores are tracked for this session only.</p>
     <div class="arcade-grid">
       <button class="arcade-card" data-game="ttt">
         <div class="ac-num">MODE 01</div>
@@ -2697,53 +3113,140 @@
   </div>
 
   <section class="section wrap reveal" id="resume">
-    <div class="section-label"><span class="num">10</span><h2>Resume</h2></div>
-    <p class="poster-intro">A quick look at my academic and professional background — the paper trail behind the portfolio.</p>
+    <div class="section-label"><span class="num">10</span><h2 data-id="Riwayat Hidup">Resume</h2></div>
+    <p class="poster-intro" data-id="Sekilas latar belakang akademik dan profesional saya — jejak kertas di balik portofolio ini.">A quick look at my academic and professional background — the paper trail behind the portfolio.</p>
 
     <div class="services" style="margin-bottom:1px;">
       <div class="service">
-        <div class="sindex">A — EDUCATION</div>
-        <h3>Academic</h3>
+        <div class="sindex" data-id="A — PENDIDIKAN">A — EDUCATION</div>
+        <h3 data-id="Akademik">Academic</h3>
         <ul>
-          <li>Nusa Cendana University <span>2018 – 2022</span></li>
-          <li>1st Senior High School, West Sabu <span>2015 – 2018</span></li>
-          <li>2nd Junior High School, West Sabu <span>2012 – 2015</span></li>
-          <li>4th Elementary School, Koto Tuo <span>2006 – 2012</span></li>
+          <li><span data-id="Universitas Nusa Cendana">Nusa Cendana University</span> <span>2018 – 2022</span></li>
+          <li><span data-id="SMA Negeri 1 Sabu Barat">1st Senior High School, West Sabu</span> <span>2015 – 2018</span></li>
+          <li><span data-id="SMP Negeri 2 Sabu Barat">2nd Junior High School, West Sabu</span> <span>2012 – 2015</span></li>
+          <li><span data-id="SD Negeri 4 Koto Tuo">4th Elementary School, Koto Tuo</span> <span>2006 – 2012</span></li>
         </ul>
       </div>
       <div class="service">
-        <div class="sindex">B — EXPERIENCE &amp; RESEARCH</div>
-        <h3>Professional</h3>
+        <div class="sindex" data-id-html="B — PENGALAMAN &amp; RISET">B — EXPERIENCE &amp; RESEARCH</div>
+        <h3 data-id="Profesional">Professional</h3>
         <ul>
-          <li>AI for Junior Developer (Huawei) <span>2022</span></li>
-          <li>Thesis — Case-Based Reasoning for Computer Diagnostics <span>2022</span></li>
+          <li><span data-id="AI for Junior Developer (Huawei)">AI for Junior Developer (Huawei)</span> <span>2022</span></li>
+          <li><span data-id="Skripsi — Case-Based Reasoning untuk Diagnostik Komputer">Thesis — Case-Based Reasoning for Computer Diagnostics</span> <span>2022</span></li>
         </ul>
       </div>
     </div>
 
     <div class="spec-sheet" style="margin-top:1px;">
       <div class="spec-block">
-        <div class="sindex">C — SKILLS</div>
-        <h3>Toolset</h3>
-        <div class="spec-row"><span class="label">Programming</span><span class="value">C#, HTML, PHP, CSS</span></div>
-        <div class="spec-row"><span class="label">Photo/Video Editing</span><span class="value">Photoshop, Premiere Pro, CapCut, KineMaster</span></div>
-        <div class="spec-row"><span class="label">Design Graphics</span><span class="value">Photoshop, Illustrator, Canva</span></div>
+        <div class="sindex" data-id="C — KEAHLIAN">C — SKILLS</div>
+        <h3 data-id="Perangkat">Toolset</h3>
+        <div class="spec-row"><span class="label" data-id="Pemrograman">Programming</span><span class="value">C#, HTML, PHP, CSS</span></div>
+        <div class="spec-row"><span class="label" data-id="Edit Foto/Video">Photo/Video Editing</span><span class="value">Photoshop, Premiere Pro, CapCut, KineMaster</span></div>
+        <div class="spec-row"><span class="label" data-id="Desain Grafis">Design Graphics</span><span class="value">Photoshop, Illustrator, Canva</span></div>
         <div class="spec-row"><span class="label">Office</span><span class="value">Excel, PowerPoint, Word</span></div>
       </div>
       <div class="spec-block">
-        <div class="sindex">D — LANGUAGES</div>
-        <h3>Spoken</h3>
-        <div class="spec-row"><span class="label">Indonesian</span><span class="value">Native</span></div>
-        <div class="spec-row"><span class="label">English</span><span class="value">Proficient</span></div>
-        <div class="spec-note">The full CV has more detail on education, research, and work history — download it below.</div>
+        <div class="sindex" data-id="D — BAHASA">D — LANGUAGES</div>
+        <h3 data-id="Dikuasai">Spoken</h3>
+        <div class="spec-row"><span class="label" data-id="Indonesia">Indonesian</span><span class="value" data-id="Bahasa Ibu">Native</span></div>
+        <div class="spec-row"><span class="label" data-id="Inggris">English</span><span class="value" data-id="Mahir">Proficient</span></div>
+        <div class="spec-note" data-id="CV lengkap punya detail lebih rinci soal pendidikan, riset, dan riwayat kerja — unduh di bawah.">The full CV has more detail on education, research, and work history — download it below.</div>
       </div>
     </div>
 
-    <a href="https://drive.google.com/file/d/1IxIOW7q-pRyRZB2IDUl7Z_kdVmOsygNP/view?usp=drive_link" target="_blank" rel="noopener" class="timer-btn primary" style="display:inline-block;margin-top:24px;text-decoration:none;">📄 Download Full Resume (PDF)</a>
+    <a href="https://drive.google.com/file/d/1IxIOW7q-pRyRZB2IDUl7Z_kdVmOsygNP/view?usp=drive_link" target="_blank" rel="noopener" class="timer-btn primary" style="display:inline-block;margin-top:24px;text-decoration:none;" data-id="📄 Unduh Resume Lengkap (PDF)">📄 Download Full Resume (PDF)</a>
+  </section>
+
+  <section class="section wrap reveal" id="journey">
+    <div class="section-label"><span class="num">11</span><h2 data-id="Perjalanan">Journey</h2></div>
+    <p class="poster-intro" data-id="Dari bangku SD sampai hari ini — tonggak yang membentuk cara saya berkarya sekarang.">From elementary school to where I am today — the milestones that shaped this practice.</p>
+
+    <div class="tl-wrap" id="tlWrap">
+      <div class="tl-line"><div class="tl-line-fill" id="tlFill"></div></div>
+      <div class="tl-items">
+
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-content">
+            <div class="tl-year">2006 – 2012</div>
+            <h3 data-id="Sekolah Dasar">Elementary School</h3>
+            <p data-id="SD Negeri 4 Koto Tuo — titik paling awal, jauh sebelum kamera dan software desain masuk ke gambaran.">4th Elementary School, Koto Tuo — the very first starting point, long before a camera or design software entered the picture.</p>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-content">
+            <div class="tl-year">2012 – 2018</div>
+            <h3 data-id="SMP &amp; SMA" data-id-html="SMP &amp; SMA">Junior &amp; Senior High</h3>
+            <p data-id="SMP Negeri 2 dan SMA Negeri 1 Sabu Barat — tahun-tahun eksplorasi awal, mulai coba-coba edit foto dan desain sederhana buat tugas sekolah.">2nd Junior High and 1st Senior High School, West Sabu — the early exploration years, first attempts at photo editing and simple design for school projects.</p>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-content">
+            <div class="tl-year">2016</div>
+            <h3 data-id="Mulai Berkarya">Started Practicing</h3>
+            <p data-id="Titik di mana desain grafis dan fotografi berhenti jadi hobi dan mulai jadi praktik serius yang dijalani sampai sekarang.">The point where graphic design and photography stopped being a hobby and became a serious practice carried through to today.</p>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-content">
+            <div class="tl-year">2018 – 2022</div>
+            <h3 data-id="Kuliah">University</h3>
+            <p data-id="Universitas Nusa Cendana — belajar ilmu komputer sambil terus jalan berdampingan sama praktik desain dan foto di luar kelas.">Nusa Cendana University — studying computer science while design and photography practice kept running alongside it outside class.</p>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-content">
+            <div class="tl-year">2022</div>
+            <h3 data-id="Skripsi &amp; Huawei" data-id-html="Skripsi &amp; Huawei">Thesis &amp; Huawei</h3>
+            <p data-id="Menyelesaikan skripsi Case-Based Reasoning untuk diagnostik komputer, sekaligus ikut program AI for Junior Developer bareng Huawei & Kemenkominfo.">Completed a Case-Based Reasoning thesis for computer diagnostics, alongside the AI for Junior Developer program with Huawei & the Ministry of Communication and Informatics.</p>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-content">
+            <div class="tl-year" data-id="Sekarang">Now</div>
+            <h3 data-id="Hari Ini">Today</h3>
+            <p data-id="Berbasis di Kupang, terus mengerjakan branding, editorial, dan foto — sekaligus merawat arsip pribadi ini.">Based in Kupang, still working on branding, editorial layout, and photography — and keeping this personal archive alive.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="section wrap reveal" id="contact-form">
+    <div class="section-label"><span class="num">12</span><h2 data-id="Hubungi Saya">Get In Touch</h2></div>
+    <p class="poster-intro" data-id="Punya proyek, pertanyaan, atau cuma mau say hi? Kirim pesan langsung ke inbox saya — tanpa perlu akun atau login.">Got a project, a question, or just want to say hi? Send a message straight to my inbox — no account or login needed.</p>
+    <form class="gb-form" style="max-width:520px;" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <div class="gb-form-field">
+        <label for="cfName" data-id="Nama">Name</label>
+        <input type="text" id="cfName" name="name" placeholder="Your name" data-id-placeholder="Nama kamu" maxlength="60" required>
+      </div>
+      <div class="gb-form-field">
+        <label for="cfEmail">Email</label>
+        <input type="email" id="cfEmail" name="email" placeholder="you@example.com" maxlength="120" required>
+      </div>
+      <div class="gb-form-field">
+        <label for="cfMessage" data-id="Pesan">Message</label>
+        <textarea id="cfMessage" name="message" rows="4" placeholder="What's on your mind?" data-id-placeholder="Ada yang ingin disampaikan?" maxlength="1000" required></textarea>
+      </div>
+      <button type="submit" class="timer-btn primary" data-id="Kirim Pesan">Send Message</button>
+      <p class="gb-form-note" data-id-html='Ditenagai Formspree — ganti <code style="font-family:var(--mono);">YOUR_FORM_ID</code> di atas dengan ID form kamu sendiri (gratis di formspree.io) dan pesan akan langsung masuk ke email kamu, tanpa perlu backend.'>Powered by Formspree — replace <code style="font-family:var(--mono);">YOUR_FORM_ID</code> above with your own form ID (free at formspree.io) and messages will land straight in your email, no backend required.</p>
+    </form>
   </section>
 
   <section class="section wrap reveal">
-    <div class="section-label"><span class="num">11</span><h2>Tools</h2></div>
+    <div class="section-label"><span class="num">13</span><h2 data-id="Perangkat">Tools</h2></div>
     <p class="quote">The tools I use every day — <span>some analog, some digital</span>, all part of how I work.</p>
   </section>
 
@@ -2764,12 +3267,12 @@
 
 <footer class="contact" id="archive">
   <div class="wrap">
-    <div class="section-label"><span class="num">12</span><h2>Archive Notes</h2></div>
+    <div class="section-label"><span class="num">14</span><h2 data-id="Catatan Arsip">Archive Notes</h2></div>
     <div class="contact-grid">
       <div>
-        <h3>THIS COLLECTION IS<br>BUILT AND MAINTAINED<br>PERSONALLY IN KUPANG.</h3>
+        <h3 data-id-html="KOLEKSI INI DIBANGUN<br>DAN DIRAWAT SECARA<br>PRIBADI DI KUPANG.">THIS COLLECTION IS<br>BUILT AND MAINTAINED<br>PERSONALLY IN KUPANG.</h3>
       </div>
-      <div class="contact-info">
+      <div class="contact-info" data-id-html='BIDANG — Desain Grafis &amp; Fotografi<br>AKTIF SEJAK — 2016<br>LOKASI — Kupang, Indonesia<br>FORMAT — Cetak, Digital, Motion<br>EMAIL — <a href="mailto:phosajakha@gmail.com">phosajakha@gmail.com</a><br>TELEPON — <a href="tel:+6282340811497">+62 823-4081-1497</a>'>
         DISCIPLINE — Graphic Design &amp; Photography<br>
         ACTIVE SINCE — 2016<br>
         LOCATION — Kupang, Indonesia<br>
@@ -2780,13 +3283,11 @@
     </div>
     <div class="stamp" style="flex-direction:column;align-items:flex-start;gap:6px;">
       <div style="display:flex;justify-content:space-between;width:100%;flex-wrap:wrap;gap:10px;">
-        <span>© 2026 Jakha Phosa — PERSONAL WORK ARCHIVE</span>
+        <span data-id="© 2026 Jakha Phosa — ARSIP KARYA PRIBADI">© 2026 Jakha Phosa — PERSONAL WORK ARCHIVE</span>
         <span class="badge" id="archivedBadge" title="👀 click me 3 times fast">ARCHIVED</span>
       </div>
       <div id="statusLine" style="opacity:0.85;">STATUS: LOADING... · BUILD v2.7.0</div>
-      <div id="visitorLine" style="opacity:0.85;font-family:var(--mono);">VISITOR NO. <b id="visitorCount" style="color:var(--kodak);">—</b></div>
-      <div id="visitorDeviceLine" style="opacity:0.85;font-family:var(--mono);font-size:11px;">THIS VISIT — <span id="visitorDevice">detecting…</span></div>
-      <div id="visitorStatsLine" style="opacity:0.85;font-family:var(--mono);font-size:11px;">ALL VISITORS — <span id="visitorStats">loading stats…</span></div>
+      <div id="weatherLine" style="opacity:0.85;font-family:var(--mono);font-size:11px;"></div>
     </div>
   </div>
 </footer>
@@ -2798,8 +3299,52 @@
   console.log('%cPsst — kamu buka DevTools ya? Berarti kita jodoh 👋', 'font-size:12.5px;color:#8c887c;');
   console.log('%cCoba klik nama "jakha.phosa" di pojok kiri atas, 5x cepat-cepat...', 'font-size:12px;color:#f0b429;');
   console.log('%cAtau tekan "?" buat shortcut, ketik "help" di Terminal, atau coba j/k/gg/G ala Vim.', 'font-size:11.5px;color:#8c887c;');
-  console.log('%cAda 13 achievement tersembunyi di halaman ini. Selamat berburu.', 'font-size:11.5px;color:#8c887c;');
+  console.log('%cAda 12 achievement tersembunyi di halaman ini. Selamat berburu.', 'font-size:11.5px;color:#8c887c;');
   console.log('%c🎧 Pecinta musik... coba klik-klik area "Now Playing" di section Music.', 'font-size:11.5px;color:#5c9e5c;');
+
+  /* ---------------- language toggle (EN / ID) ---------------- */
+  (function i18n(){
+    const btn = document.getElementById('langToggle');
+    const currentEl = document.getElementById('langCurrent');
+    const otherEl = document.getElementById('langOther');
+    if(!btn) return;
+    let lang = 'en';
+
+    function apply(){
+      document.querySelectorAll('[data-id]').forEach(el => {
+        if(lang === 'id'){
+          if(el.dataset.en === undefined) el.dataset.en = el.textContent;
+          el.textContent = el.dataset.id;
+        } else if(el.dataset.en !== undefined){
+          el.textContent = el.dataset.en;
+        }
+      });
+      document.querySelectorAll('[data-id-html]').forEach(el => {
+        if(lang === 'id'){
+          if(el.dataset.enHtml === undefined) el.dataset.enHtml = el.innerHTML;
+          el.innerHTML = el.dataset.idHtml;
+        } else if(el.dataset.enHtml !== undefined){
+          el.innerHTML = el.dataset.enHtml;
+        }
+      });
+      document.querySelectorAll('[data-id-placeholder]').forEach(el => {
+        if(lang === 'id'){
+          if(el.dataset.enPlaceholder === undefined) el.dataset.enPlaceholder = el.placeholder;
+          el.placeholder = el.dataset.idPlaceholder;
+        } else if(el.dataset.enPlaceholder !== undefined){
+          el.placeholder = el.dataset.enPlaceholder;
+        }
+      });
+      if(currentEl) currentEl.textContent = lang.toUpperCase();
+      if(otherEl) otherEl.textContent = lang === 'en' ? 'ID' : 'EN';
+      document.documentElement.lang = lang;
+    }
+
+    btn.addEventListener('click', ()=>{
+      lang = lang === 'en' ? 'id' : 'en';
+      apply();
+    });
+  })();
 
   // dark mode toggle
   const themeBtn = document.getElementById('themeToggle');
@@ -2842,17 +3387,14 @@
       { id:'shortcuts', title:'Power User', desc:'Opened the keyboard shortcuts panel.' },
       { id:'arcade3', title:'Arcade Regular', desc:'Opened 3 different games in the Arcade.' },
       { id:'allGames', title:'Completionist', desc:'Opened every game in the Arcade.' },
-      { id:'highScore', title:'Top of the Board', desc:'Set a new shared high score on any game.' },
+      { id:'highScore', title:'Top of the Board', desc:'Beat your own best score on any game this session.' },
       { id:'fullRoll', title:'Full Roll', desc:'Scrolled all the way down to the Archive Notes.' },
       { id:'terminal', title:'Terminal Hacker', desc:'Ran 5 commands in the terminal.' },
-      { id:'guestbook', title:'Left Your Mark', desc:'Signed the guestbook.' },
       { id:'customizer', title:'Make It Yours', desc:'Customized the accent, background, or fonts in the Design Playground.' },
       { id:'vimUser', title:'Vim User', desc:'Navigated the page with j, k, gg, or G.' },
       { id:'secretDJ', title:'Secret DJ', desc:'Found the hidden DJ booth by clicking Now Playing 5 times fast.' }
     ];
-    const STORAGE_KEY = 'achievements-unlocked';
     let unlocked = new Set();
-    let loaded = false;
 
     const btn = document.getElementById('achvBtn');
     const countEl = document.getElementById('achvCount');
@@ -2866,7 +3408,7 @@
     function render(){
       if(!countEl) return;
       countEl.textContent = `${unlocked.size}/${DEFS.length}`;
-      if(subEl) subEl.textContent = `${unlocked.size} of ${DEFS.length} unlocked`;
+      if(subEl) subEl.textContent = `${unlocked.size} of ${DEFS.length} unlocked this session`;
       if(listEl){
         listEl.innerHTML = DEFS.map(a=>{
           const done = unlocked.has(a.id);
@@ -2879,22 +3421,6 @@
           </div>`;
         }).join('');
       }
-    }
-
-    async function load(){
-      try{
-        if(window.storage){
-          const res = await window.storage.get(STORAGE_KEY, false);
-          if(res) unlocked = new Set(JSON.parse(res.value));
-        }
-      }catch(e){ /* first visit or storage unavailable */ }
-      loaded = true;
-      render();
-    }
-
-    async function persist(){
-      try{ if(window.storage) await window.storage.set(STORAGE_KEY, JSON.stringify([...unlocked]), false); }
-      catch(e){}
     }
 
     function showToast(a){
@@ -2911,7 +3437,6 @@
       if(!def) return;
       unlocked.add(id);
       render();
-      persist();
       showToast(def);
       if(typeof window.__refreshPlaygroundLock === 'function') window.__refreshPlaygroundLock();
       if(unlocked.size === 8){
@@ -2924,13 +3449,18 @@
           }
         }, 1700);
       }
+      if(unlocked.size === DEFS.length){
+        setTimeout(()=>{
+          if(typeof window.__onAllAchievementsUnlocked === 'function') window.__onAllAchievementsUnlocked();
+        }, 1600);
+      }
     }
 
     if(btn) btn.addEventListener('click', ()=> overlay.classList.add('on'));
     if(closeBtn) closeBtn.addEventListener('click', ()=> overlay.classList.remove('on'));
     if(overlay) overlay.addEventListener('click', (e)=>{ if(e.target === overlay) overlay.classList.remove('on'); });
 
-    load();
+    render();
 
     return {
       unlock,
@@ -2938,6 +3468,153 @@
       unlockedCount: () => unlocked.size,
       hasCRT: () => unlocked.size >= 8
     };
+  })();
+
+  /* ---------------- confetti particle burst ---------------- */
+  (function confetti(){
+    const canvas = document.getElementById('confettiCanvas');
+    if(!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    let animId = null;
+
+    function resize(){ canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    resize();
+    window.addEventListener('resize', resize);
+
+    const COLORS = ['#c81d2f', '#f0b429', '#53b1e0', '#5c9e5c', '#e9e4d6'];
+
+    function burst(count){
+      count = count || 150;
+      for(let i = 0; i < count; i++){
+        particles.push({
+          x: canvas.width / 2 + (Math.random() - 0.5) * 260,
+          y: canvas.height * 0.25,
+          vx: (Math.random() - 0.5) * 9,
+          vy: Math.random() * -9 - 3,
+          size: 4 + Math.random() * 5,
+          color: COLORS[Math.floor(Math.random() * COLORS.length)],
+          rot: Math.random() * 360,
+          vrot: (Math.random() - 0.5) * 12,
+          life: 0
+        });
+      }
+      if(!animId) loop();
+    }
+
+    function loop(){
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => {
+        p.vy += 0.22;
+        p.x += p.vx; p.y += p.vy; p.rot += p.vrot; p.life++;
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rot * Math.PI / 180);
+        ctx.fillStyle = p.color;
+        ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+        ctx.restore();
+      });
+      particles = particles.filter(p => p.y < canvas.height + 40 && p.life < 420);
+      if(particles.length){
+        animId = requestAnimationFrame(loop);
+      } else {
+        animId = null;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      }
+    }
+
+    window.__fireConfetti = burst;
+  })();
+
+  /* ---------------- completion certificate (all achievements unlocked) ---------------- */
+  (function completionCertificate(){
+    const overlay = document.getElementById('completionOverlay');
+    const closeBtn = document.getElementById('completionClose');
+    const codeEl = document.getElementById('certCode');
+    const dateEl = document.getElementById('certDate');
+    const downloadBtn = document.getElementById('certDownload');
+    if(!overlay) return;
+
+    let currentCode = '';
+    let currentDate = '';
+    let shown = false;
+
+    function generateCode(){
+      return 'JP-' + Date.now().toString(36).toUpperCase().slice(-6);
+    }
+
+    function drawCertificateImage(code, dateStr){
+      const canvas = document.createElement('canvas');
+      canvas.width = 1000; canvas.height = 600;
+      const ctx = canvas.getContext('2d');
+
+      ctx.fillStyle = '#131311';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.strokeStyle = '#c81d2f';
+      ctx.lineWidth = 3;
+      ctx.setLineDash([10, 8]);
+      ctx.strokeRect(40, 40, canvas.width - 80, canvas.height - 80);
+      ctx.setLineDash([]);
+
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#8c887c';
+      ctx.font = '16px monospace';
+      ctx.fillText('NEG. 12/12 — FULLY EXPOSED', canvas.width / 2, 120);
+
+      ctx.font = '64px sans-serif';
+      ctx.fillText('🏆', canvas.width / 2, 210);
+
+      ctx.fillStyle = '#e9e4d6';
+      ctx.font = 'bold 46px sans-serif';
+      ctx.fillText('ALL ACHIEVEMENTS UNLOCKED', canvas.width / 2, 290);
+
+      ctx.fillStyle = '#8c887c';
+      ctx.font = '20px sans-serif';
+      ctx.fillText('jakha.phosa — Personal Work Archive', canvas.width / 2, 335);
+
+      ctx.fillStyle = '#c81d2f';
+      ctx.font = 'bold 28px monospace';
+      ctx.fillText(code, canvas.width / 2, 430);
+
+      ctx.fillStyle = '#8c887c';
+      ctx.font = '14px monospace';
+      ctx.fillText(dateStr, canvas.width / 2, 468);
+
+      ctx.font = '13px sans-serif';
+      ctx.fillText('Screenshot or download this and send it in to claim a prize.', canvas.width / 2, 525);
+
+      return canvas;
+    }
+
+    window.__onAllAchievementsUnlocked = function(){
+      if(shown) return;
+      shown = true;
+      currentCode = generateCode();
+      currentDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+      codeEl.textContent = currentCode;
+      dateEl.textContent = currentDate;
+      overlay.classList.add('on');
+      if(typeof window.__fireConfetti === 'function'){
+        window.__fireConfetti(180);
+        setTimeout(() => window.__fireConfetti(120), 500);
+      }
+    };
+
+    closeBtn.addEventListener('click', () => overlay.classList.remove('on'));
+    overlay.addEventListener('click', (e) => { if(e.target === overlay) overlay.classList.remove('on'); });
+
+    downloadBtn.addEventListener('click', () => {
+      const canvas = drawCertificateImage(currentCode || generateCode(), currentDate || new Date().toLocaleDateString());
+      canvas.toBlob(blob => {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `jakha-phosa-certificate-${currentCode || 'complete'}.png`;
+        a.click();
+        URL.revokeObjectURL(url);
+      });
+    });
   })();
 
   /* ---------------- design playground ---------------- */
@@ -3034,20 +3711,7 @@
       }
     }
 
-    async function persist(){
-      try{ if(window.storage) await window.storage.set('design-prefs', JSON.stringify(prefs), false); }catch(e){}
-    }
-
-    async function load(){
-      try{
-        if(window.storage){
-          const res = await window.storage.get('design-prefs', false);
-          if(res){
-            const saved = JSON.parse(res.value);
-            Object.keys(DEFAULT_PREFS).forEach(k => { if(saved[k]) prefs[k] = saved[k]; });
-          }
-        }
-      }catch(e){ /* first visit or unavailable */ }
+    function init(){
       renderSwatches();
       applyAll();
     }
@@ -3070,7 +3734,6 @@
       else if(group === 'displayFont') applyDisplayFont(key);
       else if(group === 'bodyFont') applyBodyFont(key);
       renderActiveStates();
-      persist();
       markChanged();
     }
 
@@ -3086,7 +3749,6 @@
       prefs = Object.assign({}, DEFAULT_PREFS);
       applyAll();
       renderActiveStates();
-      persist();
     });
 
     btn.addEventListener('click', ()=> overlay.classList.add('on'));
@@ -3102,7 +3764,7 @@
       bodyFont: BODY_FONTS[prefs.bodyFont] ? BODY_FONTS[prefs.bodyFont].name : prefs.bodyFont
     });
 
-    load();
+    init();
   })();
 
   // spec row hover preview
@@ -3135,6 +3797,36 @@
   });
 
   // scroll reveal
+  /* ---------------- film roll scroll progress ---------------- */
+  (function filmrollProgress(){
+    const fill = document.getElementById('filmrollFill');
+    const counter = document.getElementById('filmrollCounter');
+    if(!fill) return;
+
+    const TOTAL_FRAMES = 36; // a standard 35mm roll
+    let hideTimer = null;
+
+    function update(){
+      const doc = document.documentElement;
+      const scrollTop = window.scrollY || doc.scrollTop;
+      const max = doc.scrollHeight - doc.clientHeight;
+      const pct = max > 0 ? Math.min(100, Math.max(0, (scrollTop / max) * 100)) : 0;
+      fill.style.width = pct + '%';
+
+      if(counter){
+        const frame = Math.max(1, Math.min(TOTAL_FRAMES, Math.ceil((pct / 100) * TOTAL_FRAMES)));
+        counter.textContent = `FRAME ${String(frame).padStart(2, '0')}/${TOTAL_FRAMES}`;
+        counter.classList.add('show');
+        clearTimeout(hideTimer);
+        hideTimer = setTimeout(()=> counter.classList.remove('show'), 900);
+      }
+    }
+
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+  })();
+
   const els = document.querySelectorAll('.reveal');
   const io = new IntersectionObserver((entries)=>{
     entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
@@ -3230,6 +3922,12 @@
     const closeBtn = document.getElementById('lightboxClose');
     const prevBtn = document.getElementById('lightboxPrev');
     const nextBtn = document.getElementById('lightboxNext');
+    const caseBtn = document.getElementById('lightboxCaseBtn');
+    const casePanel = document.getElementById('lightboxCase');
+    const caseProblem = document.getElementById('lightboxCaseProblem');
+    const caseProcess = document.getElementById('lightboxCaseProcess');
+    const caseResult = document.getElementById('lightboxCaseResult');
+    const caseTools = document.getElementById('lightboxCaseTools');
     const frames = Array.from(document.querySelectorAll('.gallery .frame'));
     if(!overlay || !frames.length) return;
 
@@ -3238,7 +3936,13 @@
       alt: f.querySelector('img')?.alt || '',
       cat: f.querySelector('.cat')?.textContent || '',
       title: f.querySelector('.ttl')?.textContent || '',
-      exif: f.querySelector('.exif')?.textContent || ''
+      exif: f.querySelector('.exif')?.textContent || '',
+      case: f.dataset.caseProblem ? {
+        problem: f.dataset.caseProblem,
+        process: f.dataset.caseProcess,
+        result: f.dataset.caseResult,
+        tools: f.dataset.caseTools
+      } : null
     }));
 
     let index = 0;
@@ -3251,6 +3955,18 @@
       titleEl.textContent = p.title;
       exifEl.textContent = p.exif;
       counterEl.textContent = `${index + 1} / ${photos.length}`;
+
+      casePanel.style.display = 'none';
+      caseBtn.textContent = 'Read Case Study ▾';
+      if(p.case){
+        caseBtn.style.display = '';
+        caseProblem.textContent = p.case.problem;
+        caseProcess.textContent = p.case.process;
+        caseResult.textContent = p.case.result;
+        caseTools.textContent = p.case.tools;
+      } else {
+        caseBtn.style.display = 'none';
+      }
     }
 
     function open(i){
@@ -3267,6 +3983,11 @@
     nextBtn.addEventListener('click', next);
     prevBtn.addEventListener('click', prev);
     overlay.addEventListener('click', (e)=>{ if(e.target === overlay) close(); });
+    caseBtn.addEventListener('click', ()=>{
+      const showing = casePanel.style.display !== 'none';
+      casePanel.style.display = showing ? 'none' : 'block';
+      caseBtn.textContent = showing ? 'Read Case Study ▾' : 'Hide Case Study ▴';
+    });
 
     window.addEventListener('keydown', (e)=>{
       if(!overlay.classList.contains('on')) return;
@@ -3276,49 +3997,134 @@
     });
   })();
 
-  /* ---------------- hall of fame ---------------- */
-  (function hallOfFame(){
-    const btn = document.getElementById('hallOfFameBtn');
-    const modal = document.getElementById('hofModal');
-    const listEl = document.getElementById('hofList');
-    if(!btn || !modal || !listEl) return;
+  /* ---------------- journey timeline (scroll-linked) ---------------- */
+  (function journeyTimeline(){
+    const wrap = document.getElementById('tlWrap');
+    const fill = document.getElementById('tlFill');
+    const items = document.querySelectorAll('.tl-item');
+    if(!wrap || !fill || !items.length) return;
 
-    const GAMES = [
-      { key:'topscore:ttt-wins', label:'Tic-Tac-Toe', fmt: v => `${v} wins` },
-      { key:'topscore:mem-moves', label:'Match the Negative', fmt: v => `${v} moves` },
-      { key:'topscore:rx-ms', label:'Shutter Reflex', fmt: v => `${v} ms` },
-      { key:'topscore:tetris-score', label:'Tetris', fmt: v => `${v} points` },
-      { key:'topscore:sync-gap', label:'Double Exposure', fmt: v => `${v} ms` },
-      { key:'topscore:snake-score', label:'Film Roll', fmt: v => `${v} points` },
-      { key:'topscore:flashback-streak', label:'Flashback', fmt: v => `${v} streak` },
-      { key:'topscore:whack-hits', label:'Whack-a-Neg', fmt: v => `${v} hits` },
-      { key:'topscore:odd-round', label:'Odd One Out', fmt: v => `${v} rounds` },
-      { key:'topscore:exposure-streak', label:'Perfect Exposure', fmt: v => `${v} streak` }
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('in'); });
+    }, { threshold: 0.4 });
+    items.forEach(el => io.observe(el));
+
+    function updateFill(){
+      const rect = wrap.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const total = rect.height;
+      const scrolled = Math.min(Math.max(vh * 0.75 - rect.top, 0), total);
+      const pct = total > 0 ? (scrolled / total) * 100 : 0;
+      fill.style.height = pct + '%';
+    }
+    updateFill();
+    window.addEventListener('scroll', updateFill, { passive: true });
+    window.addEventListener('resize', updateFill);
+  })();
+
+  /* ---------------- before/after retouching slider ---------------- */
+  (function beforeAfterSlider(){
+    const container = document.getElementById('baContainer');
+    const beforeWrap = document.getElementById('baBeforeWrap');
+    const handle = document.getElementById('baHandle');
+    if(!container || !beforeWrap || !handle) return;
+
+    let dragging = false;
+
+    function setPct(pct){
+      pct = Math.min(100, Math.max(0, pct));
+      beforeWrap.style.width = pct + '%';
+      handle.style.left = pct + '%';
+    }
+
+    function pctFromClientX(clientX){
+      const rect = container.getBoundingClientRect();
+      return ((clientX - rect.left) / rect.width) * 100;
+    }
+
+    function onPointerDown(e){
+      dragging = true;
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      setPct(pctFromClientX(clientX));
+    }
+    function onPointerMove(e){
+      if(!dragging) return;
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      setPct(pctFromClientX(clientX));
+      if(e.cancelable) e.preventDefault();
+    }
+    function onPointerUp(){ dragging = false; }
+
+    container.addEventListener('mousedown', onPointerDown);
+    window.addEventListener('mousemove', onPointerMove);
+    window.addEventListener('mouseup', onPointerUp);
+
+    container.addEventListener('touchstart', onPointerDown, { passive: true });
+    window.addEventListener('touchmove', onPointerMove, { passive: false });
+    window.addEventListener('touchend', onPointerUp);
+
+    setPct(50);
+  })();
+
+  /* ---------------- skill radar chart ---------------- */
+  (function skillRadar(){
+    const svg = document.getElementById('skillRadar');
+    const legend = document.getElementById('radarLegend');
+    if(!svg) return;
+
+    const SKILLS = [
+      { label:'Graphic Design', short:'DESIGN', value:90 },
+      { label:'Photography', short:'PHOTO', value:85 },
+      { label:'Retouching', short:'RETOUCH', value:80 },
+      { label:'Illustration', short:'ILLUS.', value:75 },
+      { label:'Video Editing', short:'VIDEO', value:65 },
+      { label:'Programming', short:'CODE', value:70 }
     ];
 
-    btn.addEventListener('click', async ()=>{
-      listEl.innerHTML = GAMES.map(g => `<div class="achv-item">
-        <div class="achv-icon">🏆</div>
-        <div>
-          <div class="achv-title">${g.label}</div>
-          <div class="achv-desc">Loading…</div>
-        </div>
-      </div>`).join('');
-      modal.classList.add('on');
+    const cx = 170, cy = 170, r = 120;
+    const n = SKILLS.length;
+    const angle = (i) => (Math.PI * 2 * i) / n - Math.PI / 2;
+    const pt = (i, scale) => {
+      const a = angle(i);
+      return [cx + Math.cos(a) * r * scale, cy + Math.sin(a) * r * scale];
+    };
 
-      const records = await Promise.all(GAMES.map(g => TopScore.get(g.key)));
-      listEl.innerHTML = GAMES.map((g, i) => {
-        const record = records[i];
-        const desc = record ? `${g.fmt(record.value)} — ${record.name}` : 'No record yet';
-        return `<div class="achv-item done">
-          <div class="achv-icon">🏆</div>
-          <div>
-            <div class="achv-title">${g.label}</div>
-            <div class="achv-desc">${desc}</div>
-          </div>
-        </div>`;
-      }).join('');
+    let svgHTML = '';
+
+    // grid rings
+    [0.25, 0.5, 0.75, 1].forEach(scale => {
+      const ringPts = SKILLS.map((_, i) => pt(i, scale).join(',')).join(' ');
+      svgHTML += `<polygon class="radar-grid" points="${ringPts}"></polygon>`;
     });
+
+    // axes
+    SKILLS.forEach((_, i) => {
+      const [x, y] = pt(i, 1);
+      svgHTML += `<line class="radar-axis" x1="${cx}" y1="${cy}" x2="${x}" y2="${y}"></line>`;
+    });
+
+    // data shape
+    const shapePts = SKILLS.map((s, i) => pt(i, s.value / 100).join(',')).join(' ');
+    svgHTML += `<polygon class="radar-shape" points="${shapePts}"></polygon>`;
+    SKILLS.forEach((s, i) => {
+      const [x, y] = pt(i, s.value / 100);
+      svgHTML += `<circle class="radar-dot" cx="${x}" cy="${y}" r="3.5"></circle>`;
+    });
+
+    // labels
+    SKILLS.forEach((s, i) => {
+      const [x, y] = pt(i, 1.16);
+      let anchor = 'middle';
+      if(x < cx - 10) anchor = 'end';
+      else if(x > cx + 10) anchor = 'start';
+      svgHTML += `<text class="radar-label" x="${x}" y="${y}" text-anchor="${anchor}" dominant-baseline="middle">${s.short}</text>`;
+    });
+
+    svg.innerHTML = svgHTML;
+
+    legend.innerHTML = SKILLS.map(s =>
+      `<div class="radar-legend-row"><span>${s.label}</span><b>${s.value}%</b></div>`
+    ).join('');
   })();
 
   /* ---------------- debug / about this page panel ---------------- */
@@ -3442,7 +4248,7 @@
           const days = Math.floor((Date.now() - launch) / 86400000);
           let prefsInfo = { accent:'red', background:'classic', displayFont:'bebas', bodyFont:'inter' };
           if(typeof window.__getDesignPrefs === 'function') prefsInfo = window.__getDesignPrefs();
-          let achvInfo = '?/13';
+          let achvInfo = '?/12';
           if(typeof Achievements !== 'undefined' && Achievements.unlockedCount) achvInfo = `${Achievements.unlockedCount()}/${Achievements.total}`;
 
           print('-----------------------------', 'out');
@@ -3566,6 +4372,40 @@
     el.textContent = `STATUS: OPERATIONAL · UPTIME: ${days} DAYS · BUILD v2.7.0`;
   })();
 
+  /* ---------------- live weather (Kupang, no API key needed) ---------------- */
+  (function liveWeather(){
+    const el = document.getElementById('weatherLine');
+    if(!el) return;
+
+    const WEATHER_LABELS = {
+      0:['Clear sky','☀️'], 1:['Mostly clear','🌤️'], 2:['Partly cloudy','⛅'], 3:['Overcast','☁️'],
+      45:['Foggy','🌫️'], 48:['Foggy','🌫️'],
+      51:['Light drizzle','🌦️'], 53:['Drizzle','🌦️'], 55:['Heavy drizzle','🌦️'],
+      61:['Light rain','🌧️'], 63:['Rain','🌧️'], 65:['Heavy rain','🌧️'],
+      71:['Light snow','🌨️'], 73:['Snow','🌨️'], 75:['Heavy snow','🌨️'],
+      80:['Rain showers','🌧️'], 81:['Rain showers','🌧️'], 82:['Heavy showers','🌧️'],
+      95:['Thunderstorm','⛈️'], 96:['Thunderstorm','⛈️'], 99:['Thunderstorm','⛈️']
+    };
+
+    async function load(){
+      try{
+        const ctrl = new AbortController();
+        const timeout = setTimeout(()=> ctrl.abort(), 4000);
+        const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=-10.1772&longitude=123.607&current=temperature_2m,weather_code&timezone=Asia%2FMakassar', { signal: ctrl.signal });
+        clearTimeout(timeout);
+        if(!res.ok) throw new Error('weather fetch failed');
+        const data = await res.json();
+        const temp = Math.round(data.current.temperature_2m);
+        const code = data.current.weather_code;
+        const [label, icon] = WEATHER_LABELS[code] || ['—', '🌡️'];
+        el.textContent = `${icon} ${temp}°C, ${label} in Kupang`;
+      }catch(e){
+        el.style.display = 'none';
+      }
+    }
+    load();
+  })();
+
   /* ---------------- keyboard shortcuts ---------------- */
   (function shortcuts(){
     const overlay = document.getElementById('shortcutOverlay');
@@ -3578,6 +4418,7 @@
     window.addEventListener('keydown', (e)=>{
       const tag = (e.target.tagName || '').toLowerCase();
       if(tag === 'input' || tag === 'textarea') return;
+      if(e.ctrlKey || e.metaKey || e.altKey) return;
 
       if(e.key === '?'){ overlay.classList.add('on'); if(typeof Achievements !== 'undefined') Achievements.unlock('shortcuts'); return; }
       if(e.key === 'Escape'){ closeOverlay(); return; }
@@ -3589,7 +4430,7 @@
           markVim();
           return;
         }
-        const map = { k:'#work', s:'#setup', t:'#terminal', a:'#arcade', r:'#resume' };
+        const map = { k:'#work', s:'#setup', t:'#terminal', a:'#arcade', r:'#resume', c:'#contact-form' };
         const target = map[e.key.toLowerCase()];
         if(target){
           document.querySelector(target)?.scrollIntoView({behavior:'smooth'});
@@ -3619,6 +4460,138 @@
       if(e.target === overlay) closeOverlay();
     });
   })();
+
+  /* ---------------- command palette (Ctrl/Cmd+K) ---------------- */
+  (function commandPalette(){
+    const overlay = document.getElementById('cmdkOverlay');
+    const input = document.getElementById('cmdkInput');
+    const resultsEl = document.getElementById('cmdkResults');
+    if(!overlay || !input || !resultsEl) return;
+
+    const isMac = /Mac|iPhone|iPad|iPod/.test(navigator.platform || navigator.userAgent || '');
+    const modKeyText = isMac ? '⌘' : 'Ctrl';
+    document.querySelectorAll('#cmdkModKeyLabel, #cmdkModKeyFooter').forEach(el => { if(el) el.textContent = modKeyText; });
+
+    function go(sel){
+      document.querySelector(sel)?.scrollIntoView({ behavior:'smooth' });
+    }
+    function playGame(key){
+      document.querySelector(`.arcade-card[data-game="${key}"]`)?.click();
+    }
+
+    const COMMANDS = [
+      { icon:'📄', label:'Go to About', cat:'Navigate', action:()=>go('#about') },
+      { icon:'🖼️', label:'Go to Archive of Work', cat:'Navigate', action:()=>go('#work') },
+      { icon:'🎞️', label:'Go to Poster Wall', cat:'Navigate', action:()=>go('#posters') },
+      { icon:'🛠️', label:'Go to Skills', cat:'Navigate', action:()=>go('#skills') },
+      { icon:'📋', label:'Go to Resume', cat:'Navigate', action:()=>go('#resume') },
+      { icon:'🛤️', label:'Go to Journey', cat:'Navigate', action:()=>go('#journey') },
+      { icon:'✉️', label:'Go to Contact', cat:'Navigate', action:()=>go('#contact-form') },
+      { icon:'💻', label:'Go to Setup & Specs', cat:'Navigate', action:()=>go('#setup') },
+      { icon:'🔗', label:'Go to Games & Links', cat:'Navigate', action:()=>go('#links') },
+      { icon:'🎵', label:'Go to Music & Watching', cat:'Navigate', action:()=>go('#music') },
+      { icon:'⌨️', label:'Go to Terminal', cat:'Navigate', action:()=>go('#terminal') },
+      { icon:'🕹️', label:'Go to Arcade', cat:'Navigate', action:()=>go('#arcade') },
+
+      { icon:'❌', label:'Tic-Tac-Toe', cat:'Game', action:()=>playGame('ttt') },
+      { icon:'🃏', label:'Match the Negative', cat:'Game', action:()=>playGame('mem') },
+      { icon:'⚡', label:'Shutter Reflex', cat:'Game', action:()=>playGame('rx') },
+      { icon:'🧱', label:'Tetris', cat:'Game', action:()=>playGame('tetris') },
+      { icon:'📸', label:'Double Exposure', cat:'Game', action:()=>playGame('sync') },
+      { icon:'🐍', label:'Film Roll (Snake)', cat:'Game', action:()=>playGame('snake') },
+      { icon:'💡', label:'Flashback', cat:'Game', action:()=>playGame('flashback') },
+      { icon:'🔨', label:'Whack-a-Neg', cat:'Game', action:()=>playGame('whack') },
+      { icon:'🎨', label:'Odd One Out', cat:'Game', action:()=>playGame('oddoneout') },
+      { icon:'📷', label:'Perfect Exposure', cat:'Game', action:()=>playGame('exposure') },
+
+      { icon:'🌓', label:'Toggle Dark / Light Mode', cat:'Action', action:()=>document.getElementById('themeToggle')?.click() },
+      { icon:'🌐', label:'Switch Language (EN/ID)', cat:'Action', action:()=>document.getElementById('langToggle')?.click() },
+      { icon:'🏆', label:'View Achievements', cat:'Action', action:()=>document.getElementById('achvBtn')?.click() },
+      { icon:'🎨', label:'Open Design Playground', cat:'Action', action:()=>document.getElementById('playgroundBtn')?.click() },
+      { icon:'📥', label:'Download Resume (PDF)', cat:'Action', action:()=>window.open('https://drive.google.com/file/d/1IxIOW7q-pRyRZB2IDUl7Z_kdVmOsygNP/view?usp=drive_link','_blank') },
+      { icon:'✉️', label:'Email Me', cat:'Action', action:()=>window.open('mailto:phosajakha@gmail.com') },
+      { icon:'💬', label:'WhatsApp Me', cat:'Action', action:()=>window.open('https://wa.me/+6282340811497','_blank') }
+    ];
+
+    let filtered = COMMANDS.slice();
+    let activeIndex = 0;
+
+    function render(){
+      if(!filtered.length){
+        resultsEl.innerHTML = '<div class="cmdk-empty">No matching commands.</div>';
+        return;
+      }
+      resultsEl.innerHTML = filtered.map((c, i) => `
+        <div class="cmdk-item${i === activeIndex ? ' active' : ''}" data-i="${i}">
+          <div class="cmdk-item-main">
+            <span class="cmdk-item-icon">${c.icon}</span>
+            <span class="cmdk-item-label">${c.label}</span>
+          </div>
+          <span class="cmdk-item-cat">${c.cat}</span>
+        </div>`).join('');
+    }
+
+    function filterCommands(query){
+      const q = query.trim().toLowerCase();
+      filtered = !q ? COMMANDS.slice() : COMMANDS.filter(c =>
+        c.label.toLowerCase().includes(q) || c.cat.toLowerCase().includes(q)
+      );
+      activeIndex = 0;
+      render();
+    }
+
+    function execute(i){
+      const cmd = filtered[i];
+      if(!cmd) return;
+      close();
+      setTimeout(()=> cmd.action(), 120);
+    }
+
+    function open(){
+      overlay.classList.add('on');
+      input.value = '';
+      filterCommands('');
+      setTimeout(()=> input.focus(), 30);
+    }
+    function close(){
+      overlay.classList.remove('on');
+    }
+
+    input.addEventListener('input', ()=> filterCommands(input.value));
+    input.addEventListener('keydown', (e)=>{
+      if(e.key === 'ArrowDown'){
+        e.preventDefault();
+        activeIndex = Math.min(filtered.length - 1, activeIndex + 1);
+        render();
+        resultsEl.querySelector('.cmdk-item.active')?.scrollIntoView({ block:'nearest' });
+      } else if(e.key === 'ArrowUp'){
+        e.preventDefault();
+        activeIndex = Math.max(0, activeIndex - 1);
+        render();
+        resultsEl.querySelector('.cmdk-item.active')?.scrollIntoView({ block:'nearest' });
+      } else if(e.key === 'Enter'){
+        e.preventDefault();
+        execute(activeIndex);
+      } else if(e.key === 'Escape'){
+        close();
+      }
+    });
+
+    resultsEl.addEventListener('click', (e)=>{
+      const item = e.target.closest('.cmdk-item');
+      if(item) execute(parseInt(item.dataset.i, 10));
+    });
+
+    overlay.addEventListener('click', (e)=>{ if(e.target === overlay) close(); });
+
+    window.addEventListener('keydown', (e)=>{
+      if((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k'){
+        e.preventDefault();
+        if(overlay.classList.contains('on')) close(); else open();
+      }
+    });
+  })();
+
   /* ---------------- splash / fake loading screen ---------------- */
   (function splash(){
     const splashEl = document.getElementById('splash');
@@ -4156,100 +5129,34 @@
     toIdle();
   })();
 
-  /* ---------------- high score name prompt ---------------- */
-  (function highScoreNamePrompt(){
-    const overlay = document.getElementById('nameModal');
-    const form = document.getElementById('nameModalForm');
-    const input = document.getElementById('nameModalInput');
-    const skipBtn = document.getElementById('nameModalSkip');
-    if(!overlay || !form || !input || !skipBtn){
-      window.__promptHighScoreName = async () => 'Anonymous';
-      return;
-    }
-
-    let pendingResolve = null;
-
-    function close(name){
-      overlay.classList.remove('on');
-      if(pendingResolve){
-        const resolve = pendingResolve;
-        pendingResolve = null;
-        resolve(name);
-      }
-    }
-
-    form.addEventListener('submit', (e)=>{
-      e.preventDefault();
-      const val = input.value.trim().slice(0, 24);
-      close(val || 'Anonymous');
-    });
-    skipBtn.addEventListener('click', ()=> close('Anonymous'));
-    overlay.addEventListener('click', (e)=>{ if(e.target === overlay) close('Anonymous'); });
-    window.addEventListener('keydown', (e)=>{
-      if(overlay.classList.contains('on') && e.key === 'Escape') close('Anonymous');
-    });
-
-    window.__promptHighScoreName = function(){
-      return new Promise(resolve => {
-        pendingResolve = resolve;
-        input.value = '';
-        overlay.classList.add('on');
-        setTimeout(()=> input.focus(), 60);
-      });
-    };
-  })();
-
-  /* ---------------- shared top-score storage ---------------- */
+  /* ---------------- session-only best score tracker ----------------
+     No backend/persistence — scores reset on reload. This keeps every
+     game's "best score" badge functional on any static host (GitHub
+     Pages included) without depending on Claude's window.storage API. --- */
   const TopScore = (function(){
     const cache = {};
-    function normalize(raw){
-      if(raw === null || raw === undefined) return null;
-      if(typeof raw === 'object' && 'value' in raw) return { name: raw.name || 'Anonymous', value: raw.value };
-      // legacy: score was stored as a bare number before name tracking existed
-      return { name: 'Anonymous', value: raw };
-    }
-    async function get(key){
-      try{
-        if(!window.storage) return null;
-        const res = await window.storage.get(key, true);
-        return res ? normalize(JSON.parse(res.value)) : null;
-      }catch(e){ return null; }
-    }
-    async function set(key, record){
-      try{
-        if(!window.storage) return false;
-        await window.storage.set(key, JSON.stringify(record), true);
-        return true;
-      }catch(e){ return false; }
-    }
     // higherIsBetter: true for scores like wins/points, false for scores like moves/ms
-    async function submit(key, value, higherIsBetter, displayEls, formatter){
-      const current = await get(key);
+    function submit(key, value, higherIsBetter, displayEls, formatter){
+      const current = cache[key];
       let best = current;
       let improved = false;
-      if(current === null || (higherIsBetter ? value > current.value : value < current.value)){
+      if(current === undefined || (higherIsBetter ? value > current : value < current)){
         improved = true;
-        let name = 'Anonymous';
-        if(typeof window.__promptHighScoreName === 'function'){
-          name = await window.__promptHighScoreName();
-        }
-        best = { name: name || 'Anonymous', value };
-        await set(key, best);
+        best = value;
       }
       cache[key] = best;
-      const text = formatter ? formatter(best.value) : String(best.value);
+      const text = formatter ? formatter(best) : String(best);
       (displayEls || []).forEach(el => { if(el) el.textContent = text; });
       if(improved && typeof Achievements !== 'undefined') Achievements.unlock('highScore');
       return best;
     }
-    async function refresh(key, displayEls, formatter){
-      const record = await get(key);
-      cache[key] = record;
-      const text = record === null ? '—' : (formatter ? formatter(record.value) : String(record.value));
+    function refresh(key, displayEls, formatter){
+      const value = cache[key];
+      const text = value === undefined ? '—' : (formatter ? formatter(value) : String(value));
       (displayEls || []).forEach(el => { if(el) el.textContent = text; });
-      return record;
+      return value === undefined ? null : value;
     }
-    return { get, set, submit, refresh, getCached: (key) => cache[key] || null };
+    return { submit, refresh, getCached: (key) => (key in cache ? cache[key] : null) };
   })();
 
   // load initial top scores into arcade cards + modal headers
@@ -4392,123 +5299,6 @@
     }
 
     load();
-  })();
-
-  /* ---------------- visitor counter + auto device/country stats (shared, aggregate only) ---------------- */
-  (async function visitorInsights(){
-    const countEl = document.getElementById('visitorCount');
-    const deviceEl = document.getElementById('visitorDevice');
-    const statsEl = document.getElementById('visitorStats');
-
-    // 1. Detect device type + browser + OS automatically — no input needed, nothing sent anywhere.
-    function detectDevice(){
-      const ua = navigator.userAgent || '';
-      let type = 'Desktop';
-      if(/iPad|Tablet|PlayBook/i.test(ua) || (/Android/i.test(ua) && !/Mobile/i.test(ua))) type = 'Tablet';
-      else if(/Mobi|Android|iPhone|iPod/i.test(ua)) type = 'Mobile';
-
-      let browser = 'Unknown browser';
-      if(/Edg\//.test(ua)) browser = 'Edge';
-      else if(/OPR\//.test(ua)) browser = 'Opera';
-      else if(/Chrome\//.test(ua) && !/Chromium/.test(ua)) browser = 'Chrome';
-      else if(/Firefox\//.test(ua)) browser = 'Firefox';
-      else if(/Safari\//.test(ua) && !/Chrome/.test(ua)) browser = 'Safari';
-
-      let os = 'Unknown OS';
-      if(/Windows/.test(ua)) os = 'Windows';
-      else if(/Mac OS X/.test(ua) && !/iPhone|iPad/.test(ua)) os = 'macOS';
-      else if(/Android/.test(ua)) os = 'Android';
-      else if(/iPhone|iPad|iPod/.test(ua)) os = 'iOS';
-      else if(/Linux/.test(ua)) os = 'Linux';
-
-      return { type, browser, os };
-    }
-
-    // 2. Resolve an approximate country from the visitor's own IP, client-side.
-    //    We deliberately only keep the country name — never the raw IP — and only
-    //    ever store/display aggregate counts, never a per-visitor public record.
-    async function detectCountry(){
-      try{
-        const ctrl = new AbortController();
-        const timeout = setTimeout(()=> ctrl.abort(), 3000);
-        const res = await fetch('https://ipapi.co/json/', { signal: ctrl.signal });
-        clearTimeout(timeout);
-        if(!res.ok) throw new Error('lookup failed');
-        const data = await res.json();
-        return data.country_name || null;
-      }catch(e){
-        return null;
-      }
-    }
-
-    function formatBreakdown(counts, max){
-      const total = Object.values(counts).reduce((a,b)=>a+b, 0);
-      if(!total) return '—';
-      return Object.entries(counts)
-        .sort((a,b)=> b[1]-a[1])
-        .slice(0, max)
-        .map(([k,v]) => `${k} ${Math.round(v/total*100)}%`)
-        .join(' · ');
-    }
-
-    async function bumpAggregate(key, label){
-      if(!window.storage || !label) return;
-      try{
-        let counts = {};
-        try{
-          const res = await window.storage.get(key, true);
-          counts = res ? JSON.parse(res.value) : {};
-        }catch(e){ counts = {}; }
-        counts[label] = (counts[label] || 0) + 1;
-        await window.storage.set(key, JSON.stringify(counts), true);
-      }catch(e){ /* non-critical, skip */ }
-    }
-
-    async function readAggregate(key){
-      if(!window.storage) return {};
-      try{
-        const res = await window.storage.get(key, true);
-        return res ? JSON.parse(res.value) : {};
-      }catch(e){ return {}; }
-    }
-
-    // Visitor count (existing behavior, unchanged)
-    if(countEl){
-      try{
-        let current = 0;
-        try{
-          const res = await window.storage.get('visitor-count', true);
-          current = res ? parseInt(res.value, 10) || 0 : 0;
-        }catch(e){ current = 0; }
-        const next = current + 1;
-        await window.storage.set('visitor-count', String(next), true);
-        countEl.textContent = String(next).padStart(6, '0');
-      }catch(e){
-        countEl.textContent = '—';
-      }
-    }
-
-    // This visit — shown immediately, purely local detection, nothing typed
-    const device = detectDevice();
-    if(deviceEl){
-      deviceEl.textContent = `${device.type} · ${device.browser} · ${device.os}`;
-    }
-
-    // Record this visit into aggregate-only shared counters
-    await bumpAggregate('visitor-stats-device', device.type);
-    const country = await detectCountry();
-    if(country) await bumpAggregate('visitor-stats-country', country);
-
-    // Render aggregate stats for everyone (percentages only, no individual records)
-    if(statsEl){
-      const [deviceCounts, countryCounts] = await Promise.all([
-        readAggregate('visitor-stats-device'),
-        readAggregate('visitor-stats-country')
-      ]);
-      const deviceStr = formatBreakdown(deviceCounts, 3);
-      const countryStr = formatBreakdown(countryCounts, 3);
-      statsEl.textContent = countryStr === '—' ? deviceStr : `${deviceStr} — Top: ${countryStr}`;
-    }
   })();
 
   /* ---------------- tetris ---------------- */
