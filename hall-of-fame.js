@@ -31,7 +31,7 @@
   // If the site is hosted elsewhere (e.g. GitHub Pages) and only the
   // API lives on Vercel, point this at that deployment instead, e.g.:
   // const API_BASE = 'https://your-project.vercel.app';
-  const API_BASE = '';
+  const API_BASE = 'https://jakhaphosa.vercel.app/';
 
   // Keep this in sync with GAMES in api/scores.js
   const GAMES = {
