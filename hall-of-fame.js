@@ -249,7 +249,7 @@
     }).join('');
 
     const hofSectionHTML = `
-      <section class="section wrap reveal" id="hall-of-fame">
+      <section class="section wrap" id="hall-of-fame">
         <div class="section-label"><span class="num">HOF</span><h2>Hall of Fame</h2></div>
         <p class="hof-intro">Global top scores across every visitor — pulled live from the Arcade above. Play any game for a shot at the board.</p>
         <div class="hof-name-row">
