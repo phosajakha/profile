@@ -15,10 +15,20 @@
       AFTER it exactly as-is — they still work, now against the
       real API.
 
-   2. Add this file near the end of <body>, after the big inline
-      <script> block that defines all the games:
+   2. Add this file BEFORE the big inline <script> that defines
+      all the games — e.g. right after <body> opens, or anywhere
+      above that script tag:
 
         <script src="hall-of-fame.js"></script>
+        <script>
+          ... all the existing game code ...
+        </script>
+
+      (window.TopScore is defined synchronously at the very top of
+      this file, and everything that touches the page's HTML is
+      deferred until the DOM is ready — so this also works if you
+      place it in <head>, or even after the game script, though
+      BEFORE is the safest choice.)
 
    Nothing else needs to change. Every game already calls
    TopScore.submit(key, value, higherIsBetter, displayEls, formatter)
@@ -48,28 +58,12 @@
   };
   const GAME_ORDER = Object.keys(GAMES);
 
-  /* ---------------- styles for the Hall of Fame grid ---------------- */
-  const style = document.createElement('style');
-  style.textContent = `
-    #hall-of-fame .hof-intro{font-family:var(--body);font-size:14.5px;color:#3a3a35;max-width:60ch;margin-bottom:24px;}
-    body[data-theme="dark"] #hall-of-fame .hof-intro{color:var(--footer-fg-dim);}
-    .hof-name-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:28px;
-      font-family:var(--mono);font-size:12px;color:var(--grey-frame);text-transform:uppercase;letter-spacing:0.05em;}
-    .hof-name-row b{color:var(--safelight);font-family:var(--display);font-size:16px;letter-spacing:0;text-transform:none;}
-    .hof-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
-    @media (max-width:760px){.hof-grid{grid-template-columns:1fr;}}
-    .hof-block{background:var(--paper);padding:28px;}
-    .hof-block h3{font-family:var(--display);font-size:24px;text-transform:uppercase;letter-spacing:0.3px;margin-bottom:2px;}
-    .hof-block .hof-metric{font-family:var(--mono);font-size:10px;color:var(--safelight);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:14px;display:block;}
-    .hof-row{display:flex;align-items:center;gap:12px;padding:8px 0;border-top:1px dashed var(--line);font-family:var(--body);font-size:13.5px;}
-    .hof-row:first-of-type{border-top:none;}
-    .hof-rank{font-family:var(--mono);font-size:11px;color:var(--grey-frame);width:20px;flex-shrink:0;}
-    .hof-row:nth-child(2) .hof-rank{color:var(--kodak);}
-    .hof-pname{flex:1;color:var(--ink);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-    .hof-pscore{font-family:var(--mono);font-size:12px;color:var(--ink);}
-    .hof-empty{font-family:var(--mono);font-size:11.5px;color:var(--grey-frame);padding:6px 0;}
-  `;
-  document.head.appendChild(style);
+  // Filled in once init() runs (DOM-dependent). Declared here so the
+  // functions below can reference them — by the time submit()/refresh()
+  // are actually CALLED (on user interaction, way later) these will
+  // already be assigned, even though the assignment happens further down.
+  let nameOverlay, nameInput, nameSaveBtn, nameSkipBtn, hofCurrentName, hofChangeNameBtn;
+  let pendingSubmission = null;
 
   /* ---------------- player name storage (per browser) ---------------- */
   function getName() {
@@ -79,29 +73,6 @@
     try { localStorage.setItem('jp_player_name', name); } catch (e) {}
   }
 
-  /* ---------------- name-entry modal (reuses existing .namemodal-* CSS) ---------------- */
-  const modalHTML = `
-    <div class="namemodal-overlay" id="nameModalOverlay">
-      <div class="namemodal-panel">
-        <h3>Name Your Score</h3>
-        <div class="namemodal-sub">This goes on the Hall of Fame — visible to every visitor</div>
-        <input type="text" id="nameModalInput" maxlength="16" placeholder="Your name or initials" autocomplete="off">
-        <div class="namemodal-actions">
-          <button class="timer-btn" id="nameModalSkip">Skip</button>
-          <button class="timer-btn primary" id="nameModalSave">Save</button>
-        </div>
-      </div>
-    </div>`;
-  document.body.insertAdjacentHTML('beforeend', modalHTML);
-
-  const nameOverlay = document.getElementById('nameModalOverlay');
-  const nameInput = document.getElementById('nameModalInput');
-  const nameSaveBtn = document.getElementById('nameModalSave');
-  const nameSkipBtn = document.getElementById('nameModalSkip');
-
-  // holds the score submission that triggered the modal, if any
-  let pendingSubmission = null;
-
   function openNameModal() {
     nameInput.value = getName();
     nameOverlay.classList.add('on');
@@ -110,80 +81,10 @@
   function closeNameModal() {
     nameOverlay.classList.remove('on');
   }
-
-  nameSaveBtn.addEventListener('click', () => {
-    const val = nameInput.value.trim().slice(0, 16);
-    setName(val || 'Anonymous');
-    refreshNameLabel();
-    closeNameModal();
-    if (pendingSubmission) { postScore(pendingSubmission); pendingSubmission = null; }
-  });
-  nameSkipBtn.addEventListener('click', () => {
-    setName('Anonymous');
-    refreshNameLabel();
-    closeNameModal();
-    if (pendingSubmission) { postScore(pendingSubmission); pendingSubmission = null; }
-  });
-  nameOverlay.addEventListener('click', (e) => {
-    if (e.target === nameOverlay) { closeNameModal(); pendingSubmission = null; }
-  });
-  nameInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') nameSaveBtn.click(); });
-
-  /* ---------------- Hall of Fame section (injected after #arcade) ---------------- */
-  function buildHofHTML() {
-    const blocks = GAME_ORDER.map((id) => {
-      const g = GAMES[id];
-      return `
-        <div class="hof-block" data-game="${id}">
-          <h3>${g.label}</h3>
-          <span class="hof-metric">${g.metric}</span>
-          <div class="hof-list" id="hofList-${id}"><div class="hof-empty">Loading…</div></div>
-        </div>`;
-    }).join('');
-
-    return `
-      <section class="section wrap reveal" id="hall-of-fame">
-        <div class="section-label"><span class="num">HOF</span><h2>Hall of Fame</h2></div>
-        <p class="hof-intro">Global top scores across every visitor — pulled live from the Arcade above. Play any game for a shot at the board.</p>
-        <div class="hof-name-row">
-          <span>PLAYING AS <b id="hofCurrentName">Anonymous</b></span>
-          <button class="timer-btn" id="hofChangeName">Change Name</button>
-        </div>
-        <div class="hof-grid">${blocks}</div>
-      </section>`;
-  }
-
-  const arcadeSection = document.getElementById('arcade');
-  if (arcadeSection) {
-    arcadeSection.insertAdjacentHTML('afterend', buildHofHTML());
-  } else {
-    document.querySelector('main')?.insertAdjacentHTML('beforeend', buildHofHTML());
-  }
-  // Note: this section is inserted with a "HOF" badge instead of a number so
-  // it never collides with the numbered sections (Resume, Journey, ...) that
-  // come after it in the HTML. Renumber manually if you want it sequential.
-
-  const hofCurrentName = document.getElementById('hofCurrentName');
-  const hofChangeNameBtn = document.getElementById('hofChangeName');
   function refreshNameLabel() {
-    hofCurrentName.textContent = getName() || 'Anonymous';
-  }
-  refreshNameLabel();
-  hofChangeNameBtn.addEventListener('click', () => {
-    pendingSubmission = null;
-    openNameModal();
-  });
-
-  // nav link
-  const navlinks = document.querySelector('.navlinks');
-  if (navlinks) {
-    const a = document.createElement('a');
-    a.href = '#hall-of-fame';
-    a.textContent = 'Hall of Fame';
-    navlinks.appendChild(a);
+    if (hofCurrentName) hofCurrentName.textContent = getName() || 'Anonymous';
   }
 
-  /* ---------------- rendering ---------------- */
   function escapeHtml(s) {
     return String(s).replace(/[&<>"']/g, (c) => ({
       '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
@@ -218,9 +119,7 @@
       GAME_ORDER.forEach((id) => renderLeaderboard(id, []));
     }
   }
-  loadHallOfFame();
 
-  /* ---------------- TopScore: same public API, now backed by the server ---------------- */
   async function postScore({ game, value, displayEls, formatter }) {
     const name = getName() || 'Anonymous';
     try {
@@ -241,32 +140,158 @@
     }
   }
 
-  window.TopScore = {
-    // identical signature to the old in-memory version — no game code changes needed
-    submit(key, value, higherIsBetter, displayEls, formatter) {
-      const game = key.replace('topscore:', '');
-      if (!GAMES[game]) return;
-      const payload = { game, value, displayEls, formatter };
-      if (!getName()) {
-        pendingSubmission = payload;
-        openNameModal();
-      } else {
-        postScore(payload);
-      }
-    },
-    refresh(key, displayEls, formatter) {
-      const game = key.replace('topscore:', '');
-      if (!GAMES[game]) return;
-      fetch(`${API_BASE}/api/scores?game=${game}`)
-        .then((r) => r.json())
-        .then((data) => {
-          const best = data.entries && data.entries[0] ? data.entries[0].score : null;
-          const text = best == null ? '—' : (formatter ? formatter(best) : String(best));
-          (displayEls || []).forEach((el) => { if (el) el.textContent = text; });
-        })
-        .catch(() => {
-          (displayEls || []).forEach((el) => { if (el) el.textContent = '—'; });
-        });
+  function submit(key, value, higherIsBetter, displayEls, formatter) {
+    const game = key.replace('topscore:', '');
+    if (!GAMES[game]) return;
+    const payload = { game, value, displayEls, formatter };
+    if (!getName()) {
+      pendingSubmission = payload;
+      openNameModal();
+    } else {
+      postScore(payload);
     }
-  };
+  }
+
+  function refresh(key, displayEls, formatter) {
+    const game = key.replace('topscore:', '');
+    if (!GAMES[game]) return;
+    fetch(`${API_BASE}/api/scores?game=${game}`)
+      .then((r) => r.json())
+      .then((data) => {
+        const best = data.entries && data.entries[0] ? data.entries[0].score : null;
+        const text = best == null ? '—' : (formatter ? formatter(best) : String(best));
+        (displayEls || []).forEach((el) => { if (el) el.textContent = text; });
+      })
+      .catch(() => {
+        (displayEls || []).forEach((el) => { if (el) el.textContent = '—'; });
+      });
+  }
+
+  // Define window.TopScore RIGHT NOW, synchronously, before touching the
+  // DOM at all. This is the line that matters for script ORDER: as long as
+  // this file's <script> tag appears before the inline game script in the
+  // HTML, `TopScore` will already exist by the time that script calls
+  // TopScore.refresh(...) at load time — regardless of whether the DOM
+  // (and the modal/section built below) is fully ready yet.
+  window.TopScore = { submit, refresh };
+
+  /* ---------------- everything past this point touches the DOM ---------------- */
+  function init() {
+    // styles
+    const style = document.createElement('style');
+    style.textContent = `
+      #hall-of-fame .hof-intro{font-family:var(--body);font-size:14.5px;color:#3a3a35;max-width:60ch;margin-bottom:24px;}
+      body[data-theme="dark"] #hall-of-fame .hof-intro{color:var(--footer-fg-dim);}
+      .hof-name-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:28px;
+        font-family:var(--mono);font-size:12px;color:var(--grey-frame);text-transform:uppercase;letter-spacing:0.05em;}
+      .hof-name-row b{color:var(--safelight);font-family:var(--display);font-size:16px;letter-spacing:0;text-transform:none;}
+      .hof-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
+      @media (max-width:760px){.hof-grid{grid-template-columns:1fr;}}
+      .hof-block{background:var(--paper);padding:28px;}
+      .hof-block h3{font-family:var(--display);font-size:24px;text-transform:uppercase;letter-spacing:0.3px;margin-bottom:2px;}
+      .hof-block .hof-metric{font-family:var(--mono);font-size:10px;color:var(--safelight);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:14px;display:block;}
+      .hof-row{display:flex;align-items:center;gap:12px;padding:8px 0;border-top:1px dashed var(--line);font-family:var(--body);font-size:13.5px;}
+      .hof-row:first-of-type{border-top:none;}
+      .hof-rank{font-family:var(--mono);font-size:11px;color:var(--grey-frame);width:20px;flex-shrink:0;}
+      .hof-row:nth-child(2) .hof-rank{color:var(--kodak);}
+      .hof-pname{flex:1;color:var(--ink);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+      .hof-pscore{font-family:var(--mono);font-size:12px;color:var(--ink);}
+      .hof-empty{font-family:var(--mono);font-size:11.5px;color:var(--grey-frame);padding:6px 0;}
+    `;
+    document.head.appendChild(style);
+
+    // name-entry modal (reuses existing .namemodal-* CSS already on the page)
+    document.body.insertAdjacentHTML('beforeend', `
+      <div class="namemodal-overlay" id="nameModalOverlay">
+        <div class="namemodal-panel">
+          <h3>Name Your Score</h3>
+          <div class="namemodal-sub">This goes on the Hall of Fame — visible to every visitor</div>
+          <input type="text" id="nameModalInput" maxlength="16" placeholder="Your name or initials" autocomplete="off">
+          <div class="namemodal-actions">
+            <button class="timer-btn" id="nameModalSkip">Skip</button>
+            <button class="timer-btn primary" id="nameModalSave">Save</button>
+          </div>
+        </div>
+      </div>`);
+
+    nameOverlay = document.getElementById('nameModalOverlay');
+    nameInput = document.getElementById('nameModalInput');
+    nameSaveBtn = document.getElementById('nameModalSave');
+    nameSkipBtn = document.getElementById('nameModalSkip');
+
+    nameSaveBtn.addEventListener('click', () => {
+      const val = nameInput.value.trim().slice(0, 16);
+      setName(val || 'Anonymous');
+      refreshNameLabel();
+      closeNameModal();
+      if (pendingSubmission) { postScore(pendingSubmission); pendingSubmission = null; }
+    });
+    nameSkipBtn.addEventListener('click', () => {
+      setName('Anonymous');
+      refreshNameLabel();
+      closeNameModal();
+      if (pendingSubmission) { postScore(pendingSubmission); pendingSubmission = null; }
+    });
+    nameOverlay.addEventListener('click', (e) => {
+      if (e.target === nameOverlay) { closeNameModal(); pendingSubmission = null; }
+    });
+    nameInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') nameSaveBtn.click(); });
+
+    // Hall of Fame section, injected right after #arcade
+    const blocks = GAME_ORDER.map((id) => {
+      const g = GAMES[id];
+      return `
+        <div class="hof-block" data-game="${id}">
+          <h3>${g.label}</h3>
+          <span class="hof-metric">${g.metric}</span>
+          <div class="hof-list" id="hofList-${id}"><div class="hof-empty">Loading…</div></div>
+        </div>`;
+    }).join('');
+
+    const hofSectionHTML = `
+      <section class="section wrap reveal" id="hall-of-fame">
+        <div class="section-label"><span class="num">HOF</span><h2>Hall of Fame</h2></div>
+        <p class="hof-intro">Global top scores across every visitor — pulled live from the Arcade above. Play any game for a shot at the board.</p>
+        <div class="hof-name-row">
+          <span>PLAYING AS <b id="hofCurrentName">Anonymous</b></span>
+          <button class="timer-btn" id="hofChangeName">Change Name</button>
+        </div>
+        <div class="hof-grid">${blocks}</div>
+      </section>`;
+
+    const arcadeSection = document.getElementById('arcade');
+    if (arcadeSection) {
+      arcadeSection.insertAdjacentHTML('afterend', hofSectionHTML);
+    } else {
+      document.querySelector('main')?.insertAdjacentHTML('beforeend', hofSectionHTML);
+    }
+    // Note: uses a "HOF" badge instead of a number so it never collides with
+    // the numbered sections (Resume, Journey, ...) after it. Renumber
+    // manually if you want the archive to stay sequential.
+
+    hofCurrentName = document.getElementById('hofCurrentName');
+    hofChangeNameBtn = document.getElementById('hofChangeName');
+    refreshNameLabel();
+    hofChangeNameBtn.addEventListener('click', () => {
+      pendingSubmission = null;
+      openNameModal();
+    });
+
+    // nav link
+    const navlinks = document.querySelector('.navlinks');
+    if (navlinks) {
+      const a = document.createElement('a');
+      a.href = '#hall-of-fame';
+      a.textContent = 'Hall of Fame';
+      navlinks.appendChild(a);
+    }
+
+    loadHallOfFame();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
 })();
