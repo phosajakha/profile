@@ -2007,7 +2007,7 @@
 </style>
 </head>
 <body>
-
+<script src="hall-of-fame.js"></script>
 <div id="splash">
   <div class="splash-logo">jakha<span>.</span>phosa</div>
   <div class="splash-bar-track"><div class="splash-bar-fill" id="splashFill"></div></div>
@@ -5085,6 +5085,7 @@
     resetBtn.addEventListener('click', newGame);
     newGame();
   })();
+     
   /* ---------------- shutter reflex test ---------------- */
   (function reflexGame(){
     const pad = document.getElementById('rxPad');
@@ -5202,6 +5203,7 @@
   /* ---------------- arcade modal open/close ---------------- */
   const ARCADE_GAME_IDS = ['ttt','mem','rx','tetris','sync','snake','flashback','whack','oddoneout','exposure'];
   const openedGames = new Set();
+     
   (function arcadeModals(){
     document.querySelectorAll('.arcade-card').forEach(card=>{
       card.addEventListener('click', ()=>{
@@ -6212,6 +6214,6 @@
     startBtn.addEventListener('click', startGame);
   })();
 </script>
-<script src="hall-of-fame.js"></script>
+
 </body>
 </html>
