@@ -1,0 +1,9 @@
+{
+  "name": "jakha-phosa-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static portfolio + serverless leaderboard API for the Arcade section.",
+  "dependencies": {
+    "@vercel/kv": "^1.0.1"
+  }
+}
