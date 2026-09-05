@@ -5185,31 +5185,7 @@
      No backend/persistence — scores reset on reload. This keeps every
      game's "best score" badge functional on any static host (GitHub
      Pages included) without depending on Claude's window.storage API. --- */
-  const TopScore = (function(){
-    const cache = {};
-    // higherIsBetter: true for scores like wins/points, false for scores like moves/ms
-    function submit(key, value, higherIsBetter, displayEls, formatter){
-      const current = cache[key];
-      let best = current;
-      let improved = false;
-      if(current === undefined || (higherIsBetter ? value > current : value < current)){
-        improved = true;
-        best = value;
-      }
-      cache[key] = best;
-      const text = formatter ? formatter(best) : String(best);
-      (displayEls || []).forEach(el => { if(el) el.textContent = text; });
-      if(improved && typeof Achievements !== 'undefined') Achievements.unlock('highScore');
-      return best;
-    }
-    function refresh(key, displayEls, formatter){
-      const value = cache[key];
-      const text = value === undefined ? '—' : (formatter ? formatter(value) : String(value));
-      (displayEls || []).forEach(el => { if(el) el.textContent = text; });
-      return value === undefined ? null : value;
-    }
-    return { submit, refresh, getCached: (key) => (key in cache ? cache[key] : null) };
-  })();
+
 
   // load initial top scores into arcade cards + modal headers
   TopScore.refresh('topscore:ttt-wins', [document.getElementById('topWinsCard'), document.getElementById('topWinsLine')]);
@@ -6236,6 +6212,6 @@
     startBtn.addEventListener('click', startGame);
   })();
 </script>
-
+<script src="hall-of-fame.js"></script>
 </body>
 </html>
